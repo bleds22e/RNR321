@@ -80,7 +80,7 @@ help(mean) # same as ?mean
 
 
 # 13. Write and execute a line of code that selects the 6-10th height values
-heights[6:10]
+
 
 
 # 14. Execute the line below
@@ -88,8 +88,7 @@ heights[6:10]
 heights_above_67 <- heights[heights > 67]
 
 # What does this line do?
-# Answer: selects values from the heights vector that are greater than 67 and
-# saves them in a new object
+# Answer: 
 
 
 # 15. Execute the two lines below
