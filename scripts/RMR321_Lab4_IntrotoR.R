@@ -55,8 +55,24 @@
 # selecting "Send to" then "Compressed (zipped) folder" (Windows) or 
 # "Compress 'folder_name'" (Mac).
 
-# If you are using RStudio Cloud:
+## If you are using RStudio Cloud: ##
+# RStudio Cloud automatically works in RProjects, which is helpful.
+# Create folders by clicking the "New Folder" button in the "Files tab in the 
+# lower right-hand corner.
+# To upload scripts/data to your project, click "Upload," next to "New Folder".
 
+# From the RStudio Cloud site:
+# https://rstudio.cloud/learn/guide#project-export
+# "Export Project
+# The contents of a project can be downloaded without opening the project.
+# 
+# HOW TO
+# Press the Export action for the project that you wish to download. 
+# A dialog box will appear showing the progress of your export. The process can 
+# take anywhere from a few seconds to a couple of minutes, depending on the size
+# of the project, and how recently it was opened.
+# Once the export is complete, press the Download button in the dialog box to 
+# download your project."
 
 # Swirl---------------------------------------------------------------------####
 
