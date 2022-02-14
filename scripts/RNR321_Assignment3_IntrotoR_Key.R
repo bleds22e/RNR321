@@ -9,6 +9,11 @@
 # IN YOUR OWN WORDS, define/describe the following. These don't need to be 
 # technical descriptions but rather how you are thinking about them.
 
+# Grading note:
+# I've copied these definitions from my slides. If their definitions are the same,
+# they have copied directly from the slides and not used their own words, so
+# take 0.5 points off.
+
 # 1. Reproducibility
 
 
@@ -39,20 +44,20 @@
 # When it asks if you want credit on Coursera, select no.
 
 # 6. Multiply 8 x 5 and send the result to the console
-
+8 * 5
 
 
 # 7. Create the object x and have it contain the result of 8 x 5
-
+x <- 8 * 5
 
 
 # 8. Create the object y and have it contain the result of the square root of 9
 # HINT: use the square root function.
-
+y <- sqrt(9)
 
 
 # 9. Create the object num_vec that contains the values 1, 3, 5, 7
-
+num_vec <- c(1, 3, 5, 7)
 
 
 # 10. Run the line below to create the object heights. Then add the value 80 to 
@@ -62,10 +67,12 @@
 heights <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 
              69, 63, 63, NA, 72, 65, 64, 70, 63, 65)
 
+heights <- c(heights, 80)
+# if they do not rename the vector (AKA only have c(heights, 80), half a point off)
 
 # 11. Use the mean() function to calculate the mean value of height and send the 
 # result to the console
-
+mean(heights)
 
 
 # 12. This should yield an odd result caused by the NAs. 
@@ -76,7 +83,7 @@ help(mean) # same as ?mean
 
 # Issue a revised command to calculate the mean value in num_vec and 
 # send the result to the console.
-
+mean(heights, na.rm = TRUE) # na.rm = T is also valid
 
 
 # 13. Write and execute a line of code that selects the 6-10th height values
@@ -98,12 +105,12 @@ length(heights)
 length(heights_above_67)
 
 # What do these lines tell us?
-# Answer:
+# Answer: The heights vector has 22 values but only 9 of them are greater than 67
 
 
 
 # 16. Create the object char_vec that contains the values A, C, D, C
-
+char_vec <- c("A", "B", "C", "D")
 
 
 # 17. Issue the lines below
@@ -112,7 +119,8 @@ char_vec == 'C'
 char_vec != 'C'
 
 # What do these lines do?
-# Answer: 
+# Answer: First line creates a logical vector with "TRUE" equaling "C"
+# The second line also creates a logical vector for all values except "C"
 
 
 
@@ -134,37 +142,40 @@ surveys <- read.csv("data_raw/portal_data_joined.csv")
 
 # 18. Look at the first 6 rows of data. You can either do this by using a 
 # function or by using index subsetting (with the square brackets: [])
-
+head(surveys) 
+surveys[1:6,] # either one is fine
 
 
 # 19. How many rows does this data frame have? How many columns?
-# Rows:
-# Columns:
-
+# Rows: 34786
+# Columns: 13
 
 
 # 20. Use a function to print the column names of surveys.
-
+colnames(surveys)
 
 
 # 21. Create a histogram with the hindfoot lengths column
-
+hist(surveys$hindfoot_length)
 
 
 # 22. What does the following line of code do?
 surveys[surveys$species_id == "DM", ]
 
-# Answer: 
-
+# Answer: selects rows from surveys in which the value in the species_id column
+# is "DM"
 
 
 # 23. Explain what the following lines of code do (2 points).
-weights_noNA <- surveys[!is.na(surveys$weight),]
-weights_over200g <- weights_noNA[weights_noNA$weight >= 200, ]
+weights_noNA <- surveys[!is.na(surveys$weight), ]
+weights_over200g <- weights_noNA[weights_noNA$weight > 200, ]
 
-# Answer #
-# First line:
-# Second line:
+# Answer
+# First line: Selects rows from surveys in which the weight column is not 
+# NA values (so only numeric values) and creates an object called weights_noNA
+# Second line: Selects rows from the weights_noNA object in which the values
+# in the weight column are greater than 200, saving them in an 
+# object called weights_over200g
 
 
 # ---------------------------------------------------------------------------- #
