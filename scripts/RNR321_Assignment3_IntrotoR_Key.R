@@ -14,16 +14,21 @@
 # they have copied directly from the slides and not used their own words, so
 # take 0.5 points off.
 
-# 1. Reproducibility
+# 1. Reproducibility: ability to repeat the original study using the same data, 
+# materials, and methods
 
 
-# 2. Open science
+# 2. Open science: Scientific research conducted and communicated in an honest, 
+# accessible, and transparent way, such that--at a minimum--a study can be 
+# reproduced and/or replicated.
 
 
-# 3. R
+# 3. R: R refers to both the programming language and the software that 
+# interprets scripts written in the language.
 
 
-# 4. RStudio
+# 4. RStudio: RStudio is an integrated development environment (IDE) that helps 
+# us interact with R more easily. 
 
 
 # Short-Answer Question (2 points)------------------------------------------####
@@ -31,6 +36,11 @@
 # 5. In 2-3 sentences, explain why data management is important for 
 # reproducibility.
 
+# Key points they should touch on (at least some):
+#     * best practices help with organization 
+#     * also important for effective communication (to future you, your colleagues,
+#     and others who might want to reproduce your work)
+#     * makes transparency higher
 
 
 # Vectors (1 point each) ---------------------------------------------------####
