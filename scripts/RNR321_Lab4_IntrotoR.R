@@ -4,7 +4,7 @@
 
 # Global settings-----------------------------------------------------------####
 
-# We want to make our work as reporducible as possible. In order to do this, we
+# We want to make our work as reproducible as possible. In order to do this, we
 # want to make sure R/RStudio doesn't save the objects and data and such when
 # we close it. Everything we will need next time we open RStudio should be in
 # a script!
