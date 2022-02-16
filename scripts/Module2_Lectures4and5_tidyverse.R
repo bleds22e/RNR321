@@ -114,10 +114,84 @@ surveys %>%
   filter(year < 1995) %>% 
   select(year, sex, weight)
 
+# why didn't this show up in the environment?
+# because we didn't assign the output to an object!
+
 #---------------------------------------------------------------------------####
 # MUTATE #
 
+# the mutate() function helps us create new columns from existing columns and
+# applying a mathematical function or other functions 
+
+surveys %>% 
+  mutate(weight_kg = weight / 1000)
+
+# we can add head() or glimpse() or other viewing functions to confirm!
+surveys %>% 
+  mutate(weight_kg = weight / 1000,
+         weight_lb = weight_kg * 2.2) %>% 
+  glimpse()
+
+# there are lots of NAs here! let's remove them with the filter function
+surveys %>% 
+  filter(!is.na(weight)) %>% 
+  mutate(weight_kg = weight / 1000) %>% 
+  glimpse()
 
 
 #---------------------------------------------------------------------------####
 # GRIOUP BY and SUMMARIZE #
+
+# often, we need to follow the "split-apply-combine" paradigm in data analysis:
+#   - split data into groups
+#   - apply some type of calculation or analysis to each group
+#   - combine the results
+# we can use group_by() and summarize() functions from `dplyr` to do this 
+
+# the group_by() function splits the df up into sections by categorical data
+# the summarize() function creates a new column with the new calculations
+surveys %>%
+  group_by(sex) %>%
+  summarize(mean_weight = mean(weight, na.rm = TRUE))
+
+# let's filter out the NAs at the beginning
+surveys %>%
+  filter(!is.na(weight)) %>%
+  group_by(sex, species_id) %>%
+  summarize(mean_weight = mean(weight))
+
+# we can run multiple calculations in the summarize function, as we did with mutate
+surveys %>%
+  filter(!is.na(weight)) %>%
+  group_by(sex, species_id) %>%
+  summarize(mean_weight = mean(weight),
+            sd_weight = sd(weight))
+
+# let's arrange the resulting dataframe from smallest mean weight to greatest
+surveys %>%
+  filter(!is.na(weight)) %>%
+  group_by(sex, species_id) %>%
+  summarize(mean_weight = mean(weight),
+            sd_weight = sd(weight)) %>% 
+  arrange(mean_weight)
+
+# we can add the descending argument to go from greatest to smallest
+surveys %>%
+  filter(!is.na(weight)) %>%
+  group_by(sex, species_id) %>%
+  summarize(mean_weight = mean(weight),
+            sd_weight = sd(weight)) %>% 
+  arrange(desc(mean_weight))
+
+# COUNT #
+
+# Another way to summarize data is through the count() function, which tells us
+# how many observations are in each group
+
+surveys %>% 
+  count(species_id)
+
+# let's combine with arrange
+surveys %>%
+  count(sex, species_id) %>%
+  arrange(species_id, desc(n))
