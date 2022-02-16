@@ -17,20 +17,28 @@
 # To learn more about the packages in the tidyverse, check out these links.
 # List of packages and what they do: https://www.tidyverse.org/packages/
 # RStudio Cheatsheets: https://www.rstudio.com/resources/cheatsheets/
-#   - specifically, the `dplyr` and `tidyr` cheatsheets, but there are many more!
+#   - specifically the `dplyr` and `tidyr` cheatsheets, but there are many more!
 # Data Carpentry lesson: https://datacarpentry.org/R-ecology-lesson/03-dplyr.html
 # Effectively using the tidyverse: https://r4ds.had.co.nz/index.html
 
-# Load `tidyverse` and Data-------------------------------------------------####
+
+#---------------------------------------------------------------------------####
+# LOAD TIDYVERSE AND THE DATASET #
 
 # LOAD PACKAGES #
+
 # First we need to install the tidyverse if we haven't yet.
 # Then we use the library() function to load it into R so we can use it.
 
 # install.packages("tidyverse")
 library(tidyverse)
 
+# When you load the library, you'll see some "conflict." Don't panic! That's
+# normal. Those conflicts are telling you that certain functions in `dplyr` are
+# now overriding some functions in base R with the same name.
+
 # DATA #
+
 # We will be using the teaching version of some data from my dissertation.
 # Learn more about the Portal Project here: https://portal.weecology.org/
 # PS - this is the same dataset at the end of Assignment 3.
@@ -40,4 +48,76 @@ library(tidyverse)
 
 # If not, that's ok! It is in the Lectures submodule in Module 2 on D2L. 
 # Download the file to your computer, navigate to your Module 2 RProject, and
-# copy the file into
+# copy the file into the data_raw folder.
+
+surveys <- read_csv("data_raw/portal_data_joined.csv")
+# If you named your data_raw folder something different (or with capitals), 
+# you'll need to change the file path below to match your folder name.
+
+# --------------------------------------------------------------------------####
+# EXPLORE THE DATASET #
+
+head(surveys)
+colnames(surveys)
+str(surveys)
+view(surveys)
+
+# glimpse() is from the dplyr package
+glimpse(surveys)
+
+#---------------------------------------------------------------------------####
+# SELECT and FILTER #
+
+# use select() to subset columns
+# use filter() to subset rows based on conditions
+
+# the first argument is the dataset; all following arguments are the column names
+select(surveys, plot_id, species_id, weight)
+
+# to select columns *except* certain ones, use the minus sign 
+select(surveys, -record_id, -species_id)
+
+# to choose rows based on specific criteria, use filter()
+# first argument is the data; all subsequent arguments are selection criteria
+filter(surveys, year == 1995)
+filter(surveys, year >= 1995)
+filter(surveys, species_id == 'DM')
+filter(surveys, year >= 1995, species_id == 'DM')
+
+#---------------------------------------------------------------------------####
+# COMBINING FUNCTIONS WITH PIPES #
+
+# the pipe operator is %>% 
+# it's originally from the `magrittr` package but tidyverse packages load it, too
+# it helps us string together multiple functions without a bunch of intermediate
+# steps in between that can become confusing!
+
+# Shortcut: Ctrl + Shift + M (Windows) or Cmd + Shift + M (Mac)
+
+# Say we want to filter the data and only select certain columns. We can do that
+# by creating a temporary dataframe. That gets cumbersome quickly, though! 
+surveys2 <- filter(surveys, weight < 5)
+surveys_sml <- select(surveys2, species_id, sex, weight)
+
+rm(surveys_sml)
+
+# Alternatively, we can use the pipe.
+surveys_sml <- surveys %>% 
+  filter(weight < 5) %>% 
+  select(species_id, sex, weight)
+
+# Challenge #
+# Using pipes, subset the surveys data to include animals collected before 1995
+# and retain only the columns year, sex, and weight.
+
+surveys %>% 
+  filter(year < 1995) %>% 
+  select(year, sex, weight)
+
+#---------------------------------------------------------------------------####
+# MUTATE #
+
+
+
+#---------------------------------------------------------------------------####
+# GRIOUP BY and SUMMARIZE #
