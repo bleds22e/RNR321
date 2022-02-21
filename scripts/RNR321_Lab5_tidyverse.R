@@ -15,32 +15,21 @@
 
 ## Packages ##
 
-### import (or install) required packages
+### import (or load) required packages
 library(tidyverse)
-library(lubridate)
 
 ## to install missing packages, go to "Tools" -> "Install Packages..."  ~or~
 ## run install.packages() with the package name in quotes inside the parentheses
 ## after installing via either option, run the code above again (library())
 
 
-## Import Files ##
+## Read in Files ##
 
-## what files are in the BWG database
-myfiles <- list.files(path="BWG_database/", pattern = "*.csv", full.names = TRUE)
-myfiles
-
-# import all tables as separate data frames, remove file path and file extensions (.csv)
-list2env(lapply(setNames(myfiles, make.names(gsub(".*1_", "", tools::file_path_sans_ext(myfiles)))), 
-         read.csv), envir = .GlobalEnv)
+bromeliads <- read_csv("data_raw/bromeliads.csv")
+visits <- read_csv("data_raw/visits.csv")
 
 
 ### Part 1: DATA MANIPULATION AND JOINING TABLES -------------------------------
-
-## some of this may be review for you (especially if you already took the 
-## Synthesis Statistics module). Feel free to just skip over the sections you 
-## are already comfortable with (but still run the code).
-
 
 
 ### The pipe: %>% ###
@@ -67,12 +56,7 @@ result <- group_by(mtcars, cyl) %>%
   summarise(meanMPG = mean(mpg))
 result
 
-# using the pipe, we did not have to ceate an intermediate object (result_int)
-
-# remove the two objects from global environment
-rm(result)
-rm(result_int)
-
+# using the pipe, we did not have to create an intermediate object (result_int)
 
 
 ### DPLYR::SELECT ###
@@ -218,12 +202,17 @@ bromeliads_selected$volume
 bromeliads_selected %>%
   summarize(mean_volume = mean(volume, na.rm = TRUE))
 
+## alternatively, we can use the filter function to remove NAs
+bromeliads_selected %>% 
+  filter(!is.na(volume)) %>% 
+  summarize(mean_volume = mean(volume))
+
 ## we can also summarize several columns at once
 bromeliads_selected %>%
   summarize(mean_volume = mean(volume, na.rm = TRUE),
             max_volume = max(volume, na.rm = TRUE),
             med_leaves = median(num_leaf, na.rm = TRUE),
-            n = n())
+            n = n()) # run ?n to learn more about the function n()
 
 
 
@@ -238,6 +227,13 @@ bromeliads_selected %>%
             n = n()) %>%
   arrange(desc(n))
 
+
+### VERY IMPORTANT NOTE!!! ### -------------------------------------------------
+# Everything from here down, you WILL NOT be expected to know for either the 
+# assignment or the quiz. However, this information might be super useful for 
+# you down the road, so I am still including it as a reference. It is completely
+# optional as to whether you want to run through this material or not.
+### ----------------------------------------------------------------------------
 
 
 ### TIDYR::SEPARATE ###
@@ -315,65 +311,6 @@ head(bromeliad_visits)
 ## difference, as all visit_id keys are represented in both tables.
 
 
-### JOINING MULTIPLE TABLES ###
-
-# What countries were the bromeliads sampled in?
-# the country data is in the "datasets" table (two tables away)
-
-# join bromeliads_selected table with the countries column of the datasets table
-bromeliads_selected %>%
-  left_join(select(visits, visit_id, dataset_id), by = "visit_id") %>%
-  left_join(select(datasets, dataset_id, country), by = "dataset_id")
-
-# all bromeliads were sampled in Costa Rica!
-
-
-#### EXERCISE 3: add two new columns to the bromeliad_selected table that lists 
-## the name and affiliation of the dataset owner
-
-# bromeliads_owners <- bromeliads_selected %>%
-#    ---
-
-
-## QUESTION: this increased the number of rows from 76 to 114. Why do you think 
-## this happened?
-dim(bromeliads_selected)
-dim(bromeliads_owners)
-
-
-
-### PART 3: A VERY BRIEF INTRODUCTION TO SOME MORE USEFUL PACKAGES ### ---------
-## the purpose is not to give you a detailed tutorial, but to make you aware 
-## that these packages exist and what you can use them for
-
-
-### LUBRIDATE: working with dates and times ###
-## Let's look at the visits table
-head(visits)
-str(visits)
-
-# we already converted the dates column to the right format above
-# visits$date <- as_date(visits$date) # convert to date-times format
-class(visits$date) # this should be "Date"
-
-# check out the date column
-visits$date
-
-# extract year / month / day
-year(visits$date)
-month(visits$date)
-month(visits$date, label = TRUE, abbr = FALSE)
-day(visits$date)
-
-max(visits$date) # the oldest date
-min(visits$date) # the newest date
-
-# what was the maximum timespan?
-max(visits$date) - min(visits$date)
-
-#####
-
-
 
 ###### EXERCISE SOLUTIONS ###### -----------------------------------------------
 
@@ -407,20 +344,4 @@ Genus_sizes <- bromeliads_selected %>%
 Genus_sizes
 
 # Vriesea has almost twice the amount of large bromeliads than Guzmania
-#####
-
-
-#### EX 3 SOLUTION ####
-bromeliads_owners <- bromeliads_selected %>%
-  left_join(select(visits, visit_id, dataset_id), by = "visit_id") %>%
-  left_join(ownership, by = "dataset_id") %>%
-  left_join(select(owners, owner_id, owner_name, institution), by = "owner_id")
-bromeliads_owners
-
-## QUESTION: this increased the number of rows from 76 to 114. 
-## Why do you think this happened?
-
-#### ANSWER ####
-## The rows with bromeliads from datasets owned by multiple people are duplicated 
-## (see "ownership" table)
 #####
