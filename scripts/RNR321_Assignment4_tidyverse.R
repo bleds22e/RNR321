@@ -23,142 +23,107 @@
 
 
 
-#  (1 point each) ---------------------------------------------------####
+# Code (1 point each unless otherwise noted) -------------------------------####
 
-# If you haven't already, run the following lines of code:
-# install.packages("swirl")
-# library(swirl)
-# swirl()
-# Select the "R Programming" option by typing 1 in the console and hitting enter
-# Work your way through lessons 3, 6, and 7.
-# When it asks if you want credit on Coursera, select no.
+## For this assignment, we will again be using the "portal_data_joined.csv" file
 
-# 6. Multiply 8 x 5 and send the result to the console
+## Before we start, be absolutely sure that you are working in your Module 2
+## RProject!
 
+# 6. Load the `tidyverse` package into R/RStudio
 
 
-# 7. Create the object x and have it contain the result of 8 x 5
 
+# 7. Read in the "portal_data_joined.csv" file using the read_csv() function.
+# Assign this to an object called "rat_dat" (short for "rat data").
 
 
-# 8. Create the object y and have it contain the result of the square root of 9
-# HINT: use the square root function.
+# 8. There are many different functions we can use to look at our dataset. 
+# Choose your favorite to get an idea of all the columns in rat_dat.
 
 
 
-# 9. Create the object num_vec that contains the values 1, 3, 5, 7
+# 9. IN YOUR OWN WORDS, explain what the select() function (from tidyverse) does.
 
 
 
-# 10. Run the line below to create the object heights. Then add the value 80 to 
-# the end of the vector. Keep the same name for the vector (heights).
-# Note: NA is the value used by R to identify missing data. 
+# 10. Use the select() function to create a dataframe that has only the following
+# columns: year, plot_id, species_id, weight. 
 
-heights <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 
-             69, 63, 63, NA, 72, 65, 64, 70, 63, 65)
 
+# 11. This time, use the select function to create a dataframe with all of the 
+# original columns EXCEPT record_id and taxa. 
 
-# 11. Use the mean() function to calculate the mean value of height and send the 
-# result to the console
 
 
+# 12. IN YOUR OWN WORDS, explain what the filter() function does.
 
-# 12. This should yield an odd result caused by the NAs. 
-# To resolve this, use the help function to learn about the 
-# argument na.rm = TRUE that applies to many R functions
+# the filter function allows us to specify which rows we want to include in the
+# dataframe based on specific conditions
 
-help(mean) # same as ?mean
+# 13. Create a dataframe from rat_dat that only includes observations from 
+# the year 2000 and later. 
 
-# Issue a revised command to calculate the mean value in num_vec and 
-# send the result to the console.
 
 
+# 14. Create a dataframe that only includes observations where the genus of the 
+# rodent is Dipodomys (these are kangaroo rats!). Assign this dataframe to an
+# object called krat_dat.
 
-# 13. Write and execute a line of code that selects the 6-10th height values
 
 
+# 15. Execute the line of code below. 
 
-# 14. Execute the line below
+rat_dat %>% 
+  filter(taxa == 'Rodent') %>% 
+  select(year, plot_id, species_id, plot_type)
 
-heights_above_67 <- heights[heights > 67]
+# Describe what this code is doing.
 
-# What does this line do?
-# Answer: 
 
 
-# 15. Execute the two lines below
+# 16. IN YOUR OWN WORDS, explain what the mutate() function does.
 
-length(heights)
-length(heights_above_67)
 
-# What do these lines tell us?
-# Answer:
 
+# 17. The hindfoot_length column in currently in mm. Create a new column named 
+# hindfoot_length_cm where the hindfood measurement is now in centimeters.
+# Hint: divide by 10!
 
 
-# 16. Create the object char_vec that contains the values A, C, D, C
 
+# 18. IN YOUR OWN WORDS, explain what the group_by() function does.
 
 
-# 17. Issue the lines below
 
-char_vec == 'C'
-char_vec != 'C'
+# 19. Use the group_by() and summarize() functions together to calculate the
+# mean hindfoot_lenght (mm) for each species_id in rat_dat. Remember to use %>%, 
+# and remember to exclude NAs from the mean calculation (2 points)
 
-# What do these lines do?
-# Answer: 
 
 
+# 20. That's still a lot of non-numeric values! (NaN means "not a number," which)
+# means we tried to do a calculation on NA values. The reason we have so many of
+# these values is because a lot of the species_ids at the top of the dataframe
+# are not rodents, so we don't measure their hindfeet. Add in a line to code
+# from question 19 to choose only observations of rodents. You might still get
+# a few NaN values (long story...), but you should have far fewer!
+# Hint #1: Check out the code from question 15. That might be helpful!
+# Hint #2: Think carefully about the order in which you add the new line.
 
-# Data Frames -------------------------------------------------------------####
 
-# Run the following line of code. This will download a csv file with some rodent
-# data from the Portal Project into your RProject. 
-# Learn more about the Portal Project here: https://portal.weecology.org/
 
-# As written this code with download the data into a folder called "data_raw"
-# If you named your folder something different, you will need to change the
-# "destfile" argument to direct it to the correct folder.
+# 21. Copy and paste the code you wrote for question 20 into the answer space 
+# for this question. Add a line of code to the code you wrote for question 20 
+# which arranges the results from smallest mean hindfoot length to largest.
 
-download.file(url = "https://ndownloader.figshare.com/files/2292169",
-              destfile = "data_raw/portal_data_joined.csv")
 
-# Now read in the csv file using the following line of code.
-surveys <- read.csv("data_raw/portal_data_joined.csv")
 
-# 18. Look at the first 6 rows of data. You can either do this by using a 
-# function or by using index subsetting (with the square brackets: [])
-
-
-
-# 19. How many rows does this data frame have? How many columns?
-# Rows:
-# Columns:
-
-
-
-# 20. Use a function to print the column names of surveys.
-
-
-
-# 21. Create a histogram with the hindfoot lengths column
-
-
-
-# 22. What does the following line of code do?
-surveys[surveys$species_id == "DM", ]
-
-# Answer: 
-
-
-
-# 23. Explain what the following lines of code do (2 points).
-weights_noNA <- surveys[!is.na(surveys$weight),]
-weights_over200g <- weights_noNA[weights_noNA$weight >= 200, ]
-
-# Answer #
-# First line:
-# Second line:
+# 22. Write some code to calculate the mean, minimum, maximum, median, and
+# standard deviation for the weight of EACH kangaroo rat species_id. Do this only
+# for observations from the year 2000 and later. Assign the output to an object 
+# called krat_summary_stats. Print out the dataframe afterwards (3 points).
+# Hint: use the krat_dat dataframe that we created (and saved) earlier.
 
 
 # ---------------------------------------------------------------------------- #
