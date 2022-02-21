@@ -10,17 +10,30 @@
 # technical descriptions but rather how you are thinking about them. Feel free
 # to Google the answers if you are feeling unsure!
 
-# 1. RProject
+# GRADING NOTE: You will probably get a wide variety of answers here, as these
+# are terms that do not have particularly set definitions. As long as they are
+# along the right lines, give them full credit (unless they copied exactly from
+# one of my files or something on the internet).
+
+# 1. RProject: An Rproject is a working directory designated with a .RProj file.
+# It is a way of organizing files, data, scripts, etc. and easily sharing and
+# collaborating.
 
 
-# 2. R package
+# 2. R package: An R package is a collection of pre-bundled chunks of code which
+# we can then apply to our own data.
 
 
-# 3. `tidyverse`
+# 3. `tidyverse`: 
+# The `tidyverse` is an umbrella package, or a collection of packages.
+# All packages included in the tidyverse share the same underlying structure,
+# grammar, and data structures. They are designed to work seemlessly together.
 
 
-# 4. the pipe (AKA %>%)
-
+# 4. the pipe (AKA %>%):
+# The pipe is an operator which allows us to send information from the left side
+# of the pipe to the function on the right side of the pipe, helping us avoid
+# too many intermediate steps.
 
 
 # Code (1 point each unless otherwise noted) -------------------------------####
