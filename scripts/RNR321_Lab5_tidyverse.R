@@ -1,36 +1,58 @@
 #---------------------------------------------------------------------------####
 # Self-directed `tidyverse` Tutorial
-# 
+# Cover some useful functions from the `dplyr` package (part of tidyverse)
+# Optional: additional functions from `tidyr`
+# Modified from Living Data Project by EKB, Feb 2022
+#---------------------------------------------------------------------------####
 
+## !!! IMPORTANT NOTE !!! ##
+## This tutorial goes a bit further into the code than I truly expect you to 
+## know or understand. That's ok! It's good practice to push your boundaries a
+## bit. But don't panic! Things I have not covered in class will not be on the
+## quiz or in your assignments.
 
-## NOTE ##
-## 
+## Also, the exercises are to help you practice. You do not need to turn them in.
 
 
 ### SET-UP ---------------------------------------------------------------------
 
 ## RProject ##
 
-
+# Make sure you are in your Module 2 RProject! We covered this in class (2/21).
+# In short, navigate to your RNR321_Module2 folder on your computer. Open that
+# folder and then open (double-click) on the RNR321_Module2.Rproj file.
 
 ## Packages ##
 
-### import (or load) required packages
+### install (and then load) required packages
+# install.packages("tidyverse")
 library(tidyverse)
-
-## to install missing packages, go to "Tools" -> "Install Packages..."  ~or~
-## run install.packages() with the package name in quotes inside the parentheses
-## after installing via either option, run the code above again (library())
-
 
 ## Read in Files ##
 
+# If you haven't downloaded the files already:
+# Download the datasets "bromeliads.csv" and "visits.csv" from D2L. They are in 
+# the "Lab" submodule in Module 2. Place them in your data_raw folder.
+
+# the bromeliads data has a lot of colu
 bromeliads <- read_csv("data_raw/bromeliads.csv")
 visits <- read_csv("data_raw/visits.csv")
 
 
-### Part 1: DATA MANIPULATION AND JOINING TABLES -------------------------------
+### Part 1: DATA WRANGLING -------------------------------------------------####
 
+## First, let's get familiar with the two datasets.
+
+# bromeliads contains quite a bit of information about individual bromeliads, 
+# when and where they were measured, and the small pool of water created by
+# their leaves
+colnames(bromeliads)
+glimpse(bromeliads)
+
+# visits is a much smaller dataframe. It contains information specific to when
+# a bromeliad was collected
+colnames(visits)
+glimpse(visits)
 
 ### The pipe: %>% ###
 ## keyboard shortcut: Ctrl + Shift + M / Cmd + Shift + M
@@ -164,6 +186,9 @@ bromeliads_selected %>%
 
 
 ### MUTATE in combination with ifelse
+## (Don't worry, I know we haven't covered ifelse. See if you can figure out
+## how this bit of code is working.)
+
 ## let's categorize bromeliads based on their water holding capacity
 ## small: < 50 mL
 ## medium: 50 - 100 mL
