@@ -69,8 +69,8 @@ select(rat_dat, year, plot_id, species_id, weight)
 
 # 11. This time, use the select function to create a dataframe with all of the 
 # original columns EXCEPT record_id and taxa. 
-select(surveys, -record_id, -taxa) # preferred answer
-select(surveys, month:species, plot_type) # fine answer
+select(rat_dat, -record_id, -taxa) # preferred answer
+select(rat_dat, month:species, plot_type) # fine answer
 # listing out all of the columns except record_id and taxa is also acceptable but
 # probably warrents a comments that they should try to be more efficient with 
 # their code by using one of the answers above
@@ -110,7 +110,7 @@ rat_dat %>%
 # applying a mathematical function or other functions 
 
 # 17. The hindfoot_length column in currently in mm. Create a new column named 
-# hindfoot_length_cm where the hindfood measurement is now in centimeters.
+# hindfoot_length_cm where the hindfoot measurement is now in centimeters.
 # Hint: divide by 10!
 mutate(rat_dat, hindfoot_length_cm = hindfoot_length / 10)
 
@@ -156,10 +156,17 @@ rat_dat %>%
 # for observations from the year 2000 and later. Assign the output to an object 
 # called krat_summary_stats. Print out the dataframe afterwards (3 points)
 # Hint: use the krat_dat dataframe that we created (and saved) earlier.
+
+###### Grading Notes ######
+# Ok, so it turns out this question is a little weird, which I did not realize 
+# given how I had written the answer.
+
+# If they use the filter(!is.na(weight)) code, as I've written here, everything
+# is fine--no issues. It spits out 2 rows (DM row and DO row) and 6 columns.
 krat_summary_stats <- krat_dat %>% 
   filter(year >= 2000, !is.na(weight)) %>% 
   group_by(species_id) %>% 
-  # fine if they do na.rm = TRUE for each one instead of filering out the NAs
+  # fine if they do na.rm = TRUE for each one instead of filtering out the NAs
   summarise(mean = mean(weight), 
             std_dev = sd(weight),
             median = median(weight),
@@ -167,6 +174,34 @@ krat_summary_stats <- krat_dat %>%
             maximum = max(weight))
 krat_summary_stats 
 
+# IF, however, they do not remove NAs in the filter function but try to use
+# na.rm = TRUE in the summarize functions, it spits out two weird warnings. The
+# resulting dataframe also has 3 rows instead of 2 and the new row (DX) has all
+# NaN, NA, or Inf values. Check it out below.
+krat_summary_stats <- krat_dat %>% 
+  filter(year >= 2000) %>% 
+  group_by(species_id) %>% 
+  # fine if they do na.rm = TRUE for each one instead of filtering out the NAs
+  summarise(mean = mean(weight, na.rm = TRUE), 
+            std_dev = sd(weight, na.rm = TRUE),
+            median = median(weight, na.rm = TRUE),
+            minimum = min(weight, na.rm = TRUE),
+            maximum = max(weight, na.rm = TRUE))
+krat_summary_stats 
+
+# It turns out that what is happening here is that DX is the species code when
+# we know the genus (aka, we know these are kangaroo rats), but we weren't able
+# to identify to species (DM or DO), usually because it escaped! When we use 
+# the filter(!is.na(weight)) code, all of the DX rows get removed because every
+# single one of them has NA listed for weight. If we use the na.rm = TRUE, we 
+# are trying to run calculations on values which are all NA because the DX rows
+# haven't been filtered out. It's not that one is right or wrong. Just one
+# produces a more confusing answer than the other. I'll send out an email that
+# mentions this to the students (not exactly sure how to do so without giving
+# the answer away, but maybe I can provide the two different resulting data
+# frames and tell them that either one is correct?)
+
+## Points Breakdown ##
 # correct object name (krat_summary_stats) - 0.25 points
 # correct dataframe (krat_data) - 0.5 points
 # filtering by the correct years - 0.5 points

@@ -4,6 +4,11 @@
 # Insert the appropriate code below each question or
 # -----------------------------------------------------------------------------#
 
+## REMEMBER! ##
+# There are lots of helpful resources to help you answer these questions! You 
+# can find them in the "Lectures" and "Lab" submodules in Module 2 on D2L!
+
+
 # Definitions (1 point each) -----------------------------------------------####
 
 # IN YOUR OWN WORDS, define/describe the following. These don't need to be 
