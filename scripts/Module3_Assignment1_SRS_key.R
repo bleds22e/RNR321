@@ -33,7 +33,7 @@ library(tidyverse)
 
 # 5. Use the read_csv() function from the tidyverse to read in your rocks file.
 # Save this data in an object called "rocks."
-rocks <- read_csv("data_raw/Module3_Lab1_SRSampling.csv") 
+rocks <- read_csv("data_raw/Module3_Lab1_SRSampling.csv") %>% drop_na()
 
 # 6. Create the object N, which is the number of units in your sampling frame.
 N <- 64
@@ -73,7 +73,7 @@ rocks_sd <- sd(rocks$abund_dark_stones)
 # we know what N is. In this case, we do, so let's create an object called
 # pop_correction using that formula: (N-n)/n
 # Hint: use the objects we've already created--don't enter any numbers directly
-pop_correction <- (N-n)/n
+pop_correction <- (N-n)/N
 
 # 11. Using the objects you've already created and the formula (check the lecture
 # slides from this module!), create an object called rocks_var_ybar which contains
