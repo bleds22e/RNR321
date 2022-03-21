@@ -53,12 +53,13 @@ opt_allo_total <- opt_allo_A + opt_allo_B + opt_allo_C
 # 5. Calculate how many sampling units we should optimally sample in each stratum.
 # Name these objects n_A, n_B, and n_C. Use the round() function to round to 
 # the nearest whole number.
-n_A <- 100 * (opt_allo_A / opt_allo_total) # 37
+n <- 100
+
+n_A <- n * (opt_allo_A / opt_allo_total) # 37
 n_A <- round(n_A)
-
-n_B <- round(100 * (opt_allo_B / opt_allo_total)) # 36
-
-n_C <- round(100 * (opt_allo_C / opt_allo_total)) # 27
+# OR #
+n_B <- round(n * (opt_allo_B / opt_allo_total)) # 36
+n_C <- round(n * (opt_allo_C / opt_allo_total)) # 27
 
 # 6. If we did not have the pilot study telling us about the variation of the 
 # populations in each strata, we could have allocated very differently:
@@ -115,34 +116,55 @@ stratumC <- grasshoppers %>% filter(stratum == "C")
 # (these are all for the mean number of grasshoppers per sample unit; 8 points 
 # total, 2 each):
 # a. sample mean per stratum (y_bar)
+mean_A <- mean(stratumA$abund)
+mean_B <- mean(stratumB$abund)
+mean_C <- mean(stratumC$abund)
 
 # b. sample variance per stratum (var)
+var_A <- var(stratumA$abund)
+var_B <- var(stratumB$abund)
+var_C <- var(stratumC$abund)
 
 # c. variance of the estimate of the mean per stratum (var_y_bar)
+pop_correction_A <- (N_A-n_A)/N_A
+pop_correction_B <- (N_B-n_B)/N_B
+pop_correction_C <- (N_C-n_C)/N_C
+
+var_y_bar_A <- pop_correction_A * (var_A / n_A)
+var_y_bar_B <- pop_correction_B * (var_B / n_B)
+var_y_bar_C <- pop_correction_C * (var_C / n_C)
 
 # d. standard error per stratum (SE_y_bar) (Remember the finite population correction factor!)
-
-
+SE_y_bar_A <- sqrt(var_y_bar_A)
+SE_y_bar_B <- sqrt(var_y_bar_B)
+SE_y_bar_C <- sqrt(var_y_bar_C)
 
 ## Calculations for the totals of each stratum ##
 
 # 12. Calculate the following for EACH stratum (these are all related to the 
 # total number of grasshoppers in each stratum)(6 points total, 2 each):
 # a. total abundance per stratum (tau_hat)
+tau_hat_A <- N_A * mean_A
+tau_hat_B <- N_B * mean_B
+tau_hat_C <- N_C * mean_C
 
 # b. variance of abundance per stratum (var_tau_hat)
+var_tau_hat_A <- N_A^2 * (var_y_bar_A)
+var_tau_hat_B <- N_B * (N_B-n_B) * (var_B/n_B)
+var_tau_hat_C <- N_C * (N_C-n_C) * (var_C/n_C)
 
 # c. standard error of abundance per stratum (SE_tau_hat)
+SE_tau_hat_A <- sqrt(var_tau_hat_A)
+SE_tau_hat_B <- sqrt(var_tau_hat_B)
+SE_tau_hat_C <- sqrt(var_tau_hat_C)
 
-
-
-## Calculation the OVERALL population mean and population total ##
+## Calculating the OVERALL population mean ##
 
 # 13. Calculate the non-weighted overall population mean.
-
+pop_mean_overall <- (tau_hat_A + tau_hat_B + tau_hat_C)/N
 
 # 14. Calculate the weighted overall population mean.
-
+pop_mean_weighted <- ((N_A * mean_A) + (N_B * mean_B) + (N_C * mean_C)) / N
 
 # 15. How do the two means differ? Why?
 
