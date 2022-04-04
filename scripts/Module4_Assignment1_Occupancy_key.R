@@ -31,11 +31,11 @@ tiger <- read_csv("data_raw/tiger_rattlesnakes.csv")
 
 # 3. Like we did in the tortoise example, create a list of times for this dataset.
 # HINT: Be sure to make each one the correct length based on your answer to Q2
-survey_time <- data.frame(time_1 = rep('1',40),
-                          time_2 = rep('2',40),
-                          time_3 = rep('3',40),
-                          time_4 = rep('4',40),
-                          time_5 = rep('5',40))
+survey_time <- data.frame(time_1 = rep('1', 40),
+                          time_2 = rep('2', 40),
+                          time_3 = rep('3', 40),
+                          time_4 = rep('4', 40),
+                          time_5 = rep('5', 40))
 survey_time <- list(time = survey_time)
 
 # 4. Create an unmarked dataframe 
@@ -60,7 +60,7 @@ tiger_models <- fitList(tiger_psidot_pdot  = tiger_psidot_pdot,
 modSel(tiger_models)
 
 # 7. Which model should we choose? Why? (2pts)
-# We should choose psidot_pdot because it has the lowest AIC score (and delta = 0)
+
 
 # 8. Report the estimates of occupancy and detection from our chosen model. 
 # (Report means type them out)
@@ -96,7 +96,7 @@ tiger_naive_occ <- detections/nSites
 
 ## DATA ##
 
-# 12. Load in the tiger rattlesnake occupancy data. Save it as the object "diamond"
+# 12. Load in the diamondback rattlesnake occupancy data. Save it as the object "diamond"
 diamond <- read_csv("data_raw/diamondback_rattlesnakes.csv")
 
 # 13. Create an unmarked dataframe for the Western diamondback rattlesnakes

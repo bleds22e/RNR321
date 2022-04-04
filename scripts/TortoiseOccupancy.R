@@ -71,7 +71,7 @@ plogis(confint(psidot_ptime, type = "det",   level = 0.95))
 
 
 ### Naive Occupancy
-detects <- apply(tort_occ, 1, sum)     # Calculate the sum for every row in a vector
+detects <- apply(tort_occ, 1, sum)  # Calculate the sum for every row in a vector
 nSites <- length(detects)           # Total number of sites surveyed
 no_detections <- sum(detects == 0)  # Number of sites with no detections
 detections <- sum(detects > 0)      # Number of sites with at least one detection
