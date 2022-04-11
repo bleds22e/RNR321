@@ -36,9 +36,9 @@ library(tidyverse)
 #     * n2 (# individuals captured in the second sample (total))
 #     * m2 (# individuals in the second sample which were marked)
 
-n1 <-
+n1 <- 
 n2 <- 
-m2 <-
+m2 <- 
 
 ## ESTIMATE ABUNDANCE and DETECTION PROBABILITY ##
 
@@ -54,18 +54,18 @@ p_hat <-
 # Chaetodipus baileyi, on the first night and marked them. The second night, we
 # caught another 12 Bailey's, 4 of which were previously marked.
 
-# 4. Calculate the abundance of Bailey's pocket mice.
-n1_Baileys <- 12
-n2_Baileys <- 12
-m2_Baileys <- 4
+# 6. Calculate the abundance of Bailey's pocket mice.
+n1_Baileys <- 
+n2_Baileys <- 
+m2_Baileys <- 
 
-N_hat_Baileys <- (n1_Baileys * n2_Baileys) / m2_Baileys
+N_hat_Baileys <- 
 
-# 5. Calculate the estimated detection probability of Bailey's pocket mouse.
-p_hat_Baileys <- m2_Baileys / n1_Baileys
+# 7. Calculate the estimated detection probability of Bailey's pocket mouse.
+p_hat_Baileys <- 
 
 
-# 6. In your own words, briefly explain what the differences in estimated
+# 8. In your own words, briefly explain what the differences in estimated
 # detection probabilities means in the context of this example (2pts). 
 
 
@@ -74,15 +74,15 @@ p_hat_Baileys <- m2_Baileys / n1_Baileys
 
 ## MODIFIED ESTIMATORS ##
 
-# 7. As it turns out, the Lincoln-Peterson estimator can be biased with small
+# 9. As it turns out, the Lincoln-Peterson estimator can be biased with small
 # sample sizes. The modified equation to deal with that potential bias is the
 # following: (n1+1)*(n2+1) / (m2+1)-1. Calculate the unbiased estimate of N_hat
 # for the desert pocket mice.
 # NOTE: Don't worry, I won't be testing you on this modified equation! 
-N_hat_adj <- (n1 + 1)*(n2 + 1) / (m2 + 1) - 1
+N_hat_adj <- 
 
-# 8. Now calculate the adjusted N_hat for Bailey's pocket mouse.
-N_hat_B_adj <- (n1_Baileys + 1)*(n2_Baileys + 1) / (m2_Baileys + 1) - 1
+# 10. Now calculate the adjusted N_hat for Bailey's pocket mouse.
+N_hat_B_adj <- 
 
 # Note that while the estimate for the abundance of desert pocket mice didn't
 # change very much, the abundance estimate for Bailey's pocket mice actually
@@ -102,60 +102,59 @@ N_hat_B_adj <- (n1_Baileys + 1)*(n2_Baileys + 1) / (m2_Baileys + 1) - 1
 # recapture data from above but treat it as a removal study. Because we set the
 # same number of traps both nights, it is a constant-effort study.
 
-# 9. Using the numbers from the CMR section above, set the following objects:
+# 11. Using the numbers from the CMR section above, set the following objects:
 #     * n1 (# individuals removed in first sample)
 #     * n2 (# individuals removed in second sample)
 # HINT: Think carefully about what number should be assigned to n2.
-n1_removal <- n1 # 37
-n2_removal <- n2 - m2 # 42 - 30 = 12
+n1_removal <- 
+n2_removal <- 
 
-# 10. Estimate the abundance of the population
-N_hat_removal <- (n1_removal^2) / (n1_removal - n2_removal)
+# 12. Estimate the abundance of the population
+N_hat_removal <- 
 
 # Compare this estimate of abundance with that of the Lincoln-Peterson estimator.
 # Similar, but not exactly the same! 
 
-# 11. Let's do the same for the Bailey's pocket mouse.
-n1_removalB <- n1_Baileys
-n2_removalB <- n2_Baileys - m2_Baileys
-
-N_hat_removalB <- (n1_Baileys^2) / (n1_removalB - n2_removalB)
+# 13. Let's do the same for the Bailey's pocket mouse.
+n1_removalB <- 
+n2_removalB <- 
+  
+N_hat_removalB <- 
 
 
 ## CATCH PER UNIT EFFORT ##
 
-# 12. Read in the catch per unit effort data (CPUE_data.csv). In this dataset, 
+# 14. Read in the catch per unit effort data (CPUE_data.csv). In this dataset, 
 # let catch (ni) be the abundance of crab (x1000) and effort (fi) be trap hauls
 # (x1000)
 cpue <- 
   
-# 13. Examine the dataset using head() or glimpse()
-head(cpue)
-glimpse(cpue)
+# 15. Examine the dataset using head() or glimpse()
 
-# 14. Use the mutate() function from tidyverse to create CPUE by filling in
+
+# 16. Use the mutate() function from tidyverse to create CPUE by filling in
 # the correct column names in the blanks below.
 cpue <- cpue %>% 
-  mutate(CPUE = Catch / Effort)
+  mutate(CPUE = _____ / _____)
 
-# 15. Calculate the average CPUE using either base R ($) or tidyverse (summarize)
-meanCPUE <- mean(cpue$CPUE)
+# 17. Calculate the average CPUE using either base R ($) or tidyverse (summarize)
+meanCPUE <- 
 
-# 16. Calculate the average cumulative catch
-meanCumulativeCatch <- mean(cpue$CumulativeCatch)
+# 18. Calculate the average cumulative catch
+meanCumulativeCatch <- 
   
-# 17. In order to calculate the slope, we need to run a regression model. We can
+# 19. In order to calculate the slope, we need to run a regression model. We can
 # do this with the function lm()
 model <- lm(CPUE ~ CumulativeCatch, data = cpue)
 
-# 18. Run summary(model) to print out a summary of the regression model we just
+# 20. Run summary(model) to print out a summary of the regression model we just
 # ran. The value listed under "estimate" and next to "CumulativeCatch" is the
 # slope of the best fit line. If we run model$coefficients[2], it will pull out 
 # second of the coefficient values in the object "model." Assign this value to k.
-k <- model$coefficients[2]
+k <- 
 
-# 19. We can now calculate our estimate of N1_hat (our x-intercept).
-N1_hat <- meanCumulativeCatch - (meanCPUE / k)
+# 21. We can now calculate our estimate of N1_hat (our x-intercept).
+N1_hat <- 
 
 #---------------------------------------------------------------------------####
 # Submit this script with your answers to the assignment dropbox on D2L.
