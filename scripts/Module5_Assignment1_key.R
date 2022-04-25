@@ -126,7 +126,7 @@ UMF_oco
 # 19. Fit the four models to the ocotillo data. Again, be sure you're using the 
 # correct dataframe. (2pts)
 HN_oco   <- distsamp(~1 ~1, UMF_oco, keyfun = "halfnorm", output = "density", unitsOut = "ha")
-HR_oco <- distsamp(~1 ~1, UMF_oco, keyfun = "halfnorm", output = "density", unitsOut = "ha")
+HR_oco <- distsamp(~1 ~1, UMF_oco, keyfun = "hazard", output = "density", unitsOut = "ha")
 Unif_oco <- distsamp(~1 ~1, UMF_oco, keyfun = "uniform", output = "density", unitsOut = "ha")
 Exp_oco  <- distsamp(~1 ~1, UMF_oco, keyfun = "exp", output = "density", unitsOut = "ha")
 
