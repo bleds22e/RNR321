@@ -36,9 +36,9 @@ library(tidyverse)
 #     * n2 (# individuals captured in the second sample (total))
 #     * m2 (# individuals in the second sample which were marked)
 
-n1 <-
-n2 <- 
-m2 <-
+n1 <- 37
+n2 <- 42
+m2 <- 30
 
 ## ESTIMATE ABUNDANCE and DETECTION PROBABILITY ##
 
