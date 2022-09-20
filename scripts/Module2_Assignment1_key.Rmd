@@ -12,7 +12,7 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Definitions (1 point each)
+## Definitions (2 point each)
 
 _In your own words_, define/describe the following terms. These don't need to be
 technical descriptions but rather how you are thinking about them.
@@ -73,21 +73,16 @@ num_vec <- c(1, 3, 5, 7)
 num_vec
 ```
 
+10. Run the line below to create the object heights. Use the `mean()` function to calculate the mean value of height.
 
-10. Run the line below to create the object heights. Then add the value
-    80 to the end of the vector. Keep the same name for the vector
-    (heights). Note: NA is the value used by R to identify missing data.
-
-heights \<- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63,
+```{r}
+heights <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63,
 NA, 72, 65, 64, 70, 63, 65)
 
-heights \<- c(heights, 80) if they do not rename the vector (AKA only
-have c(heights, 80), half a point off)
+mean(heights)
+```
 
-11. Use the mean() function to calculate the mean value of height and
-    send the result to the console mean(heights)
-
-12. This should yield an odd result caused by the NAs. To resolve this,
+11. This should yield an odd result caused by the NAs. To resolve this,
     use the help function to learn about the argument na.rm = TRUE that
     applies to many R functions
 
@@ -96,16 +91,19 @@ help(mean) # same as ?mean
 ```
 
 Issue a revised command to calculate the mean value in num_vec and send
-the result to the console. mean(heights, na.rm = TRUE) \# na.rm = T is
-also valid
+the result to the console. 
+```{r}
+mean(heights, na.rm = TRUE) # na.rm = T is also valid
+```
 
-13. Write and execute a line of code that selects the 6-10th height
+
+12. Write and execute a line of code that selects the 6-10th height
     values 
 ```{r}
 heights[6:10]
 ```
 
-14. Execute the line below. What does this line of code do?
+13. Execute the line below. What does this line of code do?
 
 ```{r}
 heights67 <- heights[heights > 67]
@@ -113,7 +111,7 @@ heights67 <- heights[heights > 67]
 
 Answer: selects values from the heights vector that are greater than 67 and assigns this vector to a new object
 
-15. Execute the two lines below. What do these lines of code tell us?
+14. Execute the two lines below. What do these lines of code tell us?
 
 ```{r}
 length(heights) 
@@ -121,21 +119,10 @@ length(heights67)
 ```
 Answer: The heights vector has 22 values but only 9 of them are greater than 67
 
-16. Create a character vector called `rhymes` that contains the following values: cat, rat, bat, hat 
+15. Create a character vector called `rhymes` that contains the following values: cat, rat, bat, hat 
 ```{r}
 rhymes <- c("cat", "rat", "bat", "hat")
 ```
-
-17. Run the lines below. What does each line do?
-
-char_vec == 'C' char_vec != 'C'
-```{r}
-rhymes == "hat"
-rhymes != "hat"
-```
-
-Answer: First line creates a logical vector with "TRUE" equaling "hat." The second line also creates a logical vector for
-all values _except_ "hat"
 
 ## Data Frames
 
@@ -147,52 +134,65 @@ library(ratdat)
 surveys
 ```
 
+16. How many rows does this data frame have? How many columns? 
+Rows: 34786 
+Columns: 13
 
-18. Look at the first 6 rows of data. You can either do this by using a
+17. Look at the first 6 rows of data. You can either do this by using a
     function or by using index subsetting (with the square brackets: [])
 ```{r}
 head(surveys) 
 surveys[1:6,] # either one is fine
 ```
 
-
-19. How many rows does this data frame have? How many columns? 
-Rows: 34786 
-Columns: 13
-
-20. Use a function to print the column names of surveys.
+18. Use a function to print the column names of surveys.
 ```{r}
 names(surveys)
 colnames(surveys) # either one is fine
 ```
 
-21. Create a histogram with the hindfoot lengths column
+19. Create a histogram with the hindfoot lengths column
 ```{r}
 hist(surveys$hindfoot_length)
 ```
 
-
-22. What does the following line of code do? 
+20. What does the following line of code do? 
 ```{r}
 surveys[surveys$species_id == "DM", ]
 ```
 
 Answer: selects rows from surveys in which the value in the species_id column is "DM"
 
-23. Explain what the following lines of code do (2 points). 
+## Calculating the Coefficient of Variance
+
+The remainder of the questions in this assignment lead you through the steps to calculate the coefficient of variance for two different species at the field site--the largest (NL) and the smalled (BA).
+
+21. Using a similar structure as the code in question 21, create 2 different data frames: one called `NL` with rows that have "NL" in the species_id column and one called `BA` with only rows which have "BA" in the species_id column.
 ```{r}
-weights_noNA <- surveys[!is.na(surveys$weight), ] 
-weights_over200g <- weights_noNA[weights_noNA$weight > 200, ]
+NL <- surveys[surveys$species_id == "NL", ]
+BA <- surveys[surveys$species_id == "BA", ]
 ```
 
-Answer 
-First line: Selects rows from surveys in which the weight column
-is not NA values (so only numeric values) and creates an object called
-weights_noNA 
-Second line: Selects rows from the weights_noNA object in
-which the values in the weight column are greater than 200, saving them
-in an object called weights_over200g
+22. Calculate the mean weight for each species.
+```{r}
+mean_NL <- mean(NL$weight, na.rm = TRUE)
+mean_BA <- mean(BA$weight, na.rm = TRUE)
+```
 
+23. In a similar fashion, calculate the standard deviation (`sd()`) for the weight of both species.
+```{r}
+sd_NL <- sd(NL$weight, na.rm = TRUE)
+sd_BA <- sd(BA$weight, na.rm = TRUE)
+```
+
+24. Using the equation for calculating the coefficient of variance (CV), calculate the CV for each species.
+```{r}
+cv_NL <- (sd_NL / mean_NL) * 100
+cv_BA <- (sd_BA / mean_BA) * 100
+```
+
+25. In 1-2 sentences, interpret the results of your calculations.
+The CV, which standardizes measures of spread by the size of the mean, indicates that the NL species has a higher amount of variance in its measured weights than the BA species.
 
 
 When you are finished, I want you to export this .Rmd file and upload it

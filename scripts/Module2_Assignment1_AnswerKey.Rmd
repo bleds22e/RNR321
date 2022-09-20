@@ -1,0 +1,118 @@
+---
+title: "Module 2 Assigment 1"
+author: "Ellen Bledsoe"
+date: "2022-09-19"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+editor_options:
+  markdown:
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+6. 
+```{r}
+8 * 5
+```
+
+
+7.  
+```{r}
+x <- 40 / 2.77
+x
+```
+
+8.  
+```{r}
+y <- sqrt(9)
+y
+```
+
+9. 
+```{r}
+num_vec <- c(1, 3, 5, 7)
+num_vec
+```
+
+10. 
+
+```{r}
+heights <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63,
+NA, 72, 65, 64, 70, 63, 65)
+
+mean(heights)
+```
+
+11. 
+```{r}
+mean(heights, na.rm = TRUE) # na.rm = T is also valid
+```
+
+12. 
+```{r}
+heights[6:10]
+```
+
+15. 
+```{r}
+rhymes <- c("cat", "rat", "bat", "hat")
+rhymes
+```
+
+17. 
+```{r}
+library(ratdat)
+head(surveys) 
+```
+
+18. 
+```{r}
+names(surveys)
+```
+
+19.
+```{r}
+hist(surveys$hindfoot_length)
+```
+
+
+21 (first 10 rows)
+```{r}
+NL <- surveys[surveys$species_id == "NL", ]
+head(NL, 10)
+```
+```{r}
+BA <- surveys[surveys$species_id == "BA", ]
+head(BA, 10)
+```
+
+22. 
+```{r}
+mean_NL <- mean(NL$weight, na.rm = TRUE)
+mean_NL
+mean_BA <- mean(BA$weight, na.rm = TRUE)
+mean_BA
+```
+
+23. 
+```{r}
+sd_NL <- sd(NL$weight, na.rm = TRUE)
+sd_NL
+sd_BA <- sd(BA$weight, na.rm = TRUE)
+sd_BA
+```
+
+24.
+```{r}
+cv_NL <- (sd_NL / mean_NL) * 100
+cv_NL
+cv_BA <- (sd_BA / mean_BA) * 100
+cv_BA
+```
+
