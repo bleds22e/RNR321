@@ -39,20 +39,7 @@ library(tidyverse)
 
 # DATA #
 
-# We will be using the teaching version of some data from my dissertation.
-# Learn more about the Portal Project here: https://portal.weecology.org/
-# PS - this is the same dataset at the end of Assignment 3.
 
-# If you have already worked through most of Assignment 3, you likely already 
-# have this file downloaded into your data_raw folder.
-
-# If not, that's ok! It is in the Lectures submodule in Module 2 on D2L. 
-# Download the file to your computer, navigate to your Module 2 RProject, and
-# copy the file into the data_raw folder.
-
-surveys <- read_csv("data_raw/portal_data_joined.csv")
-# If you named your data_raw folder something different (or with capitals), 
-# you'll need to change the file path below to match your folder name.
 
 # --------------------------------------------------------------------------####
 # EXPLORE THE DATASET #

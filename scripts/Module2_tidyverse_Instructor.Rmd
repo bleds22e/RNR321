@@ -54,17 +54,24 @@ I have already set up these RStudio Cloud projects so that the `tidyverse` is in
 We are also going use the `penguins` dataset from the `palmerpenguin` package. We will need to load that package, as well.
 
 ```{r}
-
+library(tidyverse)
+library(palmerpenguins)
 ```
 
 When you load the `tidyverse` library, you'll see some "conflicts." Don't panic! That's normal. Those conflicts are telling us that certain functions in `dplyr` are now overriding some functions in base R with the same name.
 
 ### Penguins
 
-Let's remind ourselves what the `penguins` dataset looks like.
+# Let's remind ourselves what the `penguins` dataset looks like.
 
 ```{r}
+head(penguins)
+colnames(penguins)
+str(penguins)
+view(penguins)
 
+# glimpse() is from the dplyr package
+glimpse(penguins)
 ```
 
 The `tidyverse` converts 2D data into something called a tibble! For our intents and purposes, it is basically the same as a data frame (and I'll probably call it a data frame, in reality).
@@ -80,13 +87,19 @@ Let's use our first function, `select()`. Select allows us to pick out specific 
 First, let's remind ourselves how we would accomplish this in base R.
 
 ```{r}
-
+penguins[, 1:3]
 ```
 
 The `select()` function does the same thing but with more power (and, in my opinion, more easily). The first argument in the function is the data frame. Any following arguments are the columns we want to select.
 
 ```{r select_tidy}
+# first argument is the data frame, then the columns
+select(penguins, bill_length_mm)
 
+# multiple columns
+select(penguins, species, island, bill_length_mm)
+select(penguins, species:bill_length_mm)
+select(penguins, -island)
 ```
 
 You might have noticed that we haven't put any column names in quotations, unlike what we did with selecting columns by name in base R. This is one quirk of the `tidyverse` to which you will need to pay special attention. We *usually* will not need to put column names in quotations.
@@ -96,7 +109,7 @@ You might have noticed that we haven't put any column names in quotations, unlik
 Write a line of code to select the columns with the following information from `penguins`: species, body mass, sex, and year.
 
 ```{r}
-
+select(penguins, body_mass_g, sex, year)
 ```
 
 ### `filter()`ing rows
@@ -104,13 +117,21 @@ Write a line of code to select the columns with the following information from `
 `filter()` allows you filter rows by certain conditions. Recall that we did this a bit with base R.
 
 ```{r filter_baseR}
-
+# base R
+penguins[penguins$island == "Torgersen", ]
 ```
 
 The code above is, in my opinion, a bit unwieldy. Filter feels more intuitive. We still need the double equal signs, though!
 
 ```{r filter_tidy}
+# filter
+filter(penguins, island == "Torgersen")
 
+# easy to write multiple conditions and to chain stuff together
+filter(penguins, island == "Torgersen" & year > 2008)
+
+# worth noting here that we haven't saved any of this. We need to write to a new object. 
+torg2008 <- filter(penguins, island == "Torgersen" & year >= 2008)
 ```
 
 #### Let's practice using `select()` and `filter()`
@@ -122,7 +143,8 @@ Using the `penguins` data frame, write a small set of code that does the followi
 3.  Name this new data frame "male20"
 
 ```{r}
-
+slim <- select(penguins, species, bill_length_mm, sex)
+male20 <- filter(slim, sex == "male", bill_length_mm > 20)
 ```
 
 ## The pipe `%>%`
@@ -137,7 +159,9 @@ This is helpful for a lot of reasons, including:
 The shortcut for the pipe is `Ctrl + Shift + M` (Windows) or `Cmd + Shift + M` (Mac)
 
 ```{r}
-
+penguins %>% 
+  select(species, bill_length_mm, sex) %>% 
+  filter(sex == "male", bill_length_mm > 20)
 ```
 
 ### Group Challenge
@@ -145,7 +169,9 @@ The shortcut for the pipe is `Ctrl + Shift + M` (Windows) or `Cmd + Shift + M` (
 Using pipes, subset the `penguins` data to include only Adelie penguins from the year 2007. Your final data frame should only have the species, sex, and year columns.
 
 ```{r}
-
+penguins %>% 
+  filter(species == "Adelie", year == 2007) %>% 
+  select(species, sex, year)
 ```
 
 ## More useful functions!
@@ -157,7 +183,10 @@ Sometimes our data doesn't have our data in exactly the format we want. For exam
 The `tidyverse` has a function called `mutate()` that lets us create a new column. Often, we want to apply a function to the entire column or perform some type of calculation.
 
 ```{r}
+penguins %>% 
+  mutate(bill_length_cm = bill_length_mm / 10)
 
+# remember, we would have to create a new object to save this new column!
 ```
 
 ### Understanding data through `summarize()`
@@ -167,6 +196,10 @@ Like we have talked about in previous classes, some of the best ways for us to u
 Fortunately, the `tidyverse` has a handy-dandy function to make this easy to do with data frames.
 
 ```{r summarize}
+# first attempt at mean and sd of body mass
+penguins %>% 
+  summarise(mean_body_mass = mean(body_mass_g),
+            sd_body_mass = sd(body_mass_g))
 
 ```
 
@@ -175,7 +208,9 @@ Wait a second! Those are some weird values!
 It is important to note that if any of the values in the column that you are trying to summarize are missing, you might get some wonky values, like you did above. Fortunately, `mean()` and `sd()` and many other functions have an argument to remove the missing values: `na.rm = TRUE`
 
 ```{r summarize_na.rm}
-
+penguins %>% 
+  summarise(mean_body_mass = mean(body_mass_g, na.rm = TRUE),
+            sd_body_mass = sd(body_mass_g, na.rm = TRUE))
 ```
 
 ## Split, Apply, Combine with `group_by()`
@@ -191,7 +226,10 @@ The `group_by()` function lets us do this. It is most often used in combination 
 For example, we can use this method to calculate the mean body mass for males and females of each species instead of the overall mean of the entire dataset
 
 ```{r group_by}
-
+penguins %>% 
+  group_by(species, sex) %>% 
+  summarise(mean_body_mass = mean(body_mass_g, na.rm = TRUE),
+            sd_body_mass = sd(body_mass_g, na.rm = TRUE))
 ```
 
 ### Let's practice!
@@ -199,13 +237,20 @@ For example, we can use this method to calculate the mean body mass for males an
 Practice using the combination of `group_by()` and `summarize()` to calculate the minimum (`min()`) and maximum (`max()`) average flipper length per island. Save this data frame as `flipper_min_max`
 
 ```{r group_by_city}
-
+flipper_min_max <- penguins %>% 
+  group_by(island) %>% 
+  summarize(min_flipper = min(flipper_length_mm, na.rm = TRUE),
+            max_flipper = max(flipper_length_mm, na.rm = TRUE))
+flipper_min_max
 ```
 
 Already accomplished this task? Try to figure out how you can keep the "species" column in the final data frame.
 
 ```{r group_by_city_country}
-
+penguins %>% 
+  group_by(island, species) %>% 
+  summarize(min_flipper = min(flipper_length_mm, na.rm = TRUE),
+            max_flipper = max(flipper_length_mm, na.rm = TRUE))
 ```
 
 ## A few other things to know
@@ -213,23 +258,27 @@ Already accomplished this task? Try to figure out how you can keep the "species"
 We can use the `is.na()` function to filter out NAs.
 
 ```{r}
-
+penguins %>% 
+  filter(!is.na(sex))
 ```
 
 The `arrange()` functions lets us order our rows alphabetically or numerically.
 
 ```{r}
-
+penguins %>% 
+  arrange(body_mass_g)
 ```
 
 `count()` let's us find out how many observations we have.
 
 ```{r}
-
+penguins %>% 
+  count(species, sex)
 ```
 
 Finally, `distinct()` allows us to find all the unique values in a column. This is usually best for categorical (character) columns.
 
 ```{r}
-
+penguins %>% 
+  distinct(species)
 ```
