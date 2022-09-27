@@ -2,35 +2,33 @@
 title: "Module 2, Assignment 2"
 author: ""            # <- your name here!
 date: '2022-09-27'    # <- you can change the date if you want
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-```
-
-```{r, include=FALSE}
+knitr::opts_chunk$set(max)
 library(tidyverse)
 library(ratdat)
 ```
 
 10.  
 
-```{r}
-select(surveys, year, plot_id, species_id, weight)
+```{r paged.print = TRUE}
+select(surveys, year, plot_id, species_id, weight) %>% as_tibble()
 ```
 
 
 12. 
 
 ```{r}
-filter(surveys, year >= 2000)
+filter(surveys, year >= 2000) %>% as_tibble()
 ```
 
 13. 
 
 ```{r}
-filter(surveys, year < 1990, species_id == "BA")
+filter(surveys, year < 1990, species_id == "BA") %>% as_tibble()
 ```
 
 
@@ -38,7 +36,8 @@ filter(surveys, year < 1990, species_id == "BA")
 
 ```{r}
 surveys %>% 
-  mutate(hindfoot_length_cm = hindfoot_length / 10)
+  mutate(hindfoot_length_cm = hindfoot_length / 10) %>% 
+  as_tibble()
 ```
 
 
@@ -61,5 +60,6 @@ PE_weights <- surveys %>%
   group_by(year) %>% 
   summarise(min_weight = min(weight, na.rm = TRUE),
             max_weight = max(weight, na.rm = TRUE))
+PE_weights
 ```
 
