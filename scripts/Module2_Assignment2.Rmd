@@ -1,0 +1,172 @@
+---
+title: "Module 2, Assignment 2"
+author: ""            # <- your name here!
+date: '2022-09-27'    # <- you can change the date if you want
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Assignment Details
+
+### Purpose
+
+The goal of this assignment is to use and become comfortable with working with 2-dimensional data using the `tidyverse`.
+
+### Task
+
+Write R code to successfully answer each question below or write text to successfully answer the question.
+
+### Criteria for Success
+
+-   Code is within the provided code chunks
+-   Code is commented with brief descriptions of what the code does
+-   Code chunks run without errors
+-   Code produces the correct result
+-   Text answers correctly address the question asked
+
+### Due Date
+
+Sept. 29 at midnight MST
+
+# Assignment Questions
+
+## Definitions (2 point each)
+
+*In your own words*, define/describe the following terms. These don't need to be technical descriptions but rather how you are thinking about them.
+
+1.  *data frame/tibble*:
+
+2.  *R package*:
+
+3.  *tidyverse*:
+
+4.  *the pipe (`%>%`)*:
+
+## Short-Answer Question (2 points)
+
+5.  What are 2 reasons why the pipe is useful? Answers can be in sentence or bullet-point form.
+
+*Answer*:
+
+## Using the `tidyverse`
+
+For the rest of the assignment, you will be writing or interpreting code from the `tidyverse` and using data from the `surveys` data frame in the `ratdat` package.
+
+6.  Load the `tidyverse` package and the `ratdat` package into RStudio.
+
+```{r}
+
+```
+
+### *Optional*
+
+The `surveys` data frame is part of the `ratdat` package. Since we have loaded in the `ratdat` package, we can access the `surveys` data frame even though we can't see it in our environment. If you want to see the `surveys` data frame in your environment, we need to give it a name by running the following line of code. You do not *need* to do this, but you're welcome to do so if you want.
+
+```{r}
+surveys <- surveys
+```
+
+7.  There are many different functions we can use to look at our data set. Choose your favorite to get an idea of all the data in `surveys`.
+
+```{r}
+
+```
+
+8.  Which of the columns in `surveys` have data which are character data types? List the columns below.
+
+    *Answer:*
+
+9.  *In your own words*, explain what the `select()` function (from tidyverse) does.
+
+    *Answer:*
+
+10. Use the `select()` function to create a data frame that has only columns with the following data: year, plot number, species, weight. (Hint: make sure you are typing the correct column names!)
+
+```{r}
+
+```
+
+11. *In your own words*, explain what the `filter()` function does.
+
+    *Answer:*
+
+12. Create a data frame from `surveys` that only includes observations from the year 2000 and later.
+
+```{r}
+
+```
+
+13. Now create a data frame that only includes observations from before the year 1990 and the species_id "BA".
+
+```{r}
+
+```
+
+14. Run the lines of code below.
+
+```{r}
+krats <- surveys %>% 
+  filter(species_id == "DM" | species_id == "DO" | species_id == "DS") %>% 
+  select(year, plot_id, species_id, hindfoot_length)
+```
+
+Describe what each of the three lines are doing (3 points). (Hint: the `|` means "or")
+
+*Line 1*:\
+*Line 2*:\
+*Line 3*:
+
+15. *In your own words*, explain what the `mutate()` function does.
+
+    *Answer:*
+
+16. The hindfoot_length column in currently in mm. Create a new column named `hindfoot_length_cm` where the hindfoot measurement is now in centimeters. (Hint: to convert from mm to cm, divide by 10)
+
+```{r}
+
+```
+
+17. *In your own words*, explain what the `group_by()` function does.
+
+    *Answer:*
+
+18. For this question, we are going to use `krats`, the data frame you created in question 14.
+
+    Use the `group_by()` and `summarize()` functions together to calculate the mean hindfoot_length (mm) for each species in `krats`. (2 points)
+
+    Remember to use the `%>%`, and remember to exclude `NA`s from the mean calculation.
+
+```{r}
+
+```
+
+19. We are back to using the `surveys` data frame for this question.
+
+    Create a new data frame called `PE_weights`. It should have the minimum (`min()`) and maximum (`max()`) weight of the "PE" species for each year. (4 points)
+
+This question has a lot of steps, so think through each one individually before trying to write the code.
+
+-   which function will you need to use to get only "PE" individuals?
+-   which function will you need to get values for *each* year?
+-   remember to use the `na.rm` argument to return numbers
+
+```{r}
+
+```
+
+## Assignment Submission Guidelines
+
+When you are finished, I want you to export this .Rmd file and upload it into the assignment dropbox on D2L.
+
+To do you, follow these steps:
+
+-   Make sure you have saved all of your code!
+-   In the "Files" pane, check the empty box near this .Rmd file
+-   Still in the "Files" pane, click the small downward arrow next to the gear ("More")
+-   Select "Export"
+-   Rename you file with the following pattern: "LastName_Module2_Assignment2.Rmd"
+-   Once you've exported, the .Rmd file will be in your "Downloads" folder on your computer
+-   Submit this file to D2L
