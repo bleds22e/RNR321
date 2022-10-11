@@ -24,8 +24,8 @@
 # Calculations (1 pt unless otherwise noted) ----------------------------------#
 
 # Get your (or your group's) simple random sampling rock data.
-# Save the Google Sheet/Excel file as a .csv file. Be sure to save it to your
-# Module 3 RProject's data_raw folder.
+# Save the Google Sheet/Excel file as a .csv file. 
+# Using the "Uplodd" button in the lower right-hand panel, upload your csv file.
 
 # Load the tidyverse. For now, we will only be using this to read in our CSV 
 # file.
@@ -33,7 +33,7 @@ library(tidyverse)
 
 # 5. Use the read_csv() function from the tidyverse to read in your rocks file.
 # Save this data in an object called "rocks."
-rocks <- read_csv("data_raw/Module3_Lab1_SRSampling.csv") %>% drop_na()
+rocks <- read_csv("Module3_Lab1_SRSampling.csv") %>% drop_na()
 
 # 6. Create the object N, which is the number of units in your sampling frame.
 N <- 64

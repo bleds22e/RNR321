@@ -1,0 +1,270 @@
+---
+title: "Module 3 Assignment 1"
+author: "Ellen Bledsoe"
+date: '2022-10-11'
+output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Simple Random Sampling -- Rocks!
+
+## Assignment Details
+
+### Purpose
+
+The goal of this assignment is to use R to calculate and understand
+accuracy of estimates.
+
+### Task
+
+Write R code to successfully answer each question below or write text to
+successfully answer the question.
+
+### Criteria for Success
+
+-   Code is within the provided code chunks
+-   Code is commented with brief descriptions of what the code does
+-   Code chunks run without errors
+-   Code produces the correct result
+-   Text answers correctly address the question asked
+
+### Due Date
+
+Sept. 29 at midnight MST
+
+------------------------------------------------------------------------
+
+## Assignment Questions
+
+### Short Answer (2 pt each)
+
+1.  Define the sample standard deviation (not the equation but what
+    stdev tells us).
+
+2.  Define the standard error of the estimate of the mean (again, what
+    is tells us).
+
+3.  How do standard deviation and standard error differ? (If you've
+    explained that above, reiterate it here.)
+
+4.  What does a confidence interval tell us?
+
+### Calculations
+
+Each question is worth 1 point unless otherwise noted.
+
+#### Set-up:
+
+1.  Get your (or your group's) simple random sampling rock data.
+2.  Make sure it has been saved as a .csv file. If it hasn't, you will
+    need to do so using "Save As".
+3.  In RStudio Cloud, using the "Upload" button in the lower right-hand
+    panel, upload your .csv file.
+
+Load the tidyverse. For this assignment, we will only be using this to
+read in our .csv file.
+
+```{r}
+library(tidyverse)
+```
+
+5.  Use the `read_csv()` function from the tidyverse to read in your
+    rocks file. Save this data in an object called `rocks`.
+
+    Below, replace the file name with the file name of your rock data.
+
+```{r}
+rocks <- read_csv("your_file_name_here.csv") %>% drop_na()
+```
+
+6.  Create the object N, which is the number of units in your *sampling
+    frame*.
+
+```{r}
+N <- 64
+```
+
+7.  Create the object n, which is your *sample size,* the number of
+    sample units that make up your sample. To do this, use the `nrow()`
+    function
+
+    (Hint: if you don't remember how to use the `nrow()` function, run
+    `?nrow`)
+
+```{r}
+n <- nrow(rocks)
+```
+
+### Estimating the Mean
+
+One way we can calculate values is to call the column that we want and
+then save that value to an object.
+
+For example, let's say we wanted to calculate the median of our dark
+stone abundance data. We could run the following line of code:
+`rocks_median <- median(rocks$abund_dark_stones)`
+
+Typically, I prefer using the `tidyverse` functions, but for performing
+calculations like we are doing in this assignment, working with vectors
+(as opposed to data frames) is easier; the code above does that for us.
+
+8.  Create an object called `rocks_mean` that contains the sample mean
+    (AKA the mean number of dark stones per sample unit). Follow the
+    code example above.
+
+```{r}
+rocks_mean <- mean(rocks$abund_dark_stones)
+```
+
+9.  Create objects called `rocks_var` and `rocks_sd` which contain the
+    sample variance and sample standard deviation, respectively. Hint:
+    use `var()` and `sd()` functions.
+
+```{r}
+rocks_var <- var(rocks$abund_dark_stones)
+rocks_sd <- sd(rocks$abund_dark_stones)
+```
+
+### Calculating Standard Error for the Mean
+
+R doesn't have a function for calculating the standard error (SE), so
+let's calculate it ourselves. From the equation
+
+10. First, do you remember that finite population correction factor? We
+    use that to modify SE when we know what N is. In this case, we do
+    know N, so let's create an object called `pop_correction` using that
+    formula: (N-n)/N
+
+    (Hint: use the objects we've already created (`N`, `n`--don't enter
+    any numbers directly)
+
+```{r}
+pop_correction <- (N-n)/N
+```
+
+11. Using the objects you've already created and the formula (check the
+    lecture slides from this module!), create an object called
+    `rocks_var_ybar` which contains the variance of the *estimate* of
+    the mean.
+
+    Remember, this is different from the sample variance that you've
+    already calculated, but that sample variance is included...
+
+```{r}
+rocks_var_ybar <- pop_correction * (rocks_var/n)
+```
+
+12. Calculate the SE of the estimate of the mean by taking the square
+    root of the `rocks_var_ybar` value. Call this object rocks_SE.
+
+```{r}
+rocks_SE <- sqrt(rocks_var_ybar)
+```
+
+### Calculating Confidence Intervals for the Mean
+
+Hooray, we've now calculated the sample mean, sample variance, sample
+standard deviation, and the standard error (among other things)! Let's
+calculate a 95% confidence interval for our sample mean.
+
+13. Create an object called `alpha` to represent our alpha value for a
+    95% confidence interval. Because this is a constant, we can assign a
+    number to it.
+
+```{r}
+alpha95 <- 0.05
+```
+
+14. Create an object called `df` for degrees of freedom. Use the object
+    `n` in your calculation.
+
+```{r}
+df <- n - 1
+```
+
+We are going to use a function called `qt()` to find the t-value that we
+need. Assuming you've created the objects `alpha` and `df` above,
+running this code chunk will give us our t-value, or critical value, for
+95% CI.
+
+```{r}
+t95 <- qt(1-(alpha95)/2, df)
+```
+
+15. Using `t95` and the standard error that we calculated earlier,
+    create an object called `half_width` which contains the half-width
+    value for the 95% CI.
+
+```{r}
+half_width <- t95 * rocks_SE
+```
+
+16. Create an object called `upperCI_mean` that contains the upper value
+    of the CI for the estimate of the mean. Use objects you've already
+    created to calculate it.
+
+```{r}
+upperCI_mean <- rocks_mean + half_width
+```
+
+17. Create an object called `lowerCI_mean` that contains the lower value
+    of the CI for the estimate of the mean.
+
+```{r}
+lowerCI_mean <- rocks_mean - half_width
+```
+
+18. Report (AKA type out) the 95% CI for the estimate of the mean below.
+    What does this range tell us about our data? (2 points)
+
+### Estimating the Population (and Accuracy of the Estimate)
+
+We've calculated standard error (SE) and confidence interval (CI) for
+the estimate of the mean above. Now, let's calculate them for the
+estimate of the population abundance (tau hat)
+
+19. First, let's calculate the total number of rocks in the population.
+    Call this `rocks_total`. Use objects you've already created.
+
+```{r}
+rocks_total <- N * rocks_mean
+```
+
+20. Now calculate the variance of the population total,
+    `rocks_var_total`.
+
+```{r}
+rocks_var_total <- N * (N-n) * (rocks_var/n)
+```
+
+21. Calculate the SE of the estimate of the population total,
+    `rocks_SE_total`.
+
+```{r}
+rocks_SE_total <- sqrt(rocks_var_total)
+```
+
+22. Calculate the half-width value for the population total estimate.
+
+    (Hint: the values `alpha95` and `t95` don't change)
+
+```{r}
+half_width_total <- t95 * rocks_SE_total
+```
+
+23. Calculate and report the upper and lower 95% CI values for the total
+    population of rocks.
+
+```{r}
+upperCI_total <- rocks_total + half_width_total
+lowerCI_total <- rocks_total - half_width_total
+```
+
+24. What do these confidence intervals tell us about our data and our
+    parameter?
