@@ -173,7 +173,7 @@ Hooray, we've now calculated the sample mean, sample variance, sample
 standard deviation, and the standard error (among other things)! Let's
 calculate a 95% confidence interval for our sample mean.
 
-13. Create an object called `alpha` to represent our alpha value for a
+13. Create an object called `alpha95` to represent our alpha value for a
     95% confidence interval. Because this is a constant, we can assign a
     number to it.
 
@@ -194,7 +194,7 @@ running this code chunk will give us our t-value, or critical value, for
 95% CI.
 
 ```{r}
-t95 <- 
+t95 <- qt(1-(alpha95)/2, df)
 ```
 
 15. Using `t95` and the standard error that we calculated earlier,
