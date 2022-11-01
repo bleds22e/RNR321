@@ -1,0 +1,270 @@
+---
+title: "Module 4 Assignment 1"
+author: "Ellen Bledsoe"
+date: "2022-11-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Occupancy Modeling 
+
+## Assignment Details
+
+### Purpose
+
+The goal of this assignment is to understand, apply, and interpret detection probability and occupancy models.
+
+### Task
+
+Write R code to successfully answer each question below or write text to
+successfully answer the question.
+
+### Criteria for Success
+
+-   Code is within the provided code chunks
+-   Code is commented with brief descriptions of what the code does
+-   Code chunks run without errors
+-   Code produces the correct result
+-   Text answers correctly address the question asked
+
+### Due Date
+
+November 10 at midnight MST
+
+------------------------------------------------------------------------
+
+## Assignment Questions
+
+For this assignment, we have 2 different data sets: one for tiger rattlesnakes
+and one for Western diamondback rattlesnakes. 
+
+Following the structure of the tortoise exercise we did in lab, create models
+for each species of rattlesnake. Our ultimate goal is to compare the estimated
+occupancy and detection probabilities of our two species.
+
+All questions are worth 1 point unless otherwise specified.
+
+### Set-Up
+
+Let's go ahead and get ourselves set up for the rest of the assignment.
+
+Before you start anything, I highly recommend going over to the "Environment" tab and clicking on the broom. It will clean up the clutter in your environment and also prevent you from making some unintentional errors.
+
+1. Load in the two packages we will need to use.
+```{r}
+library(tidyverse)
+library(unmarked) 
+```
+
+2. Using the `read_csv()` function, read in the two data sets we will use. One is for tiger rattlesnakes and the other is for diamondback rattlesnakes. Create objects containing these two datasets called `tiger` and `diamond`, respectively.
+```{r}
+tiger <- read_csv("../data_raw/tiger_rattlesnakes.csv")
+diamond <- read_csv("../data_raw/diamondback_rattlesnakes.csv")
+```
+
+### Tiger Rattlesnakes
+
+We are going to run occupancy models for the tiger rattlesnakes first.
+
+#### Naive Occupancy
+
+First, let's calculate the naive occupancy for tiger rattlesnakes.
+
+3. Calculate the naive occupancy for tiger rattlesnakes.
+```{r}
+naive_occ_tiger <- tiger %>% 
+  mutate(detection = rowSums(.)) %>% 
+  summarise(n = n(),
+            n_detect = sum(detection > 0)) %>% 
+  mutate(naive_occ = n_detect/n)
+```
+
+#### Data Preparation
+
+4. Explore the `tiger` data frame, either in the environment or through code.
+    a. How many sites were surveyed? 
+    b. How many times was each individual site surveyed?
+```{r}
+# optional: space for code if you want it
+```
+
+5. Like we did in the tortoise example, create a tibble (data frame) with the number of survey occasions this data set. Then create a list out of this one data frame.
+(HINT: Be sure to create a tibble with the correct number of rows based on your answer to question 4)
+```{r}
+# create the data frame with 20 rows and each column with the survey number
+tiger_survey_time <- tibble(.rows = 40,
+                            time_1 = "1",
+                            time_2 = "2",
+                            time_3 = "3",
+                            time_4 = "4",
+                            time_5 = "5")
+
+# make this into a list of one dataframe
+tiger_survey_time <- list(time = tiger_survey_time)
+```
+
+6. Create an unmarked data frame for the tiger data
+```{r}
+tigerUMF <- unmarkedFrameOccu(tiger, obsCovs = tiger_survey_time)
+head(tigerUMF) # check out the data
+```
+
+#### Occupancy Models
+
+7. Fit an occupancy model where occupancy and detection probability are 
+constant. 
+```{r}
+tiger_pdot_psidot <- occu(~1 ~1, data = tigerUMF)
+```
+
+8. Fit an occupancy model where occupancy stays constant but detection probability
+varies with survey.
+```{r}
+tiger_ptime_psidot <- occu(~time-1 ~1, data = tigerUMF)
+```
+
+#### Model Selection
+
+9. Use AIC to determine which model is the best. 
+```{r}
+tiger_models <- fitList(tiger_pdot_psidot  = tiger_pdot_psidot, 
+                        tiger_ptime_psidot = tiger_ptime_psidot)
+modSel(tiger_models)
+```
+
+10. Which model should we choose? Why? (2pts)
+
+
+11. Report the estimates of occupancy and detection from our _best_ model. 
+(Report means type them out)
+    Occupancy: 0.42
+    Detection: 0.29
+
+```{r}
+plogis(coef(tiger_pdot_psidot))  # estimates of psi and p
+```
+
+12. Calculate the 95% confidence intervals for _occupancy_. Report them here.
+    Lower CI: 0.25
+    Upper CI: 0.62
+```{r}
+plogis(confint(tiger_pdot_psidot, type = "state", level = 0.95))
+```
+
+13. Calculate the 95% confidence intervals for _detection probability_ and report.
+    Lower CI: 0.18
+    Upper CI: 0.44
+```{r}
+plogis(confint(tiger_pdot_psidot, type = "det", level = 0.95))
+```
+
+#### Comparison
+
+14. Compare the naive occupancy estimate to the occupancy estimate from our model. Which one is higher? Why? Your answer should be 2-3 sentences. (2 points)
+
+  _Answer:_ The naive estimate of occupancy is an underestimate (lower) because we are not taking into account individuals which are present but we did not detect.
+
+### Western Diamondback Rattlesnakes
+
+Let's do the same as above for the Western diamondback rattlesnakes.
+
+#### Naive Occupancy
+
+First, let's calculate the naive occupancy for diamondback rattlesnakes.
+
+15. Calculate the naive occupancy for diamondback rattlesnakes.
+```{r}
+naive_occ_diamond <- diamond %>% 
+  mutate(detection = rowSums(.)) %>% 
+  summarise(n = n(),
+            n_detect = sum(detection > 0)) %>% 
+  mutate(naive_occ = n_detect/n)
+```
+
+#### Data Preparation
+
+16. Explore the `diamond` data frame, either in the environment or through code.
+    a. How many sites were surveyed? 
+    b. How many times was each individual site surveyed?
+```{r}
+# optional: space for code if you want it
+```
+
+17. Like we did in the tortoise example, create a tibble (data frame) with the number of survey occasions this data set. Then create a list out of this one data frame.
+(HINT: Be sure to create a tibble with the correct number of rows based on your answer to question 4)
+```{r}
+# create the data frame with 20 rows and each column with the survey number
+diamond_survey_time <- tibble(.rows = 40,
+                            time_1 = "1",
+                            time_2 = "2",
+                            time_3 = "3",
+                            time_4 = "4",
+                            time_5 = "5")
+
+# make this into a list of one dataframe
+diamond_survey_time <- list(time = diamond_survey_time)
+```
+
+18. Create an unmarked data frame for the diamondback data
+```{r}
+diamondUMF <- unmarkedFrameOccu(diamond, obsCovs = diamond_survey_time)
+head(diamondUMF) # check out the data
+```
+
+#### Occupancy Models
+
+19. Fit an occupancy model where occupancy and detection probability are 
+constant. 
+```{r}
+diamond_pdot_psidot <- occu(~1 ~1, data = diamondUMF)
+```
+
+20. Fit an occupancy model where occupancy stays constant but detection probability
+varies with survey.
+```{r}
+diamond_ptime_psidot <- occu(~time-1 ~1, data = diamondUMF)
+```
+
+#### Model Selection
+
+21. Use AIC to determine which model is the best. 
+```{r}
+diamond_models <- fitList(diamond_pdot_psidot  = diamond_pdot_psidot, 
+                          diamond_ptime_psidot = diamond_ptime_psidot)
+modSel(diamond_models)
+```
+
+22. Report the estimates of occupancy and detection from our _best_ model. 
+    Occupancy: 0.78
+    Detection: 0.28
+
+```{r}
+plogis(coef(diamond_pdot_psidot))  # estimates of psi and p
+```
+
+23. Calculate the 95% confidence intervals for _occupancy_. Report them here.
+    Lower CI: 0.48
+    Upper CI: 0.93
+```{r}
+plogis(confint(diamond_pdot_psidot, type = "state", level = 0.95))
+```
+
+24. Calculate the 95% confidence intervals for _detection probability_ and report.
+    Lower CI: 0.19
+    Upper CI: 0.38
+```{r}
+plogis(confint(diamond_pdot_psidot, type = "det", level = 0.95))
+```
+
+### Comparing Species
+
+25. Write 3-4 sentences comparing the tiger rattlesnake and diamondback
+rattlesnake populations that we surveyed. (4 points)
+  * Which rattlesnake species has higher occupancy? 
+  * Which species has higher detectability? 
+  * In your answer, be sure to explain the difference between detection probability and occupancy.
+  * Speculate what could be driving the differences between the two species (I don't expect you to know, but you should put forward an educated guess that fits with your answers above)
+
+  _Answer:_

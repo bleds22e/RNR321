@@ -1,0 +1,142 @@
+---
+title: "Module 4 Assignment 1"
+author: "Ellen Bledsoe"
+date: "2022-11-01"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include = FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r message = FALSE}
+library(tidyverse)
+library(unmarked) 
+```
+
+```{r message = FALSE}
+tiger <- read_csv("../data_raw/tiger_rattlesnakes.csv")
+diamond <- read_csv("../data_raw/diamondback_rattlesnakes.csv")
+```
+
+3. 
+```{r}
+naive_occ_tiger <- tiger %>% 
+  mutate(detection = rowSums(.)) %>% 
+  summarise(n = n(),
+            n_detect = sum(detection > 0)) %>% 
+  mutate(naive_occ = n_detect/n)
+naive_occ_tiger
+```
+
+```{r}
+# create the data frame with 40 rows and each column with the survey number
+tiger_survey_time <- tibble(.rows = 40,
+                            time_1 = "1",
+                            time_2 = "2",
+                            time_3 = "3",
+                            time_4 = "4",
+                            time_5 = "5")
+
+# make this into a list of one dataframe
+tiger_survey_time <- list(time = tiger_survey_time)
+```
+
+6. 
+```{r}
+tigerUMF <- unmarkedFrameOccu(tiger, obsCovs = tiger_survey_time)
+head(tigerUMF)
+```
+
+
+```{r}
+tiger_pdot_psidot <- occu(~1 ~1, data = tigerUMF)
+```
+
+
+```{r}
+tiger_ptime_psidot <- occu(~time-1 ~1, data = tigerUMF)
+```
+
+9. 
+```{r}
+tiger_models <- fitList(tiger_pdot_psidot  = tiger_pdot_psidot, 
+                        tiger_ptime_psidot = tiger_ptime_psidot)
+modSel(tiger_models)
+```
+
+10. 
+```{r}
+plogis(coef(tiger_pdot_psidot))  # estimates of psi and p
+```
+
+12. 
+```{r}
+plogis(confint(tiger_pdot_psidot, type = "state", level = 0.95))
+```
+
+13. 
+```{r}
+plogis(confint(tiger_pdot_psidot, type = "det", level = 0.95))
+```
+
+15. 
+```{r}
+naive_occ_diamond <- diamond %>% 
+  mutate(detection = rowSums(.)) %>% 
+  summarise(n = n(),
+            n_detect = sum(detection > 0)) %>% 
+  mutate(naive_occ = n_detect/n)
+naive_occ_diamond
+```
+
+```{r}
+# create the data frame with 20 rows and each column with the survey number
+diamond_survey_time <- tibble(.rows = 40,
+                            time_1 = "1",
+                            time_2 = "2",
+                            time_3 = "3",
+                            time_4 = "4",
+                            time_5 = "5")
+
+# make this into a list of one dataframe
+diamond_survey_time <- list(time = diamond_survey_time)
+```
+18. 
+```{r}
+diamondUMF <- unmarkedFrameOccu(diamond, obsCovs = diamond_survey_time)
+head(diamondUMF) # check out the data
+```
+
+ 
+```{r}
+diamond_pdot_psidot <- occu(~1 ~1, data = diamondUMF)
+```
+
+
+```{r}
+diamond_ptime_psidot <- occu(~time-1 ~1, data = diamondUMF)
+```
+
+21. 
+```{r}
+diamond_models <- fitList(diamond_pdot_psidot  = diamond_pdot_psidot, 
+                          diamond_ptime_psidot = diamond_ptime_psidot)
+modSel(diamond_models)
+```
+22. 
+```{r}
+plogis(coef(diamond_pdot_psidot))  # estimates of psi and p
+```
+
+23. 
+```{r}
+plogis(confint(diamond_pdot_psidot, type = "state", level = 0.95))
+```
+
+24. 
+```{r}
+plogis(confint(diamond_pdot_psidot, type = "det", level = 0.95))
+```
