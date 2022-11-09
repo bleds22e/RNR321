@@ -275,9 +275,8 @@ and precision in difference scenarios.
     probability (`c2`) are consistent and *higher* than the demo: `p1` =
     0.6, `p2` = 0.6, `c2` = 0.6 (2 points)
 
-```{=html}
 <!-- -->
-```
+
 a.  Run the simulation.
 
 ```{r}
@@ -306,9 +305,8 @@ sd(N_hat_high)            # precision
     probability (`c2`) are consistent and *lower* than the demo: `p1` =
     0.2, `p2` = 0.2, `c2` = 0.2 (2 points)
 
-```{=html}
 <!-- -->
-```
+
 a.  Run the simulation.
 
 ```{r}
@@ -349,9 +347,8 @@ sd(N_hat_low)            # precision
     of recapture is lower than the probability of initial capture
     (`p > c`): `p1` = 0.4, `p2` = 0.4, `c2` = 0.2 (2 points)
 
-```{=html}
 <!-- -->
-```
+
 a.  Run the simulation.
 
 ```{r}
@@ -380,9 +377,8 @@ sd(N_hat_trapshy)            # precision
     probability of recapture is higher than the probability of initial
     capture (`p < c`): `p1` = 0.4, `p2` = 0.4, `c2` = 0.6 (2 points)
 
-```{=html}
 <!-- -->
-```
+
 a.  Run the simulation.
 
 ```{r}
