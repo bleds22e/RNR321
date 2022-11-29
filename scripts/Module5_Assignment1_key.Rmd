@@ -1,0 +1,257 @@
+---
+title: 'Module 5 Assignment 1: Distance Sampling'
+author: "Ellen Bledsoe"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Distance Sampling
+
+## Assignment Details
+
+### Purpose
+
+The goal of this assignment is to understand, apply, and interpret detection probability in estimating densities through distance sampling.
+
+### Task
+
+Write R code to successfully answer each question below or write text to successfully answer the question.
+
+### Criteria for Success
+
+-   Code is within the provided code chunks
+-   Code is commented with brief descriptions of what the code does
+-   Code chunks run without errors
+-   Code produces the correct result
+-   Text answers correctly address the question asked
+
+### Due Date
+
+Dec 6 at midnight MST
+
+------------------------------------------------------------------------
+
+## Assignment Questions
+
+All questions are worth 1 point unless otherwise specified.
+
+### Resources
+
+In addition to the slides and practice code, the following might be helpful:
+
+-   [Information on unmarked](http://cran.r-project.org/web/packages/unmarked/index.html)
+-   [User's manual](https://cran.r-project.org/web/packages/unmarked/unmarked.pdf)
+-   [Using unmarked with distance data](https://cran.r-project.org/web/packages/unmarked/vignettes/distsamp.pdf)
+
+## Set-Up
+
+Some colleagues went out and did some distance sampling! They want to know if "young" saguaros (\< 2 meters tall) or ocotillos are found in higher densities in Saguaro National Park. They need us to get the density estimates for them to answer their question.
+
+First things first, let's load our packages.
+
+```{r}
+library(tidyverse)
+library(unmarked)
+```
+
+## Saguaros (\< 2m)
+
+We will use the saguaro data for our first analyses.
+
+### Data Preparation
+
+1.  Read in the saguaro data; call it `saguaro`.
+
+```{r}
+saguaro <- read.csv("data_raw/saguaro.csv")
+```
+
+2.  Make a data frame with transect length (i.e., survey effort)
+
+```{r}
+transect_length <- saguaro %>% 
+  group_by(group) %>% 
+  summarise(length = mean(length))
+```
+
+3.  Plot the distribution of detection distances. Does is look how you expected?
+
+```{r}
+hist(saguaro$distance) 
+```
+
+4.  Create an object called `trunc` that sets the truncation distance to 20m to eliminate extreme observations
+
+```{r}
+trunc <- 20
+```
+
+5.  Create a vector called `distance_bins` to set "cut points" for distance bins; for the saguaros data, let's do every 4 meters. Be sure to adjust the arguments accordingly!
+
+```{r}
+distance_bins <- seq(0, trunc, by = 4) 
+```
+
+6.  Use unmarked function `formatDistData` to count the number of detections in each distance bin for each transect. Save this as an object called `sag_data`. Ignore the *warning* message (but if you get an *error* message, that is different!).
+
+```{r}
+sag_data <- formatDistData(saguaro, 
+                           distCol = "distance", 
+                           transectNameCol = "group", 
+                           dist.breaks = distance_bins)
+```
+
+7.  Assemble data into the format required by `unmarked`. Call this unmarked frame `UMF_sag`.
+
+```{r}
+UMF_sag <- unmarkedFrameDS(y = as.matrix(sag_data), 
+                       survey = "line",
+                       tlength = transect_length$length, 
+                       dist.breaks = distance_bins,
+                       unitsIn = "m")
+```
+
+8.  Check the distribution of detection distances to be used for analysis to make sure truncation has occurred and the distance bins are what you expect (4 meters)
+
+```{r}
+hist(UMF)
+```
+
+### Models
+
+9.  Use the `distsamp` function to create 4 models: half-normal (HN), hazard rate (HR), uniform (Unif), and negative exponential (Exp). (2 points)
+
+```{r}
+HN   <- distsamp(~1 ~1, UMF, keyfun = "halfnorm", output = "density", unitsOut = "ha")
+HR   <- distsamp(~1 ~1, UMF, keyfun = "hazard", output = "density", unitsOut = "ha")
+Unif <- distsamp(~1 ~1, UMF, keyfun = "uniform", output = "density", unitsOut = "ha")
+Exp  <- distsamp(~1 ~1, UMF, keyfun = "exp", output = "density", unitsOut = "ha")
+```
+
+10. Assemble models into a list to compare their AIC values. Identify the top model from this list (HN or HR or Unif or Exp), which you'll use below.
+
+```{r}
+models <- fitList('Half Normal' = HN, 
+                  'Hazard Rate' = HR,
+                  'Uniform'     = Unif,
+                  'Exponential' = Exp)
+modSel(models)
+```
+
+11. Which model should we use? Why? (2 points)
+
+    *Answer:* Half-normal, lowest AIC value
+
+### Parameter Estimates
+
+12. Use the `backTransform` function to calculate the density estimate.
+
+```{r}
+backTransform(HN, type="state") # Density estimate (no./ha) 
+```
+
+13. Calculate the confidence intervals for the density estimate.
+
+```{r}
+exp(confint(HN, type="state"))  # CI for density
+```
+
+14. Write 2-3 sentences addressing the following questions. (3 points)
+
+-   What does the value in question 12 represent?
+-   If we had calculated a density estimate using just our data and not our detection function, would we have under- or overestimated the density of saguaros? Why?
+
+*Answer:* number of saguaros \<2m per hectare; under because we could not account for the ones we missed during sampling
+
+## Ocotillos
+
+Now, let's do the same thing for the ocotillo data that they collected.
+
+### Data Preparation
+
+15. Read in the ocotillo data and call it `ocotillo`. Remember to use `read.csv` this time (instead of `read_csv`)!
+
+```{r}
+ocotillo <- read.csv("data_raw/ocotillo.csv")
+```
+
+16. Make your data frame with the transect lengths. Call this `transect_oco`.
+
+```{r}
+transect_length_oco <- ocotillo %>% 
+  group_by(group) %>% 
+  summarise(length = mean(length))
+```
+
+17. Plot the distribution of detection distances to get an idea of what they look like.
+
+```{r}
+hist(ocotillo$distance) 
+```
+
+18. This time around, set truncation distance to 25m; save this as an object called `trunc_oco`. Then create your distance vector (`dinstance_bins_oco`) and set the cut points at every 5 meters.
+
+```{r}
+trunc_oco <- 25
+distance_bins_oco <- seq(0, trunc_oco, by = 5) 
+```
+
+19. Use the function `formatDistData` to count the number of detection in each distance bin for each transect. Ignore the warning message. Remember to use the correct data and distance bins.
+
+```{r}
+oco_data <- formatDistData(ocotillo, 
+                           distCol = "distance", 
+                           transectNameCol = "group", 
+                           dist.breaks = distance_bins_oco)
+```
+
+20. Assemble data into the format required by unmarked, called an "unmarked frame." Remember to refer to the correct data frames and values! Save this as `UMF_oco`
+
+```{r}
+UMF_oco <- unmarkedFrameDS(y = as.matrix(oco_data), 
+                           survey = "line",
+                           tlength = transect_length_oco$length, 
+                           dist.breaks = distance_bins_oco,
+                           unitsIn = "m")
+UMF_oco
+```
+
+### Models
+
+21. Fit the four models to the ocotillo data. Again, be sure you're using the correct data frame. (2 points)
+
+```{r}
+HN_oco   <- distsamp(~1 ~1, UMF_oco, keyfun = "halfnorm", output = "density", unitsOut = "ha")
+HR_oco <- distsamp(~1 ~1, UMF_oco, keyfun = "hazard", output = "density", unitsOut = "ha")
+Unif_oco <- distsamp(~1 ~1, UMF_oco, keyfun = "uniform", output = "density", unitsOut = "ha")
+Exp_oco  <- distsamp(~1 ~1, UMF_oco, keyfun = "exp", output = "density", unitsOut = "ha")
+```
+
+22. Assemble models into a list to compare their AIC values.
+
+```{r}
+models_oco <- fitList('Half Normal' = HN_oco, 
+                      "Hazard Rate" = HR_oco,
+                      'Uniform'     = Unif_oco,
+                      'Exponential' = Exp_oco)
+modSel(models_oco)
+```
+
+23. Using the best model, calculate the density estimate and confidence intervals for ocotillos. (2 points)
+
+```{r}
+backTransform(HN_oco, type="state") # Density estimate (no./ha) 
+exp(confint(HN_oco, type="state"))  # CI for density
+```
+
+## Compare Densities
+
+We've done a lot of calculations just to get to this point!
+
+24. Which has the higher density per hectare: saguaros or ocotillos? How do you know?
+
+*Answer:*

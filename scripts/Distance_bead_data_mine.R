@@ -67,10 +67,10 @@ modSel(models)
 
 hr.shape <- exp(coef(HR, type="det"))
 hr.scale <- exp(coef(HR, type="scale"))
-hist(UMF, xlab="distance (m)", main="Ocotillos", cex.lab=0.8, cex.axis=0.8) 
-par(new=TRUE)
-plot(function(x) gxhaz(x, shape=hr.shape, scale=hr.scale), 0, trunc, xaxt='n', yaxt='n', 
-     ann = FALSE, col = "blue", lwd=2)
+hist(UMF, xlab = "distance (m)", main = "Beads", cex.lab = 0.8, cex.axis = 0.8) 
+par(new = TRUE)
+plot(function(x) gxhaz(x, shape = hr.shape, scale = hr.scale), 0, trunc, xaxt='n', yaxt='n', 
+     ann = FALSE, col = "blue", lwd = 2)
 
 # --------   Density estimate   --------- #
 
@@ -79,6 +79,7 @@ backTransform(HN, type = "state") # Density estimate (no./m)
 exp(confint(HN, type = "state"))  # CI for density
 
 # D-hat = 1528 / m
+
 # Survey area = 12 x 45 m 
 area <- 12 * 45 # 540 m^2
 

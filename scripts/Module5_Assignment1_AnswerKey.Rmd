@@ -1,0 +1,181 @@
+---
+title: 'Module 5 Assignment 1: Distance Sampling'
+author: "Ellen Bledsoe"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r message = FALSE}
+library(tidyverse)
+library(unmarked)
+```
+
+1. 
+```{r}
+saguaro <- read.csv("../data_raw/saguaro.csv")
+as_tibble(saguaro)
+```
+
+2.  
+
+```{r}
+transect_length <- saguaro %>% 
+  group_by(group) %>% 
+  summarise(length = mean(length))
+as_tibble(transect_length)
+```
+
+3.  
+
+```{r}
+hist(saguaro$distance) 
+```
+
+
+```{r}
+trunc <- 20
+```
+
+5.  
+
+```{r}
+distance_bins <- seq(0, trunc, by = 4) 
+distance_bins
+```
+
+6. 
+
+```{r}
+sag_data <- formatDistData(saguaro, 
+                           distCol = "distance", 
+                           transectNameCol = "group", 
+                           dist.breaks = distance_bins)
+as_tibble(sag_data)
+```
+
+7.  
+
+```{r}
+UMF_sag <- unmarkedFrameDS(y = as.matrix(sag_data), 
+                       survey = "line",
+                       tlength = transect_length$length, 
+                       dist.breaks = distance_bins,
+                       unitsIn = "m")
+UMF_sag
+```
+
+8.  
+
+```{r}
+hist(UMF_sag)
+```
+
+```{r}
+HN   <- distsamp(~1 ~1, UMF_sag, keyfun = "halfnorm", output = "density", unitsOut = "ha")
+HR   <- distsamp(~1 ~1, UMF_sag, keyfun = "hazard", output = "density", unitsOut = "ha")
+Unif <- distsamp(~1 ~1, UMF_sag, keyfun = "uniform", output = "density", unitsOut = "ha")
+Exp  <- distsamp(~1 ~1, UMF_sag, keyfun = "exp", output = "density", unitsOut = "ha")
+```
+
+10. 
+
+```{r}
+models <- fitList('Half Normal' = HN, 
+                  'Hazard Rate' = HR,
+                  'Uniform'     = Unif,
+                  'Exponential' = Exp)
+modSel(models)
+```
+
+
+12. 
+
+```{r}
+backTransform(HN, type="state") 
+```
+
+13. 
+
+```{r}
+exp(confint(HN, type="state"))  
+```
+
+15. 
+```{r}
+ocotillo <- read.csv("../data_raw/ocotillo.csv")
+as_tibble(ocotillo)
+```
+
+16. 
+
+```{r}
+transect_length_oco <- ocotillo %>% 
+  group_by(group) %>% 
+  summarise(length = mean(length))
+as_tibble(transect_length_oco)
+```
+
+17. 
+
+```{r}
+hist(ocotillo$distance) 
+```
+
+18. 
+
+```{r}
+trunc_oco <- 25
+distance_bins_oco <- seq(0, trunc_oco, by = 5) 
+distance_bins_oco
+```
+
+19. 
+
+```{r}
+oco_data <- formatDistData(ocotillo, 
+                           distCol = "distance", 
+                           transectNameCol = "group", 
+                           dist.breaks = distance_bins_oco)
+as_tibble(oco_data)
+```
+
+20. 
+
+```{r}
+UMF_oco <- unmarkedFrameDS(y = as.matrix(oco_data), 
+                           survey = "line",
+                           tlength = transect_length_oco$length, 
+                           dist.breaks = distance_bins_oco,
+                           unitsIn = "m")
+UMF_oco
+```
+
+
+
+
+```{r}
+HN_oco   <- distsamp(~1 ~1, UMF_oco, keyfun = "halfnorm", output = "density", unitsOut = "ha")
+HR_oco <- distsamp(~1 ~1, UMF_oco, keyfun = "hazard", output = "density", unitsOut = "ha")
+Unif_oco <- distsamp(~1 ~1, UMF_oco, keyfun = "uniform", output = "density", unitsOut = "ha")
+Exp_oco  <- distsamp(~1 ~1, UMF_oco, keyfun = "exp", output = "density", unitsOut = "ha")
+```
+
+22. 
+
+```{r}
+models_oco <- fitList('Half Normal' = HN_oco, 
+                      "Hazard Rate" = HR_oco,
+                      'Uniform'     = Unif_oco,
+                      'Exponential' = Exp_oco)
+modSel(models_oco)
+```
+
+23. 
+```{r}
+backTransform(HN_oco, type="state") 
+exp(confint(HN_oco, type="state"))
+```
