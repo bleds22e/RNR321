@@ -25,25 +25,21 @@ library(tidyverse)
 saguaro <- read_csv("data_raw/PCQ_Data.csv")
 ```
 
-2. Check out the data frame. How many points (`k`) were sampled? How many distances did we measure at each point (`n`)? (2 pts)
+2. Check out the data frame. How many points (`k`) were sampled? How many distances did we measure at each point (`n`)? (2 points)
 ```{r}
 head(saguaro)
 k <- 8
 n <- 4
 ```
 
-
 3. Take a look at the equation for estimating density using the PCQ method. The numerator of the equation can be calculated in one step! Calculate the numerator using the objects you created in the question above.
 ```{r}
 numerator <- k * n
 ```
 
-The denominator is a bit more complicated, but we can work through it together.
-Bear with me while we do some data wrangling to make it easier to calculate!
+The denominator is a bit more complicated, but we can work through it together. Bear with me while we do some data wrangling to make it easier to calculate!
 
-Right now, the distance measurements are in 4 different columns. Let's first
-use a function from the tidyverse to put all the distance measurements into 
-one column.
+Right now, the distance measurements are in 4 different columns. Let's first use a function from the tidyverse to put all the distance measurements into one column.
 ```{r}
 saguaro_long <- pivot_longer(data = saguaro,
                              cols = NE:NW,            # which columns to include in our "pivot"
@@ -78,25 +74,69 @@ density <- numerator / denominator
 print(density)
 ```
 
-8. Convert the density estimate to # saguaros per hectare (ha = 100m x 100m AKA 10,000 m2)
-```{r}
-density_ha <- density * 10000
-density_ha
-```
+8. Based on the target of these surveys (saguaros > 2m) and what you know about the assumptions of PCQ methods, do you think this estimate of density is a reliable estimate? Why or why not? (2 points)
 
-9. Based on the target of these surveys (saguaros > 2m) and what you know about
-the assumptions of PCQ methods, do you think this estimate of density is 
-a reliable estimate? Why or why not? (2 pts)
-
-  _Answer:_
+  _Answer:_ yes; saguaros are inanimate, large (> 2m) are hard to miss so detection is probably close to 1. not sure about random distribution.
 
 ## Spatial Patterns 
 
+Before you start working on this section, I _highly_ recommend that you click the little broom button over in the Environment panel (upper right-hand panel). Some of the objects you will create have the same names as the ones we used in the lab example and could wreak havoc on your calculations.
+
+That said, the script that we used in lab today will be very helpful!
+
+### T-square Sampling
+
+First, let's create some data. Let's say these data represent Osage orange trees (_Maclura pomifera_) across a landscape.
+
+Don't worry, you don't need to know what this code is doing---you just need to run the code chunk :)
+```{r}
+point <- seq(50)
+x_i <- abs(round(rnorm(n = 50, mean = 9, sd = 3), 2))
+y_i <- abs(round(rnorm(n = 50, mean = 15, sd = 3), 2))
+```
+
+Now we have 50 random points (`point`) which each have two associated measurements, `x` and `y`.
+
+9. Determine whether the sum of `x^2` is greater, equal to, or less than the sum of 1/2`y^2`. What does this suggest to us? (2 points)
+```{r}
+sum(x_i^2)
+sum(.5*y_i^2)
+```
+
+  _Answer:_ 1/2y^2 is bigger, suggesting clumped
+
+10. Calculate the Index of Spatial Patterning (`C`). First, establish the numerator, `k`, and then calculate `C`. (2 points)
+```{r}
+numerator <- sum(x_i^2 / (x_i^2 + 1/2*y_i^2))
+k <- length(point)
+
+C <- numerator / k
+C
+```
+
+11. Is the value of `C` consistent with what we determined in question 10?
+
+  _Answer:_ yes
+
+#### Significance Testing
+
+12. Calculate our test statistic, `Z`.
+```{r}
+Z <- (C - 1/2) / sqrt(1/(12*k))
+```
+
+13. Run the correct significance test and interpret. 
+```{r}
+pnorm(Z)
+```
+
+14. Should we reject the null hypothesis? What spatial pattern do we determine this population to have? Explain your rationale (2 points)
+
+  _Answer:_ p < alpha of 0.10, so reject null hypothesis--clumped distribution
+
 ### Plot-Based Estimates
 
-The script that we used in lab today will be very helpful!
-
-Below are some data from Pacific silver fir (Abies amabilis) seedlings were counted on 104 10 x 10 cm plots.
+Below are some data from Pacific silver fir (_Abies amabilis_) seedlings were counted on 104 10 x 10 cm plots.
 ```{r}
 seedlings <- c(0, 0, 1, 0, 5, 7, 2, 1, 0, 0, 0, 1, 0, 4, 6, 3, 0, 0, 1, 1, 0, 0, 0, 2, 5, 8, 
                0, 2, 4, 6, 5, 2, 1, 0, 0, 1, 2, 4, 7, 3, 0, 0, 1, 0, 1, 0, 3, 6, 5, 2, 0, 0, 
@@ -105,69 +145,45 @@ seedlings <- c(0, 0, 1, 0, 5, 7, 2, 1, 0, 0, 0, 1, 0, 4, 6, 3, 0, 0, 1, 1, 0, 0,
 table(seedlings)
 ```
 
-10. Create a histogram of the data (because this data is in vector form rather than
-a data frame, we do not need to specify a column like we have in the past).
+15. Create a histogram of the data (because this data is in vector form rather than a data frame, we do not need to specify a column like we have in the past).
 ```{r}
 hist(seedlings)
 ```
 
-11. From what we've talked about in class, hypothesize which pattern of dispersion
-these data are likely to show: clumped, random, or uniform. Why? (2 pts)
+16. From what we've talked about in class, hypothesize which pattern of dispersion these data are likely to show: clumped, random, or uniform. Why? (2 points)
 Hint: think about the mean and the variance.
 
-  _Answer:_
+  _Answer:_ variance is higher than mean, so suggests clumped
 
-12. Use the mean function to calculate the mean number of seedlings per plots.
-```{r}
-mean_seedlings <- mean(seedlings)
-```
-
-
-13. Use `var()` to calculate the variance around the mean.
-```{r}
-var_seedlings <- var(seedlings)
-```
-
-
-14. Calculate the Index of Dispersion (ID) to characterize the dispersion pattern.
-Which pattern does the ID value indicate? (2 pts)
+17. Calculate the Index of Dispersion (ID) to characterize the dispersion pattern.
 ```{r}
 ID <- var_seedlings / mean_seedlings
 ID
 ```
-
-  _Answer:_
   
 We aren't done yet, though! We need to test the significance of our findings.
 
-15. First, create the chi.sq test statistic.
+18. First, create the chi.sq test statistic.
 ```{r}
 df <- (length(seedlings) - 1) 
 chi.sq <- ID * df
 chi.sq
 ```
 
-16. Based on the fact that our n is > 100, we will want to use the normal distribution.
-That means we first need to calculate our test statistic.
+19. Based on the fact that our n is > 100, we will want to use the normal distribution. That means we first need to calculate our new test statistic.
 ```{r}
 d <- sqrt(2 * chi.sq) - sqrt((2 * df) - 1)
 ```
 
-
-17. Run the correct significance test. 
+20. Run the correct significance test. 
 ```{r}
-pnorm(d, lower.tail = FALSE)
+pnorm(d)
 ```
 
-18. Is the pattern significantly different from random? 
-Remember, the way we've coded this means our interpretation differs a bit from the PowerPoint slides.
-If the P-value is smaller than 0.10, then we reject the null hypothesis and say that the pattern differs significantly from random.
+21. What is our spatial pattern type? Explain your rationale (2 points)
 
-  _Answer:_
+  _Answer:_ clumped because p > .90 so we reject null of random
 
-19. Think critically about what the variance of sample data means. In your own
-words, explain why you would expect the variance for a species with a uniform
-distribution to be smaller than the variance for a species with a clumped 
-distribution? (2 pts)
+22. Think critically about what the variance of sample data means. In your ownwords, explain why you would expect the variance for a species with a uniform distribution to be smaller than the variance for a species with a clumped distribution? (2 points)
 
-  _Answer:_
+  _Answer:_ each sample is likely to be very similar in a uniform distribution, so there will not be a lot of spread around the data. in clumped, you might have a bunch of samples with zeros or low numbers and a few with mid- or high numbers, creating a much higher spread in the data.

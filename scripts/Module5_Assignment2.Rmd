@@ -1,0 +1,202 @@
+---
+title: "Module 5 Assignment 2: Other Distance-based Sampling"
+author: "Ellen Bledsoe"
+date: "2022-11-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Exploring Other Distance-Sampling Methods
+
+As usual, having the PowerPoint slides open (Lecture 23) as you work through this exercise will be helpful! As will the example from lab, `Module5_Lab2_key.R`
+
+Load the `tidyverse`
+
+```{r}
+library(tidyverse)
+```
+
+## Point-Centered Quarter
+
+1.  Read in the data. This is data for saguaros \> 2m tall.
+
+```{r}
+saguaro
+```
+
+2.  Check out the data frame. How many points (`k`) were sampled? How many distances did we measure at each point (`n`)? (2 points)
+
+```{r}
+k 
+n 
+```
+
+3.  Take a look at the equation for estimating density using the PCQ method. The numerator of the equation can be calculated in one step! Calculate the numerator using the objects you created in the question above.
+
+```{r}
+numerator 
+```
+
+The denominator is a bit more complicated, but we can work through it together. Bear with me while we do some data wrangling to make it easier to calculate!
+
+Right now, the distance measurements are in 4 different columns. Let's first use a function from the tidyverse to put all the distance measurements into one column.
+
+```{r}
+saguaro_long <- pivot_longer(data = saguaro,
+                             cols = NE:NW,            # which columns to include in our "pivot"
+                             names_to = "quarter",    # what to name the column with the previous column names
+                             values_to = "distance")  # what to name the new column with the values that were in the previous columns
+head(saguaro_long)  # all the distance values are now in one column, 
+                    # and there is a new column that has the name of the quarter, which were previously column names
+```
+
+4.  Now, we need to square all of these values. Fill in the correct column name below and run the code.
+
+```{r}
+squared_distances <- saguaro_long %>% 
+  mutate(distance_sq = ___ ^ 2) 
+head(squared_distances)
+```
+
+5.  We now sum the squared distances. Fill in the correct column name below and run the code.
+
+```{r}
+sum_sqrd_distances <- squared_distances %>% 
+  summarise(sum_squared = sum(___))
+head(sum_sqrd_distances)
+```
+
+6.  We can calculate the value of the denominator by multiple the sum of the squared distances (`sum_sqrd_distances`) by pi (you can type `pi` into the equation)
+
+```{r}
+denominator 
+```
+
+7.  Finally, we can calculate our density estimate (\# saguaros per square meter)
+
+```{r}
+density <- 
+```
+
+8.  Based on the target of these surveys (saguaros \> 2m) and what you know about the assumptions of PCQ methods, do you think this estimate of density is a reliable estimate? Why or why not? (2 points)
+
+*Answer:*
+
+## Spatial Patterns
+
+Before you start working on this section, I *highly* recommend that you click the little broom button over in the Environment panel (upper right-hand panel). Some of the objects you will create have the same names as the ones we used in the lab example and could wreak havoc on your calculations.
+
+That said, the script that we used in lab today will be very helpful!
+
+### T-square Sampling
+
+First, let's create some data. Let's say these data represent Osage orange trees (*Maclura pomifera*) across a landscape.
+
+Don't worry, you don't need to know what this code is doing---you just need to run the code chunk :)
+
+```{r}
+point <- seq(50)
+x_i <- abs(round(rnorm(n = 50, mean = 9, sd = 3), 2))
+y_i <- abs(round(rnorm(n = 50, mean = 15, sd = 3), 2))
+```
+
+Now we have 50 random points (`point`) which each have two associated measurements, `x_i` and `y_i`.
+
+9.  Determine whether the sum of `x_i^2` is greater, equal to, or less than the sum of 1/2`y_i^2`. What does this suggest to us? (2 points)
+
+```{r}
+
+```
+
+*Answer:* 1/2y\^2 is bigger, suggesting clumped
+
+10. Calculate the Index of Spatial Patterning (`C`). First, establish the numerator, `k`, and then calculate `C`. (2 points)
+
+```{r}
+numerator 
+k 
+
+C
+```
+
+11. Is the value of `C` consistent with what we determined in question 9?
+
+*Answer:*
+
+#### Significance Testing
+
+12. Calculate our test statistic, `Z`.
+
+```{r}
+Z 
+```
+
+13. Run the correct significance test and interpret.
+
+```{r}
+
+```
+
+14. Should we reject the null hypothesis? What spatial pattern do we determine this population to have? Explain your rationale (2 points)
+
+*Answer:*
+
+### Plot-Based Estimates
+
+Below are some data from Pacific silver fir (*Abies amabilis*) seedlings were counted on 104 10 x 10 cm plots.
+
+```{r}
+seedlings <- c(0, 0, 1, 0, 5, 7, 2, 1, 0, 0, 0, 1, 0, 4, 6, 3, 0, 0, 1, 1, 0, 0, 0, 2, 5, 8, 
+               0, 2, 4, 6, 5, 2, 1, 0, 0, 1, 2, 4, 7, 3, 0, 0, 1, 0, 1, 0, 3, 6, 5, 2, 0, 0, 
+               0, 1, 3, 8, 4, 1, 0, 0, 1, 1, 0, 5, 6, 3, 1, 0, 0, 0, 1, 0, 1, 4, 7, 4, 2, 0, 
+               1, 2, 0, 3, 4, 6, 4, 0, 1, 0, 1, 0, 3, 6, 7, 5, 2, 0, 1, 0, 0, 0, 2, 3, 7, 4) 
+table(seedlings)
+```
+
+15. Create a histogram of the data (because this data is in vector form rather than a data frame, we do not need to specify a column like we have in the past).
+
+```{r}
+
+```
+
+16. From what we've talked about in class, hypothesize which pattern of dispersion these data are likely to show: clumped, random, or uniform. Why? (2 points) Hint: think about the mean and the variance.
+
+*Answer:*
+
+17. Calculate the Index of Dispersion (ID) to characterize the dispersion pattern.
+
+```{r}
+ID 
+```
+
+We aren't done yet, though! We need to test the significance of our findings.
+
+18. First, create the chi.sq test statistic.
+
+```{r}
+df 
+chi.sq 
+```
+
+19. Based on the fact that our n is \> 100, we will want to use the normal distribution. That means we first need to calculate our new test statistic.
+
+```{r}
+d 
+```
+
+20. Run the correct significance test.
+
+```{r}
+
+```
+
+21. What is our spatial pattern type? Explain your rationale (2 points)
+
+*Answer:*
+
+22. Think critically about what the variance of sample data means. In your ownwords, explain why you would expect the variance for a species with a uniform distribution to be smaller than the variance for a species with a clumped distribution? (2 points)
+
+*Answer:*

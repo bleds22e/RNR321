@@ -67,7 +67,7 @@ We will use the saguaro data for our first analyses.
 1.  Read in the saguaro data; call it `saguaro`.
 
 ```{r}
-saguaro <- read.csv("data_raw/saguaro.csv")
+saguaro <- read.csv("../data_raw/saguaro.csv")
 ```
 
 2.  Make a data frame with transect length (i.e., survey effort)
@@ -176,7 +176,7 @@ Now, let's do the same thing for the ocotillo data that they collected.
 15. Read in the ocotillo data and call it `ocotillo`. Remember to use `read.csv` this time (instead of `read_csv`)!
 
 ```{r}
-ocotillo <- read.csv("data_raw/ocotillo.csv")
+ocotillo <- read.csv("../data_raw/ocotillo.csv")
 ```
 
 16. Make your data frame with the transect lengths. Call this `transect_oco`.

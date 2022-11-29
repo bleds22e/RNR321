@@ -11,80 +11,124 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Spatial Patterns
 
+In today's lab, we will practice using the equations from today's class on using distance-based metrics to evaluate spatial patterns in populations.
+
+We will be mostly be using vectors and arithmetic, so we actually don't need to load the `tidyverse` for this lab.
+
+## T-square
+
+T-square sampling uses point-to-object-to-object distances to determine how close individuals are to each other.
+
+Consider the following data (this is actually the data from the slides in class today):
+
+```{r}
+point <-  c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+x <- c(6, 2, 6, 5, 6, 2, 1, 2, 4, 2)
+y <- c(4, 9, 3, 7, 1, 8, 3, 5, 6, 5)
+```
+
+Let's first consider the relationship between the sums of `x^2` and 1/2`y^2`. This is our first pass at determining which spatial pattern we might expect.
+
+```{r}
+sum(x^2)
+sum(1/2 * y^2)
+```
+
+We determine that the sum of `x^2` is the larger value, which indicates that we might have a clumped distribution.
+
+### Determining Statistical Significance
+
+We think out population is probably clumped, but we need to determine this for sure. This will take a few steps. Let's start by calculating `C`, the Index of Spatial Pattern
+
+```{r}
+numerator <- sum(x^2 / (x^2 + 1/2*y^2))
+k <- length(point)
+
+C <- numerator / k
+C
+```
+
+We've calculated the `C` is 0.45, which is actually pretty close to 1/2. It is below 1/2, though, which still means it could be a clumped distribution. Let's keep going.
+
+Our next step is to calculate our test statistic, `Z`.
+
+```{r}
+Z <- (C - 1/2) / sqrt(1/(12*k))
+```
+
+By itself, `Z` doesn't tell us much. We have to calculate a p-value to determine if the pattern is significantly different from random. We can do this by using the `pnorm()` function, which pulls values from a normal probability density function to produce our p-value.
+
+```{r}
+pnorm(Z)
+```
+
+Since our p-value is greater than our alpha of 0.10, there is no reason to reject the null hypothesis of a random distribution. Therefore, we can conclude that the population is likely randomly distributed.
+
 ## Plot-based Estimates
 
-Larvae of carpenter bees counted in 180 inflorescences of a soap-tree yucca
+This is also the same example that we used in class: larvae of carpenter bees counted in 180 inflorescences of a soap-tree yucca.
 
-Counts reported as frequencies (114 zeroes, 25 ones, 15 twos...)
+On the slide, the counts are reported as frequencies (114 zeroes, 25 ones, 15 twos...)
 
 ```{r}
 x  <- c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)     # no. larvae per inflorescence
 Fx <- c(114, 25, 15, 10, 6, 5, 2, 1, 1, 0, 1) # no. inflorescences with x larvae
 ```
 
-Frequencies are convenient to report but a pain to work with, so convert to 180 observations
+Frequencies are convenient to report but a pain to work with in R. To calculate the values we need, we will convert to a vector with 180 observations of number of larvae per inflorescence.
 
 ```{r}
 larvae <- rep(x, Fx)
 larvae
 ```
 
-Let's look at the data
-
-```{r}
-table(larvae)
-```
-
-We cab create a histogram two different ways:
+We can use the `hist()` function in base R to create a quick histogram of the data.
 
 ```{r}
 hist(larvae)
-barplot(table(larvae), xlab = "No. larver per flower (x)", ylab = "Frequency (Fx)")
 ```
 
-Calculate the Index of Dispersion
+When we use plot-based estimates to determine spatial patterns, we use the ratio of variance to the mean to calculate `ID`, the Index of Dispersion. We can do this using the `var()` and `mean()` functions.
 
 ```{r}
 ID <- var(larvae)/mean(larvae)
-ID    # ID > 1, so tends towards clumped (if < 1, then tends towards uniform)
+ID    
 ```
 
-Calculate test statistic and df to evaluate whether there is sufficient evidence to reject the null as false and claim the dispersion pattern is clumped rather than random
+Because the ID \> 1, this is tending towards clumped.
+
+### Determining Statistical Significance
+
+This is where a little bit of "witchcraft" and computer magic happen. We need to calculate test statistic and degrees of freedom to evaluate whether there is sufficient evidence to reject the null as false and claim the dispersion pattern is clumped rather than random.
 
 ```{r}
 df <- (length(larvae) - 1) # length() provides no. objects in a vector, so sample size (n)
-  
+
+# calculate test statistic
 chi.sq <- ID * df
 chi.sq
 ```
 
-### VERY IMPORTANT NOTE!
+This is where things get a little more complicated...
 
-Interpreting the p-values for both the chi-square and normal distributions differ from what is on the PowerPoint slides, so be alert! This is mostly because we are indicating whether we want the lower tail or the upper tail of the distribution.
+#### If `n` is \< 100:
 
-I don't need you to understand why it is different---what you should know is that in EITHER case, if the p value is LESS than 0.10, then we can say it is significant and accept the alternative hypothesis (either clumped or uniform)
-
-### Calculating the p-value
-
-If n \< 100, use chi-square distribution
+We want to use the chi-square distribution.
 
 ```{r}
-# P-value for clumped (when ID > 1 and we want upper tail)
-pchisq(chi.sq, df, lower.tail = FALSE)
-
-# P-value for uniform (when ID < 1 and we want lower tail)
-pchisq(chi.sq, df, lower.tail = TRUE)
+pchisq(chi.sq, df)
 ```
 
-If n \>= 100, compute d and use normal distribution
+#### If `n` is \>= 100,
+
+We first need to compute a new test statistic, `d`, and use a normal distribution.
 
 ```{r}
 # adjust the test statistic 
 d <- sqrt(2 * chi.sq) - sqrt((2 * df) - 1)
-   
-# P-value for clumped (when ID > 1 and we want upper tail)
-pnorm(d, lower.tail = FALSE)
-    
-# P-value for uniform (when ID < 1 and we want lower tail)
-pnorm(d, lower.tail = TRUE)
+
+# P-value for clumped (when ID > 1)
+pnorm(d)
 ```
+
+Since we have 180 observations, we want to use `d` and the normal distribution. The p-value is greater than 0.90, so we can reject the null hypothesis of a random distribution and conclude that this is a clumped distribution.

@@ -1,0 +1,146 @@
+---
+title: "Module 5 Assignment 2: Other Distance-based Sampling"
+author: "Ellen Bledsoe"
+date: "2022-11-29"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r message = FALSE}
+library(tidyverse)
+```
+
+```{r}
+saguaro <- read_csv("../data_raw/PCQ_Data.csv")
+```
+
+2. 
+```{r}
+head(saguaro)
+k <- 8
+n <- 4
+```
+
+3. 
+```{r}
+numerator <- k * n
+numerator
+```
+
+```{r}
+saguaro_long <- pivot_longer(data = saguaro,
+                             cols = NE:NW,            # which columns to include in our "pivot"
+                             names_to = "quarter",    # what to name the column with the previous column names
+                             values_to = "distance")  # what to name the new column with the values that were in the previous columns
+head(saguaro_long)  # all the distance values are now in one column, 
+                    # and there is a new column that has the name of the quarter, which were previously column names
+```
+
+4. 
+```{r}
+squared_distances <- saguaro_long %>% 
+  mutate(distance_sq = distance ^ 2) 
+head(squared_distances)
+```
+
+5. 
+```{r}
+sum_sqrd_distances <- squared_distances %>% 
+  summarise(sum_squared = sum(distance_sq))
+head(sum_sqrd_distances)
+```
+
+6. 
+```{r}
+denominator <- sum_sqrd_distances * pi
+denominator
+```
+
+7. 
+```{r}
+density <- numerator / denominator
+density
+```
+
+
+```{r}
+point <- seq(50)
+x_i <- abs(round(rnorm(n = 50, mean = 9, sd = 3), 2))
+y_i <- abs(round(rnorm(n = 50, mean = 15, sd = 3), 2))
+```
+
+
+
+9. 
+```{r}
+sum(x_i^2)
+sum(.5*y_i^2)
+```
+
+  
+
+10. 
+```{r}
+numerator <- sum(x_i^2 / (x_i^2 + 1/2*y_i^2))
+k <- length(point)
+
+C <- numerator / k
+C
+```
+
+
+12. 
+```{r}
+Z <- (C - 1/2) / sqrt(1/(12*k))
+Z
+```
+
+13. 
+```{r}
+pnorm(Z)
+```
+
+
+```{r}
+seedlings <- c(0, 0, 1, 0, 5, 7, 2, 1, 0, 0, 0, 1, 0, 4, 6, 3, 0, 0, 1, 1, 0, 0, 0, 2, 5, 8, 
+               0, 2, 4, 6, 5, 2, 1, 0, 0, 1, 2, 4, 7, 3, 0, 0, 1, 0, 1, 0, 3, 6, 5, 2, 0, 0, 
+               0, 1, 3, 8, 4, 1, 0, 0, 1, 1, 0, 5, 6, 3, 1, 0, 0, 0, 1, 0, 1, 4, 7, 4, 2, 0, 
+               1, 2, 0, 3, 4, 6, 4, 0, 1, 0, 1, 0, 3, 6, 7, 5, 2, 0, 1, 0, 0, 0, 2, 3, 7, 4) 
+table(seedlings)
+```
+
+15. 
+```{r}
+hist(seedlings)
+```
+
+
+17. 
+```{r}
+ID <- var(seedlings) / mean(seedlings)
+ID
+```
+  
+
+
+18. 
+```{r}
+df <- (length(seedlings) - 1) 
+chi.sq <- ID * df
+chi.sq
+```
+
+19. 
+```{r}
+d <- sqrt(2 * chi.sq) - sqrt((2 * df) - 1)
+d
+```
+
+20. 
+```{r}
+pnorm(d)
+```
+
