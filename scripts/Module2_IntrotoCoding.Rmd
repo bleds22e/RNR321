@@ -153,6 +153,12 @@ To explore data frames, we are going to use a package called `palmerpenguins`.
 
 A package is a bunch of pre-written code, often in the form of functions, which we can bring into R and use. In this case, we are using a data package, which loads data into R that we can use. It is real data from penguins in Antarctica! You can learn more about the `palmerpenguins` package and data [here](https://allisonhorst.github.io/palmerpenguins/).
 
+```{r}
+# code for installing a package from the internet for future reference
+# install.packages("palmerpenguins")
+# to run the line of code above, remove the # symbol
+```
+
 I've already set it up where RStudio Cloud has `palmerpenguins` installed, AKA downloaded from the internet. We now need to tell RStudio that we want to use it. We will need to do that every time we open RStudio and want to use it.
 
 ```{r}
