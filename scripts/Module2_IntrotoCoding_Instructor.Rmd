@@ -44,9 +44,9 @@ For example:
 ```{r}
 3 + 5
 
-18 - 11
-
 15 / 5
+
+4^2
 ```
 
 ### Let's practice in the console, too.
@@ -64,7 +64,7 @@ mass <- 47.5
 age <- 122
 ```
 
-We can also perform mathmatical functions on numeric objects.
+We can also perform mathematical functions on numeric objects.
 
 ```{r}
 # we can add comments to our code by using the # sign
@@ -73,14 +73,13 @@ We can also perform mathmatical functions on numeric objects.
 mass <- mass * 2        # multiply
 age <- age - 20         # subtract
 mass_index <- mass/age  # divide
-mass_sq <- mass^2       # raise to an exponent
 ```
 
 ## Functions
 
 Functions are pre-written bits of codes that perform specific tasks for us.
 
-Functions are always followed by parentheses. Anything you type into the parentheses are called arguments.
+Functions are always followed by parentheses. Anything you type into the parentheses are called arguments. Arguments allow us to give the function additional information about how we want it to perform its task.
 
 ```{r}
 weight_kg <- sqrt(10) # square root 
@@ -89,7 +88,7 @@ round(weight_kg) # rounding
 round(weight_kg, digits = 2) # round to 2 digits past 0
 ```
 
-To get more information about a function, use the help function
+To get more information about a function, use the help function.
 
 ```{r}
 # these two lines of code do the same thing
@@ -166,9 +165,9 @@ Let's practice! Write a few lines of code that do the following:
 -   assign the vector to an object named `vec`
 -   using the index method, subset `vec` to include the last 3 numbers (should include 3, 2, 1)
 -   find the sum of the numbers (hint: use the `sum()` function)
--   your answer should be 6
 
 ```{r}
+# the answer you should get out is 6
 vec <- c(6, 5, 4, 3, 2, 1)
 vec
 
@@ -192,6 +191,12 @@ Data frames are made up of multiple vectors. Each vector becomes a column.
 To explore data frames, we are going to use a package called `palmerpenguins`.
 
 A *package* is a bunch of pre-written code, often in the form of functions, which we can bring into R and use. In this case, we are using a data package, which loads data into R that we can use. It is real data from penguins in Antarctica! You can learn more about the `palmerpenguins` package and data [here](https://allisonhorst.github.io/palmerpenguins/).
+
+```{r}
+# code for installing a package from the internet for future reference
+# install.packages("palmerpenguins")
+# to run the line of code above, remove the # symbol
+```
 
 I've already set it up where RStudio Cloud has `palmerpenguins` installed, AKA downloaded from the internet. We now need to tell RStudio that we want to use it. We will need to do that every time we open RStudio and want to use it.
 
@@ -222,7 +227,7 @@ ncol(penguins) # number of columns
 names(penguins) # same as colnames(penguins) in a df
 ```
 
-### Subsetting using Indexing
+### Sub-setting using Indexing
 
 When subsetting data frames, we need to now specify 2 locations, the row and the column. In R, it is always row *then* column. Note that this is typically the opposite of spreadsheets.
 

@@ -71,7 +71,7 @@ We can also perform mathematical functions on numeric objects.
 
 Functions are pre-written bits of codes that perform specific tasks for us.
 
-Functions are always followed by parentheses. Anything you type into the parentheses are called arguments.
+Functions are always followed by parentheses. Anything you type into the parentheses are called arguments. Arguments allow us to give the function additional information about how we want it to perform its task.
 
 ```{r}
 
