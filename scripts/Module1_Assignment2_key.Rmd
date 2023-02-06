@@ -1,202 +1,203 @@
 ---
-title: "Module 2 Assigment 1"
-author: "Ellen Bledsoe"
-date: '2022-09-19'
-output: html_document
-editor_options: 
-  markdown: 
-    wrap: 72
+title: "Module 2, Assigment 1"
+author: "Ellen Bledsoe" # <- your name here
+date: '2022-09-19'      # <- current date here
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Definitions (2 point each)
+### Purpose
 
-_In your own words_, define/describe the following terms. These don't need to be
-technical descriptions but rather how you are thinking about them.
+The goal of this assignment is to explore computational reproducibility and apply the base R coding skills we've learned and practiced in class and lab.
 
-Grading note: I've copied these definitions from my slides. If their
-definitions are the same, they have copied directly from the slides and
-not used their own words, so take 0.5 points off.
+### Task
 
-1.  Reproducibility: ability to repeat the original study using the same
-    data, materials, and methods
+Write R code to successfully answer each question below and/or write text to successfully answer the question.
 
-2.  Open science: Scientific research conducted and communicated in an
-    honest, accessible, and transparent way, such that--at a minimum--a
-    study can be reproduced and/or replicated.
+### Criteria for Success
 
-3.  R: R refers to both the programming language and the software that
-    interprets scripts written in the language.
+-   Code is within the provided code chunks
+-   Code chunks run without errors
+-   Code produces the correct result
+    -   Code attempts will get half points
+    -   Code that produces the correct answer will receive full points
+-   Text answers correctly address the question asked
 
-4.  RStudio: RStudio is an integrated development environment (IDE) that
-    helps us interact with R more easily.
+### Due Date
 
-## Short-Answer Question (2 points)
+Feb 20 at midnight MST
 
-5.  In 2-3 sentences, explain why data management is important for
-    reproducibility.
+# Assignment Questions
 
-Key points they should touch on (at least some): 
+This assignment is worth 20 points total. Each question is worth 1 point.
 
-* best practices help with organization
-* also important for effective communication (to future you, your colleagues, and others who might want to reproduce your
-work) 
-* makes transparency higher
+## Definitions (1 point each)
+
+*In your own words*, define/describe the following terms. These don't need to be technical descriptions but rather how you are thinking about them.
+
+**Grading note: I've copied these definitions from my slides. If their definitions are the same, they have copied directly from the slides and not used their own words, so take 0.5 points off.**
+
+1.  *Reproducibility*: ability to repeat the original study using the same data, materials, and methods
+
+2.  *Open science*: Scientific research conducted and communicated in an honest, accessible, and transparent way, such that--at a minimum--a study can be reproduced and/or replicated.
+
+3.  *R*: R refers to both the programming language and the software that interprets scripts written in the language.
+
+4.  *RStudio*: RStudio is an integrated development environment (IDE) that helps us interact with R more easily.
 
 ## Vectors (1 point each)
 
-6.  Multiply 8 x 5.
+5.  Run the first code chunk below to create the object heights. Use the `mean()` function to calculate the mean value of height.
+
 ```{r}
-8 * 5
+heights <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, NA, 72, 65, 64, 70, 63, 65)
 ```
 
-
-7.  Create the object x and have it contain the result of 40 / 2.77 
 ```{r}
-x <- 40 / 2.77
-x
-```
-
-8.  Create the object y and have it contain the result of the square
-    root of 9 (HINT: use the `sqrt` function).
-```{r}
-y <- sqrt(9)
-y
-```
-
-9.  Create the object num_vec that contains the values 1, 3, 5, 7
-```{r}
-num_vec <- c(1, 3, 5, 7)
-num_vec
-```
-
-10. Run the line below to create the object heights. Use the `mean()` function to calculate the mean value of height.
-
-```{r}
-heights <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63,
-NA, 72, 65, 64, 70, 63, 65)
-
 mean(heights)
 ```
 
-11. This should yield an odd result caused by the NAs. To resolve this,
-    use the help function to learn about the argument na.rm = TRUE that
-    applies to many R functions
+6.  This should yield an odd result caused by the `NA` values. To resolve this, use the help function to remind yourself about the argument `na.rm = TRUE` that applies to many R functions
 
 ```{r}
 help(mean) # same as ?mean
 ```
 
-Issue a revised command to calculate the mean value in num_vec and send
-the result to the console. 
+Issue a revised command to calculate the mean value in `heights` and send the result to the console.
+
 ```{r}
-mean(heights, na.rm = TRUE) # na.rm = T is also valid
+mean(heights, na.rm = TRUE)
 ```
 
+7.  Write a line of code that selects the 6-10th height values.
 
-12. Write and execute a line of code that selects the 6-10th height
-    values 
 ```{r}
 heights[6:10]
 ```
 
-13. Execute the line below. What does this line of code do?
+8.  Create a character vector called `rhymes` that contains the following values: cat, rat, bat, hat
 
-```{r}
-heights67 <- heights[heights > 67]
-```
-
-Answer: selects values from the heights vector that are greater than 67 and assigns this vector to a new object
-
-14. Execute the two lines below. What do these lines of code tell us?
-
-```{r}
-length(heights) 
-length(heights67)
-```
-Answer: The heights vector has 22 values but only 9 of them are greater than 67
-
-15. Create a character vector called `rhymes` that contains the following values: cat, rat, bat, hat 
 ```{r}
 rhymes <- c("cat", "rat", "bat", "hat")
 ```
 
 ## Data Frames
 
-Run the following line of code. Like the Palmer Penguins dataset that we used in class, `ratdat` is also a data package. It has data from my PhD field site, the Portal Project. You can learn more about the Portal Project [here](https://portal.weecology.org/).
+**IMPORTANT!** Run the following code chunk to read in the cactus pad dataset. *You don't need to understand what is happening, though I've added some comments in case you are interested!*
 
-We are going to be using the `surveys` dataset from the `ratdat` package.
-```{r}
-library(ratdat)
-surveys
+We will be using that data for the remainder of the assignment.
+
+Once you run the code chunk, the data frame will be saved in your environment as the object `pads`.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+# read in the cactus pads data
+pads <- read_csv("../data_raw/CactusPadsData.csv") 
+
+# read in the cactus data and choose only the group_id, species, and size columns
+cactus <- read_csv("../data_raw/CactusData.csv") %>% select(group_id, species, size)
+
+# join the two datasets together using the group_id column
+# this matches up the cactus species and size for each cactus pad (row) with the same group_id
+pads <- right_join(pads, cactus, by = "group_id")
+
+# remove the cactus data frame because we don't need it anymore (and it might be confusing)
+rm(cactus)
 ```
 
-16. How many rows does this data frame have? How many columns? 
-Rows: 34786 
-Columns: 13
+9.  How many rows does this data frame have? How many columns? You can either use code to figure this out or look at the object in the environment.
 
-17. Look at the first 6 rows of data. You can either do this by using a
-    function or by using index subsetting (with the square brackets: [])
+    *Rows*: 108
+
+    *Columns*: 11
+
 ```{r}
-head(surveys) 
-surveys[1:6,] # either one is fine
+# optional space for code to answer the question above
+# str(pads)
+# dim(pads)
 ```
 
-18. Use a function to print the column names of surveys.
+10. Look at the first 6 rows of data. You can either do this by using a function or by using index sub-setting.
+
 ```{r}
-names(surveys)
-colnames(surveys) # either one is fine
+head(pads)
 ```
 
-19. Create a histogram with the hindfoot lengths column
+11. Calculate the mean of depth of all the cactus pads that were measured.
+
 ```{r}
-hist(surveys$hindfoot_length)
+mean(pads$depth_in)
 ```
 
-20. What does the following line of code do? 
+12. Use the `round()` function to around the mean of the cactus pad depths (Q11) to only 1 place after the decimal.
+
 ```{r}
-surveys[surveys$species_id == "DM", ]
+round(mean(pads$depth_in), digits = 1)
 ```
 
-Answer: selects rows from surveys in which the value in the species_id column is "DM"
+13. Create a histogram with the width of all the cactus pads that were measured.
 
-## Calculating the Coefficient of Variance
-
-The remainder of the questions in this assignment lead you through the steps to calculate the coefficient of variance for two different species at the field site--the largest (NL) and the smalled (BA).
-
-21. Using a similar structure as the code in question 21, create 2 different data frames: one called `NL` with rows that have "NL" in the species_id column and one called `BA` with only rows which have "BA" in the species_id column.
 ```{r}
-NL <- surveys[surveys$species_id == "NL", ]
-BA <- surveys[surveys$species_id == "BA", ]
+hist(pads$width_in)
 ```
 
-22. Calculate the mean weight for each species.
+14. In 1-2 sentences, describe what each axis on this histogram represents.
+
+*Answer: The x-axis indicates groupings/bins of width measurements for each cactus pad. The y-axis indicates the frequency with which measurements are in each group.*
+
+15. Describe what the following line of code is doing. Make sure to include each part of the code (i.e., before the arrow, the arrow, after the arrow...). (As a point of reference, this took me \~6 sentences in the answer key).
+
 ```{r}
-mean_NL <- mean(NL$weight, na.rm = TRUE)
-mean_BA <- mean(BA$weight, na.rm = TRUE)
+pad_depth <- pads[pads$depth_in > 1, ]
 ```
 
-23. In a similar fashion, calculate the standard deviation (`sd()`) for the weight of both species.
+*Answer: `pad_depth`is the name of the object we are creating. the assignment arrow (\`\<-\`) says that we are creating the object pad_depth to include whatever the code on the right says. On the right, we first tell R that we want to select something from the `pads`* *data frame. The `[]` indicate that we are subsetting. We set a condition in the rows section that indicates we only want rows in which the value in the depth_in column is greater than 1. Leaving the space after the comma blank indicates that we want all columns.*
+
+### Calculating the Coefficient of Variance
+
+The remainder of the questions in this assignment lead you through the steps to calculate the coefficient of variance for pad length for two of the three cactus species that we measured. This will give us relative amounts of variation in between the two species.
+
+16. Create 2 different data frames: one called `ficus` with only rows that have *Opuntia ficus-indica* in the species column and one called `santa_rita` with only rows which have *Opuntia santa-rita* in the species column. (Hint: take a look at Q15 for inspiration on how to do that)
+
 ```{r}
-sd_NL <- sd(NL$weight, na.rm = TRUE)
-sd_BA <- sd(BA$weight, na.rm = TRUE)
+ficus <- pads[pads$species == "Opuntia ficus-indica", ]
+santa_rita <- pads[pads$species == "Opuntia santa-rita", ]
 ```
 
-24. Using the equation for calculating the coefficient of variance (CV), calculate the CV for each species.
+17. Calculate the mean pad length for each species.
+
 ```{r}
-cv_NL <- (sd_NL / mean_NL) * 100
-cv_BA <- (sd_BA / mean_BA) * 100
+mean_ficus <- mean(ficus$length_in)
+mean_santa <- mean(santa_rita$length_in)
 ```
 
-25. In 1-2 sentences, interpret the results of your calculations.
-The CV, which standardizes measures of spread by the size of the mean, indicates that the NL species has a higher amount of variance in its measured weights than the BA species.
+18. In a similar fashion, calculate the standard deviation (`sd()`) for the weight of both species.
 
+```{r}
+sd_ficus <- sd(ficus$length_in)
+sd_santa <- sd(santa_rita$length_in)
+```
 
-When you are finished, I want you to export this .Rmd file and upload it
-into the assignment dropbox on D2L.
+19. Using the objects (not just the numbers) you just created in questions 22 and 23, calculate the coefficient of variance (CV) for each species. Remember to multiply by 100 to convert into a percentage.
 
-To export the file, do the following: save this script as
-"LastName_Module2_Assignment1.Rmd"
+```{r}
+cv_ficus <- (sd_ficus / mean_ficus) * 100
+cv_santa <- (sd_santa / mean_santa) * 100
+```
+
+20. In 2-3 sentences, interpret the results of your calculations from Q17-19.
+
+*Answer: Both the mean and sd for ficus are nearly twice that of santa rita. The larger sd would suggest more spread in the data in ficus than santa rita. However, once we account for the means, the percent of variation in both species is \~30%, so they actually have similar amounts of variation.*
+
+# Turning in Your Assignment
+
+Follow these steps to successfully turn in your assignment on D2L.
+
+1.  Click the `Knit` button up near the top of this document. This should produce a PDF file that shows up in the `Files` panel on the bottom-right of your screen.
+2.  Click the empty box to the left of the PDF file.
+3.  Click on the blue gear near the top of the `Files` panel and choose Export.
+4.  Put your last name at the front of the file name when prompted, then click the Download button. The PDF file of your assignment is now in your "Downloads" folder on your device.
+5.  Head over to D2L and navigate to Module 1 Assignment 2. Submit the PDF file that you just downloaded.

@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Purpose
 
-The goal of this assignment is to explore computational reproducibility and apply the coding skills we've learned and practiced in class and lab.
+The goal of this assignment is to explore computational reproducibility and apply the base R coding skills we've learned and practiced in class and lab.
 
 ### Task
 
@@ -32,7 +32,7 @@ Feb 20 at midnight MST
 
 # Assignment Questions
 
-This assignment is worth 20 points total
+This assignment is worth 20 points total. Each question is worth 1 point.
 
 ## Definitions (1 point each)
 
@@ -48,7 +48,7 @@ This assignment is worth 20 points total
 
 ## Vectors (1 point each)
 
-5.  Run the line below to create the object heights. Use the `mean()` function to calculate the mean value of height.
+5.  Run the first code chunk below to create the object heights. Use the `mean()` function to calculate the mean value of height.
 
 ```{r}
 heights <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, NA, 72, 65, 64, 70, 63, 65)
@@ -73,7 +73,7 @@ Issue a revised command to calculate the mean value in `heights` and send the re
 7.  Write a line of code that selects the 6-10th height values.
 
 ```{r}
-heights[6:10]
+
 ```
 
 8.  Create a character vector called `rhymes` that contains the following values: cat, rat, bat, hat
@@ -90,17 +90,17 @@ We will be using that data for the remainder of the assignment.
 
 Once you run the code chunk, the data frame will be saved in your environment as the object `pads`.
 
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
 # read in the cactus pads data
-pads <- read.csv("../data_raw/CactusPadsData.csv") 
+pads <- read_csv("../data_raw/CactusPadsData.csv") 
 
 # read in the cactus data and choose only the group_id, species, and size columns
-cactus <- read.csv("../data_raw/CactusData.csv") |> 
-  dplyr::select(group_id, species, size)
+cactus <- read_csv("../data_raw/CactusData.csv") %>% select(group_id, species, size)
 
 # join the two datasets together using the group_id column
 # this matches up the cactus species and size for each cactus pad (row) with the same group_id
-pads <- dplyr::right_join(pads, cactus, by = "group_id")
+pads <- right_join(pads, cactus, by = "group_id")
 
 # remove the cactus data frame because we don't need it anymore (and it might be confusing)
 rm(cactus)
@@ -108,12 +108,13 @@ rm(cactus)
 
 9.  How many rows does this data frame have? How many columns? You can either use code to figure this out or look at the object in the environment.
 
-    *Rows*: 
-    
+    *Rows*:
+
     *Columns*:
 
 ```{r}
 # optional space for code to answer the question above
+
 ```
 
 10. Look at the first 6 rows of data. You can either do this by using a function or by using index sub-setting.
@@ -122,72 +123,78 @@ rm(cactus)
 
 ```
 
-11. Calculate the mean of width of all the cactus pads that were measured.
+11. Calculate the mean of depth of all the cactus pads that were measured.
 
 ```{r}
 
 ```
 
-12. Create a histogram with the length of all the cactus pads that were measured.
+12. Use the `round()` function to around the mean of the cactus pad depths (Q11) to only 1 place after the decimal.
 
 ```{r}
 
 ```
 
-20. What does the following line of code do?
+13. Create a histogram with the width of all the cactus pads that were measured.
 
 ```{r}
-surveys[surveys$species_id == "DM", ]
+
+```
+
+14. In 1-2 sentences, describe what each axis on this histogram represents.
+
+*Answer:*
+
+15. Describe what the following line of code is doing. Make sure to include each part of the code (i.e., before the arrow, the arrow, after the arrow...). (As a point of reference, this took me \~6 sentences in the answer key).
+
+```{r}
+pad_depth <- pads[pads$depth_in > 1, ]
 ```
 
 *Answer:*
 
-## Calculating the Coefficient of Variance
+### Calculating the Coefficient of Variance
 
-The remainder of the questions in this assignment lead you through the steps to calculate the coefficient of variance for two different species at the field site: the largest (NL, the woodrat *Neotoma albigula*) and one of the smallest (BA, the Northern pygmy mouse, *Baiomys taylori*).
+The remainder of the questions in this assignment lead you through the steps to calculate the coefficient of variance for pad length for two of the three cactus species that we measured. This will give us relative amounts of variation in between the two species.
 
-21. Create 2 different data frames: one called `NL` with rows that have "NL" in the species_id column and one called `BA` with only rows which have "BA" in the species_id column. (Hint: take a look at question 20 for inspiration on how to do that)
-
-```{r}
-NL <- 
-BA <- 
-```
-
-22. Calculate the mean weight for each species.
+16. Create 2 different data frames: one called `ficus` with only rows that have *Opuntia ficus-indica* in the species column and one called `santa_rita` with only rows which have *Opuntia santa-rita* in the species column. (Hint: take a look at Q15 for inspiration on how to do that)
 
 ```{r}
-mean_NL <- 
-mean_BA <- 
+ficus <- 
+santa_rita <- 
 ```
 
-23. In a similar fashion, calculate the standard deviation (`sd()`) for the weight of both species.
+17. Calculate the mean pad length for each species.
 
 ```{r}
-sd_NL <- 
-sd_BA <- 
+mean_ficus <- 
+mean_santa <- 
 ```
 
-24. Using the objects you just created in questions 22 and 23, calculate the coefficient of variance (CV) for each species.
+18. In a similar fashion, calculate the standard deviation (`sd()`) for the weight of both species.
 
 ```{r}
-cv_NL <- 
-cv_BA <- 
+sd_ficus <- 
+sd_santa <- 
 ```
 
-25. In 1-2 sentences, interpret the results of your calculations.
+19. Using the objects (not just the numbers) you just created in questions 22 and 23, calculate the coefficient of variance (CV) for each species. Remember to multiply by 100 to convert into a percentage.
+
+```{r}
+cv_ficus <- 
+cv_santa <- 
+```
+
+20. In 2-3 sentences, interpret the results of your calculations from Q17-19.
 
 *Answer:*
 
-## Assignment Submission Guidelines
+# Turning in Your Assignment
 
-When you are finished, I want you to export this .Rmd file and upload it into the assignment dropbox on D2L.
+Follow these steps to successfully turn in your assignment on D2L.
 
-To do you, follow these steps:
-
--   Make sure you have saved all of your code!
--   In the "Files" pane, check the empty box near this .Rmd file
--   Still in the "Files" pane, click the small downward arrow next to the gear ("More")
--   Select "Export"
--   Rename you file with the following pattern: "LastName_Module2_Assignment1.Rmd"
--   Once you've exported, the .Rmd file will be in your "Downloads" folder on your computer
--   Submit this file to D2L
+1.  Click the `Knit` button up near the top of this document. This should produce a PDF file that shows up in the `Files` panel on the bottom-right of your screen.
+2.  Click the empty box to the left of the PDF file.
+3.  Click on the blue gear near the top of the `Files` panel and choose Export.
+4.  Put your last name at the front of the file name when prompted, then click the Download button. The PDF file of your assignment is now in your "Downloads" folder on your device.
+5.  Head over to D2L and navigate to Module 1 Assignment 2. Submit the PDF file that you just downloaded.
