@@ -2,7 +2,7 @@
 title: "Introduction to the `tidyverse`"
 author: "Ellen Bledsoe"
 date: "2022-09-22"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
