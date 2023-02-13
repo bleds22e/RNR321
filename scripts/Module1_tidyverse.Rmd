@@ -13,9 +13,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## What is the `tidyverse`?
 
-Different programming languages have different syntax (language structure). The tidyverse is a package (more accurately, a set of packages) offered in R that all have similar goals and a unified syntax designed to work particularly well with 2-dimensional data.
+Different programming languages have different syntax (language structure). The `tidyverse` is a package (more accurately, a set of packages) offered in R that all have similar goals and a unified syntax designed to work particularly well with 2-dimensional data.
 
-Until now, all of the coding we have done is in the original R language, which is often called "base R." The syntax in the tidyverse is often pretty different from base R. Both are useful, and many people often combine them, which is why we start with base R.
+Until now, all of the coding we have done is in the original R language, which is often called "base R." The syntax in the `tidyverse` is often pretty different from base R. Both are useful, and many people often combine them, which is why we start with base R.
 
 Explore the tidyverse
 
@@ -196,7 +196,7 @@ For example, we can use this method to calculate the mean body mass for males an
 
 ### Let's practice!
 
-Practice using the combination of `group_by()` and `summarize()` to calculate the minimum (`min()`) and maximum (`max()`) average flipper length per island. Save this data frame as `flipper_min_max`
+Work in pairs to practice using the combination of `group_by()` and `summarize()` to calculate the minimum (`min()`) and maximum (`max()`) average flipper length per island. Save this data frame as `flipper_min_max`
 
 ```{r group_by_city}
 
@@ -208,27 +208,58 @@ Already accomplished this task? Try to figure out how you can keep the "species"
 
 ```
 
+## Making Plots with `ggplot2`
+
+One of my favorite parts of using the `tidyverse` is making plots with the `ggplot2` package. We aren't going to delve into how this works too much right now because we don't end up making too many plots in this course, but I wanted to include some code for making a histogram to give you an idea of how this works.
+
+```{r}
+ggplot(penguins, aes(x = flipper_length_mm)) +
+  geom_histogram()
+```
+
+Here's what is happening in the code above.
+
+-   `ggplot()` is the function to make a plot
+-   after telling the function what data to use (`penguins`), we need to tell the function the "mappings", or which variables (columns) should be associated with which axes or other elements of the plot. Here, I've assigned the "flipper_length_mm" column to the x-axis. When plotting a histogram, `ggplot()` automatically knows that the y-axis will be frequency, so we do not need to specify
+-   we use the `+` symbol to add a new "layer" to the plot
+-   here, I've added a histogram layer with the `geom_histogram()` function, telling `ggplot2` to make a histogram plot
+
+This is definitely more complicated than making a basic histogram in base R, so why is it so great? Well, with just a few modifications, you can make beautiful, multi-layered plots that would be much more complicated to produce in base R. For example, check out resulting plot from the code below.
+
+```{r}
+ggplot(penguins, aes(flipper_length_mm, fill = species)) +
+  geom_histogram(position = "identity", alpha = 0.75) +
+  facet_wrap( ~ island) + 
+  theme_bw()
+```
+
 ## A few other things to know
 
-We can use the `is.na()` function to filter out NAs.
+Below, I'm including some additional functions that you might find helpful! You *will NOT* be tested on these functions below, but they often come in handy, and we might use them down the road.
+
+1.  We can use the `is.na()` function to filter out `NA` values. The `!` tells R to do the opposite of what we've asked. Therefore, the code below effectively says the following:
+
+-   ask if each value in the sex column is an `NA` value or not and return a string of TRUE and FALSE
+
+-   instead of filtering out the TRUE values (meaning we would get all rows in which the value in the sex column *is* `NA`, adding the `!` symbol tells the filter function to pull all the FALSE values, meaning we pull all the rows in which the value in the sex column *is not* `NA`.
 
 ```{r}
 
 ```
 
-The `arrange()` functions lets us order our rows alphabetically or numerically.
+2.  The `arrange()` functions lets us order our rows alphabetically or numerically.
 
 ```{r}
 
 ```
 
-`count()` let's us find out how many observations we have.
+3.  `count()` let's us find out how many observations we have.
 
 ```{r}
 
 ```
 
-Finally, `distinct()` allows us to find all the unique values in a column. This is usually best for categorical (character) columns.
+4.  Finally, `distinct()` allows us to find all the unique values in a column. This is usually best for categorical (character) columns.
 
 ```{r}
 
