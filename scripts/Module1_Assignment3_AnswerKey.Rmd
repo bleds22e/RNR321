@@ -1,65 +1,80 @@
 ---
-title: "Module 2, Assignment 2"
+title: "Module 1, Assignment 3"
 author: ""            # <- your name here!
-date: '2022-09-27'    # <- you can change the date if you want
+date: '2023-02-13'    # <- you can change the date if you want
 output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-knitr::opts_chunk$set(max)
+```
+
+5.  
+
+```{r}
 library(tidyverse)
-library(ratdat)
 ```
 
-10.  
+### 
 
-```{r paged.print = TRUE}
-select(surveys, year, plot_id, species_id, weight) %>% as_tibble()
+```{r message = FALSE}
+pads <- read_csv("../data_raw/CactusPads_joined.csv")
 ```
 
+8.  
+
+```{r}
+pads %>% 
+  select(length_in, width_in, depth_in, species)
+# OR select(pads, length_in, width_in, depth_in, species)
+```
+
+9.  
+
+```{r}
+pads %>% 
+  filter(depth_in > 1)
+# OR filter(pads, depth_in > 1)
+```
+
+11. 
+
+```{r}
+mutate(pads, length_cm = length_in * 2.54) %>% 
+  select(length_in, length_cm)
+```
 
 12. 
 
 ```{r}
-filter(surveys, year >= 2000) %>% as_tibble()
+pads %>% 
+  summarise(mean_width = mean(width_in),
+            sd_width = sd(width_in))
 ```
 
 13. 
 
 ```{r}
-filter(surveys, year < 1990, species_id == "BA") %>% as_tibble()
+pads_volume <- pads %>% 
+  mutate(volume_in3 = length_in * width_in * depth_in)
+pads_volume
 ```
 
+14. 
+
+```{r}
+pads_volume %>% 
+  group_by(species) %>% 
+  summarize(mean_volume = mean(volume_in3),
+           sd_volume = sd(volume_in3))
+```
 
 16. 
 
 ```{r}
-surveys %>% 
-  mutate(hindfoot_length_cm = hindfoot_length / 10) %>% 
-  as_tibble()
+pads_volume %>% 
+  group_by(species) %>% 
+  summarize(mean_volume = mean(volume_in3),
+           sd_volume = sd(volume_in3)) %>% 
+  mutate(CV = sd_volume / mean_volume * 100)
 ```
-
-
-18. 
-
-```{r}
-krats <- surveys %>% 
-  filter(species_id == "DM" | species_id == "DO" | species_id == "DS") %>% 
-  select(year, plot_id, species_id, hindfoot_length)
-krats %>% 
-  group_by(species_id) %>% 
-  summarise(mean_hf = mean(hindfoot_length, na.rm = TRUE))
-```
-
-19. 
-
-```{r}
-PE_weights <- surveys %>% 
-  filter(species_id == "PE") %>% 
-  group_by(year) %>% 
-  summarise(min_weight = min(weight, na.rm = TRUE),
-            max_weight = max(weight, na.rm = TRUE))
-PE_weights
-```
-

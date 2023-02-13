@@ -1,8 +1,8 @@
 ---
-title: "Module 2, Assignment 2"
+title: "Module 1, Assignment 3"
 author: ""            # <- your name here!
-date: '2022-09-27'    # <- you can change the date if you want
-output: html_document
+date: '2023-02-13'    # <- you can change the date if you want
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -22,153 +22,162 @@ Write R code to successfully answer each question below or write text to success
 ### Criteria for Success
 
 -   Code is within the provided code chunks
--   Code is commented with brief descriptions of what the code does
 -   Code chunks run without errors
 -   Code produces the correct result
+    -   Code attempts will get half points
+    -   Code that produces the correct answer will receive full points
 -   Text answers correctly address the question asked
 
 ### Due Date
 
-Sept. 29 at midnight MST
+February 20 at midnight MST
 
 # Assignment Questions
 
-## Definitions (2 point each)
+All questions are worth 1 point unless otherwise specified.
+
+If you create an object in a question, please type the name of the object in the next line so it will print out when you save your file as a PDF. For example:
+
+```{r eval=FALSE}
+# this doesn't actually run--it's just an example
+new_object <- dataframe[row, column]
+new_object
+```
+
+## Definitions
 
 *In your own words*, define/describe the following terms. These don't need to be technical descriptions but rather how you are thinking about them.
 
-1.  *data frame/tibble*:
+1.  *data frame/tibble*: 2D data (rows and columns)
 
-2.  *R package*:
+2.  *R package*: group of pre-written function/code chunks/data that we can use in R
 
-3.  *tidyverse*:
+3.  *tidyverse*: package of packages with more-intuitive syntax for humans
 
-4.  *the pipe (`%>%`)*:
-
-## Short-Answer Question (2 points)
-
-5.  What are 2 reasons why the pipe is useful? Answers can be in sentence or bullet-point form.
-
-*Answer*:
+4.  *the pipe (`%>%`)*: an operator that connects one line of (left-side) to the next (right-side). It sends the results of the first line through to the next.
 
 ## Using the `tidyverse`
 
-For the rest of the assignment, you will be writing or interpreting code from the `tidyverse` and using data from the `surveys` data frame in the `ratdat` package.
+For the rest of the assignment, you will be writing or interpreting code from the `tidyverse` using the merged cactus pad data (the same as Assignment 2).
 
-6.  Load the `tidyverse` package and the `ratdat` package into RStudio.
+5.  Load the `tidyverse` package into RStudio.
 
 ```{r}
 library(tidyverse)
-library(ratdat)
 ```
 
-### *Optional*
+### *Important!*
 
-The `surveys` data frame is part of the `ratdat` package. Since we have loaded in the `ratdat` package, we can access the `surveys` data frame even though we can't see it in our environment. If you want to see the `surveys` data frame in your environment, we need to give it a name by running the following line of code. You do not *need* to do this, but you're welcome to do so if you want.
+Make sure you run the following code chunk in order to read in the cactus pads data set that we will be using for this assignment.
 
 ```{r}
-surveys <- surveys
+pads <- read_csv("../data_raw/CactusPads_joined.csv")
+pads
 ```
 
-7.  There are many different functions we can use to look at our data set. Choose your favorite to get an idea of all the data in `surveys`.
+6.  There are many different functions we can use to look at our data set. Choose your favorite to get an idea of all the data in `pads`.
 
 ```{r}
-str(surveys)
+str(pads)
+# head(pads)
+# names(pads)
+# whatever they choose
 ```
 
-8.  Which of the columns in `surveys` have data which are character data types? List the columns below.
+7.  Which of the columns in `pads` are data class "character"? List the columns below.
 
-    *Answer:*
+    *Answer: spines, insects, damage, location, species, size*
 
-9.  *In your own words*, explain what the `select()` function (from tidyverse) does.
-
-    *Answer:*
-
-10. Use the `select()` function to create a data frame that has only columns with the following data: year, plot number, species, weight. (Hint: make sure you are typing the correct column names!)
+8.  Make a data frame from `pads` that has the columns with dimensions (length, width, depth) of the cactus pads and the species. (Hint: make sure you are typing the correct column names!)
 
 ```{r}
-select(surveys, year, plot_id, species_id, weight)
+pads %>% 
+  select(length_in, width_in, depth_in, species)
+# OR select(pads, length_in, width_in, depth_in, species)
 ```
 
-11. *In your own words*, explain what the `filter()` function does.
-
-    *Answer:*
-
-12. Create a data frame from `surveys` that only includes observations from the year 2000 and later.
+9.  Make a data frame from `pads` that only includes paddles with a depth that is greater that 1 in.
 
 ```{r}
-filter(surveys, year >= 2000)
+pads %>% 
+  filter(depth_in > 1)
+# OR filter(pads, depth_in > 1)
 ```
 
-13. Now create a data frame that only includes observations from before the year 1990 and the species_id "BA".
+10. Run the lines of code below. Describe what each of the three lines are doing (3 points).
 
 ```{r}
-filter(surveys, year < 1990, species_id == "BA")
+large_no_spines <- pads %>% 
+  filter(spines == "N", size == "Large") %>% 
+  select(group_id, paddle_id, spines, size, species)
 ```
 
-14. Run the lines of code below.
+*Line 1*: creates a new dataframe called large_no_spines and starts with the pads dataframe, which is piped to line 2\
+*Line 2*: chooses rows based on conditions (only cactus pads with no spies and cactuses that were large) and pipes that through to the next line\
+*Line 3*: selects 5 columns from the resulting dataframe (group_id, paddle_id, spines, size, species)
+
+11. Let's convert the length column to centimeters. Create a new column named `length_cm` which has the length of each cactus pad in centimeters. (Hint: there are 2.54 cm per inch).
+
+    Use the pipe (`%>%`) and the `select()` function to show the `length_in` and `length_cm` columns side by side. (Hint: order matters here! You can't select a column that doesn't yet exist...).
 
 ```{r}
-krats <- surveys %>% 
-  filter(species_id == "DM" | species_id == "DO" | species_id == "DS") %>% 
-  select(year, plot_id, species_id, hindfoot_length)
+mutate(pads, length_cm = length_in * 2.54) %>% 
+  select(length_in, length_cm)
 ```
 
-Describe what each of the three lines are doing (3 points). (Hint: the `|` means "or")
-
-*Line 1*: \
-*Line 2*: \
-*Line 3*:
-
-15. *In your own words*, explain what the `mutate()` function does.
-
-    *Answer:*
-
-16. The hindfoot_length column in currently in mm. Create a new column named `hindfoot_length_cm` where the hindfoot measurement is now in centimeters. (Hint: to convert from mm to cm, divide by 10)
+12. Use the `summarize()` function to calculate the mean (`mean()`) and standard deviation (`sd()`) of the cactus pad widths (in inches).
 
 ```{r}
-surveys %>% 
-  mutate(hindfoot_length_cm = hindfoot_length / 10)
+pads %>% 
+  summarise(mean_width = mean(width_in),
+            sd_width = sd(width_in))
 ```
 
-17. *In your own words*, explain what the `group_by()` function does.
-
-    *Answer:*
-
-18. For this question, we are going to use `krats`, the data frame you created in question 14. Use the `group_by()` and `summarize()` functions together to calculate the mean hindfoot_length (mm) for each species in `krats`. Remember to use the `%>%`, and remember to exclude `NA`s from the mean calculation. (2 points)
+13. Create a new data frame with a new column called "volume_in3" that has the volume of each cactus pad (Hint: volume = length \* width \* depth). Save this data frame by naming it `pads_volume`.
 
 ```{r}
-krats %>% 
-  group_by(species_id) %>% 
-  summarise(mean_hf = mean(hindfoot_length, na.rm = TRUE))
+pads_volume <- pads %>% 
+  mutate(volume_in3 = length_in * width_in * depth_in)
+pads_volume
 ```
 
-19. We are back to using the `surveys` data frame for this question. Create a new data frame called `PE_weights`. It should have the minimum (`min()`) and maximum (`max()`) weight of the "PE" species for each year. (4 points)
-
-This question has a lot of steps, so think through each one individually before trying to write the code.
-
--   which function will you need to use to get only "PE" individuals?
--   which function will you need to get values for *each* year?
--   remember to use the `na.rm` argument
+14. Using the `pads_volume` dataframe that you just created, calculate the mean and standard deviation of the cactus pad volumes for *each* species of cactus. (2 points)
 
 ```{r}
-PE_weights <- surveys %>% 
-  filter(species_id == "PE") %>% 
-  group_by(year) %>% 
-  summarise(min_weight = min(weight, na.rm = TRUE),
-            max_weight = max(weight, na.rm = TRUE))
+pads_volume %>% 
+  group_by(species) %>% 
+  summarize(mean_volume = mean(volume_in3),
+           sd_volume = sd(volume_in3))
 ```
 
-## Assignment Submission Guidelines
+16. Calculate the coefficient of variation for *each* species for the volume of the cactus pads. (3 points)
 
-When you are finished, I want you to export this .Rmd file and upload it into the assignment dropbox on D2L.
+    This question has a lot of steps, so think through each one individually before trying to write the code.
 
-To do you, follow these steps:
+    -   which function will you need to get values for *each* species?
+    -   what is the equation for CV?
+    -   how will you calculate the necessary values for the CV? (Hint: see question above)
+    -   what function will you use to create a new column for the CV?
 
--   Make sure you have saved all of your code!
--   In the "Files" pane, check the empty box near this .Rmd file
--   Still in the "Files" pane, click the small downward arrow next to the gear ("More")
--   Select "Export"
--   Rename you file with the following pattern: "LastName_Module2_Assignment1.Rmd"
--   Once you've exported, the .Rmd file will be in your "Downloads" folder on your computer
--   Submit this file to D2L
+```{r}
+pads_volume %>% 
+  group_by(species) %>% 
+  summarize(mean_volume = mean(volume_in3),
+           sd_volume = sd(volume_in3)) %>% 
+  mutate(CV = sd_volume / mean_volume * 100)
+```
+
+Which cactus species has the highest relative variation in cactus pad volume?
+
+*Answer:* *Opuntia santa-rita*
+
+# Turning in Your Assignment
+
+Follow these steps to successfully turn in your assignment on D2L.
+
+1.  Click the `Knit` button up near the top of this document. This should produce a PDF file that shows up in the `Files` panel on the bottom-right of your screen.
+    -   if this doesn't work, that's ok! just follow the same steps with the .Rmd file
+2.  Click the empty box to the left of the PDF file.
+3.  Click on the blue gear near the top of the `Files` panel and choose Export.
+4.  Put your last name at the front of the file name when prompted, then click the Download button. The PDF file of your assignment is now in your "Downloads" folder on your device.
+5.  Head over to D2L and navigate to Module 1 Assignment 2. Submit the PDF file that you just downloaded.
