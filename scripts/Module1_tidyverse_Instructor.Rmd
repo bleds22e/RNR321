@@ -259,7 +259,7 @@ penguins %>%
 
 One of my favorite parts of using the `tidyverse` is making plots with the `ggplot2` package. We aren't going to delve into how this works too much right now because we don't end up making too many plots in this course, but I wanted to include some code for making a histogram to give you an idea of how this works.
 
-```{r}
+```{r message = FALSE, warning = FALSE}
 ggplot(penguins, aes(x = flipper_length_mm)) +
   geom_histogram()
 ```
@@ -273,7 +273,7 @@ Here's what is happening in the code above.
 
 This is definitely more complicated than making a basic histogram in base R, so why is it so great? Well, with just a few modifications, you can make beautiful, multi-layered plots that would be much more complicated to produce in base R. For example, check out resulting plot from the code below.
 
-```{r}
+```{r message = FALSE, warning = FALSE}
 ggplot(penguins, aes(flipper_length_mm, fill = species)) +
   geom_histogram(position = "identity", alpha = 0.75) +
   facet_wrap( ~ island) + 
