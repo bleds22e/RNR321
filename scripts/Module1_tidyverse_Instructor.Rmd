@@ -109,7 +109,7 @@ You might have noticed that we haven't put any column names in quotations, unlik
 Write a line of code to select the columns with the following information from `penguins`: species, body mass, sex, and year.
 
 ```{r}
-select(penguins, body_mass_g, sex, year)
+select(penguins, species, body_mass_g, sex, year)
 ```
 
 ### `filter()`ing rows
@@ -279,7 +279,6 @@ ggplot(penguins, aes(flipper_length_mm, fill = species)) +
   facet_wrap( ~ island) + 
   theme_bw()
 ```
-
 
 ## A few other things to know
 
