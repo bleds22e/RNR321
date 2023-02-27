@@ -2,7 +2,7 @@
 title: "Module 2 Assignment 1"
 author: ""
 date: '2022-10-11'
-output: html_document
+output: pdf_document
 editor_options: 
   markdown: 
     wrap: 72
