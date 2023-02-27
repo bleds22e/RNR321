@@ -2,7 +2,7 @@
 title: "Module 3 Assignment 1"
 author: "Ellen Bledsoe"
 date: '2022-10-11'
-output: html_document
+output: pdf_document
 editor_options: 
   markdown: 
     wrap: 72
@@ -36,13 +36,13 @@ successfully answer the question.
 
 ### Due Date
 
-Sept. 29 at midnight MST
+March 13 by 2pm MST
 
 ------------------------------------------------------------------------
 
 ## Assignment Questions
 
-### Short Answer (2 points)
+### Short Answer
 
 Think back to how we sampled the rock data. Answer the following
 question in terms of our data (aka, "big square," "little squares,"
@@ -114,7 +114,7 @@ library(tidyverse)
     Below, replace the file name with the file name of your rock data.
 
 ```{r}
-rocks <- read_csv("your_file_name_here.csv") %>% drop_na()
+rocks <- read_csv("../data_raw/example_data.csv") %>% drop_na()
 ```
 
 6.  Create the object N, which is the number of units in your *sampling
@@ -171,9 +171,8 @@ R doesn't have a function for calculating the standard error (SE), so
 let's calculate it ourselves using the equation from class.
 
 10. First, do you remember that finite population correction factor? We
-    use that to modify SE when we know what N is. In this case, we do
-    know N, so let's create an object called `pop_correction` using that
-    formula: (N-n)/N
+    use that to modify SE when we know what N is. Let's create an object
+    called `pop_correction` using that formula: (N-n)/N
 
     (Hint: use the objects we've already created (`N`, `n`; don't enter
     any numbers directly)
@@ -182,7 +181,13 @@ let's calculate it ourselves using the equation from class.
 pop_correction <- (N-n)/N
 ```
 
-11. Using the objects you've already created and the formula (check the
+11. Why are we using the finite population correction factor in our
+    formulas?
+
+    *Answer:* We know the total number of sample units (64), so we need
+    to adjust for that.
+
+12. Using the objects you've already created and the formula (check the
     lecture slides from this module!), create an object called
     `rocks_var_ybar` which contains the variance of the *estimate* of
     the mean.
@@ -194,7 +199,7 @@ pop_correction <- (N-n)/N
 rocks_var_ybar <- pop_correction * (rocks_var/n)
 ```
 
-12. Calculate the SE of the estimate of the mean by taking the square
+13. Calculate the SE of the estimate of the mean by taking the square
     root of the `rocks_var_ybar` value. Call this object `rocks_SE`.
 
 ```{r}
@@ -207,23 +212,45 @@ We've calculated standard error (SE) for the estimate of the mean above.
 Now, let's calculate them for the estimate of the population abundance
 (tau hat)
 
-19. First, let's calculate the total number of rocks in the population.
+14. First, let's calculate the total number of rocks in the population.
     Call this `rocks_total`. Use objects you've already created.
 
 ```{r}
 rocks_total <- N * rocks_mean
 ```
 
-20. Now calculate the variance of the estimate of the population total,
+15. Now calculate the variance of the estimate of the population total,
     `rocks_var_total`.
 
 ```{r}
 rocks_var_total <- N * (N-n) * (rocks_var/n)
 ```
 
-21. Calculate the SE of the estimate of the population total,
+16. Calculate the SE of the estimate of the population total,
     `rocks_SE_total`.
 
 ```{r}
 rocks_SE_total <- sqrt(rocks_var_total)
 ```
+
+### Bringing It All Together
+
+17. Write a short paragraph (3-5 sentences) putting the values that
+    we've just calculated into context for our dark rocks sampling
+    adventure. Be sure to answer the following questions. (3 points)
+
+-   According to your calculations, approximately how many dark rocks
+    were there in your big square? How confident are you in that
+    estimate?
+-   What is your estimate of density of dark rocks (average \# dark
+    rocks per little square)? How much variation do you estimate is
+    there in the number of dark rocks per little square? How confident
+    are you in your estimate of the density?
+
+*Answer:*
+
+-   number of dark rocks in big square = `rocks_total`
+-   confidence is estimate of number of dark rocks total = `rocks_SE_total` or `rocks_var_total`
+-   density estimate = `rocks_mean`
+-   variation in density = `rocks_var` or `rocks_sd`
+-   confidence in density estimate = `rocks_var_ybar` or `rocks_SE`

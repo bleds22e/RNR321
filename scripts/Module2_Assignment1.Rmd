@@ -1,6 +1,6 @@
 ---
-title: "Module 3 Assignment 1"
-author: "Ellen Bledsoe"
+title: "Module 2 Assignment 1"
+author: ""
 date: '2022-10-11'
 output: html_document
 editor_options: 
@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Purpose
 
 The goal of this assignment is to use R to calculate and understand
-accuracy of estimates.
+accuracy of estimates (standard error specifically).
 
 ### Task
 
@@ -29,20 +29,21 @@ successfully answer the question.
 ### Criteria for Success
 
 -   Code is within the provided code chunks
--   Code is commented with brief descriptions of what the code does
 -   Code chunks run without errors
 -   Code produces the correct result
+    -   Code attempts will get half points
+    -   Code that produces the correct answer will receive full points
 -   Text answers correctly address the question asked
 
 ### Due Date
 
-Sept. 29 at midnight MST
+March 13 by 2pm MST
 
 ------------------------------------------------------------------------
 
 ## Assignment Questions
 
-### Short Answer (2 points)
+### Short Answer
 
 Think back to how we sampled the rock data. Answer the following
 question in terms of our data (aka, "big square," "little squares,"
@@ -52,42 +53,24 @@ question in terms of our data (aka, "big square," "little squares,"
     data (not the equation but what we use to calculate standard
     deviation, what it tells us, and what it is an estimate of).
 
-    *Answer:* the sample standard deviation is a measure of how much
-    variation there is in the number of rocks counted in each little
-    square. The sample sd is calculated from the 8 sample units (little
-    squares) that we counted and is an estimate of *sigma*, the
-    population standard deviation (big square).
+    *Answer:*
 
 2.  Define the standard error of the estimate of the mean (again, in
     terms of our data and what it tells us).
 
-    *Answer:* The SE of the estimate of the mean tells us how good our
-    estimate of the mean (\# of rocks per little square) is (AKA how
-    much uncertainty there is in our estimate). It is calculated from
-    the sample standard deviation divided by the square root of the
-    number of sample units (little squares sampled).
+    *Answer:*
 
 3.  How do sample standard deviation and standard error differ? (If
     you've explained that above, reiterate it here.)
 
-    *Answer:* The sample standard deviation tells us something inherit
-    about the population--the amount of variation in the number of dark
-    rocks per little square. On the other hand, the standard error tells
-    us how much uncertainty we have in our estimate of the number of
-    rocks in each little square.
+    *Answer:*
 
 4.  What would happen to the sample standard deviation if we sampled 20
     sampling units (little squares) instead of only 8? Would it
     increase, decrease, or stay about the same? How about the standard
     error? Explain your rationale for both.
 
-    *Answer:* The sample standard deviation estimate would stay about
-    the same because it is an estimate of the amount of variation in the
-    population, something that is a property of the population and won't
-    change with increased sampling. The standard error, however, would
-    decrease. That is because we now have more information about our
-    population parameter that we are estimating (mean), so we have less
-    uncertainty in the estimate (AKA smaller SE).
+    *Answer:*
 
 ### Calculations
 
@@ -101,7 +84,7 @@ Each question is worth 1 point unless otherwise noted.
 (c) In RStudio Cloud, using the "Upload" button in the lower right-hand
     panel, upload your .csv file.
 
-Load the tidyverse. For this assignment, we will only be using this to
+Load the tidyverse. For this assignment, we will *only* be using this to
 read in our .csv file.
 
 ```{r}
@@ -121,7 +104,7 @@ rocks <- read_csv("your_file_name_here.csv") %>% drop_na()
     frame*.
 
 ```{r}
-N <- 64
+N <- 
 ```
 
 7.  Create the object `n`, which is your *sample size,* the number of
@@ -132,7 +115,7 @@ N <- 64
     `?nrow`)
 
 ```{r}
-n <- nrow(rocks)
+n <- 
 ```
 
 ### Estimating the Mean
@@ -153,7 +136,7 @@ calculations like we are doing in this assignment, working with vectors
     code example above.
 
 ```{r}
-rocks_mean <- mean(rocks$abund_dark_stones)
+rocks_mean <- 
 ```
 
 9.  Create objects called `rocks_var` and `rocks_sd` which contain the
@@ -161,8 +144,8 @@ rocks_mean <- mean(rocks$abund_dark_stones)
     use `var()` and `sd()` functions.
 
 ```{r}
-rocks_var <- var(rocks$abund_dark_stones)
-rocks_sd <- sd(rocks$abund_dark_stones)
+rocks_var <- 
+rocks_sd <- 
 ```
 
 ### Calculating Standard Error for the Mean
@@ -170,19 +153,22 @@ rocks_sd <- sd(rocks$abund_dark_stones)
 R doesn't have a function for calculating the standard error (SE), so
 let's calculate it ourselves using the equation from class.
 
-10. First, do you remember that finite population correction factor? We
-    use that to modify SE when we know what N is. In this case, we do
-    know N, so let's create an object called `pop_correction` using that
-    formula: (N-n)/N
+10. First, do you remember that finite population correction factor?
+    Let's create an object called `pop_correction` using that formula.
 
     (Hint: use the objects we've already created (`N`, `n`; don't enter
     any numbers directly)
 
 ```{r}
-pop_correction <- (N-n)/N
+pop_correction <- 
 ```
 
-11. Using the objects you've already created and the formula (check the
+11. Why are we using the finite population correction factor in our
+    formulas?
+
+    *Answer:*
+
+12. Using the objects you've already created and the formula (check the
     lecture slides from this module!), create an object called
     `rocks_var_ybar` which contains the variance of the *estimate* of
     the mean.
@@ -191,14 +177,14 @@ pop_correction <- (N-n)/N
     already calculated, but that sample variance is included...
 
 ```{r}
-rocks_var_ybar <- pop_correction * (rocks_var/n)
+rocks_var_ybar <- 
 ```
 
-12. Calculate the SE of the estimate of the mean by taking the square
+13. Calculate the SE of the estimate of the mean by taking the square
     root of the `rocks_var_ybar` value. Call this object `rocks_SE`.
 
 ```{r}
-rocks_SE <- sqrt(rocks_var_ybar)
+rocks_SE <- 
 ```
 
 ### Estimating the Population (and Accuracy of the Estimate)
@@ -207,23 +193,39 @@ We've calculated standard error (SE) for the estimate of the mean above.
 Now, let's calculate them for the estimate of the population abundance
 (tau hat)
 
-19. First, let's calculate the total number of rocks in the population.
+14. First, let's calculate the total number of rocks in the population.
     Call this `rocks_total`. Use objects you've already created.
 
 ```{r}
-rocks_total <- N * rocks_mean
+rocks_total <- 
 ```
 
-20. Now calculate the variance of the estimate of the population total,
+15. Now calculate the variance of the estimate of the population total,
     `rocks_var_total`.
 
 ```{r}
-rocks_var_total <- N * (N-n) * (rocks_var/n)
+rocks_var_total <- 
 ```
 
-21. Calculate the SE of the estimate of the population total,
+16. Calculate the SE of the estimate of the population total,
     `rocks_SE_total`.
 
 ```{r}
-rocks_SE_total <- sqrt(rocks_var_total)
+rocks_SE_total <- 
 ```
+
+### Bringing It All Together
+
+17. Write a short paragraph (3-5 sentences) putting the values that
+    we've just calculated into context for our dark rocks sampling
+    adventure. Be sure to answer the following questions. (3 points)
+
+-   According to your calculations, approximately how many dark rocks
+    were there in your big square? How confident are you in that
+    estimate?
+-   What is your estimate of density of dark rocks (average \# dark
+    rocks per little square)? How much variation do you estimate is
+    there in the number of dark rocks per little square? How confident
+    are you in your estimate of the density?
+
+*Answer:*
