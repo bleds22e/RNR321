@@ -250,7 +250,8 @@ rocks_SE_total <- sqrt(rocks_var_total)
 *Answer:*
 
 -   number of dark rocks in big square = `rocks_total`
--   confidence is estimate of number of dark rocks total = `rocks_SE_total` or `rocks_var_total`
+-   confidence is estimate of number of dark rocks total =
+    `rocks_SE_total` or `rocks_var_total`
 -   density estimate = `rocks_mean`
 -   variation in density = `rocks_var` or `rocks_sd`
 -   confidence in density estimate = `rocks_var_ybar` or `rocks_SE`

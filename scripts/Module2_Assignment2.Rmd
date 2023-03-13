@@ -122,7 +122,7 @@ that assignment out.
 n <- nrow(abund440)
 ```
 
-### *Chaetodipus pencicillatus* or `PP`
+### *Chaetodipus pencicillatus* (PP) Data
 
 We are going to start by calculating some population parameter estimates
 and measures of uncertainty for the PPs.
@@ -157,7 +157,7 @@ whatnot.
 PP_var_ybar <- PP_var / n
 ```
 
-5. Calculate the SE of the estimate of the mean.
+5.  Calculate the SE of the estimate of the mean.
 
 ```{r}
 PP_SE <- sqrt(PP_var_ybar)
@@ -169,7 +169,7 @@ Hooray, we've now calculated the sample mean, sample variance, sample
 standard deviation, and the standard error (among other things)! Let's
 calculate a 95% confidence interval for our sample mean.
 
-6. Create an object called `alpha95` to represent our alpha value for a
+6.  Create an object called `alpha95` to represent our alpha value for a
     95% confidence interval. Because this is a constant, we can assign a
     number to it.
 
@@ -177,7 +177,7 @@ calculate a 95% confidence interval for our sample mean.
 alpha95 <- 0.05
 ```
 
-7. Create an object called `df` for degrees of freedom. Degrees of
+7.  Create an object called `df` for degrees of freedom. Degrees of
     freedom in this case are equal to the number of sample units in our
     sample (`n`) minus 1. Use the object `n` in your calculation.
 
@@ -186,7 +186,7 @@ df <- n-1
 ```
 
 We are going to use a function called `qt()` to find the t-value that we
-need. Assuming you've created the objects `alpha` and `df` above,
+need. Assuming you've created the objects `alpha95` and `df` above,
 running this code chunk will give us our t-value, or critical value, for
 95% CI.
 
@@ -194,7 +194,7 @@ running this code chunk will give us our t-value, or critical value, for
 t95 <- qt(1-(alpha95)/2, df)
 ```
 
-8. Using `t95` and the standard error that we calculated earlier,
+8.  Using `t95` and the standard error that we calculated earlier,
     create an object called `half_width` which contains the half-width
     value for the 95% CI.
 
@@ -202,7 +202,7 @@ t95 <- qt(1-(alpha95)/2, df)
 halfwidth_95 <- t95 * PP_SE
 ```
 
-9. Calculate the upper and lower limits of the 95% confidence
+9.  Calculate the upper and lower limits of the 95% confidence
     intervals. Use objects you've already created to calculate it.
 
 ```{r}
@@ -210,8 +210,8 @@ upperCI_95 <- PP_mean + halfwidth_95
 lowerCI_95 <- PP_mean - halfwidth_95
 ```
 
-10. What happens when we created 90% CI for the data. Calculate 90% CI
-    and compare to the 95% CI. Which one is wider? Why? (2 points)
+10. What happens when we creat 90% CI for the data? Calculate 90% CI and
+    compare to the 95% CI. Which one is wider? Why? (2 points)
 
 ```{r}
 alpha90 <- 0.1
@@ -222,44 +222,44 @@ upperCI_90 <- PP_mean + halfwidth_90
 lowerCI_90 <- PP_mean - halfwidth_90
 ```
 
-_Answer:_
+*Answer:*
 
-### PB data
+### *Chaetodipus baileyi* (PB) Data
 
 Let's do the same thing for our *Chaetodipus baileyi* (PB) data.
 
-11.  Create an object called `rocks_mean` that contains the sample mean
-    (AKA the mean number of dark stones per sample unit). Follow the
-    code example above.
+11. Create an object called `PB_mean` that contains the sample mean (AKA
+    the mean number of dark stones per sample unit). Follow the code
+    example above.
 
 ```{r}
 PB_mean <- mean(PB440$PB)
 ```
 
-12.  Create objects called `PB_var` and `PB_sd` which contain the sample
-    variance and sample standard deviation, respectively. Hint: use
-    `var()` and `sd()` functions.
+12. Create an object called `PB_var` which contains the sample variance.
+    Hint: use the `var()` function.
 
 ```{r}
 PB_var <- var(PB440$PB)
-PB_sd <- sd(PB440$PB)
 ```
 
 ### Calculating Standard Error for the Mean
 
-13. Variance of the estimate of the mean
+13. Start by calculating the variance of the estimate of the mean
+
 ```{r}
 PB_var_ybar <- PB_var / n
 ```
 
-14. Calculate the SE of the estimate of the mean by taking the square
-    root of the `rocks_var_ybar` value. Call this object rocks_SE.
+14. Calculate the SE of the estimate of the mean.
 
 ```{r}
 PB_SE <- sqrt(PB_var_ybar)
 ```
 
-15. Create 95% CI for the PB data.
+15. Create 95% CI for the PB data. You should already have the t-value
+    in your environment, so you don't need to go through calculating
+    that again.
 
 ```{r}
 halfwidth_95_PB <- t95 * PB_SE
