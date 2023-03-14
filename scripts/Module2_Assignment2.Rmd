@@ -43,32 +43,28 @@ March 20 before lab
 
 # Assignment Questions
 
-## Short Answer (2 pt each)
-
-1.  In your own words, what does a confidence interval tell us?
-
-## Calculations
-
 Each question is worth 1 point unless otherwise noted.
 
-### Set-up:
+## Set-up:
 
-For our assignment today, we will be using data from my PhD field site.
-In fact, we will be using some of the first data I ever collected for
-the project! To learn more about the Portal Project, check out the
-project's [website](https://portal.weecology.org/). Researchers have
-been collecting data at this site monthly since 1977!
+For our assignment today, we will be using data from my PhD field site
+in southeastern Arizona in the Chiricahuas. In fact, we will be using
+some of the first data I ever collected for the project! To learn more
+about the Portal Project, check out the project's
+[website](https://portal.weecology.org/). Researchers have been
+collecting data at this site monthly since 1977!
 
-What you need to know, though, is that this is small mammal (rodent)
+What you need to know for today is that this is small mammal (rodent)
 data. The site has 24 plots, although we will only be using 18 of them
 today (6 of them are rodent removal plots, so they aren't very helpful
 in estimating rodent densities!). As such, `n` will be 18 for this
 assignment. We do not have a `N`.
 
-The first thing we need to do is download the data. We actually created
-our own R package for using the cleaned up data, so we are going to load
-that package (called [`portalr`](https://weecology.github.io/portalr/))
-along with the `tidyverse`.
+The first thing we need to do is download the data. My PhD lab group
+actually created our own R package for using the cleaned up data, so we
+are going to load that package (called
+[`portalr`](https://weecology.github.io/portalr/)) along with the
+`tidyverse`.
 
 ```{r}
 library(tidyverse)
@@ -82,11 +78,12 @@ entire dataset, so it might take a few minutes.
 ```{r}
 abund <- abundance(level = "Plot",
                    type = "Rodents")
+abund
 ```
 
 We want to choose data only from a certain data collection period and
 only for certain species. To do this, we are going to filter the data to
-select trapping period "440" (the 440th time the site was trapped--this
+select trapping period "440" (the 440th time the site was trapped---this
 was back in 2015. We are over 500 trapping sessions now!) and get rid of
 the rodent removal plots.
 
@@ -96,14 +93,15 @@ different species of pocket mice: *Chaetodipus penicillatus* and
 *Chaetodipus baileyi*. In the Portal data, these species are abbreviated
 as `PP` and `PB`, respectively. When we choose which columns we keep, we
 will keep the period, plot, and the PP and PB columns. These columns
-represent the number of each species caught on each individual plot that
+have the number of each species caught on each individual plot that
 trapping session.
 
 ```{r}
-# filter period 500 and and select "PP" column
+# filter period 440, exclude "removal" treatment type, and select "PP" and "PB" column
 abund440 <- abund %>% 
   filter(period == 440, treatment != "removal") %>% 
   select(period, plot, PP, PB)
+abund440
 ```
 
 ## Estimating the Mean
@@ -114,12 +112,12 @@ that assignment out.
 
 1.  First things first, we want to create an object for our sample size.
     We don't know `N` in this scenario, but we do know `n`. Create the
-    object `n`, which is your the number of sample units that make up
-    your sample. To do this, use the `nrow()` function. This will be the
-    same for both species.
+    object `n`, which is the number of sample units that make up our
+    sample. To do this, use the `nrow()` function. This will be the same
+    for both species.
 
 ```{r}
-n <- nrow(abund440)
+n <- 
 ```
 
 ### *Chaetodipus pencicillatus* (PP) Data
@@ -133,16 +131,14 @@ and measures of uncertainty for the PPs.
     the PPs
 
 ```{r}
-PP_mean <- mean(abund440$PP)
+PP_mean <- 
 ```
 
-3.  Create objects called `PP_var` and `PP_sd` which contain the sample
-    variance and sample standard deviation, respectively. Hint: use
-    tabund `var()` and `sd()` functions.
+3.  Create an object called `PP_var` which contains the sample variance.
+    Hint: use the `var()` function.
 
 ```{r}
-PP_var <- var(abund440$PP)
-PP_sd <- sd(abund440$PP)
+PP_var <- 
 ```
 
 #### Calculating Standard Error for the Mean
@@ -154,27 +150,27 @@ whatnot.
 4.  Calculate the variance of the estimate of the mean for the PPs.
 
 ```{r}
-PP_var_ybar <- PP_var / n
+PP_var_ybar <- 
 ```
 
 5.  Calculate the SE of the estimate of the mean.
 
 ```{r}
-PP_SE <- sqrt(PP_var_ybar)
+PP_SE <- 
 ```
 
 #### Calculating Confidence Intervals for the Mean
 
-Hooray, we've now calculated the sample mean, sample variance, sample
-standard deviation, and the standard error (among other things)! Let's
-calculate a 95% confidence interval for our sample mean.
+Hooray, we've now calculated the sample mean, sample variance, and the
+standard error! Let's calculate a 95% confidence interval for our sample
+mean.
 
 6.  Create an object called `alpha95` to represent our alpha value for a
     95% confidence interval. Because this is a constant, we can assign a
-    number to it.
+    number to it (take a look back at lecture notes).
 
 ```{r}
-alpha95 <- 0.05
+alpha95 <- 
 ```
 
 7.  Create an object called `df` for degrees of freedom. Degrees of
@@ -182,7 +178,7 @@ alpha95 <- 0.05
     sample (`n`) minus 1. Use the object `n` in your calculation.
 
 ```{r}
-df <- n-1
+df <- 
 ```
 
 We are going to use a function called `qt()` to find the t-value that we
@@ -199,77 +195,76 @@ t95 <- qt(1-(alpha95)/2, df)
     value for the 95% CI.
 
 ```{r}
-halfwidth_95 <- t95 * PP_SE
+halfwidth_95 <- 
 ```
 
 9.  Calculate the upper and lower limits of the 95% confidence
     intervals. Use objects you've already created to calculate it.
 
 ```{r}
-upperCI_95 <- PP_mean + halfwidth_95
-lowerCI_95 <- PP_mean - halfwidth_95
+upperCI_95 <- 
+lowerCI_95 <- 
 ```
 
-10. What happens when we creat 90% CI for the data? Calculate 90% CI and
-    compare to the 95% CI. Which one is wider? Why? (2 points)
+10. What happens when we create 90% CI for the data? Calculate 90% CI
+    and compare to the 95% CI. Which one is wider? Why? (3 points)
 
 ```{r}
-alpha90 <- 0.1
-t90 <- qt(1-(alpha90)/2, df)
-half_width_90 <- t90 * PP_SE
 
-upperCI_90 <- PP_mean + halfwidth_90
-lowerCI_90 <- PP_mean - halfwidth_90
+upperCI_90 <- 
+lowerCI_90 <- 
 ```
 
 *Answer:*
 
 ### *Chaetodipus baileyi* (PB) Data
 
-Let's do the same thing for our *Chaetodipus baileyi* (PB) data.
+Let's do the same thing as above for our *Chaetodipus baileyi* (PB)
+data.
 
-11. Create an object called `PB_mean` that contains the sample mean (AKA
-    the mean number of dark stones per sample unit). Follow the code
-    example above.
+#### Calculating Estimates of Population Parameters
+
+11. Create an object called `PB_mean` that contains the sample mean.
 
 ```{r}
-PB_mean <- mean(PB440$PB)
+PB_mean <- 
 ```
 
 12. Create an object called `PB_var` which contains the sample variance.
     Hint: use the `var()` function.
 
 ```{r}
-PB_var <- var(PB440$PB)
+PB_var <- 
 ```
 
-### Calculating Standard Error for the Mean
+#### Calculating Standard Error for the Mean
 
 13. Start by calculating the variance of the estimate of the mean
 
 ```{r}
-PB_var_ybar <- PB_var / n
+PB_var_ybar <- 
 ```
 
 14. Calculate the SE of the estimate of the mean.
 
 ```{r}
-PB_SE <- sqrt(PB_var_ybar)
+PB_SE <- 
 ```
+
+#### Calculating Confidence Intervals
 
 15. Create 95% CI for the PB data. You should already have the t-value
     in your environment, so you don't need to go through calculating
     that again.
 
 ```{r}
-halfwidth_95_PB <- t95 * PB_SE
 
-upperCI_95_PB <- PB_mean + halfwidth_95_PB
-lowerCI_95_PB <- PB_mean - halfwidth_95_PB
+upperCI_95_PB <- 
+lowerCI_95_PB <- 
 ```
 
 16. Compare the ranges of the 95% CI for the PP and the PB data. Which
     estimate of the mean seems to be more accurate, based on size of the
-    confidence intervals? Why do you think that is?
+    confidence intervals? Why do you think that is? (2 points)
 
 *Answer:*

@@ -1,0 +1,166 @@
+---
+title: "Module 2 Assignment 2"
+author: "Ellen Bledsoe"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+```{r setup, include=FALSE, message=F, warning=F}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(portalr)
+```
+
+```{r}
+abund <- abundance(level = "Plot",
+                   type = "Rodents")
+```
+
+```{r}
+# filter period 440, exclude "removal" treatment type, and select "PP" and "PB" column
+abund440 <- abund %>% 
+  filter(period == 440, treatment != "removal") %>% 
+  select(period, plot, PP, PB)
+```
+
+1.  
+
+```{r}
+n <- nrow(abund440)
+n
+```
+
+### 
+
+2.  
+
+```{r}
+PP_mean <- mean(abund440$PP)
+PP_mean
+```
+
+3.  
+
+```{r}
+PP_var <- var(abund440$PP)
+PP_var
+```
+
+4.  
+
+```{r}
+PP_var_ybar <- PP_var / n
+PP_var_ybar
+```
+
+5.  
+
+```{r}
+PP_SE <- sqrt(PP_var_ybar)
+PP_SE
+```
+
+6.  
+
+```{r}
+alpha95 <- 0.05
+alpha95
+```
+
+7.  
+
+```{r}
+df <- n-1
+df
+```
+
+```{r}
+t95 <- qt(1-(alpha95)/2, df)
+t95
+```
+
+8.  
+
+```{r}
+halfwidth_95 <- t95 * PP_SE
+halfwidth_95
+```
+
+9.  
+
+```{r}
+upperCI_95 <- PP_mean + halfwidth_95
+lowerCI_95 <- PP_mean - halfwidth_95
+
+upperCI_95
+lowerCI_95
+```
+
+10. 
+
+```{r}
+alpha90 <- 0.1
+t90 <- qt(1-(alpha90)/2, df)
+t90
+halfwidth_90 <- t90 * PP_SE
+halfwidth_90
+
+upperCI_90 <- PP_mean + halfwidth_90
+lowerCI_90 <- PP_mean - halfwidth_90
+
+upperCI_90
+lowerCI_90
+```
+
+### 
+
+11. 
+
+```{r}
+PB_mean <- mean(abund440$PB)
+PB_mean
+```
+
+12. 
+
+```{r}
+PB_var <- var(abund440$PB)
+PB_var
+```
+
+#### 
+
+13\.
+
+```{r}
+PB_var_ybar <- PB_var / n
+PB_var_ybar
+```
+
+14. 
+
+```{r}
+PB_SE <- sqrt(PB_var_ybar)
+PB_SE
+```
+
+#### 
+
+15. 
+
+```{r}
+halfwidth_95_PB <- t95 * PB_SE
+halfwidth_95_PB
+
+upperCI_95_PB <- PB_mean + halfwidth_95_PB
+lowerCI_95_PB <- PB_mean - halfwidth_95_PB
+
+upperCI_95_PB
+lowerCI_95_PB
+```
