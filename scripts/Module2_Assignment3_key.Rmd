@@ -48,7 +48,7 @@ We have been asked to go out and sample for grasshoppers. The location we are sa
 
 Load the `tidyverse` package. We won't be using it *too* much this time around, but we need it a couple times.
 
-```{r}
+```{r message = FALSE}
 library(tidyverse)
 ```
 
