@@ -40,9 +40,9 @@ March 27 before lab
 
 We have been asked to go out and sample for grasshoppers. The location we are sampling has 3 different vegetation types: riparian, shrubland, and grassland. We have decided to use a stratified random sample design for our survey.
 
-1.  In 1-2 sentences, explain why we have chosen stratified random sampling as apposed to simple or systematic? What benefit does it provide us?
+1.  In 1-2 sentences, explain why we have chosen stratified random sampling as opposed to simple or systematic? What benefit does it provide us?
 
-    *Answer:*
+    *Answer:* taking into account that different vegetation types might have different means, totals, etc. trying to minimize heterogeneity, makes our estimates more precise
 
 ### Set-up
 
@@ -95,7 +95,7 @@ cost_C <- 4
 
 We want to use the optimal allocation equation to calculate how many sample units each stratum should have. Let's do this incrementally.
 
-4.  Start by calculating the numerators (N~i~ \* s~i~ / square root of c~i~) for each stratum. Remember to use objects you've created rather than typing out specific numbers into the equation.
+4.  Start by calculating the numerators for each stratum. Each numerator looks like this: $$\frac{N_i * s_i}{ \sqrt c_i}$$ Remember to use objects you've created rather than typing out specific numbers into the equation.
 
 ```{r}
 opt_allo_A <- N_A * sd_A / sqrt(cost_A)
@@ -129,7 +129,7 @@ n_C <- round(n * (opt_allo_C / opt_allo_total)) # 27
 
     Why is this? What would this allocation have meant for the precision of our estimates?
 
-    *Answer:*
+    *Answer:* without taking standard deviation into account, we would have had far less precise estimates; cost is also factored in
 
 ### Part II: Stratified Random Sampling
 
@@ -182,7 +182,11 @@ NOTE: Open up your script from Module 2, Assignment 2---it's about to come in ha
 
     Note: This question in graded for completion only, not for accuracy.
 
-    *Answer:*
+    *Answer:* 
+    1. calculate population parameter estimates for each stratum
+    2. calculate measures of uncertainty (variance of estimates of mean, total) for each stratum
+    3. calculate overall population total and overall variance of the estimate of the total 
+    4. calculate overall population mean and overall variance of the estimate of the mean
 
 #### Step 1: Calculatings Sample Statistics (per stratum)
 
