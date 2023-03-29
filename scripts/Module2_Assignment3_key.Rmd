@@ -156,13 +156,15 @@ str(grasshoppers)
 
 Run the following code chunk. What do these numbers represent?
 
-*(Hint: do these numbers match your values from question 7? If not, you probably want to revisit your calculations up in the previous section!)*
+*(Hint: do these numbers match your values from question 6? If not, you probably want to revisit your calculations up in the previous section!)*
 
-    ```{r}
-    grasshoppers %>% 
-      group_by(stratum) %>% 
-      count(stratum)
-    ```
+````         
+```{r}
+grasshoppers %>% 
+  group_by(stratum) %>% 
+  count(stratum)
+```
+````
 
 Based on what I've taught you in R thus far, the easiest way to do our calculations will be to have three different data frames, one for each stratum.
 
@@ -182,11 +184,12 @@ NOTE: Open up your script from Module 2, Assignment 2---it's about to come in ha
 
     Note: This question in graded for completion only, not for accuracy.
 
-    *Answer:* 
-    1. calculate population parameter estimates for each stratum
-    2. calculate measures of uncertainty (variance of estimates of mean, total) for each stratum
-    3. calculate overall population total and overall variance of the estimate of the total 
-    4. calculate overall population mean and overall variance of the estimate of the mean
+    *Answer:*
+
+    1.  calculate population parameter estimates for each stratum
+    2.  calculate measures of uncertainty (variance of estimates of mean, total) for each stratum
+    3.  calculate overall population total and overall variance of the estimate of the total
+    4.  calculate overall population mean and overall variance of the estimate of the mean
 
 #### Step 1: Calculatings Sample Statistics (per stratum)
 

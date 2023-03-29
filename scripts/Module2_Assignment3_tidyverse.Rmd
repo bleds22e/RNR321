@@ -1,0 +1,68 @@
+---
+title: "Module 2 Assignment 3 tidyverse"
+author: "Ellen Bledsoe"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Curious how we would do all of this in `tidyverse`? 
+
+It takes fewer steps, but we haven't been using `tidyverse` very often, and not in this way before.
+
+```{r message = FALSE}
+library(tidyverse)
+grasshoppers <- read_csv("grasshoppers.csv")
+```
+
+
+### Step 1: Calculate Population Parameter Estimates per Stratum
+
+Use `group_by()`, `summarize()`, and `mutate()` to calculate parameter estimates
+```{r}
+grasshoppers <- grasshoppers %>% 
+  # create groups for each stratum
+  group_by(stratum) %>% 
+  # calculate the means, standard deviations, and variances for each stratum
+  summarise(y_bar = mean(abund),
+            sd = sd(abund),
+            var = var(abund),
+            n = n()) %>% # how many rows per stratum AKA how many units per stratum
+  # create a new column to put in the total number of units per stratum
+  mutate(N = if_else(stratum == "A", 200,
+                     if_else(stratum == "B", 500, 300)),
+         tau_hat = y_bar * N) # calculate totals per stratum
+grasshoppers
+```
+
+### Step 2: Calculate Measures of Uncertainty per Stratum
+
+Use `mutate()` to calculate variance of the estimates for each stratum.
+```{r}
+grasshoppers <- grasshoppers %>% 
+  # create new columns for:
+  # 1) finite population correction factor, 
+  # 2) variance of the estimate of the mean, and
+  # 3) variance of the estimate of the total
+  mutate(pop_correction = (N-n)/N,
+         var_y_bar = pop_correction * (var/n),
+         var_tau_hat = N^2 * var_y_bar)
+grasshoppers
+```
+
+### Step 3: Calculate Overall Totals and Means
+
+Use the `summarize()` function again to calculate the overall values.
+```{r}
+grasshoppers_overall <- grasshoppers %>% 
+  summarize(overall_tau_hat = sum(tau_hat),
+            overall_var_tau_hat = sum(var_tau_hat),
+            overall_y_bar = overall_tau_hat/sum(N),
+            overall_var_y_bar = overall_var_tau_hat / sum(N)^2) %>% 
+  slice(1) # still thinks we want groups, so just select the first row (all rows have the same values)
+grasshoppers_overall
+```
+
