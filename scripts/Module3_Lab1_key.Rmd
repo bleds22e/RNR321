@@ -2,7 +2,7 @@
 title: "Tortoise Occupancy"
 author: "Ellen Bledsoe"
 date: "`r Sys.Date()`"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -15,7 +15,7 @@ Analyze survey data for desert tortoises from Saguaro National Park
 
 ## Set-Up
 
-I have installed the `unmarked` package for you already in RStudio Cloud. This is a new package we will be using to do our occupancy calculations.
+I have installed the `unmarked` package for you already in Posit Cloud. This is a new package we will be using to do our occupancy calculations.
 
 We will need to first load the `tidyverse` and `unmarked` packages.
 
@@ -30,7 +30,7 @@ Now we need to read in our data set, called `tortoise_occupancy.csv`
 tort_occ <- read_csv("../data_raw/tortoise_occupancy.csv")
 ```
 
-#### Explore the data
+### Explore the data
 
 First, let's take a look at `tort_occ`, our tortoise occupancy data. What does each column represent? How about each row?
 
