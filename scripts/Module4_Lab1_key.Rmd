@@ -52,7 +52,7 @@ naive_detection <- tort_occ %>%
   mutate(naive_det = n_detect/n)
 ```
 
-Is this estimate of detection going to be higher or lower than when we take detection probability into account?
+Is this estimate of occupany going to be higher or lower than when we take detection probability into account?
 
 ## Occupancy Models
 
