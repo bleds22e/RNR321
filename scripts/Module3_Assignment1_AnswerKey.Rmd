@@ -1,27 +1,25 @@
 ---
-title: "Module 4 Assignment 1"
+title: "Module 3 Assignment 1"
 author: "Ellen Bledsoe"
-date: "2022-11-01"
-output:
-  pdf_document: default
-  html_document: default
+date: "2023-04-03"
+output: pdf_document
 ---
 
-```{r setup, include = FALSE, message = FALSE}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-```{r message = FALSE}
+```{r, message=FALSE}
 library(tidyverse)
 library(unmarked) 
 ```
 
-```{r message = FALSE}
+
+```{r}
 tiger <- read_csv("../data_raw/tiger_rattlesnakes.csv")
 diamond <- read_csv("../data_raw/diamondback_rattlesnakes.csv")
 ```
-
-3. 
+1. 
 ```{r}
 naive_occ_tiger <- tiger %>% 
   mutate(detection = rowSums(.)) %>% 
@@ -31,6 +29,7 @@ naive_occ_tiger <- tiger %>%
 naive_occ_tiger
 ```
 
+3.
 ```{r}
 # create the data frame with 40 rows and each column with the survey number
 tiger_survey_time <- tibble(.rows = 40,
@@ -44,45 +43,48 @@ tiger_survey_time <- tibble(.rows = 40,
 tiger_survey_time <- list(time = tiger_survey_time)
 ```
 
-6. 
+
+4.
 ```{r}
 tigerUMF <- unmarkedFrameOccu(tiger, obsCovs = tiger_survey_time)
-head(tigerUMF)
+head(tigerUMF) # check out the data
 ```
 
 
+5.
 ```{r}
 tiger_pdot_psidot <- occu(~1 ~1, data = tigerUMF)
 ```
 
-
+6.
 ```{r}
 tiger_ptime_psidot <- occu(~time-1 ~1, data = tigerUMF)
 ```
 
-9. 
+
+7.
 ```{r}
 tiger_models <- fitList(tiger_pdot_psidot  = tiger_pdot_psidot, 
                         tiger_ptime_psidot = tiger_ptime_psidot)
 modSel(tiger_models)
 ```
 
-10. 
+
+9.
 ```{r}
 plogis(coef(tiger_pdot_psidot))  # estimates of psi and p
+plogis(confint(tiger_pdot_psidot, type = "det", level = 0.95))
 ```
-
-12. 
+10.
 ```{r}
+plogis(coef(tiger_pdot_psidot))  # estimates of psi and p
 plogis(confint(tiger_pdot_psidot, type = "state", level = 0.95))
 ```
 
-13. 
-```{r}
-plogis(confint(tiger_pdot_psidot, type = "det", level = 0.95))
-```
 
-15. 
+
+12. 
+
 ```{r}
 naive_occ_diamond <- diamond %>% 
   mutate(detection = rowSums(.)) %>% 
@@ -91,6 +93,9 @@ naive_occ_diamond <- diamond %>%
   mutate(naive_occ = n_detect/n)
 naive_occ_diamond
 ```
+
+
+13. 
 
 ```{r}
 # create the data frame with 20 rows and each column with the survey number
@@ -104,39 +109,34 @@ diamond_survey_time <- tibble(.rows = 40,
 # make this into a list of one dataframe
 diamond_survey_time <- list(time = diamond_survey_time)
 ```
-18. 
+
+14. 
+
 ```{r}
 diamondUMF <- unmarkedFrameOccu(diamond, obsCovs = diamond_survey_time)
 head(diamondUMF) # check out the data
 ```
 
- 
+15. 
 ```{r}
 diamond_pdot_psidot <- occu(~1 ~1, data = diamondUMF)
-```
-
-
-```{r}
 diamond_ptime_psidot <- occu(~time-1 ~1, data = diamondUMF)
 ```
 
-21. 
+
+16. 
+
 ```{r}
 diamond_models <- fitList(diamond_pdot_psidot  = diamond_pdot_psidot, 
                           diamond_ptime_psidot = diamond_ptime_psidot)
 modSel(diamond_models)
 ```
-22. 
+
+17. 
+
 ```{r}
 plogis(coef(diamond_pdot_psidot))  # estimates of psi and p
-```
-
-23. 
-```{r}
+plogis(confint(diamond_pdot_psidot, type = "det", level = 0.95))
 plogis(confint(diamond_pdot_psidot, type = "state", level = 0.95))
 ```
 
-24. 
-```{r}
-plogis(confint(diamond_pdot_psidot, type = "det", level = 0.95))
-```

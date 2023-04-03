@@ -1,11 +1,8 @@
 ---
-title: "Module 4 Assignment 2"
+title: "Module 3 Assignment 2"
 author: "Ellen Bledsoe"
 date: "`r Sys.Date()`"
-output: html_document
-editor_options: 
-  markdown: 
-    wrap: 72
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -18,14 +15,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Purpose
 
-The goal of this assignment is to understand, apply, and interpret
-detection probability in estimating abundance through
-capture-mark-recapture.
+The goal of this assignment is to understand, apply, and interpret detection probability in estimating abundance through capture-mark-recapture.
 
 ### Task
 
-Write R code to successfully answer each question below or write text to
-successfully answer the question.
+Write R code to successfully answer each question below or write text to successfully answer the question.
 
 ### Criteria for Success
 
@@ -47,22 +41,17 @@ All questions are worth 1 point unless otherwise specified.
 
 First, some general questions to answer:
 
-1.  In your own words, describe the 2 main differences between occupancy
-    encounter histories and capture-mark-recapture encounter histories
-    (2 pts).
+1.  In your own words, describe the 2 main differences between occupancy encounter histories and capture-mark-recapture encounter histories (2 pts).
 
     *Answer:*
 
-2.  In your own words, explain the difference between constant-effort
-    and catch-per-unit-effort. Describe an example of each (3 pts).
+2.  In your own words, explain the difference between constant-effort and catch-per-unit-effort. Describe an example of each (3 pts).
 
     *Answer:*
 
 ### Set-Up
 
-In this assignment, we will be exploring methods for estimating
-abundances when detection is less than perfect. We will be using some
-data we create as well as some simulated data.
+In this assignment, we will be exploring methods for estimating abundances when detection is less than perfect. We will be using some data we create as well as some simulated data.
 
 As always, we should start by loading in the `tidyverse`.
 
@@ -76,23 +65,15 @@ library(tidyverse)
 
 #### Data
 
-We are running a capture-mark-recapture study on pocket mice. To do
-this, we have set out a 10 x 10 grid of Sherman live traps.
+We are running a capture-mark-recapture study on pocket mice. To do this, we have set out a 10 x 10 grid of Sherman live traps.
 
-We catch 37 desert pocket mice, *Chaetodipus penicillatus*, during our
-first night of trapping. To mark them, we use a green Sharpie to put a
-dot on their belly (and giggle because it now looks like they have a
-Leprechaun's belly button).
+We catch 37 desert pocket mice, *Chaetodipus penicillatus*, during our first night of trapping. To mark them, we use a green Sharpie to put a dot on their belly (and giggle because it now looks like they have a Leprechaun's belly button).
 
-The next night, we set out the same number of traps. In the morning, we
-find that we have caught 42 desert pocket mice, and 30 of them have
-green dots on their bellies.
+The next night, we set out the same number of traps. In the morning, we find that we have caught 42 desert pocket mice, and 30 of them have green dots on their bellies.
 
-We want to estimate the total abundance of desert pocket mice in our
-population using the Lincoln-Peterson estimator.
+We want to estimate the total abundance of desert pocket mice in our population using the Lincoln-Peterson estimator.
 
-3.  Create objects with the correct values from the scenario above to
-    represent the following:
+3.  Create objects with the correct values from the scenario above to represent the following:
     -   `n1`: \# individuals captured (and marked) in the first sample
     -   `n2`: \# individuals captured in the second sample (total)
     -   `m2`: \# individuals in the second sample which were marked
@@ -103,29 +84,21 @@ n2 <- 42
 m2 <- 30
 ```
 
-4.  Use the Lincoln-Peterson estimator to estimate the population total
-    (`N_hat`)
+4.  Use the Lincoln-Peterson estimator to estimate the population total (`N_hat`)
 
 ```{r}
 N_hat <- n1 * n2 / m2
 ```
 
-5.  Remember, we can consider the Lincoln-Peterson estimator equation as
-    a version of the "canonical abundance estimator," meaning we can
-    calculate an estimate of detection probability. Calculate our
-    detection probability estimate for desert pocket mice.
+5.  Remember, we can consider the Lincoln-Peterson estimator equation as a version of the "canonical abundance estimator," meaning we can calculate an estimate of detection probability. Calculate our detection probability estimate for desert pocket mice.
 
 ```{r}
 p_hat <- m2 / n1
 ```
 
-During this same trapping experiment, we also caught 12 Bailey's pocket
-mice, *Chaetodipus baileyi*, on the first night and marked them. The
-second night, we caught another 12 Bailey's, 4 of which were previously
-marked.
+During this same trapping experiment, we also caught 12 Bailey's pocket mice, *Chaetodipus baileyi*, on the first night and marked them. The second night, we caught another 12 Bailey's, 4 of which were previously marked.
 
-6.  Assign the correct values for `n1`, `n2`, and `m2` for the Bailey's
-    pocket mice.
+6.  Assign the correct values for `n1`, `n2`, and `m2` for the Bailey's pocket mice.
 
 ```{r}
 n1_Baileys <- 12
@@ -133,23 +106,19 @@ n2_Baileys <- 12
 m2_Baileys <- 4
 ```
 
-7.  Using those values, use the Lincoln-Peterson estimator to estimate
-    the population total of Bailey's.
+7.  Using those values, use the Lincoln-Peterson estimator to estimate the population total of Bailey's.
 
 ```{r}
 N_hat_Baileys <- (n1_Baileys * n2_Baileys) / m2_Baileys
 ```
 
-8.  Calculate the estimated detection probability of Bailey's pocket
-    mouse.
+8.  Calculate the estimated detection probability of Bailey's pocket mouse.
 
 ```{r}
 p_hat_Baileys <- m2_Baileys / n1_Baileys
 ```
 
-9.  In your own words, briefly explain what the differences in estimated
-    detection probabilities and abundances mean in the context of this
-    example (2 points).
+9.  In your own words, briefly explain what the differences in estimated detection probabilities and abundances mean in the context of this example (2 points).
 
 *Answer:*
 
@@ -157,23 +126,17 @@ p_hat_Baileys <- m2_Baileys / n1_Baileys
 
 ### How Precision Changes with Detection Probability
 
-We can use data simulation to explore what happens to our estimates when
-detection probability changes through time.
+We can use data simulation to explore what happens to our estimates when detection probability changes through time.
 
 First, we'll walk through an example of the code.
 
-*To be very clear, I don't expect you to know how this code is working!
-What I want you to be able to do, though, is interpret our results from
-the code.*
+*To be very clear, I don't expect you to know how this code is working! What I want you to be able to do, though, is interpret our results from the code.*
 
 #### Building the Simulation
 
-Let's run a simulation of capture-mark-recapture data. We will stick
-with pocket mice as our example species.
+Let's run a simulation of capture-mark-recapture data. We will stick with pocket mice as our example species.
 
-In this case, we will tell R the *true* abundance, `N`. Remember,
-though, this is the parameter we never know in real life; it is the
-parameter we are trying to estimate by calculating `N_hat`.
+In this case, we will tell R the *true* abundance, `N`. Remember, though, this is the parameter we never know in real life; it is the parameter we are trying to estimate by calculating `N_hat`.
 
 We will set our true abundance of pocket mice to be 250 individuals.
 
@@ -181,31 +144,21 @@ We will set our true abundance of pocket mice to be 250 individuals.
 N <- 250
 ```
 
-We want to create a simulation where we give R the detection and
-recapture probabilities and determine the *estimate* of abundance
-(`N_hat`) that we will get based on those probabilities. We want to do
-this over and over and over again to help us get an idea of how good our
-estimates are overall. In fact, let's do it 1000 times.
+We want to create a simulation where we give R the detection and recapture probabilities and determine the *estimate* of abundance (`N_hat`) that we will get based on those probabilities. We want to do this over and over and over again to help us get an idea of how good our estimates are overall. In fact, let's do it 1000 times.
 
 ```{r}
 nRuns <- 1000
 ```
 
-Below, I've written a custom function that will create `N_hat` estimates
-for us. We need to provide the function with values in order for it to
-run:
+Below, I've written a custom function that will create `N_hat` estimates for us. We need to provide the function with values in order for it to run:
 
 -   `p1`: the *detection* probability on the first survey occasion
 -   `p2`: the *detection* probability on the second survey occasion
 -   `c2`: the *recapture* probability on the second survey occasion
 
-Run the code chunk below to add this function into your work space. You
-will see it pop up in the environment tab.
+Run the code chunk below to add this function into your work space. You will see it pop up in the environment tab.
 
-Now we can use this function as we would use any other function in R!
-Again, I don't expect you to know how it works---just know that we will
-provide the function with our 3 values as arguments and the result will
-be our simulated data.
+Now we can use this function as we would use any other function in R! Again, I don't expect you to know how it works---just know that we will provide the function with our 3 values as arguments and the result will be our simulated data.
 
 ```{r}
 LP_estimator <- function(p1, p2, c2) {
@@ -230,13 +183,9 @@ LP_estimator <- function(p1, p2, c2) {
 
 #### Let's Practice!
 
-Let's say that our detection probabilities (`p1` and `p2`) and recapture
-probability (`c2`) are consistent, always at 0.4.
+Let's say that our detection probabilities (`p1` and `p2`) and recapture probability (`c2`) are consistent, always at 0.4.
 
-We can input those values into our `LP_estimator` function. Doing this
-will run our scenario 1000 times to see how close our estimate of mice,
-`N_hat`, is to the true abundance, `N`, which we have set to be 250
-mice.
+We can input those values into our `LP_estimator` function. Doing this will run our scenario 1000 times to see how close our estimate of mice, `N_hat`, is to the true abundance, `N`, which we have set to be 250 mice.
 
 ```{r}
 N_hat_demo <- LP_estimator(p1 = 0.4, p2 = 0.4, c2 = 0.4)
@@ -263,17 +212,13 @@ mean(N_hat_demo)- N       # bias
 sd(N_hat_demo)            # precision
 ```
 
-Now it is your turn! Use the code above (only from the "Let's Practice"
-section; nothing else needs to change) to compare our estimates, bias,
-and precision in difference scenarios.
+Now it is your turn! Use the code above (only from the "Let's Practice" section; nothing else needs to change) to compare our estimates, bias, and precision in difference scenarios.
 
 ### Scenario 1: Detection Probability is Higher or Lower
 
 #### Higher
 
-10. Our detection probabilities (`p1` and `p2`) and recapture
-    probability (`c2`) are consistent and *higher* than the demo: `p1` =
-    0.6, `p2` = 0.6, `c2` = 0.6 (2 points)
+10. Our detection probabilities (`p1` and `p2`) and recapture probability (`c2`) are consistent and *higher* than the demo: `p1` = 0.6, `p2` = 0.6, `c2` = 0.6 (2 points)
 
 <!-- -->
 
@@ -301,9 +246,7 @@ sd(N_hat_high)            # precision
 
 #### Lower
 
-11. Our detection probabilities (`p1` and `p2`) and recapture
-    probability (`c2`) are consistent and *lower* than the demo: `p1` =
-    0.2, `p2` = 0.2, `c2` = 0.2 (2 points)
+11. Our detection probabilities (`p1` and `p2`) and recapture probability (`c2`) are consistent and *lower* than the demo: `p1` = 0.2, `p2` = 0.2, `c2` = 0.2 (2 points)
 
 <!-- -->
 
@@ -331,11 +274,7 @@ sd(N_hat_low)            # precision
 
 #### Interpretation
 
-12. Compare the bias and precision of our total abundance estimates
-    given the different detection probabilities and write 2-3 sentences
-    explaining the results. Does higher detection probability give us
-    more or less bias? More or less precision? Does this make sense to
-    you? (3 points)
+12. Compare the bias and precision of our total abundance estimates given the different detection probabilities and write 2-3 sentences explaining the results. Does higher detection probability give us more or less bias? More or less precision? Does this make sense to you? (3 points)
 
 *Answer:*
 
@@ -343,9 +282,7 @@ sd(N_hat_low)            # precision
 
 #### Trap Shy
 
-13. We have a population that is trap shy, meaning that the probability
-    of recapture is lower than the probability of initial capture
-    (`p > c`): `p1` = 0.4, `p2` = 0.4, `c2` = 0.2 (2 points)
+13. We have a population that is trap shy, meaning that the probability of recapture is lower than the probability of initial capture (`p > c`): `p1` = 0.4, `p2` = 0.4, `c2` = 0.2 (2 points)
 
 <!-- -->
 
@@ -373,9 +310,7 @@ sd(N_hat_trapshy)            # precision
 
 #### Trap Happy
 
-14. We have a population that is trap happy, meaning that the
-    probability of recapture is higher than the probability of initial
-    capture (`p < c`): `p1` = 0.4, `p2` = 0.4, `c2` = 0.6 (2 points)
+14. We have a population that is trap happy, meaning that the probability of recapture is higher than the probability of initial capture (`p < c`): `p1` = 0.4, `p2` = 0.4, `c2` = 0.6 (2 points)
 
 <!-- -->
 
@@ -403,11 +338,7 @@ sd(N_hat_traphappy)            # precision
 
 #### Interpretation
 
-15. Compare the bias and precision of our total abundance estimates for
-    the demo, trap happy, and trap shy populations. Write 2-3 sentences
-    explaining the results. How do animals being trap happy or trap shy
-    affect the accuracy of our estimate? Does this make sense to you? (3
-    points)
+15. Compare the bias and precision of our total abundance estimates for the demo, trap happy, and trap shy populations. Write 2-3 sentences explaining the results. How do animals being trap happy or trap shy affect the accuracy of our estimate? Does this make sense to you? (3 points)
 
 *Answer:*
 
@@ -415,20 +346,13 @@ sd(N_hat_traphappy)            # precision
 
 ### Removal Methods
 
-As we mentioned in class, there are a number of different ways we can do
-removal methods to estimate abundance of populations. One of those ways
-is to use capture-mark-recapture data, ignoring those individuals who
-have been marked already and only focusing on new captures.
+As we mentioned in class, there are a number of different ways we can do removal methods to estimate abundance of populations. One of those ways is to use capture-mark-recapture data, ignoring those individuals who have been marked already and only focusing on new captures.
 
 #### Constant Effort
 
-Let's use our desert pocket mouse (*Chaetodipus penicillatus*)
-capture-mark-recapture data from the very beginning of the assignment
-but treat it as a removal study. Because we set the same number of traps
-both nights, it is a constant-effort study.
+Let's use our desert pocket mouse (*Chaetodipus penicillatus*) capture-mark-recapture data from the very beginning of the assignment but treat it as a removal study. Because we set the same number of traps both nights, it is a constant-effort study.
 
-9.  Using the numbers from the CMR section above, set the following
-    objects:
+9.  Using the numbers from the CMR section above, set the following objects:
 
     -   n1 (\# individuals removed in first sample)
     -   n2 (\# individuals removed in second sample)
@@ -446,8 +370,7 @@ n2_removal <- n2 - m2 # 42 - 30 = 12
 N_hat_removal <- (n1_removal^2) / (n1_removal - n2_removal)
 ```
 
-Compare this estimate of abundance with that of the Lincoln-Peterson
-estimator. Similar, but not exactly the same!
+Compare this estimate of abundance with that of the Lincoln-Peterson estimator. Similar, but not exactly the same!
 
 11. Let's do the same for the Bailey's pocket mouse.
 
