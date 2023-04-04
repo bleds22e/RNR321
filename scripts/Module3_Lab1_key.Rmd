@@ -96,7 +96,7 @@ Now that we have both our occupancy data frame (the encounter histories) and a l
 Running this line of code will produce a warning, but you can ignore it.
 
 ```{r}
-tortUMF <- unmarkedFrameOccu(tort_occ, obsCovs = survey_time)
+tortUMF <- unmarkedFrameOccu(tort_occ, obsCovs = surveys)
 ```
 
 Let's take a look at this new data frame that we just created.
