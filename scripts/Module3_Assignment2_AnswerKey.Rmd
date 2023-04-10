@@ -1,21 +1,12 @@
 ---
-title: "Module 4 Assignment 2"
+title: "Module 3 Assignment 2"
 author: "Ellen Bledsoe"
 date: "`r Sys.Date()`"
-output:
-  pdf_document: default
-  html_document: default
-editor_options:
-  markdown:
-    wrap: 72
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-```
-
-```{r warning = FALSE}
-library(tidyverse)
 ```
 
 ```{r}
@@ -24,20 +15,19 @@ n2 <- 42
 m2 <- 30
 ```
 
-4.  
+2.  
 
 ```{r}
 N_hat <- n1 * n2 / m2
 N_hat
 ```
 
-5.  
+3.  
 
 ```{r}
 p_hat <- m2 / n1
-p_hat
+p_hat 
 ```
-
 
 
 ```{r}
@@ -46,33 +36,32 @@ n2_Baileys <- 12
 m2_Baileys <- 4
 ```
 
-7.  
+5.  
 
 ```{r}
 N_hat_Baileys <- (n1_Baileys * n2_Baileys) / m2_Baileys
 N_hat_Baileys
 ```
 
-8.  
-
+6.  
 ```{r}
 p_hat_Baileys <- m2_Baileys / n1_Baileys
 p_hat_Baileys
 ```
 
-
 ```{r}
 N <- 250
 ```
-
 
 ```{r}
 nRuns <- 1000
 ```
 
-
 ```{r}
 LP_estimator <- function(p1, p2, c2) {
+  
+  # make sure we get the same numbers every time
+  set.seed(4)
   
   # create an empty data frame to hold simulated values
   Nhat <- matrix(NA, nRuns)  # create a matrix to hold estimates
@@ -84,128 +73,104 @@ LP_estimator <- function(p1, p2, c2) {
     m2 <- rbinom(1, n1, c2)    # no. marked individuals recaptured on survey occasion 2
     n2 <- u2 + m2              # total no. individuals captured on survey occasion 2
     
-    # calculate estimated abundance
-    Nhat[i] <- (n1 + 1)*(n2 +1) / (m2 + 1) - 1
+    # calculate estimated abundance via (modified) Lincoln-Peterson
+    Nhat[i] <- (n1 )*(n2) / (m2)
   }
   
   return(Nhat) # the function will return our estimate of the population
 }
 ```
 
-**SIMULATED DATA WILL NOT BE EXACT MATCHES**
 
-10.
+8.  
 
+    ```{r}
+    N_hat_high <- LP_estimator(p1 = 0.6, p2 = 0.6, c2 = 0.6)
+    ```
+
+    b.  
+
+    ```{r}
+    hist(N_hat_high)
+    ```
+
+    c.  
+
+    ```{r}
+    mean(N_hat_high)
+
+    # On average, how biased are our estimates?
+    mean(N_hat_high) - N       # bias
+
+    # How precise are our estimates?
+    sd(N_hat_high)            # precision
+    ```
+
+9.  
+
+    ```{r}
+    N_hat_low <- LP_estimator(p1 = 0.2, p2 = 0.2, c2 = 0.2)
+    ```
+
+    b. 
+
+    ```{r}
+    hist(N_hat_low)
+    ```
+
+    c.  
+
+    ```{r}
+    mean(N_hat_low)
+
+    # On average, how biased are our estimates?
+    mean(N_hat_low) - N       # bias
+
+    # How precise are our estimates?
+    sd(N_hat_low)            # precision
+    ```
 ```{r}
-N_hat_high <- LP_estimator(p1 = 0.6, p2 = 0.6, c2 = 0.6)
+
 ```
 
-b.  Plot the histogram of this data.
 
-```{r}
-hist(N_hat_high)
-```
-
-c.  Calculate the bias and precision of the estimate.
-
-```{r}
-
-mean(N_hat_high) - N       
-
-
-sd(N_hat_high)            
-```
-
-
-
-11. 
-
-```{r}
-N_hat_low <- LP_estimator(p1 = 0.6, p2 = 0.6, c2 = 0.6)
-```
-
-b.  Plot the histogram of this data.
-
-```{r}
-hist(N_hat_low)
-```
-
-c.  Calculate the bias and precision of the estimate.
-
-```{r}
-
-mean(N_hat_low)- N       
-
-
-sd(N_hat_low)            
-```
-
-
-13. 
+  11.
+11. b.  
 
 ```{r}
 N_hat_trapshy <- LP_estimator(p1 = 0.4, p2 = 0.4, c2 = 0.2)
-```
-
-b.  Plot the histogram of this data.
-
-```{r}
 hist(N_hat_trapshy)
 ```
 
-c.  Calculate the bias and precision of the estimate.
+c.  
 
 ```{r}
+mean(N_hat_trapshy)
 
-mean(N_hat_trapshy)- N      
+# On average, how biased are our estimates?
+mean(N_hat_trapshy) - N       # bias
 
-
-sd(N_hat_trapshy)          
+# How precise are our estimates?
+sd(N_hat_trapshy)            # precision
 ```
 
 
 
-14. 
+12. 
+
+b. 
+
 ```{r}
 N_hat_traphappy <- LP_estimator(p1 = 0.4, p2 = 0.4, c2 = 0.6)
-```
-
-b.  Plot the histogram of this data.
-
-```{r}
 hist(N_hat_traphappy)
 ```
 
-c.  Calculate the bias and precision of the estimate.
+c.  
 
 ```{r}
-
-mean(N_hat_traphappy)- N       
-
-
-sd(N_hat_traphappy)           
-```
-
-
-```{r}
-n1_removal <- n1 # 37
-n2_removal <- n2 - m2 # 42 - 30 = 12
-```
-
-17. Estimate the abundance of the population.
-
-```{r}
-N_hat_removal <- (n1_removal^2) / (n1_removal - n2_removal)
-N_hat_removal
-```
-
-
-18. 
-
-```{r}
-n1_removalB <- n1_Baileys
-n2_removalB <- n2_Baileys - m2_Baileys
-
-N_hat_removalB <- (n1_Baileys^2) / (n1_removalB - n2_removalB)
-N_hat_removalB
+mean(N_hat_traphappy)
+# On average, how biased are our estimates?
+mean(N_hat_traphappy) - N       # bias
+# How precise are our estimates?
+sd(N_hat_traphappy)            # precision
 ```
