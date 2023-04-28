@@ -1,0 +1,27 @@
+species	naive
+Atilax paludinosus	0.0517241379310345
+Bdeogale crassicauda	0.741379310344828
+Cephalophus harveyi	0.862068965517241
+Cephalophus spadix	0.46551724137931
+Cercocebus sanjei	0.517241379310345
+Cercopithecus mitis	0.241379310344828
+Civettictis civetta	0.0172413793103448
+Colobus angolensis	0.0172413793103448
+Cricetomys gambianus	0.53448275862069
+Dendrohyrax arboreus	0.241379310344828
+Genetta servalina	0.258620689655172
+Hystrix africaeaustralis	0.0862068965517241
+Loxodonta africana	0.120689655172414
+Mellivora capensis	0.103448275862069
+Mungos mungo	0.0344827586206897
+Nandinia binotata	0.0344827586206897
+Nesotragus moschatus	0.448275862068966
+Panthera pardus	0.0517241379310345
+Papio cynocephalus	0.0517241379310345
+Paraxerus vexillarius	0.327586206896552
+Petrodromus tetradactylus	0.0172413793103448
+Potamochoerus larvatus	0.189655172413793
+Procolobus gordonorum	0.0689655172413793
+Rhynchocyon cirnei	0.0517241379310345
+Rhynchocyon udzungwensis	0.258620689655172
+Syncerus caffer	0.0517241379310345

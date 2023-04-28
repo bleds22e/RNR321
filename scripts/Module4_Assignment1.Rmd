@@ -1,0 +1,39 @@
+---
+title: 'Module "4": Assignment 1'
+author: "Ellen Bledsoe"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Assignment Details
+
+### Purpose
+
+The goal of this assignment is to understand, apply, and interpret detection probability in estimating densities through distance sampling.
+
+### Task
+
+Write R code to successfully answer each question below or write text to successfully answer the question.
+
+### Criteria for Success
+
+-   Code is within the provided code chunks
+-   Code chunks run without errors
+-   Code produces the correct result
+    -   Code attempts will get half points
+    -   Code that produces the correct answer will receive full points
+-   Text answers correctly address the question asked
+
+### Due Date
+
+May 8 at midnight MST
+
+------------------------------------------------------------------------
+
+## Assignment Questions
+
+All questions are worth 1 point unless otherwise specified.
