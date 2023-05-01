@@ -18,7 +18,8 @@ Today, we will be working with community data to calculate species richness, plo
 For today's lab and assignment, we will need to load a new package called `vegan`. I've already installed the package on Posit Cloud, so we only need to load it into our work space. We are also going to load the `tidyverse`.
 
 ```{r message=FALSE}
-
+library(vegan)
+library(tidyverse)
 ```
 
 The `vegan` package is one of the most popular packages available for working with community-level data. It includes functions for many multivariate analyses commonly used in the analysis of ecological communities. We will be using it today for its species accumulation curve functions.
@@ -28,19 +29,20 @@ The `vegan` package is one of the most popular packages available for working wi
 For this example, we are going to use a dataset of fish abundances from the Doubs River in France. Each column represents a species, and each row is a survey.
 
 ```{r}
-
+fish <- read_csv("../data_raw/Doubs_fish.csv")
+head(fish)
 ```
 
 First, we need to run our survey by species matrix through the `specaccum()` function to prepare the data to be put into a species accumulation curve model.
 
 ```{r}
-
+fish_sac <- specaccum(fish)
 ```
 
 Now, we want to put the object we just created, `fish_sac`, into the `fitspecaccum()` function. We need to specify the model we want as "asymp".
 
 ```{r}
-
+fish_fit_sac <- fitspecaccum(fish_sac, model = "asymp")
 ```
 
 Now that we've fit the model, we can get out the estimated asymptote of the species accumulation curve and plot the predicted curve.
@@ -48,7 +50,7 @@ Now that we've fit the model, we can get out the estimated asymptote of the spec
 `coef()` gives us the estimated asymptote of the species accumulation curve.
 
 ```{r}
-
+coef(fish_fit_sac)
 ```
 
 The asymptote is coming out right around 27, meaning that there are likely about 27 species in our community. If we look at the original data, we see that the data frame has 27 columns (AKA species), so we've probably caught all the species in the community.
@@ -56,7 +58,7 @@ The asymptote is coming out right around 27, meaning that there are likely about
 Let's plot the data to see what it looks like.
 
 ```{r}
-
+plot(fish_fit_sac)
 ```
 
 Looks like we hit the asymptote well before we stopped sampling, which is a great sign.
@@ -78,7 +80,7 @@ head(fish_abund)
 Fortunately, calculating species richness is fairly straightforward. We already know that the richness of the fish community is 27, but let's calculate that with code. The `nrow()` function will count how many rows we have for us, which, given the way our data is being presented, will be the species richness of the community.
 
 ```{r}
-
+nrow(fish_abund)
 ```
 
 ### Shannon Index
@@ -90,7 +92,8 @@ Our first step is to sum up the total number of individuals in the community. We
 We will use the sum function and specify that we want to add up the numbers in the "value" column by using the dollar sign operator.
 
 ```{r}
-
+N <- sum(fish_abund$value)
+N
 ```
 
 Now we want to calculate the proportion of the population made up by each species. We will store these values by adding them into a new column in the `abund` data frame.
@@ -98,25 +101,29 @@ Now we want to calculate the proportion of the population made up by each specie
 We do this by using the dollar sign operator again. On the left side of the assignment arrow, we create a new column. On the right side, we tell R what the new column should contain. In this case, we want to create the proportion for each species---the number of individuals per species divided by the total number of individuals in the population. We will call this new column `prop`.
 
 ```{r}
-
+fish_abund$prop <- fish_abund$value / N
+head(fish_abund)
 ```
 
 Note that we now a new column with all the proportions calculated. We want to continue this by taking the natural log of that proportion. We use the `log()` function to do that.
 
 ```{r}
-
+fish_abund$ln_prop <- log(fish_abund$prop)
+head(fish_abund)
 ```
 
 Now we need to multiple the values in the two columns we just created.
 
 ```{r}
-
+fish_abund$prop_x_lnprop <- fish_abund$prop * fish_abund$ln_prop
+head(fish_abund)
 ```
 
 Finally, we can sum these values and multiple by -1 to calculate the Shannon Index (H) for this community.
 
 ```{r}
-
+H = sum(fish_abund$prop_x_lnprop) * -1
+H
 ```
 
 You will want to use a similar strategy to calculate the Simpson Index, as well.
@@ -139,7 +146,7 @@ The power of the `tidyverse` really shines when you have multiple communities fo
 Take a look at this example:
 
 ```{r}
-algar <- read.csv("algar_data.csv")
+algar <- read.csv("../data_raw/algar_data.csv")
 head(algar)
 ```
 
