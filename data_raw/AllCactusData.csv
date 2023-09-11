@@ -1,0 +1,51 @@
+group_id,group_members,temp_C,species,size,paddle_id,length_in,width_in,depth_in,spines,insects,damage,location
+1,"Jaelyn Dennis, Katharine Cole, Jose Rodriguez, Rheanna Fernandez",40,Opuntia ficus-indica,Large,1,9,2.5,0.25,N,N,None,Seventh
+1,"Jaelyn Dennis, Katharine Cole, Jose Rodriguez, Rheanna Fernandez",40,Opuntia ficus-indica,Large,2,10,6,0.25,N,N,None,Sixth
+1,"Jaelyn Dennis, Katharine Cole, Jose Rodriguez, Rheanna Fernandez",40,Opuntia ficus-indica,Large,3,8,4,0.25,N,N,None,Third
+1,"Jaelyn Dennis, Katharine Cole, Jose Rodriguez, Rheanna Fernandez",40,Opuntia ficus-indica,Large,4,11,6,0.25,N,N,Some,Fifth
+1,"Jaelyn Dennis, Katharine Cole, Jose Rodriguez, Rheanna Fernandez",40,Opuntia ficus-indica,Large,5,7,4.5,0.5,N,N,Some,Fourth
+2,"Zach, Britsy, Riley, Woods",40,Opuntia santa-rita,Large,1,3.75,3.75,0.5,N,N,None,Eigth
+2,"Zach, Britsy, Riley, Woods",40,Opuntia santa-rita,Large,2,5.25,4.5,0.5,Y,N,Some,Third
+2,"Zach, Britsy, Riley, Woods",40,Opuntia santa-rita,Large,3,7.75,5.5,0.33,Y,N,Some,Fifth
+2,"Zach, Britsy, Riley, Woods",40,Opuntia santa-rita,Large,4,3,2.75,0.5,Y,N,None,Seventh
+2,"Zach, Britsy, Riley, Woods",40,Opuntia santa-rita,Large,5,3.25,3,0.75,Y,N,Most,Fourth
+3,"Joseph Pasilis, Mathew Wray, and Andy Alarcon",40,Opuntia ficus-indica,Small,1,8,2,0.6,N,N,Some,First
+3,"Joseph Pasilis, Mathew Wray, and Andy Alarcon",40,Opuntia ficus-indica,Small,2,5.6,2.2,0.7,N,N,Some,Second
+3,"Joseph Pasilis, Mathew Wray, and Andy Alarcon",40,Opuntia ficus-indica,Small,3,8.2,3.2,0.5,N,N,Some,Third
+3,"Joseph Pasilis, Mathew Wray, and Andy Alarcon",40,Opuntia ficus-indica,Small,4,5.5,3.4,0.6,N,N,Some,First
+3,"Joseph Pasilis, Mathew Wray, and Andy Alarcon",40,Opuntia ficus-indica,Small,5,4.3,1.6,0.5,N,N,Some,Second
+4,"Saige McMillan, Cass Fox, Kayli Navas",40,Opuntia ficus-indica,Large,1,9,6.5,0.375,N,N,None,Sixth
+4,"Saige McMillan, Cass Fox, Kayli Navas",40,Opuntia ficus-indica,Large,2,8.5,3.875,0.25,N,N,None,Fifth
+4,"Saige McMillan, Cass Fox, Kayli Navas",40,Opuntia ficus-indica,Large,3,11,6.5,0.375,N,N,Some,Sixth
+4,"Saige McMillan, Cass Fox, Kayli Navas",40,Opuntia ficus-indica,Large,4,7,2.5,0.125,N,N,None,Fourth
+4,"Saige McMillan, Cass Fox, Kayli Navas",40,Opuntia ficus-indica,Large,5,11.5,7,0.625,N,N,Some,Seventh
+5,"Kaya Curry, Andres Martinez, Morgan McDowell",40,Opuntia ficus-indica,Medium,1,8,4,0.25,N,N,None,Seventh
+5,"Kaya Curry, Andres Martinez, Morgan McDowell",40,Opuntia ficus-indica,Medium,2,9.5,3,0.25,N,N,None,Sixth
+5,"Kaya Curry, Andres Martinez, Morgan McDowell",40,Opuntia ficus-indica,Medium,3,4,2,0.25,N,N,None,Ninth
+5,"Kaya Curry, Andres Martinez, Morgan McDowell",40,Opuntia ficus-indica,Medium,4,6.5,3,0.25,N,N,None,Sixth
+5,"Kaya Curry, Andres Martinez, Morgan McDowell",40,Opuntia ficus-indica,Medium,5,7,2.5,0.25,N,N,Some,Sixth
+6,"Meshelle Francis, Ava Barnum, Chloe Atkins",40,Opuntia ficus-indica,Large,1,11,7.5,0.25,N,N,None,Seventh
+6,"Meshelle Francis, Ava Barnum, Chloe Atkins",40,Opuntia ficus-indica,Large,2,9.5,5,0.25,N,N,All,Third
+6,"Meshelle Francis, Ava Barnum, Chloe Atkins",40,Opuntia ficus-indica,Large,3,8,6.5,0.25,N,N,None,Tenth
+6,"Meshelle Francis, Ava Barnum, Chloe Atkins",40,Opuntia ficus-indica,Large,4,6,2,0.165,N,N,None,Fourth
+6,"Meshelle Francis, Ava Barnum, Chloe Atkins",40,Opuntia ficus-indica,Large,5,9.5,6,0.25,N,N,Some,Fifth
+7,"August Walser, Miles Solis, Tanner Skaare",40,Opuntia santa-rita,Large,1,6.5,5,0.2,Y,N,Some,Fourth
+7,"August Walser, Miles Solis, Tanner Skaare",40,Opuntia santa-rita,Large,2,9.5,5,0.3,Y,N,None,Third
+7,"August Walser, Miles Solis, Tanner Skaare",40,Opuntia santa-rita,Large,3,7,5,0.3,Y,N,Some,Second
+7,"August Walser, Miles Solis, Tanner Skaare",40,Opuntia santa-rita,Large,4,5.5,5.5,0.3,Y,N,None,First
+7,"August Walser, Miles Solis, Tanner Skaare",40,Opuntia santa-rita,Large,5,7.5,6,0.2,Y,N,None,Fifth
+8,"Josephine Lopez,Renee Yockey, karen ornelas",40,Opuntia ficus-indica,Large,1,9.5,2.5,0.2,Y,Y,None,Third
+8,"Josephine Lopez,Renee Yockey, karen ornelas",40,Opuntia ficus-indica,Large,2,8.5,6,0.5,Y,N,Some,Fifth
+8,"Josephine Lopez,Renee Yockey, karen ornelas",40,Opuntia ficus-indica,Large,3,3,1.2,1.25,N,N,None,Fifth
+8,"Josephine Lopez,Renee Yockey, karen ornelas",40,Opuntia ficus-indica,Large,4,8,5.2,0.5,N,Y,Most,Fourth
+8,"Josephine Lopez,Renee Yockey, karen ornelas",40,Opuntia ficus-indica,Large,5,6.5,4,0.2,N,N,All,Third
+9,"Claire Pickett, Logan Kilgroe, Erin Hess",40,Opuntia ficus-indica,Large,1,10.5,4.5,0.5,N,N,Some,Fifth
+9,"Claire Pickett, Logan Kilgroe, Erin Hess",40,Opuntia ficus-indica,Large,2,10.75,7.3,0.6,N,N,Most,Third
+9,"Claire Pickett, Logan Kilgroe, Erin Hess",40,Opuntia ficus-indica,Large,3,8.6,3.2,0.3,N,N,Some,Eigth
+9,"Claire Pickett, Logan Kilgroe, Erin Hess",40,Opuntia ficus-indica,Large,4,10,5,0.5,N,Y,Most,Third
+9,"Claire Pickett, Logan Kilgroe, Erin Hess",40,Opuntia ficus-indica,Large,5,6.2,2,1,N,N,Most,Sixth
+10,"Hannah Bensinger, Jake Schwartz, Brian Muher",40,Opuntia ficus-indica,Large,1,10,5,0.5,N,N,None,Fifth
+10,"Hannah Bensinger, Jake Schwartz, Brian Muher",40,Opuntia ficus-indica,Large,2,9,5.5,0.5,N,N,None,Third
+10,"Hannah Bensinger, Jake Schwartz, Brian Muher",40,Opuntia ficus-indica,Large,3,10.5,6.5,0.5,N,N,None,Third
+10,"Hannah Bensinger, Jake Schwartz, Brian Muher",40,Opuntia ficus-indica,Large,4,12.5,7.5,0.75,N,N,Some,Fourth
+10,"Hannah Bensinger, Jake Schwartz, Brian Muher",40,Opuntia ficus-indica,Large,5,11,7.5,0.5,N,N,Some,Fourth

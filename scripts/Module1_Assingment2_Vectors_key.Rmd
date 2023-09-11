@@ -1,0 +1,195 @@
+---
+title: "Module 1 Assignment 2"
+author: "Ellen Bledsoe"     # <- your name inside quotes here!
+date: "`r Sys.Date()`"      # <- this will produce today's date, so you can leave it
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Purpose
+
+The goal of this assignment is to explore computational reproducibility and apply the base R coding skills we've learned and practiced in class and lab.
+
+### Task
+
+Write R code to successfully answer each question below and/or write text to successfully answer the question.
+
+### Criteria for Success
+
+-   Code is within the provided code chunks
+-   Code chunks run without errors
+-   Code produces the correct result
+    -   Code attempts will clear logical direction will get half points
+    -   Code that produces the correct answer will receive full points
+-   Text answers correctly address the question asked
+
+### Due Date
+
+Sept 19 at 1pm MST
+
+# Assignment Questions
+
+This assignment is worth 20 points total. Each question is worth 1 point.
+
+## Definitions (1 point each)
+
+*In your own words*, define/describe the following terms. These don't need to be technical descriptions but rather how you are thinking about them.
+
+**Grading note: I've copied these definitions from my slides. If their definitions are the same, they have copied directly from the slides and not used their own words, so take 0.5 points off.**
+
+1.  *Reproducibility*: ability to repeat the original study using the same data, materials, and methods
+
+2.  *Open science*: Scientific research conducted and communicated in an honest, accessible, and transparent way, such that--at a minimum--a study can be reproduced and/or replicated.
+
+3.  *R*: R refers to both the programming language and the software that interprets scripts written in the language.
+
+4.  *RStudio*: RStudio is an integrated development environment (IDE) that helps us interact with R more easily.
+
+## Vectors (1 point each)
+
+5.  Assign the number 121 to an object called `birds`.
+
+```{r}
+birds <- 121
+birds
+```
+
+6.  Divide the object `bird` by 5. Name the result `fewer_birds`.
+
+```{r}
+fewer_birds <- 121^(0.5)
+fewer_birds
+```
+
+7.  Create a vector called `snails` with the following values: 7, 2, 19, 4, 0, 2
+
+```{r}
+snails <- c(7, 2, 19, 4, 0, 2)
+snails
+```
+
+8.  Write a line of code that determines what *class* of data is in the `snails` vector.
+
+```{r}
+class(snails)
+```
+
+9.  Run the following line of code. Based on the output, explain what the line of code does (\~ 1 sentence).
+
+```{r}
+snails * fewer_birds
+```
+
+*Answer:*
+
+10. Create a character vector called `rhymes` that contains the following values: cat, rat, bat, hat
+
+```{r}
+rhymes <- c("cat", "rat", "bat", "hat")
+rhymes
+```
+
+------------------------------------------------------------------------
+
+### Let's Bring in the Cactus Data
+
+For the following questions, we will be using the cactus pad data that we collected a few weeks ago. Run the following code chunk to bring ("read") the .csv file into R for us to use.
+
+```{r}
+cactus <- read.csv("../data_raw/AllCactusData.csv")
+```
+
+This code chunk uses the `$` operator to pull out individuals columns from 2D data and treat them as vectors. Here, I'm saving the cactus pad length column as a vector called `pad_length`. Once you run this code chunk, you should see `pad_length` in your environment.
+
+```{r}
+pad_length <- cactus$length_in
+```
+
+Below, I'm doing the same thing with a couple more columns.
+
+```{r}
+pad_width <- cactus$width_in
+damage <- cactus$damage
+```
+
+------------------------------------------------------------------------
+
+11. Write a line of code that pulls out the 4th value in the `pad_width` vector.
+
+```{r}
+pad_width[4]
+```
+
+12. Write a line of code that saves the 42nd value in the `pad_width` column as an object called `answer`.
+
+```{r}
+answer <- pad_width[42]
+answer
+```
+
+12. Write a line of code that pulls out the 6th through the 10th value in the `pad_width` vector.
+
+```{r}
+pad_width[6:10]
+```
+
+13. Using a function, write a line of code for which the output is the number of elements in the `damage` vector.
+
+```{r}
+length(damage)
+```
+
+14. Write a line of code that pulls out all of the elements of the `damage` vector which have no damage on the pad.
+
+```{r}
+damage[damage == "None"]
+```
+
+15. Combining your answers for Questions 13 and 14, write a line of code that determines how many recorded cactus pads had no damage to them.
+
+```{r}
+length(damage[damage == "None"])
+```
+
+16. Based on the code itself and the output of the line of code, explain in your own words what the following line of code is doing.
+
+```{r}
+pad_length >= 8
+```
+
+17. Write a line of code that pull out all of the elements in the `pad_length` vector which are greater than 5.
+
+```{r}
+pad_length[pad_length > 5]
+```
+
+18. Calculate both the average (`mean()`) and the standard deviation (`sd()`) for the cactus pad lengths.
+
+```{r}
+mean(pad_length)
+sd(pad_length)
+```
+
+19. Calculate both the average (`mean()`) and the standard deviation (`sd()`) for the cactus pad widths.
+
+```{r}
+mean(pad_width)
+sd(pad_width)
+```
+
+20. Compare the results of Questions 18 and 19. Are cactus lengths or widths larger, on average? Which of the two sets of data has greater variability, and what does that mean? (\~2 sentences)
+
+*Answer: Cactus pad lengths are longer, on average, than cactus pad widths. The lengths also have more variability in their values, meaning that the lengths are further away from the mean than the widths are.*
+
+# Turning in Your Assignment
+
+Follow these steps to successfully turn in your assignment on D2L.
+
+1.  Click the `Knit` button up near the top of this document. This should produce a PDF file that shows up in the `Files` panel on the bottom-right of your screen.
+2.  Click the empty box to the left of the PDF file.
+3.  Click on the blue gear near the top of the `Files` panel and choose Export.
+4.  Put your last name at the front of the file name when prompted, then click the Download button. The PDF file of your assignment is now in your "Downloads" folder on your device.
+5.  Head over to D2L and navigate to Module 1 Assignment 2. Submit the PDF file that you just downloaded.

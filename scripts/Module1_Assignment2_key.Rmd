@@ -28,7 +28,7 @@ Write R code to successfully answer each question below and/or write text to suc
 
 ### Due Date
 
-Feb 20 at midnight MST
+Sept 19 at 1pm MST
 
 # Assignment Questions
 
@@ -51,6 +51,8 @@ This assignment is worth 20 points total. Each question is worth 1 point.
 ## Vectors (1 point each)
 
 5.  Run the first code chunk below to create the object heights. Use the `mean()` function to calculate the mean value of height.
+
+  *Hint: remember to check the answer key!*
 
 ```{r}
 heights <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, NA, 72, 65, 64, 70, 63, 65)
@@ -90,29 +92,17 @@ rhymes <- c("cat", "rat", "bat", "hat")
 
 We will be using that data for the remainder of the assignment.
 
-Once you run the code chunk, the data frame will be saved in your environment as the object `pads`.
+Once you run the code chunk, the data frame will be saved in your environment as the object `cactus`.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-library(tidyverse)
-# read in the cactus pads data
-pads <- read_csv("../data_raw/CactusPadsData.csv") 
-
-# read in the cactus data and choose only the group_id, species, and size columns
-cactus <- read_csv("../data_raw/CactusData.csv") %>% select(group_id, species, size)
-
-# join the two datasets together using the group_id column
-# this matches up the cactus species and size for each cactus pad (row) with the same group_id
-pads <- right_join(pads, cactus, by = "group_id")
-
-# remove the cactus data frame because we don't need it anymore (and it might be confusing)
-rm(cactus)
+pads <- read.csv("../data_raw/AllCactusData.csv")
 ```
 
 9.  How many rows does this data frame have? How many columns? You can either use code to figure this out or look at the object in the environment.
 
-    *Rows*: 108
+    *Rows*: 50
 
-    *Columns*: 11
+    *Columns*: 13
 
 ```{r}
 # optional space for code to answer the question above
@@ -158,6 +148,12 @@ pad_depth <- pads[pads$depth_in > 1, ]
 
 ### Calculating the Coefficient of Variance
 
+One type of measure of variability that we did not get a change to cover in class is called the "coefficient of variance." I recommend taking a look at that slide in the lecture. 
+
+The coefficient of variance is a way of making the amount of variation in the data relative to the data values themselves. This way, we can calculate standard deviation for the weight of squirrels and elephants and be able to compare them. Without standardization, the values for the elephant weights will be much bigger than the squirrel weights, but that doesn't actually mean that they have more variation. We want to know if they have more variation once we've accounted for the fact that elephant weights will naturally be much larger. 
+
+We do this by dividing the standard deviation by the mean. We can then multiply by 100 to get a percentage. The data with the larger percentage has more variation in the data, regardless of whether the value for the standard deviation alone was larger or smaller.
+
 The remainder of the questions in this assignment lead you through the steps to calculate the coefficient of variance for pad length for two of the three cactus species that we measured. This will give us relative amounts of variation in between the two species.
 
 16. Create 2 different data frames: one called `ficus` with only rows that have *Opuntia ficus-indica* in the species column and one called `santa_rita` with only rows which have *Opuntia santa-rita* in the species column. (Hint: take a look at Q15 for inspiration on how to do that)
@@ -171,21 +167,27 @@ santa_rita <- pads[pads$species == "Opuntia santa-rita", ]
 
 ```{r}
 mean_ficus <- mean(ficus$length_in)
+mean_ficus
 mean_santa <- mean(santa_rita$length_in)
+mean_santa
 ```
 
 18. In a similar fashion, calculate the standard deviation (`sd()`) for the weight of both species.
 
 ```{r}
 sd_ficus <- sd(ficus$length_in)
+sd_ficus
 sd_santa <- sd(santa_rita$length_in)
+sd_santa
 ```
 
 19. Using the objects (not just the numbers) you just created in questions 22 and 23, calculate the coefficient of variance (CV) for each species. Remember to multiply by 100 to convert into a percentage.
 
 ```{r}
 cv_ficus <- (sd_ficus / mean_ficus) * 100
+cv_ficus
 cv_santa <- (sd_santa / mean_santa) * 100
+cv_santa
 ```
 
 20. In 2-3 sentences, interpret the results of your calculations from Q17-19.
