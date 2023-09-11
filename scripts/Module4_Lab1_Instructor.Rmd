@@ -29,7 +29,7 @@ The `vegan` package is one of the most popular packages available for working wi
 For this example, we are going to use a dataset of fish abundances from the Doubs River in France. Each column represents a species, and each row is a survey.
 
 ```{r}
-fish <- read_csv("../data_raw/Doubs_fish.csv")
+fish <- read_csv("Doubs_fish.csv")
 head(fish)
 ```
 
@@ -146,7 +146,7 @@ The power of the `tidyverse` really shines when you have multiple communities fo
 Take a look at this example:
 
 ```{r}
-algar <- read.csv("../data_raw/algar_data.csv")
+algar <- read.csv("algar_data.csv")
 head(algar)
 ```
 

@@ -47,7 +47,7 @@ df2 <- df2 %>%
 
 df2$CumCatch <- 0
 for (i in 2:nrow(df2)) {
-  df2$CumCatch[i] <- df2$CumCatch[i-1] + df2$Traps[i-1] 
+  df2$CumCatch[i] <- df2$CumCatch[i-1] + df2$Beetles[i-1] 
 }  
 
 df2_means <- df2 %>% 
@@ -63,4 +63,7 @@ x_bar <- mean(df2$CumCatch)
 y_bar <- mean(df2$CPUE)
 k <- -0.008
 
-N_hat <- x_bar + (y_bar/-k)
+
+y_bar <- 2.176
+x_bar <- 1666.8
+(N_hat <- x_bar + (y_bar/-k))
