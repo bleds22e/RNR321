@@ -82,6 +82,7 @@ Functions are pre-written bits of codes that perform specific tasks for us.
 Functions are always followed by parentheses. Anything you type into the parentheses are called arguments. Arguments allow us to give the function additional information about how we want it to perform its task.
 
 ```{r}
+sqrt(10)
 weight_kg <- sqrt(10) # square root 
 
 round(weight_kg) # rounding 
@@ -104,11 +105,11 @@ We use the `c()` function (stands for concatenate) to create a vector.
 
 ```{r}
 # Let's create a vector of animal weights (numeric)
-weight_g <- c(50, 60, 65, 82) 
+weight_g <- c(60, 65, 82) 
 weight_g
 
 # A vector can also contain character strings (character)
-animals <- c("mouse", "rat", "dog") 
+animals <- c("mouse", "rat", "dog", "rat") 
 animals
 ```
 
@@ -126,6 +127,9 @@ class(animals)
 # structure of an object
 str(weight_g) 
 str(animals)
+
+# find the unique values
+unique(animals)
 ```
 
 Vectors can only be one data type. Let's experiment with that.
@@ -153,7 +157,10 @@ weight_g[c(1:4)]
 Another way in which we can subset data is through conditions. The vector will only return data which meets the conditions we set.
 
 ```{r}
+weight_g > 60
 weight_g[weight_g > 55] 
+
+animals == "rat"
 animals[animals == "rat"]
 ```
 
@@ -246,6 +253,7 @@ Often, we want to select a specific column to perform calculations on or to plot
 
 ```{r}
 penguins$species 
+unique(penguins$species)
 
 # we can save single columns as vectors with the assignment operator
 flipper_lenght_mm <- penguins$flipper_length_mm
