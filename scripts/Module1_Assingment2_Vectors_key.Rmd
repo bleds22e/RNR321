@@ -60,7 +60,7 @@ birds
 6.  Divide the object `bird` by 5. Name the result `fewer_birds`.
 
 ```{r}
-fewer_birds <- 121^(0.5)
+fewer_birds <- birds / 5
 fewer_birds
 ```
 

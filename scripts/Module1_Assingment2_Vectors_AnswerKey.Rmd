@@ -19,7 +19,7 @@ birds
 6.  
 
 ```{r}
-fewer_birds <- 121^(0.5)
+fewer_birds <- birds / 5
 fewer_birds
 ```
 
