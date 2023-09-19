@@ -1,0 +1,115 @@
+---
+title: "Module 1 Assignment 3"
+author: "Ellen Bledsoe"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r}
+counts <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, 72, 65, 64, 70, 63, 65)
+```
+
+1.  
+
+```{r}
+mean(counts)
+```
+
+2.  
+
+```{r}
+mean(counts, na.rm = TRUE)
+```
+
+3.  
+
+```{r}
+counts[counts < 66]
+```
+
+4.  
+
+```{r}
+pet_names <- c("Mystery", "Hazel", "Spud", "Pancho")
+pet_names
+```
+
+5.  
+
+```{r}
+pet_names[3]
+```
+
+6.  
+
+```{r}
+pet_names[pet_names == "Spud"]
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+cactus <- read.csv("../data_raw/AllCactusData.csv")
+```
+
+
+8.  
+
+```{r}
+head(cactus)
+```
+
+9.  
+
+```{r}
+mean(cactus$length_in)
+```
+
+10. 
+
+```{r}
+round(mean(cactus$length_in), digits = 1)
+```
+
+11. 
+
+```{r}
+hist(cactus$depth_in)
+```
+
+
+13. 
+```{r}
+cactus[cactus$spines == "N", 9]
+```
+
+
+14. Just a note that I am printing the first 10 rows of each data frame, not necessarily the entire thing, to include in the answer key.
+```{r}
+ficus <- cactus[cactus$species == "Opuntia ficus-indica", ]
+head(ficus, 10)
+santa_rita <- cactus[cactus$species == "Opuntia santa-rita", ]
+head(santa_rita, 10)
+```
+
+15. 
+
+```{r}
+mean_ficus <- mean(ficus$width_in)
+mean_ficus
+mean_santa <- mean(santa_rita$width_in)
+mean_santa
+```
+
+16. 
+
+```{r}
+sd_ficus <- sd(ficus$width_in)
+sd_ficus
+sd_santa <- sd(santa_rita$width_in)
+sd_santa
+```
+

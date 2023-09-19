@@ -1,0 +1,191 @@
+---
+title: "Module 1 Assignment 3"
+author: "Ellen Bledsoe"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Purpose
+
+The goal of this assignment is to explore both 1D (vectors) and 2D (data frames) data in R.
+
+### Task
+
+Write R code to successfully answer each question below and/or write text to successfully answer the question.
+
+### Criteria for Success
+
+-   Code is within the provided code chunks
+-   Code chunks run without errors
+-   Code produces the correct result
+    -   Code attempts will get half points
+    -   Code that produces the correct answer will receive full points
+-   Text answers correctly address the question asked
+
+### Due Date
+
+Sept 26 at 1pm MST
+
+# Assignment Questions
+
+This assignment is worth 20 points total. Each question is worth 1 point unless otherwise specified.
+
+## Vectors 
+
+First, let's remind ourselves a little bit about working with vectors.
+
+Run the following line of code to create a vector called `counts`.
+
+```{r}
+counts <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, 72, 65, 64, 70, 63, 65)
+```
+
+1.  Use the `mean()` function to calculate the mean value of `counts`.
+
+*Hint: remember to check the answer key!*
+
+```{r}
+mean(counts)
+```
+
+2.  This should yield an odd result caused by the `NA` value in `counts`. To resolve this, use the help function to remind yourself about the argument `na.rm = TRUE` in the `mean()` function.
+
+```{r}
+help(mean) # same as ?mean
+```
+
+Issue a revised command to calculate the mean value in `heights`.
+
+```{r}
+mean(counts, na.rm = TRUE)
+```
+
+3.  Write a line of code that selects values less than 66 from the `counts` vector.
+
+```{r}
+counts[counts < 66]
+```
+
+4.  Create a character vector called `pet_names` which includes the following names: Mystery, Hazel, Spud, Pancho
+
+```{r}
+pet_names <- c("Mystery", "Hazel", "Spud", "Pancho")
+pet_names
+```
+
+5.  Write a line of code using *sub-setting via indexing* to pull out the element "Spud" from the vector `pet_names`.
+
+```{r}
+pet_names[3]
+```
+
+6.  Now, write a line of code using *conditional sub-setting* that pulls out the element "Spud".
+
+```{r}
+pet_names[pet_names == "Spud"]
+```
+
+## Data Frames
+
+Now that we have reminded ourselves how to work with vectors, we are now going to move on to working with 2-dimensional data in the form of data frames. Each column in a data frame is a vector.
+
+For the remainder of the assignment, we will be using the cactus data we collected during our first lab.
+
+Once you run the code chunk below, the data frame will be saved in your environment as the object `cactus`.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+cactus <- read.csv("../data_raw/AllCactusData.csv")
+```
+
+7.  Take a look at the `pads` data frame. How many rows does this data frame have? How many columns? You can either use code to figure this out or look at the object in the environment. Explain how you figured it out (e.g., if you looked in the environment, how did you know which number meant what). (2 points)
+
+    *Rows*: 50
+
+    *Columns*: 13
+
+    *Explanation:*
+
+    ```{r}
+    # optional space for code to answer the question above
+    # str(pads)
+    # dim(pads)
+    ```
+
+8.  Look at the first 6 rows of data. You can either do this by using a function or by using index sub-setting.
+
+```{r}
+head(cactus)
+```
+
+9.  Calculate the mean *length* of all the cactus pads that were measured.
+
+```{r}
+mean(cactus$length_in)
+```
+
+10. Use the `round()` function to around the mean of the cactus pad *lengths* (Q9) to only 1 place after the decimal.
+
+```{r}
+round(mean(cactus$length_in), digits = 1)
+```
+
+11. Create a histogram with the *depth* of all the cactus pads that were measured.
+
+```{r}
+hist(cactus$depth_in)
+```
+
+12. In 2-3 sentences, interpret the histogram. Describe what the axes represent, the approximate range of the data, where the majority of values fall, the distribution/skew of the data, etc. (2 points)
+
+*Answer: The x-axis indicates groupings/bins of depth measurements for each cactus pad and the y-axis indicates the frequency with which measurements are in each group. While the range of the data is from about 0-1.4, the majority of values seem to fall between 0.2-0.6. The distribution is right-skewed.*
+
+13. Run the following line of code. By looking at the code and the output, describe what the following line of code is doing. Make sure to include each part of the code. (As a point of reference, this took me 5 sentences in the answer key). (2 points)
+
+```{r}
+cactus[cactus$spines == "N", 9]
+```
+
+*Answer: This line of code pulls out depth values for the cactus pads that do not have spines. We first tell R that we want to select something from the `cactus` data frame. The `[]` indicate that we are subsetting. We set a condition in the rows section that indicates we only want rows in which the value in the spines column is "N", indicating no spines. After the comma, we specify that we want values from the 9th column, which is `depth_in`.*
+
+14. Create 2 different data frames: one called `ficus` with only rows that have *Opuntia ficus-indica* in the species column and one called `santa_rita` with only rows which have *Opuntia santa-rita* in the species column. The data frames should have *all* columns.
+
+```{r}
+ficus <- cactus[cactus$species == "Opuntia ficus-indica", ]
+santa_rita <- cactus[cactus$species == "Opuntia santa-rita", ]
+```
+
+15. Calculate the mean pad width for each species.
+
+```{r}
+mean_ficus <- mean(ficus$width_in)
+mean_ficus
+mean_santa <- mean(santa_rita$width_in)
+mean_santa
+```
+
+16. In a similar fashion, calculate the standard deviation (`sd()`) for the width of both species.
+
+```{r}
+sd_ficus <- sd(ficus$width_in)
+sd_ficus
+sd_santa <- sd(santa_rita$width_in)
+sd_santa
+```
+
+17. Intepret the results from Q15 and Q16. What do they tell us about the depth of cactus pads and the distribution of the data?
+
+    *Answer: Opuntia santa-rita* seems to have wider pads on average than *O. ficus-indica*. The *O. ficus-indica* data has a higher standard deviation, meaning that there is more variation in the data points (they are less close to the mean than the *santa-rita* data points).
+
+# Turning in Your Assignment
+
+Follow these steps to successfully turn in your assignment on D2L.
+
+1.  Click the `Knit` button up near the top of this document. This should produce a PDF file that shows up in the `Files` panel on the bottom-right of your screen.
+2.  Click the empty box to the left of the PDF file.
+3.  Click on the blue gear near the top of the `Files` panel and choose Export.
+4.  Put your last name at the front of the file name when prompted, then click the Download button. The PDF file of your assignment is now in your "Downloads" folder on your device.
+5.  Head over to D2L and navigate to Module 1 Assignment 2. Submit the PDF file that you just downloaded.
