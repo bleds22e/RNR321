@@ -1,5 +1,5 @@
 ---
-title: "Module 3 Assignment 1"
+title: "Module 2 Assignment 1"
 author: "Ellen Bledsoe"
 date: '2022-10-11'
 output: pdf_document
@@ -35,7 +35,7 @@ successfully answer the question.
 
 ### Due Date
 
-March 13 by 2pm MST
+Oct 10 by 1pm MST
 
 ------------------------------------------------------------------------
 
@@ -88,10 +88,6 @@ question in terms of our data (aka, "big square," "little squares,"
     population parameter that we are estimating (mean), so we have less
     uncertainty in the estimate (AKA smaller SE).
 
-### Calculations
-
-Each question is worth 1 point unless otherwise noted.
-
 #### Set-up:
 
 (a) Get your (or your group's) simple random sampling rock data.
@@ -99,15 +95,27 @@ Each question is worth 1 point unless otherwise noted.
     need to do so using "Save As".
 (c) In RStudio Cloud, using the "Upload" button in the lower right-hand
     panel, upload your .csv file.
-(d) In the Files tab in the bottom right-hand corner, check the box next
-    to the .csv file that you just uploaded, then click the "Rename"
-    button (near "Upload").
-(e) Rename your .csv file to "rock_data.csv"
+    (d) In the Files tab in the bottom right-hand corner, check the box
+        next to the .csv file that you just uploaded, then click the
+        "Rename" button (near "Upload").
+(d) Rename your .csv file to "rock_data.csv"
 
+#### Important Notes:
+
+(a) I recommend referencing the PowerPoint slides from class! Remember,
+    equation don't show on D2L, so you'll want to download them.
+(b) Because you each have different values for your number of rocks, the
+    answer key won't directly match your values. I've included the
+    example dataset that I used to create the answer key if you want to
+    check your values.
+
+### Calculations
+
+Each question is worth 1 point unless otherwise noted.
 Load the tidyverse. For this assignment, we will only be using this to
 read in our .csv file.
 
-```{r}
+```{r message = FALSE}
 library(tidyverse)
 ```
 
@@ -131,8 +139,8 @@ N <- 64
     sample units that make up your sample. To do this, use the `nrow()`
     function
 
-    (Hint: if you don't remember how to use the `nrow()` function, run
-    `?nrow`)
+    _Hint: if you don't remember how to use the `nrow()` function, run
+    `?nrow`_
 
 ```{r}
 n <- nrow(rocks)
@@ -160,8 +168,9 @@ rocks_mean <- mean(rocks$abund_dark_stones)
 ```
 
 9.  Create objects called `rocks_var` and `rocks_sd` which contain the
-    sample variance and sample standard deviation, respectively. Hint:
-    use `var()` and `sd()` functions.
+    sample variance and sample standard deviation, respectively. 
+    
+    _Hint: use `var()` and `sd()` functions._
 
 ```{r}
 rocks_var <- var(rocks$abund_dark_stones)
@@ -177,8 +186,8 @@ let's calculate it ourselves using the equation from class.
     use that to modify SE when we know what N is. Let's create an object
     called `pop_correction` using that formula: (N-n)/N
 
-    (Hint: use the objects we've already created (`N`, `n`; don't enter
-    any numbers directly)
+    _Hint: use the objects we've already created (`N`, `n`; don't enter
+    any numbers directly)_
 
 ```{r}
 pop_correction <- (N-n)/N
@@ -253,8 +262,8 @@ rocks_SE_total <- sqrt(rocks_var_total)
 *Answer:*
 
 -   number of dark rocks in big square = `rocks_total`
--   confidence is estimate of number of dark rocks total =
+-   confidence (uncertainty) is estimate of number of dark rocks total =
     `rocks_SE_total` or `rocks_var_total`
 -   density estimate = `rocks_mean`
 -   variation in density = `rocks_var` or `rocks_sd`
--   confidence in density estimate = `rocks_var_ybar` or `rocks_SE`
+-   confidence (uncertainty) in density estimate = `rocks_var_ybar` or `rocks_SE`

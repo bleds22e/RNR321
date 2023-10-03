@@ -72,10 +72,6 @@ question in terms of our data (aka, "big square," "little squares,"
 
     *Answer:*
 
-### Calculations
-
-Each question is worth 1 point unless otherwise noted.
-
 #### Set-up:
 
 (a) Get your (or your group's) simple random sampling rock data.
@@ -88,10 +84,23 @@ Each question is worth 1 point unless otherwise noted.
         "Rename" button (near "Upload").
 (d) Rename your .csv file to "rock_data.csv"
 
+#### Important Notes:
+
+(a) I recommend referencing the PowerPoint slides from class! Remember,
+    equation don't show on D2L, so you'll want to download them.
+(b) Because you each have different values for your number of rocks, the
+    answer key won't directly match your values. I've included the
+    example dataset that I used to create the answer key if you want to
+    check your values.
+
+### Calculations
+
+Each question is worth 1 point unless otherwise noted.
+
 Load the tidyverse. For this assignment, we will *only* be using this to
 read in our .csv file.
 
-```{r}
+```{r message = FALSE}
 library(tidyverse)
 ```
 
@@ -181,7 +190,7 @@ rocks_var_ybar <-
 ```
 
 13. Calculate the SE of the estimate of the mean by taking the square
-    root of the `rocks_var_ybar` value. Call this object `rocks_SE`.
+    root (`sqrt()`) of the `rocks_var_ybar` value. Call this object `rocks_SE`.
 
 ```{r}
 rocks_SE <- 
@@ -221,11 +230,11 @@ rocks_SE_total <-
     adventure. Be sure to answer the following questions. (3 points)
 
 -   According to your calculations, approximately how many dark rocks
-    were there in your big square? How confident are you in that
+    were there in your big square? How much uncertainty is in your
     estimate?
 -   What is your estimate of density of dark rocks (average \# dark
     rocks per little square)? How much variation do you estimate is
-    there in the number of dark rocks per little square? How confident
-    are you in your estimate of the density?
+    there in the number of dark rocks per little square? How uncertain
+    are you of your estimate of the density?
 
 *Answer:*
