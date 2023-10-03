@@ -29,7 +29,6 @@ successfully answer the question.
 ### Criteria for Success
 
 -   Code is within the provided code chunks
--   Code is commented with brief descriptions of what the code does
 -   Code chunks run without errors
 -   Code produces the correct result
 -   Text answers correctly address the question asked
@@ -100,6 +99,10 @@ Each question is worth 1 point unless otherwise noted.
     need to do so using "Save As".
 (c) In RStudio Cloud, using the "Upload" button in the lower right-hand
     panel, upload your .csv file.
+(d) In the Files tab in the bottom right-hand corner, check the box next
+    to the .csv file that you just uploaded, then click the "Rename"
+    button (near "Upload").
+(e) Rename your .csv file to "rock_data.csv"
 
 Load the tidyverse. For this assignment, we will only be using this to
 read in our .csv file.
@@ -117,8 +120,8 @@ library(tidyverse)
 rocks <- read_csv("../data_raw/example_data.csv") %>% drop_na()
 ```
 
-6.  Create the object N, which is the number of units in your *sampling
-    frame*.
+6.  Create the object `N`, which is the number of units in your
+    *sampling frame*.
 
 ```{r}
 N <- 64

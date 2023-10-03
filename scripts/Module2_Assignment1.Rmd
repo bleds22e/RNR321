@@ -37,7 +37,7 @@ successfully answer the question.
 
 ### Due Date
 
-March 13 by 2pm MST
+October 10 by 1 pm MST
 
 ------------------------------------------------------------------------
 
@@ -83,6 +83,10 @@ Each question is worth 1 point unless otherwise noted.
     need to do so using "Save As".
 (c) In RStudio Cloud, using the "Upload" button in the lower right-hand
     panel, upload your .csv file.
+    (d) In the Files tab in the bottom right-hand corner, check the box
+        next to the .csv file that you just uploaded, then click the
+        "Rename" button (near "Upload").
+(d) Rename your .csv file to "rock_data.csv"
 
 Load the tidyverse. For this assignment, we will *only* be using this to
 read in our .csv file.
@@ -100,8 +104,8 @@ library(tidyverse)
 rocks <- read_csv("your_file_name_here.csv") %>% drop_na()
 ```
 
-6.  Create the object N, which is the number of units in your *sampling
-    frame*.
+6.  Create the object `N`, which is the number of units in your
+    *sampling frame*.
 
 ```{r}
 N <- 
@@ -126,10 +130,6 @@ then save that value to an object.
 For example, let's say we wanted to calculate the median of our dark
 stone abundance data. We could run the following line of code:
 `rocks_median <- median(rocks$abund_dark_stones)`
-
-Typically, I prefer using the `tidyverse` functions, but for performing
-calculations like we are doing in this assignment, working with vectors
-(as opposed to data frames) is easier; the code above does that for us.
 
 8.  Create an object called `rocks_mean` that contains the sample mean
     (AKA the mean number of dark stones per sample unit). Follow the
