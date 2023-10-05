@@ -33,7 +33,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-March 20 before lab
+Oct 17 before lab
 
 ------------------------------------------------------------------------
 
@@ -50,15 +50,21 @@ What you need to know for today is that this is small mammal (rodent) data. The 
 The first thing we need to do is download the data. My PhD lab group actually created our own R package for using the cleaned up data, so we are going to load that package (called [`portalr`](https://weecology.github.io/portalr/)) along with the `tidyverse`.
 
 ```{r}
-library(tidyverse)
+# you can ignore the message that pops up when you run this!
 library(portalr)
 ```
 
 Now that we have loaded the packages we need, we are going to download some rodent abundance data. This `abundance()` function downloads the entire dataset, so it might take a few minutes.
 
-```{r}
+```{r include=FALSE}
 abund <- abundance(level = "Plot",
                    type = "Rodents")
+```
+
+Let's take a look at what the dataset looks like.
+
+```{r}
+head(abund)
 ```
 
 We want to choose data only from a certain data collection period and only for certain species. To do this, we are going to filter the data to select trapping period "440" (the 440th time the site was trapped---this was back in 2015. We are over 500 trapping sessions now!) and get rid of the rodent removal plots.
@@ -67,10 +73,13 @@ We are also going to select only the columns that are relevant to us. For this a
 
 ```{r}
 # filter period 440, exclude "removal" treatment type, and select "PP" and "PB" column
-abund440 <- abund %>% 
-  filter(period == 440, treatment != "removal") %>% 
-  select(period, plot, PP, PB)
-abund440
+abund440 <- abund[abund$period == 440 & abund$treatment != "removal", 
+                  c("period", "plot", "PP", "PB")]
+
+# for those of you familiar with the `tidyverse`, the code below is equivalent  
+# abund440 <- abund %>% 
+  # filter(period == 440, treatment != "removal") %>% 
+  # select(period, plot, PP, PB)
 ```
 
 ## Estimating the Mean
