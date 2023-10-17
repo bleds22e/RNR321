@@ -32,7 +32,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-March 27 before lab
+Oct 24 before lab
 
 ------------------------------------------------------------------------
 
@@ -43,14 +43,6 @@ We have been asked to go out and sample for grasshoppers. The location we are sa
 1.  In 1-2 sentences, explain why we have chosen stratified random sampling as opposed to simple or systematic? What benefit does it provide us?
 
     *Answer:* taking into account that different vegetation types might have different means, totals, etc. trying to minimize heterogeneity, makes our estimates more precise
-
-### Set-up
-
-Load the `tidyverse` package. We won't be using it *too* much this time around, but we need it a couple times.
-
-```{r message = FALSE}
-library(tidyverse)
-```
 
 ### Part 1: Allocation of Sample Units
 
@@ -145,7 +137,7 @@ Now we want to calculate our population parameters:
 Let's load our "grasshoppers.csv" data into our workspace using the `read_csv()` function and save the data frame as an object called `grasshoppers`.
 
 ```{r}
-grasshoppers <- read_csv("../data_raw/grasshoppers.csv")
+grasshoppers <- read.csv("../data_raw/grasshoppers.csv")
 ```
 
 We can explore the data frame to get an idea of what each row and column represent.
@@ -153,28 +145,23 @@ We can explore the data frame to get an idea of what each row and column represe
 ```{r}
 str(grasshoppers)
 ```
+Based on what I've taught you in R thus far, the easiest way to do our calculations will be to have three different data frames, one for each stratum.
+
+```{r}
+stratumA <- grasshoppers[grasshoppers$stratum == "A",]
+stratumB <- grasshoppers[grasshoppers$stratum == "B",]
+stratumC <- grasshoppers[grasshoppers$stratum == "C",]
+```
 
 Run the following code chunk. What do these numbers represent?
 
 *(Hint: do these numbers match your values from question 6? If not, you probably want to revisit your calculations up in the previous section!)*
 
-````         
 ```{r}
-grasshoppers %>% 
-  group_by(stratum) %>% 
-  count(stratum)
+nrow(stratumA)
+nrow(stratumB)
+nrow(stratumC)
 ```
-````
-
-Based on what I've taught you in R thus far, the easiest way to do our calculations will be to have three different data frames, one for each stratum.
-
-```{r}
-stratumA <- grasshoppers %>% filter(stratum == "A")
-stratumB <- grasshoppers %>% filter(stratum == "B")
-stratumC <- grasshoppers %>% filter(stratum == "C")
-```
-
-That said, if you're feeling ambitious and want to *try* to use the `tidyverse` and a lot of `group_by()`, `mutate()`, and `summarise()` functions, be my guest! To be clear, though, that is neither required nor expected.
 
 #### Calculations
 
@@ -229,7 +216,7 @@ Our next step is to calculate the uncertainty in our estimates for each stratum.
 
 10. To do this, calculate the following:
 
-    a.  variance of the estimate of the mean per stratum (var_y\_bar). Remember that we need to use the finite population correction factor and to use only objects already created, not plain numbers! (2 points)
+    a.  variance of the estimate of the mean per stratum (var_y_bar). Remember that we need to use the finite population correction factor and to use only objects already created, not plain numbers! (2 points)
 
     ```{r}
     pop_correction_A <- (N_A-n_A)/N_A

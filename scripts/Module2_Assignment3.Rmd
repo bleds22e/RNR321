@@ -31,13 +31,13 @@ successfully answer the question.
 -   Code is within the provided code chunks
 -   Code chunks run without errors
 -   Code produces the correct result
-    -   Code attempts will get half points
+    -   Code attempts with logical direction will get half points
     -   Code that produces the correct answer will receive full points
 -   Text answers correctly address the question asked
 
 ### Due Date
 
-March 27 before lab
+Oct 24 before lab
 
 ------------------------------------------------------------------------
 
@@ -53,15 +53,6 @@ for our survey.
     provide us?
 
     *Answer:*
-
-### Set-up
-
-Load the `tidyverse` package. We won't be using it *too* much this time
-around, but we need it a couple times.
-
-```{r}
-library(tidyverse)
-```
 
 ### Part 1: Allocation of Sample Units
 
@@ -176,7 +167,7 @@ Let's load our "grasshoppers.csv" data into our workspace using the
 `grasshoppers`.
 
 ```{r}
-grasshoppers <- read_csv("grasshoppers.csv")
+grasshoppers <- read.csv("grasshoppers.csv")
 ```
 
 We can explore the data frame to get an idea of what each row and column
@@ -186,31 +177,24 @@ represent.
 str(grasshoppers)
 ```
 
+Based on what I've taught you in R thus far, the easiest way to do our calculations will be to have three different data frames, one for each stratum.
+
+```{r}
+stratumA <- grasshoppers[grasshoppers$stratum == "A",]
+stratumB <- grasshoppers[grasshoppers$stratum == "B",]
+stratumC <- grasshoppers[grasshoppers$stratum == "C",]
+```
+
 Run the following code chunk. What do these numbers represent?
 
-*(Hint: do these numbers match your values from question 7? If not, you
-probably want to revisit your calculations up in the previous section!)*
+*(Hint: do these numbers match your values from question 6? If not, you probably want to revisit your calculations up in the previous section!)*
 
 ```{r}
-grasshoppers %>% 
-  group_by(stratum) %>% 
-  count(stratum)
+nrow(stratumA)
+nrow(stratumB)
+nrow(stratumC)
 ```
 
-Based on what I've taught you in R thus far, the easiest way to do our
-calculations will be to have three different data frames, one for each
-stratum.
-
-```{r}
-stratumA <- grasshoppers %>% filter(stratum == "A")
-stratumB <- grasshoppers %>% filter(stratum == "B")
-stratumC <- grasshoppers %>% filter(stratum == "C")
-```
-
-That said, if you're feeling ambitious and want to *try* to use the
-`tidyverse` and a lot of `group_by()`, `mutate()`, and `summarise()`
-functions, be my guest! To be clear, though, that is neither required
-nor expected.
 
 #### Calculations
 
@@ -285,7 +269,7 @@ stratum.
     var_y_bar_C <- 
     ```
 
-    b.  variance of the estimate of the total abundance (var_tau_hat).
+    b.  variance of the estimate of the total (var_tau_hat).
         You might need to go fishing for this equation in one of the
         earlier powerpoints. (1 point)
 
@@ -295,43 +279,41 @@ stratum.
     var_tau_hat_C <- 
     ```
 
-#### Step 3: Calculating Total Abundance Statistics
+#### Step 3: Calculating Overall Total Statistics
 
 Congratulations! The hardest parts of the calculation are over (thank
 goodness, right?).
 
-Next, we will calculate the total abundance and the variance of the
-total abundance.
+Next, we will calculate the overall total (abundance) and the variance of the
+estimate of the total.
 
 11. Calculate the following:
 
-    a.  total abundance (1 point)
+    a.  overall total (1 point)
 
     ```{r}
     tau_hat <- 
     ```
 
-    b.  variance of the total abundance estimate (1 point)
+    b.  variance of the estimate of the total (1 point)
 
     ```{r}
     var_tau_hat <- 
     ```
 
-#### Step 4: Calculating Population Means, etc.
+#### Step 4: Calculating Overall Means, etc.
 
-Finally, we can now calculate the overall population mean and variance
-of the estimate of the overall population.
+Finally, we can now calculate the overall mean and variance of the estimate of the overall mean.
 
 12. Calculate the following:
 
-    a.  overall population mean (1 point)
+    a.  overall mean (1 point)
 
     ```{r}
     y_bar <- 
     ```
 
-    b.  variance of the estimate of the overall population mean (1
-        point)
+    b.  variance of the estimate of the overall mean (1 point)
 
     ```{r}
     var_y_bar <- 
