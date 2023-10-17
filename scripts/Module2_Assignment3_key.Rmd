@@ -145,6 +145,7 @@ We can explore the data frame to get an idea of what each row and column represe
 ```{r}
 str(grasshoppers)
 ```
+
 Based on what I've taught you in R thus far, the easiest way to do our calculations will be to have three different data frames, one for each stratum.
 
 ```{r}
@@ -178,7 +179,7 @@ NOTE: Open up your script from Module 2, Assignment 2---it's about to come in ha
     3.  calculate overall population total and overall variance of the estimate of the total
     4.  calculate overall population mean and overall variance of the estimate of the mean
 
-#### Step 1: Calculatings Sample Statistics (per stratum)
+#### Step 1: Calculating Sample Statistics (per stratum)
 
 For our first step, we will calculate for each stratum the mean number of grasshoppers, the total number of grasshoppers, and the sample variances.
 
@@ -276,7 +277,7 @@ Finally, we can now calculate the overall population mean and variance of the es
 
 #### Conclusion
 
-Ok, that was a lot of calculating! Let's summarize and make sure we know what just happened. We were ultimately able to calculate estimates the parameters we were interested in: the population mean and the population total along with the amount of uncertainty in both of those estimates.
+Ok, that was a lot of calculating! Let's summarize and make sure we know what just happened. We were ultimately able to calculate estimates for the parameters we were interested in: the population mean and the population total along with the amount of uncertainty in both of those estimates.
 
 12. Based on our calculations above, answer the following questions with the name of the R object and its corresponding value for each calculation. (2 points)
 
