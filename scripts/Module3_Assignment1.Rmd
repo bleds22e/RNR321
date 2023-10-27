@@ -26,13 +26,13 @@ Write R code to successfully answer each question below or write text to success
 -   Code is within the provided code chunks
 -   Code chunks run without errors
 -   Code produces the correct result
-    -   Code attempts will get half points
+    -   Code attempts will get partial credit
     -   Code that produces the correct answer will receive full points
 -   Text answers correctly address the question asked
 
 ### Due Date
 
-April 10 before lab
+Nov 7 before lab
 
 ------------------------------------------------------------------------
 
@@ -50,13 +50,13 @@ Let's go ahead and get ourselves set up for the rest of the assignment.
 
 Before you start anything, I highly recommend going over to the "Environment" tab and clicking on the broom. It will clean up the clutter in your environment and also prevent you from making some unintentional errors.
 
-Load in the two packages we will need to use.
+Load in the package we will need to use.
 
 ```{r}
 
 ```
 
-Using the `read_csv()` function, read in the two data sets we will use. One is for tiger rattlesnakes and the other is for diamondback rattlesnakes. Create objects containing these two data sets called `tiger` and `diamond`, respectively.
+Using the `read.csv()` function, read in the two data sets we will use. One is for tiger rattlesnakes and the other is for diamondback rattlesnakes. Create objects containing these two data sets called `tiger` and `diamond`, respectively.
 
 ```{r}
 tiger <- 
@@ -89,7 +89,7 @@ First, let's calculate the naive occupancy for tiger rattlesnakes.
     ```
 
 3.  Like we did in the tortoise example, create a tibble (data frame) with the number of survey occasions this data set. Then create a list out of this one data frame.\
-    (*Hint: Be sure to create a tibble with the correct number of rows based on your answer to question 4*)
+    (*Hint: Be sure to create a data frame with the correct number of rows based on your answer to Q4*)
 
 ```{r}
 tiger_surveys <- 
@@ -166,7 +166,7 @@ First, let's calculate the naive occupancy for diamondback rattlesnakes.
 #### Data Preparation
 
 13. Like we did in the tortoise example, create a tibble (data frame) with the number of survey occasions this data set. Then create a list out of this one data frame.\
-    (*Hint: Be sure to create a tibble with the correct number of rows*)
+    (*Hint: Be sure to create a dataframe with the correct number of rows*)
 
 ```{r}
 diamond_survey_time <- 
@@ -195,7 +195,7 @@ diamond_ptime_psidot <-
 diamond_models <- 
 ```
 
-17. Calculate and report the estimates and the 95% CI for the estimate for both detection probability and occupancy from our *best* model.
+17. Calculate and report (type out) the estimates and the 95% CI for the estimate for both detection probability and occupancy from our *best* model.
 
     *Detection Probability:*\
     *Occupancy:*

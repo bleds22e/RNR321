@@ -32,7 +32,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-April 10 before lab
+Nov 7 before lab
 
 ------------------------------------------------------------------------
 
@@ -50,18 +50,17 @@ Let's go ahead and get ourselves set up for the rest of the assignment.
 
 Before you start anything, I highly recommend going over to the "Environment" tab and clicking on the broom. It will clean up the clutter in your environment and also prevent you from making some unintentional errors.
 
-Load in the two packages we will need to use.
+Load in the package we will need to use.
 
 ```{r, message=FALSE}
-library(tidyverse)
 library(unmarked) 
 ```
 
 Using the `read_csv()` function, read in the two data sets we will use. One is for tiger rattlesnakes and the other is for diamondback rattlesnakes. Create objects containing these two data sets called `tiger` and `diamond`, respectively.
 
 ```{r}
-tiger <- read_csv("../data_raw/tiger_rattlesnakes.csv")
-diamond <- read_csv("../data_raw/diamondback_rattlesnakes.csv")
+tiger <- read.csv("../data_raw/tiger_rattlesnakes.csv")
+diamond <- read.csv("../data_raw/diamondback_rattlesnakes.csv")
 ```
 
 ### Tiger Rattlesnakes
@@ -75,19 +74,30 @@ First, let's calculate the naive occupancy for tiger rattlesnakes.
 1.  Calculate the naive occupancy for tiger rattlesnakes.
 
 ```{r}
-naive_occ_tiger <- tiger %>% 
-  mutate(detection = rowSums(.)) %>% 
-  summarise(n = n(),
-            n_detect = sum(detection > 0)) %>% 
-  mutate(naive_occ = n_detect/n)
+# count up the number of times each site was marked as occupied
+# returns a vector that we can now use
+num_detections <- rowSums(tiger)
+num_detections
+
+# total number of sites that were surveyed
+sites_surveyed <- nrow(tiger)
+sites_surveyed
+
+# number of sites with detection of greater than zero
+sites_detection <- length(num_detections[num_detections > 0])
+sites_detection
+
+# divide the number of sites with detection
+naive_occupancy <- sites_detection / sites_surveyed
+naive_occupancy
 ```
 
 #### Data Preparation
 
 2.  Explore the `tiger` data frame, either in the environment or through code.
 
-    a.  How many sites were surveyed?
-    b.  How many times was each individual site surveyed?
+    a.  How many sites were surveyed? 40
+    b.  How many times was each individual site surveyed? 5
 
     ```{r}
     # optional: space for code if you want it
@@ -98,15 +108,14 @@ naive_occ_tiger <- tiger %>%
 
 ```{r}
 # create the data frame with 40 rows and each column with the survey number
-tiger_survey_time <- tibble(.rows = 40,
-                            time_1 = "1",
-                            time_2 = "2",
-                            time_3 = "3",
-                            time_4 = "4",
-                            time_5 = "5")
+tiger_surveys <- data.frame(time_1 = rep("1", 40),
+                      time_2 = rep("2", 40),
+                      time_3 = rep("3", 40),
+                      time_4 = rep("4", 40),
+                      time_5 = rep("5", 40))
 
 # make this into a list of one dataframe
-tiger_survey_time <- list(time = tiger_survey_time)
+tiger_survey_time <- list(time = tiger_surveys)
 ```
 
 4.  Create an unmarked data frame for the tiger data
@@ -179,11 +188,22 @@ First, let's calculate the naive occupancy for diamondback rattlesnakes.
 15. Calculate the naive occupancy for diamondback rattlesnakes.
 
 ```{r}
-naive_occ_diamond <- diamond %>% 
-  mutate(detection = rowSums(.)) %>% 
-  summarise(n = n(),
-            n_detect = sum(detection > 0)) %>% 
-  mutate(naive_occ = n_detect/n)
+# count up the number of times each site was marked as occupied
+# returns a vector that we can now use
+num_detections <- rowSums(diamond)
+num_detections
+
+# total number of sites that were surveyed
+sites_surveyed <- nrow(diamond)
+sites_surveyed
+
+# number of sites with detection of greater than zero
+sites_detection <- length(num_detections[num_detections > 0])
+sites_detection
+
+# divide the number of sites with detection
+naive_occupancy <- sites_detection / sites_surveyed
+naive_occupancy
 ```
 
 #### Data Preparation
@@ -193,15 +213,14 @@ naive_occ_diamond <- diamond %>%
 
 ```{r}
 # create the data frame with 20 rows and each column with the survey number
-diamond_survey_time <- tibble(.rows = 40,
-                            time_1 = "1",
-                            time_2 = "2",
-                            time_3 = "3",
-                            time_4 = "4",
-                            time_5 = "5")
+diamond_survey <- data.frame(time_1 = rep("1", 40),
+                             time_2 = rep("2", 40),
+                             time_3 = rep("3", 40),
+                             time_4 = rep("4", 40),
+                             time_5 = rep("5", 40))
 
 # make this into a list of one dataframe
-diamond_survey_time <- list(time = diamond_survey_time)
+diamond_survey_time <- list(time = diamond_survey)
 ```
 
 14. Create an unmarked data frame for the diamondback data
@@ -251,4 +270,4 @@ plogis(confint(diamond_pdot_psidot, type = "state", level = 0.95))
 -   In your answer, be sure to explain the difference between detection probability and occupancy.
 -   Speculate what could be driving the differences between the two species (I don't expect you to know, but you should put forward an educated guess that fits with your answers above)
 
-*Answer:*
+*Answer: While the two species have similar detection probabilities (tiger is slightly higher), diamond rattlesnakes have much higher occupancy (0.781) than tiger rattlesnakes (0.42). This means that when each snake is present at a site, they have a similar chance of being observed. However, diamond rattlesnakes are present at far more sites than tiger. This could be because diamond rattlesnakes have a higher population and/or that they area we are surveying provides better habitat for them than it does for tiger rattlesnakes.*

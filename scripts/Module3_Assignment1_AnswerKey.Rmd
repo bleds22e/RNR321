@@ -21,12 +21,11 @@ diamond <- read_csv("../data_raw/diamondback_rattlesnakes.csv")
 ```
 1. 
 ```{r}
-naive_occ_tiger <- tiger %>% 
-  mutate(detection = rowSums(.)) %>% 
-  summarise(n = n(),
-            n_detect = sum(detection > 0)) %>% 
-  mutate(naive_occ = n_detect/n)
-naive_occ_tiger
+num_detections <- rowSums(tiger)
+sites_surveyed <- nrow(tiger)
+sites_detection <- length(num_detections[num_detections > 0])
+naive_occupancy <- sites_detection / sites_surveyed
+naive_occupancy
 ```
 
 3.
@@ -86,12 +85,11 @@ plogis(confint(tiger_pdot_psidot, type = "state", level = 0.95))
 12. 
 
 ```{r}
-naive_occ_diamond <- diamond %>% 
-  mutate(detection = rowSums(.)) %>% 
-  summarise(n = n(),
-            n_detect = sum(detection > 0)) %>% 
-  mutate(naive_occ = n_detect/n)
-naive_occ_diamond
+num_detections <- rowSums(diamond)
+sites_surveyed <- nrow(diamond)
+sites_detection <- length(num_detections[num_detections > 0])
+naive_occupancy <- sites_detection / sites_surveyed
+naive_occupancy
 ```
 
 
