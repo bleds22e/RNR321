@@ -18,8 +18,8 @@ m2 <- 30
 2.  
 
 ```{r}
-N_hat <- n1 * n2 / m2
-N_hat
+tau_hat <- n1 * n2 / m2
+tau_hat
 ```
 
 3.  
@@ -39,8 +39,8 @@ m2_Baileys <- 4
 5.  
 
 ```{r}
-N_hat_Baileys <- (n1_Baileys * n2_Baileys) / m2_Baileys
-N_hat_Baileys
+tau_hat_Baileys <- (n1_Baileys * n2_Baileys) / m2_Baileys
+tau_hat_Baileys
 ```
 
 6.  
@@ -85,49 +85,49 @@ LP_estimator <- function(p1, p2, c2) {
 8.  
 
     ```{r}
-    N_hat_high <- LP_estimator(p1 = 0.6, p2 = 0.6, c2 = 0.6)
+    tau_hat_high <- LP_estimator(p1 = 0.6, p2 = 0.6, c2 = 0.6)
     ```
 
     b.  
 
     ```{r}
-    hist(N_hat_high)
+    hist(tau_hat_high)
     ```
 
     c.  
 
     ```{r}
-    mean(N_hat_high)
+    mean(tau_hat_high)
 
     # On average, how biased are our estimates?
-    mean(N_hat_high) - N       # bias
+    mean(tau_hat_high) - N       # bias
 
     # How precise are our estimates?
-    sd(N_hat_high)            # precision
+    sd(tau_hat_high)            # precision
     ```
 
 9.  
 
     ```{r}
-    N_hat_low <- LP_estimator(p1 = 0.2, p2 = 0.2, c2 = 0.2)
+    tau_hat_low <- LP_estimator(p1 = 0.2, p2 = 0.2, c2 = 0.2)
     ```
 
     b. 
 
     ```{r}
-    hist(N_hat_low)
+    hist(tau_hat_low)
     ```
 
     c.  
 
     ```{r}
-    mean(N_hat_low)
+    mean(tau_hat_low)
 
     # On average, how biased are our estimates?
-    mean(N_hat_low) - N       # bias
+    mean(tau_hat_low) - N       # bias
 
     # How precise are our estimates?
-    sd(N_hat_low)            # precision
+    sd(tau_hat_low)            # precision
     ```
 ```{r}
 
@@ -138,20 +138,20 @@ LP_estimator <- function(p1, p2, c2) {
 11. b.  
 
 ```{r}
-N_hat_trapshy <- LP_estimator(p1 = 0.4, p2 = 0.4, c2 = 0.2)
-hist(N_hat_trapshy)
+tau_hat_trapshy <- LP_estimator(p1 = 0.4, p2 = 0.4, c2 = 0.2)
+hist(tau_hat_trapshy)
 ```
 
 c.  
 
 ```{r}
-mean(N_hat_trapshy)
+mean(tau_hat_trapshy)
 
 # On average, how biased are our estimates?
-mean(N_hat_trapshy) - N       # bias
+mean(tau_hat_trapshy) - N       # bias
 
 # How precise are our estimates?
-sd(N_hat_trapshy)            # precision
+sd(tau_hat_trapshy)            # precision
 ```
 
 
@@ -161,16 +161,16 @@ sd(N_hat_trapshy)            # precision
 b. 
 
 ```{r}
-N_hat_traphappy <- LP_estimator(p1 = 0.4, p2 = 0.4, c2 = 0.6)
-hist(N_hat_traphappy)
+tau_hat_traphappy <- LP_estimator(p1 = 0.4, p2 = 0.4, c2 = 0.6)
+hist(tau_hat_traphappy)
 ```
 
 c.  
 
 ```{r}
-mean(N_hat_traphappy)
+mean(tau_hat_traphappy)
 # On average, how biased are our estimates?
-mean(N_hat_traphappy) - N       # bias
+mean(tau_hat_traphappy) - N       # bias
 # How precise are our estimates?
-sd(N_hat_traphappy)            # precision
+sd(tau_hat_traphappy)            # precision
 ```
