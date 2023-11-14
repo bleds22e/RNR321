@@ -21,9 +21,8 @@ ocotillo <- read.csv("../data_raw/ocotillo.csv")
 1.  
 
 ```{r}
-transect_saguaro <- saguaro %>% 
-  group_by(group) %>% 
-  summarise(length = mean(length))
+transect_saguaro <- data.frame(1:10,
+                               length = mean(saguaro$length))
 transect_saguaro
 ```
 
@@ -90,10 +89,8 @@ exp(confint(HN_sag, type = "state"))  # CI for density
 11. 
 
 ```{r}
-transect_oco <- ocotillo %>% 
-  group_by(group) %>% 
-  summarise(length = mean(length))
-transect_oco
+transect_oco <- data.frame(group_id = 1:10,
+                           length_m = mean(ocotillo$length))
 ```
 
 12. 
