@@ -32,7 +32,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-April 24 at 2pm MST
+Nov 21 at 1pm MST
 
 ------------------------------------------------------------------------
 
@@ -71,7 +71,7 @@ We will use the saguaro data for our first analyses.
 
 ### Data Preparation
 
-1.  Make a data frame with transect length (i.e., survey effort). Call this `transect_saguaro`. There are 10 groups.
+1.  Make a data frame with transect length (i.e., survey effort). Call this `transect_saguaro`. There are 10 groups. Set the length of the transect (the `length_m` column) to the mean of the length column from the saguaro dataframe (`mean(saguaro$length)`).
 
 ```{r}
 transect_saguaro <- data.frame(group_id = 1:10,
@@ -93,9 +93,10 @@ trunc <- 20
 distance_bins <- seq(0, trunc, by = 4) 
 ```
 
-4.  Use unmarked function `formatDistData` to count the number of detections in each distance bin for each transect. Save this as an object called `sag_data`. Ignore the *warning* message (but if you get an *error* message, that is different!).
+4.  Use `unmarked` function `formatDistData` to count the number of detections in each distance bin for each transect. Save this as an object called `sag_data`. Ignore the *warning* message (but if you get an *error* message, that is different!).
 
 ```{r}
+# saguaro dataframe
 sag_data <- formatDistData(saguaro, 
                            distCol = "distance", 
                            transectNameCol = "group", 
@@ -107,7 +108,7 @@ sag_data <- formatDistData(saguaro,
 ```{r}
 UMF_sag <- unmarkedFrameDS(y = as.matrix(sag_data), 
                            survey = "line",
-                           tlength = transect_saguaro$length, 
+                           tlength = transect_saguaro$length, # transect dataframe
                            dist.breaks = distance_bins,
                            unitsIn = "m")
 ```
