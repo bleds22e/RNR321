@@ -175,7 +175,8 @@ plogis(confint(pdot_psidot, type = "state", level = 0.95)) # 95% CI for psi
 plogis(confint(ptime_psidot, type = "det",   level = 0.95))
 plogis(confint(ptime_psidot, type = "state", level = 0.95))
 ```
-Stop for a moment and think about what the 0.025 and 0.975 values represent. These are *not* estimates. Instead, they are signalling the upper and lower bounds of the confidence intervals. 
+
+Stop for a moment and think about what the 0.025 and 0.975 values represent. These are *not* estimates. Instead, they are signalling the upper and lower bounds of the confidence intervals.
 
 Remember how confidence intervals are calculated in part based on a t-value from the Student's t-distribution? Each tail of the distribution represents 2.5% of the remaining probability, meaning the 95% confidence intervals include the values between 2.5% and 97.5% of the distribution.
 
