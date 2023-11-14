@@ -183,7 +183,7 @@ distance_bins_oco <- seq(0, trunc_oco, by = 5)
 14. Use the function `formatDistData` to count the number of detection in each distance bin for each transect. Ignore the warning message. Remember to use the correct data and distance bins.
 
 ```{r}
-oco_data <- formatDistData(ocotillo, 
+oco_data <- formatDistData(distData = ocotillo, 
                            distCol = "distance", 
                            transectNameCol = "group", 
                            dist.breaks = distance_bins_oco)
