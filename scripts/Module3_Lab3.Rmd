@@ -16,20 +16,19 @@ knitr::opts_chunk$set(echo = TRUE)
 We need to load the package we will need to complete this lab, which is `unmarked`.
 
 ```{r message = FALSE}
-library(unmarked) # Load unmarked
+
 ```
 
 We also need to load our data. I've compiled it for you already, and it should be in your list of files, called `Distance_Data_Fall2023.csv`.
 
 ```{r}
-beads <- read.csv("../../2023_fall/Labs/Distance_Data_Fall2023.csv")
+
 ```
 
 Before we begin any analyses, let's make sure our data looks alright.
 
 ```{r}
-str(beads)    # View the structure of the dataframe
-head(beads)   # First few observations
+
 ```
 
 ## Prepping the Data
@@ -58,21 +57,20 @@ The first thing we need to do is to get a data frame that includes the length of
 Simply based on how the data is structured (survey length column, so every value has the same survey length), the easiest way to get the survey length is by taking the mean or median of the length for each group.
 
 ```{r}
-transect_length <- data.frame(group_id = 1:7,
-                              length_m = 15)
+
 ```
 
 Let's check out our distribution of detection distances. We can use the `hist()` function to do this.
 
 ```{r}
-hist(green$Distance_m)
+
 ```
 
 Based on the histogram, I'll suggest we truncate at 2.5 m. Let's set this value so we can refer to it later.
 
 ```{r}
 # Set truncation distance to eliminate extreme observations
-trunc <- 2
+
 ```
 
 We can set "cut points" for distance bins; in our case, we want every half meter.
@@ -80,7 +78,7 @@ We can set "cut points" for distance bins; in our case, we want every half meter
 This line of code creates a vector that will have values every half meter (`by = 0.5`), starting at 0 and running through the value we set for truncation (`trunc`).
 
 ```{r}
-distance_bins <- seq(0, trunc, by = 0.5) 
+
 ```
 
 ## `unmarked` Data Prep
@@ -90,28 +88,19 @@ As we've seen before, the `unmarked` package likes to have data set up in a very
 To get our detection functions and density estimates, we will use the `formatDistData` to get the data into the correct format.
 
 ```{r}
-green_data <- formatDistData(distData = green,         # data frame
-                        distCol = "Distance_m",        # column that holds the distance values
-                        transectNameCol = "GroupID",   # column that holds the transect groups
-                        dist.breaks = distance_bins)   # vector of distance groupings
-green_data
+
 ```
 
 Next, we need to assemble data into the format required by `unmarked`, called an "unmarked frame". We've seen something similar before, but this one is `unmarkedFrameDS`, with the DS meaning "distance sampling."
 
 ```{r}
-UMF_green <- unmarkedFrameDS(y = as.matrix(green_data), 
-                       survey = "line", 
-                       tlength = transect_length$length_m, 
-                       dist.breaks = distance_bins, 
-                       unitsIn = "m")
-UMF_green
+
 ```
 
 Let's check the distribution of detection distances to be used for analysis. These should *not* include the values that we truncated.
 
 ```{r}
-hist(UMF_green) 
+
 ```
 
 ## Models
@@ -122,8 +111,8 @@ Our options for the `unitsOut` argument is either hectares (ha) or kilomenter (k
 
 ```{r}
 HN   <- distsamp(~1 ~1, UMF_green, keyfun = "halfnorm", output = "density", unitsOut = "ha")
-HR   <- distsamp(~1 ~1, UMF_green, keyfun = "hazard",output = "density", unitsOut = "ha")
-Unif <- distsamp(~1 ~1, UMF_green, keyfun = "uniform",output = "density", unitsOut = "ha")
+HR   <- distsamp(~1 ~1, UMF_green, keyfun = "hazard", output = "density", unitsOut = "ha")
+Unif <- distsamp(~1 ~1, UMF_green, keyfun = "uniform", output = "density", unitsOut = "ha")
 Exp  <- distsamp(~1 ~1, UMF_green, keyfun = "exp", output = "density", unitsOut = "ha")
 ```
 
@@ -132,17 +121,13 @@ Exp  <- distsamp(~1 ~1, UMF_green, keyfun = "exp", output = "density", unitsOut 
 Which model should we choose? We will use AIC again to help us figure it out. We want the model with the *lowest* AIC value.
 
 ```{r}
-models <- fitList('Half Normal' = HN, 
-                  'Hazard Rate' = HR,
-                  'Uniform'     = Unif,
-                  'Exponential' = Exp)
-modSel(models)
+
 ```
 
 Let's plot what the half-normal model looks like with our data.
 
 ```{r}
-hist(HN)
+
 ```
 
 ## Density Estimate
@@ -152,18 +137,13 @@ Now that we've chosen our top model (half normal, in this case), we can get our 
 There is a handy function that we can use to pull the density estimate out of the model: `backTransform()`
 
 ```{r}
-density <- backTransform(HN, type = "state") # Density estimate (no./ha) 
-density
-
-density_est <- density@estimate
-density_est
 
 ```
 
 We can also calculate the confidence intervals for our parameter estimate
 
 ```{r}
-exp(confint(HN, type = "state"))  # CI for density
+# CI for density
 ```
 
 ### Convert to Our Sample Area
