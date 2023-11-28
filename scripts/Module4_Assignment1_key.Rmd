@@ -106,10 +106,11 @@ nrow(comm2)
 
 We are going to start with `comm1`.
 
-7.  Write a line of code to calculate the number of individuals in the insect community. Use this to create the object `total_comm1`.
+7.  Write a line of code to calculate the number of individuals in the first community. Use this to create the object `total_comm1`.
 
 ```{r}
 total_comm1 <- sum(comm1$individuals)
+total_comm1
 ```
 
 8.  Add a column to the `comm1` data frame with each species' proportion of the community.
