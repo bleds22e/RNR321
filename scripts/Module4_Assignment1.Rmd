@@ -30,29 +30,28 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-May 8 at midnight MST
+December 5 at 1pm MST
 
 ------------------------------------------------------------------------
 
-## Assignment Questions
+# Assignment Questions
 
 All questions are worth 1 point unless otherwise specified.
 
-### Set-Up
+## Set-Up
 
-We are going to need to load both the `tidyverse` and the community ecology package, `vegan`.
+We are going to need to load the community ecology package, `vegan`.
 
 ```{r message = FALSE}
-library(tidyverse)
 library(vegan)
 ```
 
-### Species Accumulation Curves
+## Species Accumulation Curves
 
 For this section of the assignment, we are going to use a survey x species matrix for insects found on a plant.
 
 ```{r}
-insects <- read_csv("insects.csv")
+insects <- read.csv("insects.csv")
 ```
 
 1.  First, use the `specaccum()` function to prep the data for the species accumulation curve model.
@@ -83,20 +82,20 @@ insects <- read_csv("insects.csv")
 
 *Answer:*
 
-### Species Richness and Diversity Indices
+## Species Richness and Diversity Indices
 
 For this assignment, you are welcome to use either base R or the `tidyverse`. If you haven't used the `tidyverse` much outside of this class, though, base R will probably be the more straightforward way to tackle this part of the assignment.
 
 We are going to keep working with the insect data from above.
 
 ```{r}
-comm1 <- tibble(species = c("DO", "DM", "SO", "SH", "SF", "PP", "PB", "BA"),
-                   individuals = c(14, 89, 30, 12, 3, 3, 8, 23))
-comm2 <- tibble(species = c("DO", "DM", "SO", "SH", "SF"),
-                   individuals = c(37, 32, 30, 44, 39))
+comm1 <- data.frame(species = c("DO", "DM", "SO", "SH", "SF", "PP", "PB", "BA"),
+                    individuals = c(14, 89, 30, 12, 3, 3, 8, 23))
+comm2 <- data.frame(species = c("DO", "DM", "SO", "SH", "SF"),
+                    individuals = c(37, 32, 30, 44, 39))
 ```
 
-#### Species Richness
+### Species Richness
 
 6.  Use code to calculate the species richness of each community. Which community is more species rich?
 
@@ -104,7 +103,7 @@ comm2 <- tibble(species = c("DO", "DM", "SO", "SH", "SF"),
 
 ```
 
-#### Shannon Diversity Index
+### Shannon Diversity Index
 
 We are going to start with `comm1`.
 
@@ -148,7 +147,7 @@ We are going to start with `comm1`.
 
 *Answer:*
 
-#### Simpson Diversity Index
+### Simpson Diversity Index
 
 Fortunately, a lot of the work has already been done to calculate the Simpson Diversity Index. We only need to add a little bit more to get there.
 

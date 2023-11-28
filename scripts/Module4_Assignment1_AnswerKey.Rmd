@@ -38,9 +38,9 @@ plot(insects_sac_fit)
 ```
 
 ```{r}
-comm1 <- tibble(species = c("DO", "DM", "SO", "SH", "SF", "PP", "PB", "BA"),
+comm1 <- data.frame(species = c("DO", "DM", "SO", "SH", "SF", "PP", "PB", "BA"),
                    individuals = c(14, 89, 30, 12, 3, 3, 8, 23))
-comm2 <- tibble(species = c("DO", "DM", "SO", "SH", "SF"),
+comm2 <- data.frame(species = c("DO", "DM", "SO", "SH", "SF"),
                    individuals = c(37, 32, 30, 44, 39))
 ```
 

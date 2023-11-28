@@ -30,109 +30,119 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-May 8 at midnight MST
+December 5 at midnight MST
 
 ------------------------------------------------------------------------
 
-## Assignment Questions
+# Assignment Questions
 
 All questions are worth 1 point unless otherwise specified.
 
-### Set-Up
+## Set-Up
 
-We are going to need to load both the `tidyverse` and the community ecology package, `vegan`.
+We are going to need to load the community ecology package, `vegan`.
+
 ```{r message = FALSE}
-library(tidyverse)
 library(vegan)
 ```
 
-### Species Accumulation Curves
+## Species Accumulation Curves
 
 For this section of the assignment, we are going to use a survey x species matrix for insects found on a plant.
 
 ```{r}
-insects <- read_csv("../data_raw/insects.csv")
+insects <- read.csv("../data_raw/insects.csv")
 ```
 
-1. First, use the `specaccum()` function to prep the data for the species accumulation curve model.
+1.  First, use the `specaccum()` function to prep the data for the species accumulation curve model.
+
 ```{r}
 insects_sac <- specaccum(insects)
 ```
 
-2. Next, fit a species accumulation model to the data.
+2.  Next, fit a species accumulation model to the data.
+
 ```{r}
 insects_sac_fit <- fitspecaccum(insects_sac, model = "asymp")
 ```
 
-3. What is the predicted asymptote for this data?
+3.  What is the predicted asymptote for this data?
+
 ```{r}
 coef(insects_sac_fit)
 ```
 
-4. Let's plot species accumulation curve model.
+4.  Let's plot species accumulation curve model.
+
 ```{r}
 plot(insects_sac_fit)
 ```
 
-5. Based on the predicted asymptote, the number of species we have in the dataset, and the plot you just made, what can we conclude? (2 points)
+5.  Based on the predicted asymptote, the number of species we have in the dataset, and the plot you just made, what can we conclude? (2 points)
 
 *Answer:*
 
-### Species Richness and Diversity Indices
+## Species Richness and Diversity Indices
 
 For this assignment, you are welcome to use either base R or the `tidyverse`. If you haven't used the `tidyverse` much outside of this class, though, base R will probably be the more straightforward way to tackle this part of the assignment.
 
 We are going to keep working with the insect data from above.
 
 ```{r}
-comm1 <- tibble(species = c("DO", "DM", "SO", "SH", "SF", "PP", "PB", "BA"),
-                   individuals = c(14, 89, 30, 12, 3, 3, 8, 23))
-comm2 <- tibble(species = c("DO", "DM", "SO", "SH", "SF"),
-                   individuals = c(37, 32, 30, 44, 39))
+comm1 <- data.frame(species = c("DO", "DM", "SO", "SH", "SF", "PP", "PB", "BA"),
+                    individuals = c(14, 89, 30, 12, 3, 3, 8, 23))
+comm2 <- data.frame(species = c("DO", "DM", "SO", "SH", "SF"),
+                    individuals = c(37, 32, 30, 44, 39))
 ```
 
-#### Species Richness
+### Species Richness
 
-6. Use code to calculate the species richness of each community. Which community is more species rich?
+6.  Use code to calculate the species richness of each community. Which community is more species rich?
+
 ```{r}
 nrow(comm1)
 nrow(comm2)
 ```
 
-
-#### Shannon Diversity Index
+### Shannon Diversity Index
 
 We are going to start with `comm1`.
 
-7. Write a line of code to calculate the number of individuals in the insect community. Use this to create the object `N_comm1`.
+7.  Write a line of code to calculate the number of individuals in the insect community. Use this to create the object `total_comm1`.
+
 ```{r}
-N_comm1 <- sum(comm1$individuals)
+total_comm1 <- sum(comm1$individuals)
 ```
 
-8. Add a column to the `comm1` data frame with each species' proportion of the community.
+8.  Add a column to the `comm1` data frame with each species' proportion of the community.
+
 ```{r}
-comm1$prop <- comm1$individuals / N_comm1
+comm1$prop <- comm1$individuals / total_comm1
 ```
 
-9. Now add a column with the natural logs of the proportions.
+9.  Now add a column with the natural logs of the proportions.
+
 ```{r}
 comm1$ln_prop <- log(comm1$prop)
 ```
 
 10. Add a column with the result of the proportion of the community multiplied by the natural log.
+
 ```{r}
 comm1$prop_lnprop <- comm1$prop * comm1$ln_prop
 ```
 
 11. Calculate the Shannon Index for this community.
+
 ```{r}
 H_comm1 <- sum(comm1$prop_lnprop * -1)
 ```
 
-12. Now that you've worked your way through calculating the Shannon Index for community 1, calculate it for community 2. 
+12. Now that you've worked your way through calculating the Shannon Index for community 1, calculate it for community 2.
+
 ```{r}
-N_comm2 <- sum(comm2$individuals)
-comm2$prop <- comm2$individuals / N_comm2
+total_comm2 <- sum(comm2$individuals)
+comm2$prop <- comm2$individuals / total_comm2
 comm2$ln_prop <- log(comm2$prop)
 comm2$prop_lnprop <- comm2$prop * comm2$ln_prop
 H_comm2 <- sum(comm2$prop_lnprop * -1)
@@ -142,21 +152,24 @@ H_comm2 <- sum(comm2$prop_lnprop * -1)
 
 *Answer:*
 
-#### Simpson Diversity Index
+### Simpson Diversity Index
 
 Fortunately, a lot of the work has already been done to calculate the Simpson Diversity Index. We only need to add a little bit more to get there.
 
 14. Add another column to the `comm1` data frame that has the squared proportion.
+
 ```{r}
 comm1$prop_sq <- comm1$prop * comm1$prop
 ```
 
 15. Calculate the Simpson Diversity Index for community 1
+
 ```{r}
 D1 = 1 - sum(comm1$prop_sq)
 ```
 
 16. Now calculate the Simpson Index for community 2
+
 ```{r}
 comm2$prop_sq <- comm2$prop * comm2$prop
 D2 = 1 - sum(comm2$prop_sq)

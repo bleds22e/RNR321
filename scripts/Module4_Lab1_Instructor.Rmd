@@ -15,11 +15,10 @@ Today, we will be working with community data to calculate species richness, plo
 
 ## Set-Up
 
-For today's lab and assignment, we will need to load a new package called `vegan`. I've already installed the package on Posit Cloud, so we only need to load it into our work space. We are also going to load the `tidyverse`.
+For today's lab and assignment, we will need to load a new package called `vegan`. I've already installed the package on Posit Cloud, so we only need to load it into our work space.
 
 ```{r message=FALSE}
 library(vegan)
-library(tidyverse)
 ```
 
 The `vegan` package is one of the most popular packages available for working with community-level data. It includes functions for many multivariate analyses commonly used in the analysis of ecological communities. We will be using it today for its species accumulation curve functions.
@@ -29,7 +28,7 @@ The `vegan` package is one of the most popular packages available for working wi
 For this example, we are going to use a dataset of fish abundances from the Doubs River in France. Each column represents a species, and each row is a survey.
 
 ```{r}
-fish <- read_csv("Doubs_fish.csv")
+fish <- read.csv("../data_raw/Doubs_fish.csv")
 head(fish)
 ```
 
@@ -70,8 +69,8 @@ Let's run through how we can calculate the richness, and Shannon and Simpson Div
 ```{r}
 # Don't worry about understanding this code! 
 # I'm making the frequencies of each fish species and making them into a dataframe
-# The rownames are turned into a new column called "species"
-fish_abund <- as_tibble(fish_sac$freq, rownames = "species")
+# The rownames 
+fish_abund <- data.frame(abund = fish_sac$freq)
 head(fish_abund)
 ```
 
@@ -92,8 +91,8 @@ Our first step is to sum up the total number of individuals in the community. We
 We will use the sum function and specify that we want to add up the numbers in the "value" column by using the dollar sign operator.
 
 ```{r}
-N <- sum(fish_abund$value)
-N
+total <- sum(fish_abund$abund)
+total
 ```
 
 Now we want to calculate the proportion of the population made up by each species. We will store these values by adding them into a new column in the `abund` data frame.
@@ -101,7 +100,7 @@ Now we want to calculate the proportion of the population made up by each specie
 We do this by using the dollar sign operator again. On the left side of the assignment arrow, we create a new column. On the right side, we tell R what the new column should contain. In this case, we want to create the proportion for each species---the number of individuals per species divided by the total number of individuals in the population. We will call this new column `prop`.
 
 ```{r}
-fish_abund$prop <- fish_abund$value / N
+fish_abund$prop <- fish_abund$abund / total
 head(fish_abund)
 ```
 
@@ -128,54 +127,4 @@ H
 
 You will want to use a similar strategy to calculate the Simpson Index, as well.
 
-### `tidyverse`
-
-What would this look like in the `tidyverse`? If you're curious, here is the code below.
-
-```{r}
-H_tidy <- as_tibble(fish_sac$freq, rownames = "species") %>% 
-  mutate(prop = value / N, # using the N already created
-         ln_prop = log(prop),
-         prop_x_lnprop = prop * ln_prop) %>% 
-  summarise(H = sum(prop_x_lnprop) * -1)
-H_tidy
-```
-
-The power of the `tidyverse` really shines when you have multiple communities for which you want to calculate values, such as the Shannon Index.
-
-Take a look at this example:
-
-```{r}
-algar <- read.csv("algar_data.csv")
-head(algar)
-```
-
-This dataset has 14 different species observed over 20 different communities. It would be very annoying to have to calculate 20 Shannon Indices using base R, the way we did above!
-
-With `tidyverse`, we can calculate all of them at the same time.
-
-First, we convert the data from a wide format (site x species) to a long format and remove any zeros (they cause NAs).
-
-```{r}
-algar_long <- algar %>% 
-  rownames_to_column("site") %>% 
-  pivot_longer(Alces.alces:Ursus.americanus,
-               names_to = "species", values_to = "abundance") %>% 
-  filter(abundance > 0)
-head(algar_long)
-```
-
-From there, we create groups for each site then proceed with our calculations.
-
-```{r}
-H_indices <- algar_long %>% 
-  group_by(Deployment.Location.ID) %>%            # group the data by site
-  mutate(N = sum(abundance),    # calculate the total abunddance for each site
-         prop = abundance / N,  # calculate the proportion of each species per site
-         ln_prop = log(prop),
-         prop_ln_prop = prop * ln_prop) %>% 
-  summarise(H = sum(prop_ln_prop) * -1)
-H_indices
-```
-
-Fun! And much faster :)
+### 
