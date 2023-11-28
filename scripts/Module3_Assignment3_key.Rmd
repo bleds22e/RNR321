@@ -63,6 +63,7 @@ Let's also read in our data.
 ```{r}
 saguaro <- read.csv("../data_raw/saguaro.csv")
 ocotillo <- read.csv("../data_raw/ocotillo.csv")
+
 ```
 
 ## Saguaros (\< 2m)
