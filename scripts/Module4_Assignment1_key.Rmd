@@ -84,9 +84,7 @@ plot(insects_sac_fit)
 
 ## Species Richness and Diversity Indices
 
-For this assignment, you are welcome to use either base R or the `tidyverse`. If you haven't used the `tidyverse` much outside of this class, though, base R will probably be the more straightforward way to tackle this part of the assignment.
-
-We are going to keep working with the insect data from above.
+For the rest of our calculations, we are going to compare 2 communities. I've written code below to create those communities.
 
 ```{r}
 comm1 <- data.frame(species = c("DO", "DM", "SO", "SH", "SF", "PP", "PB", "BA"),
