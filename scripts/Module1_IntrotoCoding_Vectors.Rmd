@@ -42,11 +42,7 @@ In the console, you hit `Enter`.
 For example:
 
 ```{r}
-3 + 5
 
-15 / 5
-
-4^2
 ```
 
 ### Let's practice in the console, too.
@@ -60,8 +56,7 @@ Assignments are really key to almost everything we do in R. This is how we creat
 The short-cut for `<-` is `Alt + -` (or `Option + -` on a Mac). We will be typing this *a lot*.
 
 ```{r}
-height <- 47.5            
-age <- 122
+
 ```
 
 We can also perform mathematical functions on numeric objects.
@@ -70,9 +65,6 @@ We can also perform mathematical functions on numeric objects.
 # we can add comments to our code by using the # sign
 # R doesn't read anything past a #, so you can either put one at the beginning of a whole line or after some code
 
-height <- height * 2        # multiply
-age <- age - 20         # subtract
-height_index <- height/age  # divide
 ```
 
 ## Functions
@@ -82,19 +74,13 @@ Functions are pre-written bits of codes that perform specific tasks for us.
 Functions are always followed by parentheses. Anything you type into the parentheses are called arguments. Arguments allow us to give the function additional information about how we want it to perform its task.
 
 ```{r}
-sqrt(10)
-weight_kg <- sqrt(10) # square root 
 
-round(weight_kg) # rounding 
-round(weight_kg, digits = 2) # round to 2 digits past 0
 ```
 
 To get more information about a function, use the help function.
 
 ```{r}
-# these two lines of code do the same thing
-help(mean) 
-?mean
+
 ```
 
 ### Let's Practice!
@@ -102,7 +88,7 @@ help(mean)
 Write some code that calculates the sum of the `weight_kg` object and the `height` object. You'll want to use the `sum()` function. Save the result as an object called `weight_and_height`.
 
 ```{r}
-weight_and_height <- sum(weight_kg, height)
+
 ```
 
 ## Vectors
@@ -112,49 +98,24 @@ Vectors are the most common and basic data type in R. They make up most of the o
 We use the `c()` function (stands for combine) to create a vector.
 
 ```{r}
-# Let's create a vector of animal weights (numeric)
-weight_g <- c(60, 65, 82) 
-weight_g
 
-# A vector can also contain character strings (character)
-animals <- c("mouse", "rat", "penguin", "rat") 
-animals
-
-# Logical vector
-mammal <- c(TRUE, TRUE, FALSE, TRUE)
-mammal
 ```
 
 There are many functions we can use to look at vectors and learn more about them.
 
 ```{r}
-# how many elements
-length(weight_g) 
-length(animals)
 
-# type of data we are working with
-class(weight_g) 
-class(animals)
-
-# structure of an object
-str(weight_g) 
-str(animals)
-
-# find the unique values
-unique(animals)
 ```
 
 Vectors can only be one data type. Let's experiment with that.
 
 ```{r}
-test_vec <- c(weight_g, animals, mammal) 
-test_vec 
-class(test_vec) # coerced everything into character (don't know how to make words numeric)
+
 ```
 
-### Sub-setting by Index
+### Subsetting by Index
 
-Sometimes we want to pull out and work with specific values from a vector. This is called sub-setting (taking a smaller set of the original).
+Sometimes we want to pull out and work with specific values from a vector. This is called subsetting (taking a smaller set of the original).
 
 One way to do this is by an "index," meaning the position of the value or object in the vector. To do this, we use square brackets and a number to indicate the position.
 
@@ -164,16 +125,12 @@ weight_g[c(2,4)]
 weight_g[c(1:4)]
 ```
 
-### Conditional subsetting
+### Conditional Subsetting
 
 Another way in which we can subset data is through conditions. The vector will only return data which meets the conditions we set.
 
 ```{r}
-weight_g > 60
-weight_g[weight_g > 55] 
 
-animals == "rat"
-animals[animals == "rat"]
 ```
 
 ### Group Challenge
@@ -187,17 +144,11 @@ Let's practice! Write a few lines of code that do the following:
 
 ```{r}
 # the answer you should get out is 24
-vec <- c(2, 4, 6, 8, 10)
-vec
 
-last3 <- vec[3:5]
-last3
-
-sum(last3)
 ```
 
-If you've finished that task, try to get the same result using *conditional* sub-setting.
+If you've finished that task, try to get the same result using *conditional* subsetting.
 
 ```{r}
-sum(vec[vec > 5])
+
 ```
