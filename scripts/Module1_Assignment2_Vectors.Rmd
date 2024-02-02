@@ -28,7 +28,7 @@ Write R code to successfully answer each question below and/or write text to suc
 
 ### Due Date
 
-Sept 19 at 1pm MST
+Feb 12 at 2pm MST
 
 # Assignment Questions
 
@@ -38,13 +38,13 @@ This assignment is worth 20 points total. Each question is worth 1 point.
 
 *In your own words*, define/describe the following terms. These don't need to be technical descriptions but rather how you are thinking about them.
 
-1.  *Reproducibility*: 
+1.  *Reproducibility*:
 
-2.  *Open science*: 
+2.  *Open science*:
 
-3.  *R*: 
+3.  *R*:
 
-4.  *RStudio*: 
+4.  *RStudio*:
 
 ## Vectors (1 point each)
 
@@ -72,7 +72,7 @@ This assignment is worth 20 points total. Each question is worth 1 point.
 
 ```
 
-9.  Run the following line of code. Based on the output, explain what the line of code does (\~ 1 sentence).
+9.  Run the following line of code. Based on the output, explain what the line of code does (\~ 1 sentence). I know multiplying snails by birds is conceptually illogical; I'm after an explanation of what the *code* is doing.
 
 ```{r}
 snails * fewer_birds
@@ -93,7 +93,7 @@ snails * fewer_birds
 For the following questions, we will be using the cactus pad data that we collected a few weeks ago. Run the following code chunk to bring ("read") the .csv file into R for us to use.
 
 ```{r}
-cactus <- read.csv("AllCactusData.csv")
+cactus <- read.csv("CactusPads_Spring2024.csv") |> na.omit()
 ```
 
 This code chunk uses the `$` operator to pull out individuals columns from 2D data and treat them as vectors. Here, I'm saving the cactus pad length column as a vector called `pad_length`. Once you run this code chunk, you should see `pad_length` in your environment.
@@ -173,7 +173,7 @@ pad_length >= 8
 
 20. Compare the results of Questions 18 and 19. Are cactus lengths or widths larger, on average? Which of the two sets of data has greater variability, and what does that mean? (\~2 sentences)
 
-  *Answer:*
+*Answer:*
 
 # Turning in Your Assignment
 

@@ -50,10 +50,10 @@ This assignment is worth 20 points total. Each question is worth 1 point.
 
 ## Vectors (1 point each)
 
-5.  Assign the number 121 to an object called `birds`.
+5.  Assign the number 120 to an object called `birds`.
 
 ```{r}
-birds <- 121
+birds <- 120
 birds
 ```
 

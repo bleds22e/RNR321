@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = FALSE)
 5.  
 
 ```{r}
-birds <- 121
+birds <- 120
 birds
 ```
 
@@ -47,7 +47,7 @@ rhymes
 
 
 ```{r}
-cactus <- read.csv("../data_raw/AllCactusData.csv")
+cactus <- read.csv("../data_raw/CactusPads_Spring2024.csv") |> na.omit()
 ```
 
 ```{r}
