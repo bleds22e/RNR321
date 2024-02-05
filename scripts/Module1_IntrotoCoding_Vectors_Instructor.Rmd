@@ -105,6 +105,8 @@ Write some code that calculates the sum of the `weight_kg` object and the `heigh
 weight_and_height <- sum(weight_kg, height)
 ```
 
+When you've finished that, start working on Questions 5 & 6 in the assignment.
+
 ## Vectors
 
 Vectors are the most common and basic data type in R. They make up most of the other data types we will work with in R. They are composed of series of values, which can either be numbers or characters or other types of data.
@@ -152,6 +154,10 @@ test_vec
 class(test_vec) # coerced everything into character (don't know how to make words numeric)
 ```
 
+#### Let's Practice!
+
+Start working on Questions 7-10 in the assignment.
+
 ### Sub-setting by Index
 
 Sometimes we want to pull out and work with specific values from a vector. This is called sub-setting (taking a smaller set of the original).
@@ -176,7 +182,7 @@ animals == "rat"
 animals[animals == "rat"]
 ```
 
-### Group Challenge
+### Let's Practice!
 
 Let's practice! Write a few lines of code that do the following:
 
@@ -201,3 +207,5 @@ If you've finished that task, try to get the same result using *conditional* sub
 ```{r}
 sum(vec[vec > 5])
 ```
+
+Once you've completed this task, work on Questions 11-20 on the assignment. Don't forget to go back to Questions 1-4 before you turn it in!
