@@ -141,14 +141,14 @@ damage <- cactus$damage
 
 ```
 
-16. Combining your answers for Questions 14 and 15, write a line of code that determines how many recorded cactus pads had no damage to them.
+16. Write a line of code that determines how many recorded cactus pads had no damage to them. (_Hint: looking back at the code you wrote to complete Questions 14 and 15 will be helpful!_)
 
 ```{r}
 
 ```
 
 
-17. Write a line of code that pull out all of the elements in the `pad_length` vector which are greater than 5.
+17. Write a line of code that pulls out all of the elements in the `pad_length` vector which are greater than 5.
 
 ```{r}
 
