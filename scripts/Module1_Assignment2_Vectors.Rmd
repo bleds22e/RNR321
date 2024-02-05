@@ -123,35 +123,30 @@ damage <- cactus$damage
 
 ```
 
-12. Write a line of code that pulls out the 6th through the 10th value in the `pad_width` vector.
+13. Write a line of code that pulls out the 6th through the 10th value in the `pad_width` vector.
 
 ```{r}
 
 ```
 
-13. Using a function, write a line of code for which the output is the number of elements in the `damage` vector.
+14. Using a function, write a line of code for which the output is the number of elements in the `damage` vector.
 
 ```{r}
 
 ```
 
-14. Write a line of code that pulls out all of the elements of the `damage` vector which have no damage on the pad.
+15. Write a line of code that pulls out all of the elements of the `damage` vector which have no damage on the pad.
 
 ```{r}
 
 ```
 
-15. Combining your answers for Questions 13 and 14, write a line of code that determines how many recorded cactus pads had no damage to them.
+16. Combining your answers for Questions 13 and 14, write a line of code that determines how many recorded cactus pads had no damage to them.
 
 ```{r}
 
 ```
 
-16. Based on the code itself and the output of the line of code, explain in your own words what the following line of code is doing.
-
-```{r}
-pad_length >= 8
-```
 
 17. Write a line of code that pull out all of the elements in the `pad_length` vector which are greater than 5.
 
