@@ -48,13 +48,13 @@ This assignment is worth 20 points total. Each question is worth 1 point.
 
 ## Vectors (1 point each)
 
-5.  Assign the number 121 to an object called `birds`.
+5.  Assign the number 120 to an object called `birds`.
 
 ```{r}
 
 ```
 
-6.  Divide the object `bird` by 5. Name the result `fewer_birds`.
+6.  Divide the object `birds` by 5. Name the result `fewer_birds`.
 
 ```{r}
 
@@ -141,7 +141,7 @@ damage <- cactus$damage
 
 ```
 
-16. Combining your answers for Questions 13 and 14, write a line of code that determines how many recorded cactus pads had no damage to them.
+16. Combining your answers for Questions 14 and 15, write a line of code that determines how many recorded cactus pads had no damage to them.
 
 ```{r}
 
