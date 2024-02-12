@@ -1,0 +1,117 @@
+group_id,temp_F,wind_speed_mph,species,size,paddle_id,length_in,width_in,depth_in,spines,insects,damage,location
+2,59,4,Opuntia engelmannii,Medium,1,13,10,0.5,Y,N,None,Fifth
+2,59,4,Opuntia engelmannii,Medium,2,12.2,6,0.4,Y,N,Some,Fourth
+2,59,4,Opuntia engelmannii,Medium,3,10.3,7.5,0.2,Y,N,None,Fourth
+2,59,4,Opuntia engelmannii,Medium,4,10,6.8,0.1,Y,N,None,Fourth
+2,59,4,Opuntia engelmannii,Medium,5,12.7,10.1,0.2,Y,N,None,Fifth
+2,59,4,Opuntia engelmannii,Medium,6,13.8,9.5,0.5,Y,N,Most,Fourth
+2,59,4,Opuntia engelmannii,Medium,7,13.5,9,0.4,Y,N,None,Fourth
+2,59,4,Opuntia engelmannii,Medium,8,10.4,7.6,0.4,Y,N,None,Fifth
+2,59,4,Opuntia engelmannii,Medium,9,9,6.2,0.3,Y,N,None,Fifth
+2,59,4,Opuntia engelmannii,Medium,10,11,6.8,0.3,Y,N,None,Fifth
+9,59,4,Opuntia ficus-indica,Medium,1,8.5,4.5,0.5,N,N,Some,Seventh
+9,59,4,Opuntia ficus-indica,Medium,2,6,2.7,0.2,N,N,None,Sixth
+9,59,4,Opuntia ficus-indica,Medium,3,1.2,0.5,0.1,N,N,None,Eigth
+9,59,4,Opuntia ficus-indica,Medium,4,9,2.2,0.4,N,N,Some,Fourth
+9,59,4,Opuntia ficus-indica,Medium,5,5.6,2.7,0.3,N,N,None,Sixth
+9,59,4,Opuntia ficus-indica,Medium,6,4.5,1.8,0.4,N,N,None,Sixth
+9,59,4,Opuntia ficus-indica,Medium,7,9.5,5,0.5,N,N,Most,Second
+9,59,4,Opuntia ficus-indica,Medium,8,5.7,1.5,0.3,N,N,None,Sixth
+9,59,4,Opuntia ficus-indica,Medium,9,4.8,2.5,0.1,Y,N,None,Seventh
+9,59,4,Opuntia ficus-indica,Medium,10,4.8,2.3,0.3,N,N,None,Seventh
+6,59,4,Opuntia santa-rita,Medium,1,7.5,5.25,0.75,N,N,Most,First
+6,59,4,Opuntia santa-rita,Medium,2,7,6.5,1,Y,Y,Most,Second
+6,59,4,Opuntia santa-rita,Medium,3,7,5.2,0.5,Y,N,Some,Third
+6,59,4,Opuntia santa-rita,Medium,4,7.5,6.1,0.3,Y,Y,Some,Fourth
+6,59,4,Opuntia santa-rita,Medium,5,8,5.8,0.2,Y,Y,Some,Fifth
+6,59,4,Opuntia santa-rita,Medium,6,6.8,5.2,0.2,Y,Y,Some,Fifth
+6,59,4,Opuntia santa-rita,Medium,7,7.7,6.2,0.2,Y,Y,Some,Fourth
+6,59,4,Opuntia santa-rita,Medium,8,8.7,5.2,0.3,Y,Y,Some,Fifth
+6,59,4,Opuntia santa-rita,Medium,9,5.9,5,0.15,Y,Y,None,Sixth
+6,59,4,Opuntia santa-rita,Medium,10,6.5,4.7,0.3,Y,Y,None,Fifth
+1,59,4,Opuntia engelmannii,Large,1,11.5,9.5,0.5,Y,Y,None,Fourth
+1,59,4,Opuntia engelmannii,Large,2,11.5,7.8,0.5,Y,Y,None,Sixth
+1,59,4,Opuntia engelmannii,Large,3,12,8.3,0.5,Y,Y,None,Fifth
+1,59,4,Opuntia engelmannii,Large,4,9.5,6.5,0.5,Y,Y,None,Fifth
+1,59,4,Opuntia engelmannii,Large,5,12,8,0.5,Y,Y,Most,Fourth
+1,59,4,Opuntia engelmannii,Large,6,14,11,1,Y,N,Some,Third
+1,59,4,Opuntia engelmannii,Large,7,15,9.5,1,Y,Y,Some,Fourth
+1,59,4,Opuntia engelmannii,Large,8,13.5,9,1,Y,N,None,Fourth
+1,59,4,Opuntia engelmannii,Large,9,11.5,7,0.3,Y,Y,None,Eigth
+11,59,4,Opuntia ficus-indica,Large,1,6.5,3.5,0.25,N,N,Some,Sixth
+11,59,4,Opuntia ficus-indica,Large,2,8,3,0.25,N,N,None,Fifth
+11,59,4,Opuntia ficus-indica,Large,3,9,5.5,0.5,N,N,None,Fourth
+11,59,4,Opuntia ficus-indica,Large,4,9,4,0.5,N,N,Some,Third
+11,59,4,Opuntia ficus-indica,Large,5,10.5,6.75,0.5,N,N,Some,Second
+11,59,4,Opuntia ficus-indica,Large,6,9,3,0.5,N,N,None,Fifth
+11,59,4,Opuntia ficus-indica,Large,7,4.5,2.5,0.25,N,N,None,Fourth
+11,59,4,Opuntia ficus-indica,Large,8,10,6.5,0.5,N,N,Some,Eigth
+11,59,4,Opuntia ficus-indica,Large,9,9,6,0.5,N,N,None,Seventh
+11,59,4,Opuntia ficus-indica,Large,10,9.5,3,0.5,N,N,Some,Sixth
+5,59,4,Opuntia ficus-indica,Large,1,10,5.1,0.2,N,N,Some,Fifth
+5,59,4,Opuntia ficus-indica,Large,2,11,7,0.3,N,N,Some,Fourth
+5,59,4,Opuntia ficus-indica,Large,3,11.5,6.6,0.6,N,N,Some,Third
+5,59,4,Opuntia ficus-indica,Large,4,9,6.1,0.2,N,N,None,Sixth
+5,59,4,Opuntia ficus-indica,Large,5,10.7,5.9,0.3,N,Y,Some,Sixth
+5,59,4,Opuntia ficus-indica,Large,6,5.6,4,0.3,N,N,Most,Fourth
+5,59,4,Opuntia ficus-indica,Large,7,10.2,6.1,0.2,N,N,None,Sixth
+5,59,4,Opuntia ficus-indica,Large,8,8.5,4.3,0.3,N,N,Most,Fourth
+5,59,4,Opuntia ficus-indica,Large,9,11.4,5.9,0.2,N,N,None,Fifth
+5,59,4,Opuntia ficus-indica,Large,10,12.6,9.1,0.4,N,N,None,Third
+7,59,4,Opuntia ficus-indica,Large,1,12,6.5,0.5,N,N,Some,Eigth
+7,59,4,Opuntia ficus-indica,Large,2,10.1,7.1,0.5,N,N,Some,Sixth
+7,59,4,Opuntia ficus-indica,Large,3,6,3.5,0.4,N,N,None,Eleventh
+7,59,4,Opuntia ficus-indica,Large,4,10.5,5,0.5,N,N,Most,Eigth
+7,59,4,Opuntia ficus-indica,Large,5,12,7.5,0.6,N,N,Some,Sixth
+7,59,4,Opuntia ficus-indica,Large,6,10.5,4.9,0.7,N,N,Some,Eigth
+7,59,4,Opuntia ficus-indica,Large,7,11.5,7,1,N,N,None,Ninth
+7,59,4,Opuntia ficus-indica,Large,8,11,6,0.6,N,N,Most,Sixth
+7,59,4,Opuntia ficus-indica,Large,9,9.5,6.5,1.7,N,N,Most,Third
+7,59,4,Opuntia ficus-indica,Large,10,8,5.75,0.4,N,N,Some,Fifth
+4,59,4,Opuntia engelmannii,Large,1,11.75,8,0.5,Y,N,None,Fifth
+4,59,4,Opuntia engelmannii,Large,2,12,10,0.6,Y,N,None,Fifth
+4,59,4,Opuntia engelmannii,Large,3,14.9,12,0.8,Y,N,None,Fourth
+4,59,4,Opuntia engelmannii,Large,4,9,6.25,0.75,Y,N,Some,Second
+4,59,4,Opuntia engelmannii,Large,5,7,12,2,Y,Y,Some,First
+4,59,4,Opuntia engelmannii,Large,6,8,5,0.3,Y,N,Most,Sixth
+4,59,4,Opuntia engelmannii,Large,7,13,9.5,1.2,Y,N,Most,Second
+4,59,4,Opuntia engelmannii,Large,8,11.5,8.75,1,Y,Y,Some,Fourth
+4,59,4,Opuntia engelmannii,Large,9,10,7.5,0.3,Y,N,Some,Third
+4,59,4,Opuntia engelmannii,Large,10,13,10,0.5,Y,N,Some,Fifth
+8,59,4,Opuntia ficus-indica,Small,1,14.5,11,1,Y,Y,Some,Fifth
+8,59,4,Opuntia ficus-indica,Small,2,14,10,1,Y,N,None,Fourth
+8,59,4,Opuntia ficus-indica,Small,3,14.5,12.5,1,Y,Y,Some,Fourth
+8,59,4,Opuntia ficus-indica,Small,4,13,9,1,Y,Y,Some,Fifth
+8,59,4,Opuntia ficus-indica,Small,5,11.5,7,0.5,Y,N,None,Sixth
+8,59,4,Opuntia ficus-indica,Small,6,10.5,7,0.5,Y,N,None,Sixth
+8,59,4,Opuntia ficus-indica,Small,7,11,9,0.5,Y,N,None,Seventh
+8,59,4,Opuntia ficus-indica,Small,8,12.5,8.5,0.5,Y,N,None,Fourth
+8,59,4,Opuntia ficus-indica,Small,9,9,5.5,0.5,Y,N,Some,Fifth
+8,59,4,Opuntia ficus-indica,Small,10,8.5,6.5,0.5,Y,N,None,Fifth
+3,59,4,Opuntia engelmannii,Small,1,9,6,1,Y,N,None,Second
+3,59,4,Opuntia engelmannii,Small,2,9,9,1,Y,N,Some,First
+3,59,4,Opuntia engelmannii,Small,3,10.5,7,0.75,Y,N,Some,First
+3,59,4,Opuntia engelmannii,Small,4,12,10,2,Y,N,Some,First
+3,59,4,Opuntia engelmannii,Small,5,8,6,0.25,Y,N,None,Second
+3,59,4,Opuntia engelmannii,Small,6,10,6,0.5,Y,N,None,Second
+3,59,4,Opuntia engelmannii,Small,7,9,6,0.75,Y,N,None,First
+12,59,4,Opuntia ficus-indica,Large,1,9,4.25,0.5,N,Y,Some,Seventh
+12,59,4,Opuntia ficus-indica,Large,2,4.5,3.5,0.5,N,Y,Most,Seventh
+12,59,4,Opuntia ficus-indica,Large,3,5,2.5,0.2,Y,N,None,Third
+12,59,4,Opuntia ficus-indica,Large,4,10,5.6,0.4,Y,N,None,Sixth
+12,59,4,Opuntia ficus-indica,Large,5,10,4.5,0.4,N,Y,Some,Third
+12,59,4,Opuntia ficus-indica,Large,6,4.75,3.5,0.5,N,N,Some,Fourth
+12,59,4,Opuntia ficus-indica,Large,7,9,6,0.75,N,Y,Most,Fourth
+12,59,4,Opuntia ficus-indica,Large,8,7.5,4,0.25,N,Y,Some,Fifth
+12,59,4,Opuntia ficus-indica,Large,9,7.5,4.5,0.5,N,Y,Some,Sixth
+12,59,4,Opuntia ficus-indica,Large,10,5.5,3,0.4,N,N,None,Fifth
+10,NA,NA,NA,NA,1,10.5,6.75,0.4,N,N,Some,Sixth
+10,NA,NA,NA,NA,2,10.6,5.8,0.3,N,N,None,Sixth
+10,NA,NA,NA,NA,3,4.25,2,0.1,Y,N,None,Fifth
+10,NA,NA,NA,NA,4,10.2,7,0.5,N,N,Some,Third
+10,NA,NA,NA,NA,5,9,6.3,0.3,N,N,None,Fifth
+10,NA,NA,NA,NA,6,10.2,5.8,0.4,N,N,None,Seventh
+10,NA,NA,NA,NA,7,9.5,7.6,0.3,N,N,Most,Second
+10,NA,NA,NA,NA,8,9.5,6.5,0.8,N,N,All,Fourth
+10,NA,NA,NA,NA,9,7.5,3.6,0.4,N,N,Some,Sixth
+10,NA,NA,NA,NA,10,7.25,4,0.3,N,N,All,Fifth

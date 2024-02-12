@@ -28,7 +28,7 @@ Write R code to successfully answer each question below and/or write text to suc
 
 ### Due Date
 
-Sept 26 at 1pm MST
+Feb 19 at 2pm MST
 
 # Assignment Questions
 
@@ -97,10 +97,10 @@ For the remainder of the assignment, we will be using the cactus data we collect
 Once you run the code chunk below, the data frame will be saved in your environment as the object `cactus`.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-cactus <- read.csv("AllCactusData.csv")
+cactus <- read.csv("all_cactus_data_sp24.csv")
 ```
 
-7.  Take a look at the `pads` data frame. How many rows does this data frame have? How many columns? You can either use code to figure this out or look at the object in the environment. Explain how you figured it out (e.g., if you looked in the environment, how did you know which number meant what). (2 points)
+7.  Take a look at the `cactus` data frame. How many rows does this data frame have? How many columns? You can either use code to figure this out or look at the object in the environment. Explain how you figured it out (e.g., if you looked in the environment, how did you know which number meant what). (2 points)
 
     *Rows*:
 
@@ -149,7 +149,7 @@ cactus <- read.csv("AllCactusData.csv")
 
     *Answer:*
 
-14. Create 2 different data frames: one called `ficus` with only rows that have *Opuntia ficus-indica* in the species column and one called `santa_rita` with only rows which have *Opuntia santa-rita* in the species column. The data frames should have *all* columns.
+14. Create 2 different data frames: one called `ficus` with only rows that have *Opuntia ficus-indica* in the species column and one called `engel` with only rows which have *Opuntia engelmannii* in the species column. The data frames should have *all* columns.
 
 ```{r}
 
@@ -179,4 +179,4 @@ Follow these steps to successfully turn in your assignment on D2L.
 2.  Click the empty box to the left of the PDF file.
 3.  Click on the blue gear near the top of the `Files` panel and choose Export.
 4.  Put your last name at the front of the file name when prompted, then click the Download button. The PDF file of your assignment is now in your "Downloads" folder on your device.
-5.  Head over to D2L and navigate to Module 1 Assignment 2. Submit the PDF file that you just downloaded.
+5.  Head over to D2L and navigate to Module 1 Assignment 3. Submit the PDF file that you just downloaded.

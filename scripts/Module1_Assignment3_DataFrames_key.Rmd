@@ -28,13 +28,13 @@ Write R code to successfully answer each question below and/or write text to suc
 
 ### Due Date
 
-Sept 26 at 1pm MST
+Feb 19 at 2pm MST
 
 # Assignment Questions
 
 This assignment is worth 20 points total. Each question is worth 1 point unless otherwise specified.
 
-## Vectors 
+## Vectors
 
 First, let's remind ourselves a little bit about working with vectors.
 
@@ -98,7 +98,7 @@ For the remainder of the assignment, we will be using the cactus data we collect
 Once you run the code chunk below, the data frame will be saved in your environment as the object `cactus`.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-cactus <- read.csv("../data_raw/AllCactusData.csv")
+cactus <- read.csv("../output/all_cactus_data_sp2024.csv")
 ```
 
 7.  Take a look at the `pads` data frame. How many rows does this data frame have? How many columns? You can either use code to figure this out or look at the object in the environment. Explain how you figured it out (e.g., if you looked in the environment, how did you know which number meant what). (2 points)
@@ -124,16 +124,16 @@ head(cactus)
 9.  Calculate the mean *length* of all the cactus pads that were measured.
 
 ```{r}
-mean(cactus$length_in)
+mean(cactus$length_in, na.rm = TRUE)
 ```
 
 10. Use the `round()` function to around the mean of the cactus pad *lengths* (Q9) to only 1 place after the decimal.
 
 ```{r}
-round(mean(cactus$length_in), digits = 1)
+round(mean(cactus$length_in, na.rm = TRUE), digits = 1)
 ```
 
-11. Create a histogram with the *depth* of all the cactus pads that were measured.
+11. Create a histogram with the *depth* of all the cactus pads that were measured. No need to use `na.rm = TRUE` here; the histogram function automatically drops `NA` values.
 
 ```{r}
 hist(cactus$depth_in)
@@ -141,7 +141,7 @@ hist(cactus$depth_in)
 
 12. In 2-3 sentences, interpret the histogram. Describe what the axes represent, the approximate range of the data, where the majority of values fall, the distribution/skew of the data, etc. (2 points)
 
-*Answer: The x-axis indicates groupings/bins of depth measurements for each cactus pad and the y-axis indicates the frequency with which measurements are in each group. While the range of the data is from about 0-1.4, the majority of values seem to fall between 0.2-0.6. The distribution is right-skewed.*
+*Answer: The x-axis indicates groupings/bins of depth measurements for each cactus pad and the y-axis indicates the frequency with which measurements are in each group. While the range of the data is from about 0-2 the majority of values seem to fall between 0.2-0.6. The distribution is right-skewed.*
 
 13. Run the following line of code. By looking at the code and the output, describe what the following line of code is doing. Make sure to include each part of the code. (As a point of reference, this took me 5 sentences in the answer key). (2 points)
 
@@ -151,34 +151,34 @@ cactus[cactus$spines == "N", 9]
 
 *Answer: This line of code pulls out depth values for the cactus pads that do not have spines. We first tell R that we want to select something from the `cactus` data frame. The `[]` indicate that we are subsetting. We set a condition in the rows section that indicates we only want rows in which the value in the spines column is "N", indicating no spines. After the comma, we specify that we want values from the 9th column, which is `depth_in`.*
 
-14. Create 2 different data frames: one called `ficus` with only rows that have *Opuntia ficus-indica* in the species column and one called `santa_rita` with only rows which have *Opuntia santa-rita* in the species column. The data frames should have *all* columns.
+14. Create 2 different data frames: one called `ficus` with only rows that have *Opuntia ficus-indica* in the species column and one called `engel` with only rows which have *Opuntia engelmannii* in the species column. The data frames should have *all* columns.
 
 ```{r}
 ficus <- cactus[cactus$species == "Opuntia ficus-indica", ]
-santa_rita <- cactus[cactus$species == "Opuntia santa-rita", ]
+engel <- cactus[cactus$species == "Opuntia engelmannii", ]
 ```
 
 15. Calculate the mean pad width for each species.
 
 ```{r}
-mean_ficus <- mean(ficus$width_in)
+mean_ficus <- mean(ficus$width_in, na.rm = TRUE)
 mean_ficus
-mean_santa <- mean(santa_rita$width_in)
-mean_santa
+mean_engel <- mean(engel$width_in, na.rm = TRUE)
+mean_engel
 ```
 
 16. In a similar fashion, calculate the standard deviation (`sd()`) for the width of both species.
 
 ```{r}
-sd_ficus <- sd(ficus$width_in)
+sd_ficus <- sd(ficus$width_in, na.rm = TRUE)
 sd_ficus
-sd_santa <- sd(santa_rita$width_in)
-sd_santa
+sd_engel <- sd(engel$width_in, na.rm = TRUE)
+sd_engel
 ```
 
-17. Intepret the results from Q15 and Q16. What do they tell us about the depth of cactus pads and the distribution of the data?
+17. Interpret the results from Q15 and Q16. What do they tell us about the depth of cactus pads and the distribution of the data?
 
-    *Answer: Opuntia santa-rita* seems to have wider pads on average than *O. ficus-indica*. The *O. ficus-indica* data has a higher standard deviation, meaning that there is more variation in the data points (they are less close to the mean than the *santa-rita* data points).
+    *Answer: Opuntia engelmannii* seems to have wider pads on average than *O. ficus-indica*. The *O. ficus-indica* data has a higher standard deviation, meaning that there is more variation in the data points (they are less close to the mean than the *engelmannii* data points).
 
 # Turning in Your Assignment
 
@@ -188,4 +188,4 @@ Follow these steps to successfully turn in your assignment on D2L.
 2.  Click the empty box to the left of the PDF file.
 3.  Click on the blue gear near the top of the `Files` panel and choose Export.
 4.  Put your last name at the front of the file name when prompted, then click the Download button. The PDF file of your assignment is now in your "Downloads" folder on your device.
-5.  Head over to D2L and navigate to Module 1 Assignment 2. Submit the PDF file that you just downloaded.
+5.  Head over to D2L and navigate to Module 1 Assignment 3. Submit the PDF file that you just downloaded.
