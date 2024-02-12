@@ -176,7 +176,7 @@ sd_engel <- sd(engel$width_in, na.rm = TRUE)
 sd_engel
 ```
 
-17. Interpret the results from Q15 and Q16. What do they tell us about the depth of cactus pads and the distribution of the data?
+17. Interpret the results from Q15 and Q16. What do they tell us about the width of cactus pads and the distribution of the data?
 
     *Answer: Opuntia engelmannii* seems to have wider pads on average than *O. ficus-indica*. The *O. ficus-indica* data has a higher standard deviation, meaning that there is more variation in the data points (they are less close to the mean than the *engelmannii* data points).
 
