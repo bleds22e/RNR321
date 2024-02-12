@@ -101,7 +101,7 @@ Once you run the code chunk below, the data frame will be saved in your environm
 cactus <- read.csv("../output/all_cactus_data_sp2024.csv")
 ```
 
-7.  Take a look at the `pads` data frame. How many rows does this data frame have? How many columns? You can either use code to figure this out or look at the object in the environment. Explain how you figured it out (e.g., if you looked in the environment, how did you know which number meant what). (2 points)
+7.  Take a look at the `cactus` data frame. How many rows does this data frame have? How many columns? You can either use code to figure this out or look at the object in the environment. Explain how you figured it out (e.g., if you looked in the environment, how did you know which number meant what). (2 points)
 
     *Rows*: 50
 

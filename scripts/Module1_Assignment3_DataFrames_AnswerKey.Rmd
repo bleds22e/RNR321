@@ -52,7 +52,7 @@ pet_names[pet_names == "Spud"]
 ```
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-cactus <- read.csv("../data_raw/AllCactusData.csv")
+cactus <- read.csv("../output/all_cactus_data_sp2024.csv")
 ```
 
 
@@ -65,13 +65,13 @@ head(cactus)
 9.  
 
 ```{r}
-mean(cactus$length_in)
+mean(cactus$length_in, na.rm = TRUE)
 ```
 
 10. 
 
 ```{r}
-round(mean(cactus$length_in), digits = 1)
+round(mean(cactus$length_in, na.rm = TRUE), digits = 1)
 ```
 
 11. 
@@ -91,25 +91,25 @@ cactus[cactus$spines == "N", 9]
 ```{r}
 ficus <- cactus[cactus$species == "Opuntia ficus-indica", ]
 head(ficus, 10)
-santa_rita <- cactus[cactus$species == "Opuntia santa-rita", ]
-head(santa_rita, 10)
+engel <- cactus[cactus$species == "Opuntia engelmannii", ]
+head(engel, 10)
 ```
 
 15. 
 
 ```{r}
-mean_ficus <- mean(ficus$width_in)
+mean_ficus <- mean(ficus$width_in, na.rm = TRUE)
 mean_ficus
-mean_santa <- mean(santa_rita$width_in)
-mean_santa
+mean_engel <- mean(engel$width_in, na.rm = TRUE)
+mean_engel
 ```
 
 16. 
 
 ```{r}
-sd_ficus <- sd(ficus$width_in)
+sd_ficus <- sd(ficus$width_in, na.rm = TRUE)
 sd_ficus
-sd_santa <- sd(santa_rita$width_in)
-sd_santa
+sd_engel <- sd(engel$width_in, na.rm = TRUE)
+sd_engel
 ```
 
