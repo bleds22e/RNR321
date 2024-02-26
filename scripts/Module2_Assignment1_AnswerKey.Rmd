@@ -12,12 +12,8 @@ editor_options:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-```{r message=FALSE}
-library(tidyverse)
-```
-
 ```{r message = FALSE}
-rocks <- read_csv("../data_raw/example_data.csv") %>% drop_na()
+rocks <- read.csv("../data_raw/example_data.csv")
 rocks
 N <- 64
 n <- 8

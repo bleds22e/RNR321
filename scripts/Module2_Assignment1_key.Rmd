@@ -35,13 +35,13 @@ successfully answer the question.
 
 ### Due Date
 
-Oct 10 by 1pm MST
+March 11 by 2pm MST
 
 ------------------------------------------------------------------------
 
-## Assignment Questions
+# Assignment Questions
 
-### Short Answer
+## Short Answer
 
 Think back to how we sampled the rock data. Answer the following
 question in terms of our data (aka, "big square," "little squares,"
@@ -88,62 +88,60 @@ question in terms of our data (aka, "big square," "little squares,"
     population parameter that we are estimating (mean), so we have less
     uncertainty in the estimate (AKA smaller SE).
 
-#### Set-up:
+### Set-up:
 
 (a) Get your (or your group's) simple random sampling rock data.
 (b) Make sure it has been saved as a .csv file. If it hasn't, you will
     need to do so using "Save As".
-(c) In RStudio Cloud, using the "Upload" button in the lower right-hand
+(c) In Posit Cloud, using the "Upload" button in the lower right-hand
     panel, upload your .csv file.
     (d) In the Files tab in the bottom right-hand corner, check the box
         next to the .csv file that you just uploaded, then click the
         "Rename" button (near "Upload").
-(d) Rename your .csv file to "rock_data.csv"
+(e) Rename your .csv file to "rock_data.csv"
 
-#### Important Notes:
+### Important Notes:
 
 (a) I recommend referencing the PowerPoint slides from class! Remember,
     equation don't show on D2L, so you'll want to download them.
-(b) Because you each have different values for your number of rocks, the
+(b) I also recommend taking a look back at Module 1 Assignment 3 to
+    remind yourself how to work with data frames.
+(c) Because you each have different values for your number of rocks, the
     answer key won't directly match your values. I've included the
     example dataset that I used to create the answer key if you want to
     check your values.
 
-### Calculations
+## Calculations
 
 Each question is worth 1 point unless otherwise noted.
-Load the tidyverse. For this assignment, we will only be using this to
-read in our .csv file.
 
-```{r message = FALSE}
-library(tidyverse)
-```
-
-5.  Use the `read_csv()` function from the tidyverse to read in your
+5.  Use the `read.csv()` function from the tidyverse to read in your
     rocks file. Save this data in an object called `rocks`.
 
     Below, replace the file name with the file name of your rock data.
 
 ```{r}
-rocks <- read_csv("../data_raw/example_data.csv") %>% drop_na()
+rocks <- read.csv("../data_raw/example_data.csv") 
 ```
 
 6.  Create the object `N`, which is the number of units in your
-    *sampling frame*.
+    *sampling frame*. No functions needed; type the number and assign it
+    to `N`.
 
 ```{r}
 N <- 64
 ```
 
 7.  Create the object `n`, which is your *sample size,* the number of
-    sample units that make up your sample. To do this, use the `nrow()`
-    function
+    sample units that make up your sample.
 
-    _Hint: if you don't remember how to use the `nrow()` function, run
-    `?nrow`_
+    To do this, use the `length()` function to count the number of
+    elements in the `sample_unit` column of the `rocks` data frame.
+    Remember, we can use the `$` to reference a specific column in a
+    data frame.
 
 ```{r}
-n <- nrow(rocks)
+n <- length(rocks$sample_unit)
 ```
 
 ### Estimating the Mean
@@ -155,9 +153,14 @@ For example, let's say we wanted to calculate the median of our dark
 stone abundance data. We could run the following line of code:
 `rocks_median <- median(rocks$abund_dark_stones)`
 
-Typically, I prefer using the `tidyverse` functions, but for performing
-calculations like we are doing in this assignment, working with vectors
-(as opposed to data frames) is easier; the code above does that for us.
+For the remainder of the coding questions below, remember to print out
+the answer by typing the name of the object again, below your line of
+code. In the above example, it would look like:
+
+```{r, eval=FALSE}
+rocks_median <- median(rocks$abund_dark_stones)
+rocks_median
+```
 
 8.  Create an object called `rocks_mean` that contains the sample mean
     (AKA the mean number of dark stones per sample unit). Follow the
@@ -168,16 +171,16 @@ rocks_mean <- mean(rocks$abund_dark_stones)
 ```
 
 9.  Create objects called `rocks_var` and `rocks_sd` which contain the
-    sample variance and sample standard deviation, respectively. 
-    
-    _Hint: use `var()` and `sd()` functions._
+    sample variance and sample standard deviation, respectively.
+
+    *Hint: use `var()` and `sd()` functions.*
 
 ```{r}
 rocks_var <- var(rocks$abund_dark_stones)
 rocks_sd <- sd(rocks$abund_dark_stones)
 ```
 
-### Calculating Standard Error for the Mean
+### Calculating The Uncertainty in our Estimate of the Mean
 
 R doesn't have a function for calculating the standard error (SE), so
 let's calculate it ourselves using the equation from class.
@@ -186,8 +189,8 @@ let's calculate it ourselves using the equation from class.
     use that to modify SE when we know what N is. Let's create an object
     called `pop_correction` using that formula: (N-n)/N
 
-    _Hint: use the objects we've already created (`N`, `n`; don't enter
-    any numbers directly)_
+    *Hint: use the objects we've already created (`N`, `n`; don't enter
+    any numbers directly)*
 
 ```{r}
 pop_correction <- (N-n)/N
@@ -218,7 +221,7 @@ rocks_var_ybar <- pop_correction * (rocks_var/n)
 rocks_SE <- sqrt(rocks_var_ybar)
 ```
 
-### Estimating the Population (and Accuracy of the Estimate)
+### Estimating the Population (and Uncertainty of the Estimate)
 
 We've calculated standard error (SE) for the estimate of the mean above.
 Now, let's calculate them for the estimate of the population abundance
@@ -245,7 +248,7 @@ rocks_var_total <- N * (N-n) * (rocks_var/n)
 rocks_SE_total <- sqrt(rocks_var_total)
 ```
 
-### Bringing It All Together
+## Bringing It All Together
 
 17. Write a short paragraph (3-5 sentences) putting the values that
     we've just calculated into context for our dark rocks sampling
@@ -253,7 +256,7 @@ rocks_SE_total <- sqrt(rocks_var_total)
 
 -   According to your calculations, approximately how many dark rocks
     were there in your big square? How confident are you in that
-    estimate?
+    estimate (AKA what is your amount of uncertainty)?
 -   What is your estimate of density of dark rocks (average \# dark
     rocks per little square)? How much variation do you estimate is
     there in the number of dark rocks per little square? How confident
@@ -266,4 +269,5 @@ rocks_SE_total <- sqrt(rocks_var_total)
     `rocks_SE_total` or `rocks_var_total`
 -   density estimate = `rocks_mean`
 -   variation in density = `rocks_var` or `rocks_sd`
--   confidence (uncertainty) in density estimate = `rocks_var_ybar` or `rocks_SE`
+-   confidence (uncertainty) in density estimate = `rocks_var_ybar` or
+    `rocks_SE`
