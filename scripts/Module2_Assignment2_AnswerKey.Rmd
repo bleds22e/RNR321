@@ -25,7 +25,9 @@ abund <- abundance(level = "Plot",
 abund440 <- abund %>% 
   filter(period == 440, treatment != "removal") %>% 
   select(period, plot, PP, PB)
+head(abund440)
 ```
+
 
 1.  
 
@@ -78,6 +80,7 @@ df <- n-1
 df
 ```
 
+t-value
 ```{r}
 t95 <- qt(1-(alpha95)/2, df)
 t95
@@ -102,12 +105,19 @@ lowerCI_95
 
 10. 
 
+a.
+
 ```{r}
 alpha90 <- 0.1
+alpha90
+
 t90 <- qt(1-(alpha90)/2, df)
 t90
+```
+
+b. 
+```{r}
 halfwidth_90 <- t90 * PP_SE
-halfwidth_90
 
 upperCI_90 <- PP_mean + halfwidth_90
 lowerCI_90 <- PP_mean - halfwidth_90
@@ -154,7 +164,6 @@ PB_SE
 
 ```{r}
 halfwidth_95_PB <- t95 * PB_SE
-halfwidth_95_PB
 
 upperCI_95_PB <- PB_mean + halfwidth_95_PB
 lowerCI_95_PB <- PB_mean - halfwidth_95_PB

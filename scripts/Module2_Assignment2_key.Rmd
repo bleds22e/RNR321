@@ -253,7 +253,6 @@ PB_SE
 
 ```{r}
 halfwidth_95_PB <- t95 * PB_SE
-halfwidth_95_PB
 
 upperCI_95_PB <- PB_mean + halfwidth_95_PB
 lowerCI_95_PB <- PB_mean - halfwidth_95_PB
