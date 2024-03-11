@@ -239,6 +239,7 @@ rocks_total <- N * rocks_mean
 
 ```{r}
 rocks_var_total <- N * (N-n) * (rocks_var/n)
+# alternative equation is N^2 * rocks_var_ybar
 ```
 
 16. Calculate the SE of the estimate of the population total,
