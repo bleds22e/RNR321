@@ -180,21 +180,34 @@ upperCI_95
 lowerCI_95
 ```
 
-10. What happens when we create 90% CI for the data? Calculate 90% CI and compare to the 95% CI. Which one is wider? Why? (3 points)
+
+10. What happens when we create 90% CI for the data? Let's calculate 90% CI. (3 points total)
+
+    a. Input the correct value for `alpha90` and then run the code chunk to get the new t-value, `t90`. 
 
 ```{r}
-alpha90 <- 0.1
+alpha90 <- 0.10
+alpha90
+
 t90 <- qt(1-(alpha90)/2, df)
 t90
+```
+
+    b. Now, using `t90`, calculate the 90% CI. and compare to the 95% CI. Which one is wider? Why? 
+
+```{r}
 halfwidth_90 <- t90 * PP_SE
-halfwidth_90
 
 upperCI_90 <- PP_mean + halfwidth_90
 lowerCI_90 <- PP_mean - halfwidth_90
-
+  
 upperCI_90
 lowerCI_90
 ```
+    
+    c. Compare the 90% CI to the 95% CI. Which one is wider? Why would expect that to be the case?  
+
+    *Answer:*
 
 *Answer:* 95% CI are wider; they are wider because we are willing to accept less uncertainty, so the range of values that must be included needs to be broader to ensure that we have a higher percentage (95 vs 90) of having the true parameter value included in the range.
 

@@ -47,15 +47,26 @@ Each question is worth 1 point unless otherwise noted.
 
 ## Set-up:
 
-For our assignment today, we will be using data from my PhD field site in southeastern Arizona in the Chiricahuas. In fact, we will be using some of the first data I ever collected for the project! To learn more about the Portal Project, check out the project's [website](https://portal.weecology.org/). Researchers have been collecting data at this site monthly since 1977!
+For our assignment today, we will be using data from my PhD field site
+in southeastern Arizona in the Chiricahuas. In fact, we will be using
+some of the first data I ever collected for the project! To learn more
+about the Portal Project, check out the project's
+[website](https://portal.weecology.org/). Researchers have been
+collecting data at this site monthly since 1977!
 
-What you need to know for today is that this is small mammal (rodent) data.
+What you need to know for today is that this is small mammal (rodent)
+data.
 
-The site has 24 plots, although we will only be using 18 of them today (6 of them are rodent removal plots, so they aren't very helpful in estimating rodent densities!).
+The site has 24 plots, although we will only be using 18 of them today
+(6 of them are rodent removal plots, so they aren't very helpful in
+estimating rodent densities!).
 
 As such, `n` will be 18 for this assignment. We do not have a `N`.
 
-The first thing we need to do is download the data. My PhD lab group actually created our own R package for using the cleaned up data, so we are going to load that package, called [`portalr`](https://weecology.github.io/portalr/).
+The first thing we need to do is download the data. My PhD lab group
+actually created our own R package for using the cleaned up data, so we
+are going to load that package, called
+[`portalr`](https://weecology.github.io/portalr/).
 
 ```{r}
 library(portalr)
@@ -76,13 +87,22 @@ Let's take a look at what the dataset looks like.
 head(abund)
 ```
 
-We want to choose data only from a certain data collection period and only for certain species. To do this, we are going to filter the data to select trapping period "440" (the 440th time the site was trapped--this was back in 2015. We are over 500 trapping sessions now!) and get rid of the rodent removal plots.
+We want to choose data only from a certain data collection period and
+only for certain species. To do this, we are going to filter the data to
+select trapping period "440" (the 440th time the site was trapped--this
+was back in 2015. We are over 500 trapping sessions now!) and get rid of
+the rodent removal plots.
 
 We are also going to select only the columns that are relevant to us.
 
-For this assignment, we are going to be calculating values for two different species of pocket mice: *Chaetodipus penicillatus* and *Chaetodipus baileyi*. In the Portal data, these species are abbreviated as `PP` and `PB`, respectively.
+For this assignment, we are going to be calculating values for two
+different species of pocket mice: *Chaetodipus penicillatus* and
+*Chaetodipus baileyi*. In the Portal data, these species are abbreviated
+as `PP` and `PB`, respectively.
 
-When we choose which columns we keep, we will keep the period, plot, and the PP and PB columns. These columns have the number of each species caught on each plot that trapping session.
+When we choose which columns we keep, we will keep the period, plot, and
+the PP and PB columns. These columns have the number of each species
+caught on each plot that trapping session.
 
 ```{r}
 # filter period 440, exclude "removal" treatment type, and select "PP" and "PB" column
@@ -97,13 +117,19 @@ The first bit of this assignment is very similar to Module 2 Assignment
 1, so if you're feeling stuck with the code, you might want to check
 that assignment out.
 
-1.  First, we want to create an object for our sample size. We don't know `N` in this scenario, but we do know `n`. Create the object `n`, which is the number of sample units that make up our sample. This will be the same for both species.
+1.  First, we want to create an object for our sample size. We don't
+    know `N` in this scenario, but we do know `n`. Create the object
+    `n`, which is the number of sample units that make up our sample.
+    This will be the same for both species.
 
-    To do this, use the `nrow()` function, which counts up the number of rows in a dataframe. The argument for `nrow()` is the name of the dataframe.
-```{r}
-n <- 
-n
-```
+    To do this, use the `nrow()` function, which counts up the number of
+    rows in a dataframe. The argument for `nrow()` is the name of the
+    dataframe.
+
+    ```{r}
+    n <- 
+    n
+    ```
 
 ### *Chaetodipus pencicillatus* (PP) Data
 
@@ -130,7 +156,9 @@ PP_var
 
 #### Calculating Standard Error for the Mean
 
-Reminder: because we don't know what `N` is, we don't need to use the finite population correction factor when calculating our standard error and whatnot.
+Reminder: because we don't know what `N` is, we don't need to use the
+finite population correction factor when calculating our standard error
+and whatnot.
 
 4.  Calculate the variance of the estimate of the mean for the PPs.
 
@@ -200,9 +228,14 @@ upperCI_95
 lowerCI_95
 ```
 
-10. What happens when we create 90% CI for the data? Let's calculate 90% CI. (3 points total)
+10. What happens when we create 90% CI for the data? Let's calculate
+    90% CI. (3 points total)
 
-    a. Input the correct value for `alpha90` and then run the code chunk to get the new t-value, `t90`. 
+```{=html}
+<!-- -->
+```
+a.  Input the correct value for `alpha90` and then run the code chunk to
+    get the new t-value, `t90`.
 
 ```{r}
 alpha90 <- 
@@ -212,7 +245,8 @@ t90 <- qt(1-(alpha90)/2, df)
 t90
 ```
 
-    b. Now, using `t90`, calculate the 90% CI. and compare to the 95% CI. Which one is wider? Why? 
+b.  Now, using `t90`, calculate the 90% CI. and compare to the 95% CI.
+    Which one is wider? Why?
 
 ```{r}
 upperCI_90 <- 
@@ -221,10 +255,11 @@ lowerCI_90 <-
 upperCI_90
 lowerCI_90
 ```
-    
-    c. Compare the 90% CI to the 95% CI. Which one is wider? Why would expect that to be the case?  
 
-    *Answer:*
+c.  Compare the 90% CI to the 95% CI. Which one is wider? Why would
+    expect that to be the case?
+
+*Answer:*
 
 ### *Chaetodipus baileyi* (PB) Data
 
