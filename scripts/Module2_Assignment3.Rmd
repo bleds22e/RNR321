@@ -1,11 +1,8 @@
 ---
 title: "Module 3 Assignment 2"
 author: "Ellen Bledsoe"
-date: "2022-10-18"
-output: html_document
-editor_options: 
-  markdown: 
-    wrap: 72
+date: "`r Sys.Date()`"
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -18,13 +15,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Purpose
 
-The goal of this assignment is to understand, apply, and interpret a
-stratified random sampling method and calculations.
+The goal of this assignment is to understand, apply, and interpret a stratified random sampling method and calculations.
 
 ### Task
 
-Write R code to successfully answer each question below or write text to
-successfully answer the question.
+Write R code to successfully answer each question below or write text to successfully answer the question.
 
 ### Criteria for Success
 
@@ -37,46 +32,34 @@ successfully answer the question.
 
 ### Due Date
 
-Oct 24 before lab
+March 25 before lab
 
 ------------------------------------------------------------------------
 
 ## Assignment Questions
 
-We have been asked to go out and sample for grasshoppers. The location
-we are sampling has 3 different vegetation types: riparian, shrubland,
-and grassland. We have decided to use a stratified random sample design
-for our survey.
+We have been asked to go out and sample for grasshoppers. The location we are sampling has 3 different vegetation types: riparian, shrubland, and grassland. We have decided to use a stratified random sample design for our survey.
 
-1.  In 1-2 sentences, explain why we have chosen stratified random
-    sampling as apposed to simple or systematic? What benefit does it
-    provide us?
+1.  In 1-2 sentences, explain why we have chosen stratified random sampling as apposed to simple or systematic? What benefit does it provide us?
 
     *Answer:*
 
 ### Part 1: Allocation of Sample Units
 
-Let's say we have a sampling frame with 1000 sample units. We can sample
-100 of those units. We have our 3 strata which we have determined via
-vegetation type (we will called them A, B, and C for simplicity for the
-rest of the assignment).
+Let's say we have a sampling frame with 1000 sample units. We can sample 100 of those units. We have our 3 strata which we have determined via vegetation type (we will called them A, B, and C for simplicity for the rest of the assignment).
 
 How do we decide how many sampling units to sample from each stratum?
 
-2.  Create an object, `N`, which represents the total number of sample
-    units in our *sampling frame*. We also need to create `n`, which is
-    the total number of sample units in our *sample*.
+2.  Create an object, `N`, which represents the total number of sample units in our *sampling frame*. We also need to create `n`, which is the total number of sample units in our *sample*.
 
 ```{r}
 N <- 
 n <- 
 ```
 
-We have determined that Stratum A has 200 sampling units, Stratum B has
-500 sampling units, and Stratum C has 300 sampling units.
+We have determined that Stratum A has 200 sampling units, Stratum B has 500 sampling units, and Stratum C has 300 sampling units.
 
-3.  Add the correct values to the lines of code below to create objects
-    for future use.
+3.  Add the correct values to the lines of code below to create objects for future use.
 
 ```{r}
 N_A <- 
@@ -84,8 +67,7 @@ N_B <-
 N_C <- 
 ```
 
-Due to a pilot study done last year, we have an estimate of the amount
-of variation (standard dev.) for each stratum.
+Due to a pilot study done last year, we have an estimate of the amount of variation (standard dev.) for each stratum.
 
 ```{r}
 sd_A <- 9
@@ -93,8 +75,7 @@ sd_B <- 4
 sd_C <- 7
 ```
 
-We also have an estimate of the time-cost (hours) it takes to survey
-each unit.
+We also have an estimate of the time-cost (hours) it takes to survey each unit.
 
 ```{r}
 cost_A <- 1.5
@@ -104,12 +85,9 @@ cost_C <- 4
 
 #### Optimal Allocation
 
-We want to use the optimal allocation equation to calculate how many
-sample units each stratum should have. Let's do this incrementally.
+We want to use the optimal allocation equation to calculate how many sample units each stratum should have. Let's do this incrementally.
 
-4.  Start by calculating the numerators (N~i~ \* s~i~ / square root of
-    c~i~) for each stratum. Remember to use objects you've created
-    rather than typing out specific numbers into the equation.
+4.  Start by calculating the numerators for each stratum. Each numerator looks like this: $$\frac{N_i * s_i}{ \sqrt c_i}$$Remember to use objects you've created rather than typing out specific numbers into the equation.
 
 ```{r}
 opt_allo_A <- 
@@ -117,16 +95,13 @@ opt_allo_B <-
 opt_allo_C <- 
 ```
 
-5.  Calculate the denominator of the equation by adding all of the
-    values above together.
+5.  Calculate the denominator of the equation by adding all of the values above together.
 
 ```{r}
 opt_allo_total <- 
 ```
 
-6.  Calculate how many sampling units we should optimally sample in each
-    stratum. Use the `round()` function to round to the nearest whole
-    number.
+6.  Calculate how many sampling units we should optimally sample in each stratum. Use the `round()` function to round to the nearest whole number.
 
 ```{r}
 n_A <- 
@@ -134,9 +109,7 @@ n_B <-
 n_C <-
 ```
 
-7.  If we did not have the pilot study telling us about the variation of
-    the populations in each strata, we could have allocated very
-    differently:
+7.  If we did not have the pilot study telling us about the variation of the populations in each strata, we could have allocated very differently:
 
     -   stratum A = 24
 
@@ -144,8 +117,7 @@ n_C <-
 
     -   stratum C = 23
 
-    Why is this? What would this allocation have meant for the precision
-    of our estimates?
+    Why is this? What would this allocation have meant for the precision of our estimates?
 
     *Answer:*
 
@@ -153,25 +125,20 @@ n_C <-
 
 #### Data
 
-Hooray! We have gone out and sampled the number of grasshoppers per
-sample unit, allocating our sample units optimally (including variation
-in population).
+Hooray! We have gone out and sampled the number of grasshoppers per sample unit, allocating our sample units optimally (including variation in population).
 
 Now we want to calculate our population parameters:
 
 -   mean grasshoppers per sampling unit (`y_bar`)
 -   total grasshoppers in the population (`tau_hat`)
 
-Let's load our "grasshoppers.csv" data into our workspace using the
-`read_csv()` function and save the data frame as an object called
-`grasshoppers`.
+Let's load our "grasshoppers.csv" data into our workspace using the `read_csv()` function and save the data frame as an object called `grasshoppers`.
 
 ```{r}
 grasshoppers <- read.csv("grasshoppers.csv")
 ```
 
-We can explore the data frame to get an idea of what each row and column
-represent.
+We can explore the data frame to get an idea of what each row and column represent.
 
 ```{r}
 str(grasshoppers)
@@ -187,39 +154,29 @@ stratumC <- grasshoppers[grasshoppers$stratum == "C",]
 
 Run the following code chunk. What do these numbers represent?
 
-*(Hint: do these numbers match your values from question 6? If not, you probably want to revisit your calculations up in the previous section!)*
-
 ```{r}
 nrow(stratumA)
 nrow(stratumB)
 nrow(stratumC)
 ```
 
+*(Hint: do these numbers match your values from question 6? If not, you probably want to revisit your calculations up in the previous section!)*
 
 #### Calculations
 
-NOTE: Open up your script from Module 2, Assignment 2---it's about to
-come in handy! I would also recommend opening up the lecture slides.
+NOTE: Open up your script from Module 2, Assignment 2---it's about to come in handy! I would also recommend opening up the lecture slides (download them to see all equations).
 
-8.  Before we begin calculating, stop for a moment to reflect and
-    predict. Take a minute to skim through the lecture slides and remind
-    yourself of the process of how we go about calculating the *overall*
-    population mean and total abundance when we use stratified sampling.
-    Describe (either in sentences or in bullet points) how you think we
-    will proceed.
+8.  Before we begin calculating, stop for a moment to reflect and predict. Take a minute to skim through the lecture slides and remind yourself of the process of how we go about calculating the *overall* population mean and total abundance when we use stratified sampling. Describe (either in sentences or in bullet points) how you think we will proceed.
 
     Note: This question in graded for completion only, not for accuracy.
 
     *Answer:*
 
-#### Step 1: Calculatings Sample Statistics (per stratum)
+#### Step 1: Calculating Sample Statistics (per stratum)
 
-For our first step, we will calculate for each stratum the mean number
-of grasshoppers, the total number of grasshoppers, and the sample
-variances.
+For our first step, we will calculate for each stratum the mean number of grasshoppers, the total number of grasshoppers, and the sample variances.
 
-9.  Use the code from Module 2 Assignment 2 to calculate the following
-    for each stratum:
+9.  Calculate the following for each stratum:
 
     a.  mean grasshoppers per stratum (`y_bar`) (1 point)
 
@@ -249,15 +206,11 @@ variances.
 
 #### Step 2: Calculating Uncertainty (per stratum)
 
-Our next step is to calculate the uncertainty in our estimates for each
-stratum.
+Our next step is to calculate the uncertainty in our estimates for each stratum.
 
 10. To do this, calculate the following:
 
-    a.  variance of the estimate of the mean per stratum (var_y\_bar).
-        Remember that we need to use the finite population correction
-        factor and to use only objects already created, not plain
-        numbers! (2 points)
+    a.  variance of the estimate of the mean per stratum (var_y_bar). Remember that we need to use the finite population correction factor and to use only objects already created, not plain numbers! (2 points)
 
     ```{r}
     pop_correction_A <- 
@@ -269,9 +222,7 @@ stratum.
     var_y_bar_C <- 
     ```
 
-    b.  variance of the estimate of the total (var_tau_hat).
-        You might need to go fishing for this equation in one of the
-        earlier powerpoints. (1 point)
+    b.  variance of the estimate of the total (var_tau_hat). You might need to go fishing for this equation in one of the earlier powerpoints. (1 point)
 
     ```{r}
     var_tau_hat_A <- 
@@ -281,11 +232,9 @@ stratum.
 
 #### Step 3: Calculating Overall Total Statistics
 
-Congratulations! The hardest parts of the calculation are over (thank
-goodness, right?).
+Congratulations! The hardest parts of the calculation are over (thank goodness, right?).
 
-Next, we will calculate the overall total (abundance) and the variance of the
-estimate of the total.
+Next, we will calculate the overall total (abundance) and the variance of the estimate of the total.
 
 11. Calculate the following:
 
@@ -321,21 +270,14 @@ Finally, we can now calculate the overall mean and variance of the estimate of t
 
 #### Conclusion
 
-Okay, that was a lot of calculating! Let's summarize and make sure we
-know what just happened. We were ultimately able to calculate estimates
-the parameters we were interested in: the population mean and the
-population total along with the amount of uncertainty in both of those
-estimates.
+Okay, that was a lot of calculating! Let's summarize and make sure we know what just happened. We were ultimately able to calculate estimates the parameters we were interested in: the population mean and the population total along with the amount of uncertainty in both of those estimates.
 
-12. Based on our calculations above, answer the following questions with
-    the **name of the R object** and its **corresponding value** for
-    each calculation. (2 points)
+12. Based on our calculations above, answer the following questions with the **name of the R object** and its **corresponding value** for each calculation. (2 points)
 
     a.  the number of grasshoppers per sample unit:
 
     b.  total number of grasshoppers in the population:
 
-    c.  measure of uncertainty in the \# of grasshoppers per sample
-        unit:
+    c.  measure of uncertainty in the \# of grasshoppers per sample unit:
 
     d.  measure of uncertainty in the total \# of grasshoppers:
