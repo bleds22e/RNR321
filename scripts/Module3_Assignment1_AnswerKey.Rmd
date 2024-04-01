@@ -16,13 +16,13 @@ library(unmarked)
 
 
 ```{r}
-tiger <- read_csv("../data_raw/tiger_rattlesnakes.csv")
-diamond <- read_csv("../data_raw/diamondback_rattlesnakes.csv")
+javelina <- read_csv("../data_raw/javelina.csv")
+coyote <- read_csv("../data_raw/coyote.csv")
 ```
 1. 
 ```{r}
-num_detections <- rowSums(tiger)
-sites_surveyed <- nrow(tiger)
+num_detections <- rowSums(javelina)
+sites_surveyed <- nrow(javelina)
 sites_detection <- length(num_detections[num_detections > 0])
 naive_occupancy <- sites_detection / sites_surveyed
 naive_occupancy
@@ -31,7 +31,7 @@ naive_occupancy
 3.
 ```{r}
 # create the data frame with 40 rows and each column with the survey number
-tiger_survey_time <- tibble(.rows = 40,
+javelina_survey_time <- tibble(.rows = 40,
                             time_1 = "1",
                             time_2 = "2",
                             time_3 = "3",
@@ -39,45 +39,45 @@ tiger_survey_time <- tibble(.rows = 40,
                             time_5 = "5")
 
 # make this into a list of one dataframe
-tiger_survey_time <- list(time = tiger_survey_time)
+javelina_survey_time <- list(time = javelina_survey_time)
 ```
 
 
 4.
 ```{r}
-tigerUMF <- unmarkedFrameOccu(tiger, obsCovs = tiger_survey_time)
-head(tigerUMF) # check out the data
+javelinaUMF <- unmarkedFrameOccu(javelina, obsCovs = javelina_survey_time)
+head(javelinaUMF) # check out the data
 ```
 
 
 5.
 ```{r}
-tiger_pdot_psidot <- occu(~1 ~1, data = tigerUMF)
+javelina_pdot_psidot <- occu(~1 ~1, data = javelinaUMF)
 ```
 
 6.
 ```{r}
-tiger_ptime_psidot <- occu(~time-1 ~1, data = tigerUMF)
+javelina_ptime_psidot <- occu(~time-1 ~1, data = javelinaUMF)
 ```
 
 
 7.
 ```{r}
-tiger_models <- fitList(tiger_pdot_psidot  = tiger_pdot_psidot, 
-                        tiger_ptime_psidot = tiger_ptime_psidot)
-modSel(tiger_models)
+javelina_models <- fitList(javelina_pdot_psidot  = javelina_pdot_psidot, 
+                        javelina_ptime_psidot = javelina_ptime_psidot)
+modSel(javelina_models)
 ```
 
 
 9.
 ```{r}
-plogis(coef(tiger_pdot_psidot))  # estimates of psi and p
-plogis(confint(tiger_pdot_psidot, type = "det", level = 0.95))
+plogis(coef(javelina_pdot_psidot))  # estimates of psi and p
+plogis(confint(javelina_pdot_psidot, type = "det", level = 0.95))
 ```
 10.
 ```{r}
-plogis(coef(tiger_pdot_psidot))  # estimates of psi and p
-plogis(confint(tiger_pdot_psidot, type = "state", level = 0.95))
+plogis(coef(javelina_pdot_psidot))  # estimates of psi and p
+plogis(confint(javelina_pdot_psidot, type = "state", level = 0.95))
 ```
 
 
@@ -85,8 +85,8 @@ plogis(confint(tiger_pdot_psidot, type = "state", level = 0.95))
 12. 
 
 ```{r}
-num_detections <- rowSums(diamond)
-sites_surveyed <- nrow(diamond)
+num_detections <- rowSums(coyote)
+sites_surveyed <- nrow(coyote)
 sites_detection <- length(num_detections[num_detections > 0])
 naive_occupancy <- sites_detection / sites_surveyed
 naive_occupancy
@@ -97,7 +97,7 @@ naive_occupancy
 
 ```{r}
 # create the data frame with 20 rows and each column with the survey number
-diamond_survey_time <- tibble(.rows = 40,
+coyote_survey_time <- tibble(.rows = 40,
                             time_1 = "1",
                             time_2 = "2",
                             time_3 = "3",
@@ -105,36 +105,36 @@ diamond_survey_time <- tibble(.rows = 40,
                             time_5 = "5")
 
 # make this into a list of one dataframe
-diamond_survey_time <- list(time = diamond_survey_time)
+coyote_survey_time <- list(time = coyote_survey_time)
 ```
 
 14. 
 
 ```{r}
-diamondUMF <- unmarkedFrameOccu(diamond, obsCovs = diamond_survey_time)
-head(diamondUMF) # check out the data
+coyoteUMF <- unmarkedFrameOccu(coyote, obsCovs = coyote_survey_time)
+head(coyoteUMF) # check out the data
 ```
 
 15. 
 ```{r}
-diamond_pdot_psidot <- occu(~1 ~1, data = diamondUMF)
-diamond_ptime_psidot <- occu(~time-1 ~1, data = diamondUMF)
+coyote_pdot_psidot <- occu(~1 ~1, data = coyoteUMF)
+coyote_ptime_psidot <- occu(~time-1 ~1, data = coyoteUMF)
 ```
 
 
 16. 
 
 ```{r}
-diamond_models <- fitList(diamond_pdot_psidot  = diamond_pdot_psidot, 
-                          diamond_ptime_psidot = diamond_ptime_psidot)
-modSel(diamond_models)
+coyote_models <- fitList(coyote_pdot_psidot  = coyote_pdot_psidot, 
+                          coyote_ptime_psidot = coyote_ptime_psidot)
+modSel(coyote_models)
 ```
 
 17. 
 
 ```{r}
-plogis(coef(diamond_pdot_psidot))  # estimates of psi and p
-plogis(confint(diamond_pdot_psidot, type = "det", level = 0.95))
-plogis(confint(diamond_pdot_psidot, type = "state", level = 0.95))
+plogis(coef(coyote_pdot_psidot))  # estimates of psi and p
+plogis(confint(coyote_pdot_psidot, type = "det", level = 0.95))
+plogis(confint(coyote_pdot_psidot, type = "state", level = 0.95))
 ```
 
