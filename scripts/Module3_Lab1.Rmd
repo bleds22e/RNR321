@@ -19,7 +19,7 @@ I have installed the `unmarked` package for you already in Posit Cloud. This is 
 
 The code for using `unmarked` is not intuitive AT ALL. We will walk through an example together first, and then you can apply the code we write today to your assignment.
 
-We will need to first load the and `unmarked` packages.
+We will need to first load the `unmarked` package.
 
 ```{r message=FALSE}
 
@@ -33,7 +33,7 @@ Now we need to read in our data set, called `tortoise_occupancy.csv`
 
 ### Explore the data
 
-First, let's take a look at `tort_occ`, our tortoise occupancy data. 
+First, let's take a look at `tort_occ`, our tortoise occupancy data.
 
 What does each column represent? How about each row?
 
@@ -138,7 +138,7 @@ We can also calculate the 95% confidence intervals for each estimate. This time 
 
 ```
 
-Stop for a moment and think about what the 0.025 and 0.975 values represent. These are *not* estimates. Instead, they are signalling the upper and lower bounds of the confidence intervals. 
+Stop for a moment and think about what the 0.025 and 0.975 values represent. These are *not* estimates. Instead, they are signalling the upper and lower bounds of the confidence intervals.
 
 Remember how confidence intervals are calculated in part based on a t-value from the Student's t-distribution? Each tail of the distribution represents 2.5% of the remaining probability, meaning the 95% confidence intervals include the values between 2.5% and 97.5% of the distribution.
 

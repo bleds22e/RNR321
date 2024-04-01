@@ -32,15 +32,17 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-Nov 7 before lab
+April 8 before lab
 
 ------------------------------------------------------------------------
 
 ## Assignment Questions
 
-For this assignment, we have 2 different data sets: one for tiger rattlesnakes and one for Western diamondback rattlesnakes.
+For this assignment, we have 2 different data sets of occupancy from the Santa Cruz River.
 
-Following the structure of the tortoise exercise we did in lab, create models for each species of rattlesnake. Our ultimate goal is to compare the estimated occupancy and detection probabilities of our two species.
+There are a number of trail cameras that have been set up along the river to look at which species are present along various points of the Santa Cruz. Today, we will be working with some presence-absence surveys from these trail cameras for two different species: one for javelina (collared peccaries) and one for coyotes.
+
+Following the structure of the tortoise exercise we did in lab, create models for each species. Our ultimate goal is to compare the estimated occupancy and detection probabilities of our two species.
 
 All questions are worth 1 point unless otherwise specified.
 
@@ -56,22 +58,22 @@ Load in the package we will need to use.
 
 ```
 
-Using the `read.csv()` function, read in the two data sets we will use. One is for tiger rattlesnakes and the other is for diamondback rattlesnakes. Create objects containing these two data sets called `tiger` and `diamond`, respectively.
+Using the `read_csv()` function, read in the two data sets we will use. One is for javelina and the other is for coyotes. Create objects containing these two data sets called `javelina` and `coyote`, respectively.
 
 ```{r}
-tiger <- 
-diamond <- 
+javelina <- 
+coyote <- 
 ```
 
-### Tiger Rattlesnakes
+### Javelina
 
-We are going to calculate naive occupancy and then run occupancy models for the tiger rattlesnakes.
+We are going to calculate naive occupancy and then run occupancy models for the javelina.
 
 #### Naive Occupancy
 
-First, let's calculate the naive occupancy for tiger rattlesnakes.
+First, let's calculate the naive occupancy for javelina.
 
-1.  Calculate the naive occupancy for tiger rattlesnakes.
+1.  Calculate the naive occupancy for javelina.
 
 ```{r}
 
@@ -79,7 +81,7 @@ First, let's calculate the naive occupancy for tiger rattlesnakes.
 
 #### Data Preparation
 
-2.  Explore the `tiger` data frame, either in the environment or through code.
+2.  Explore the `javelina` data frame, either in the environment or through code.
 
     a.  How many sites were surveyed?
     b.  How many times was each individual site surveyed?
@@ -88,17 +90,17 @@ First, let's calculate the naive occupancy for tiger rattlesnakes.
     # optional: space for code if you want it
     ```
 
-3.  Like we did in the tortoise example, create a tibble (data frame) with the number of survey occasions this data set. Then create a list out of this one data frame.\
-    (*Hint: Be sure to create a data frame with the correct number of rows based on your answer to Q4*)
+3.  Like we did in the tortoise example, create a data frame with the number of survey occasions this data set. Then create a list out of this one data frame.\
+    (*Hint: Be sure to create a data frame with the correct number of rows based on your answer to Question 2*)
 
 ```{r}
-tiger_surveys <- 
+javelina_surveys <- 
 ```
 
-4.  Create an unmarked data frame for the tiger data.
+4.  Create an unmarked data frame for the javelina data.
 
 ```{r}
-tigerUMF <- 
+javelinaUMF <- 
 ```
 
 #### Occupancy Models
@@ -106,13 +108,13 @@ tigerUMF <-
 5.  Fit an occupancy model where occupancy and detection probability are constant.
 
 ```{r}
-tiger_pdot_psidot <- 
+javelina_pdot_psidot <- 
 ```
 
 6.  Fit an occupancy model where occupancy stays constant but detection probability varies with survey.
 
 ```{r}
-tiger_ptime_psidot <- 
+javelina_ptime_psidot <- 
 ```
 
 #### Model Selection
@@ -120,7 +122,7 @@ tiger_ptime_psidot <-
 7.  Use AIC to determine which model is the best.
 
 ```{r}
-tiger_models <- 
+javelina_models <- 
 ```
 
 8.  Which model should we choose? Why?
@@ -149,15 +151,15 @@ tiger_models <-
 
     *Answer:*
 
-### Western Diamondback Rattlesnakes
+### Coyotes
 
-Let's do the same as above for the Western diamondback rattlesnakes.
+Let's do the same as above for the Western coyotes.
 
 #### Naive Occupancy
 
-First, let's calculate the naive occupancy for diamondback rattlesnakes.
+First, let's calculate the naive occupancy for coyotes.
 
-12. Calculate the naive occupancy for diamondback rattlesnakes.
+12. Calculate the naive occupancy for coyotes.
 
 ```{r}
 
@@ -165,17 +167,17 @@ First, let's calculate the naive occupancy for diamondback rattlesnakes.
 
 #### Data Preparation
 
-13. Like we did in the tortoise example, create a tibble (data frame) with the number of survey occasions this data set. Then create a list out of this one data frame.\
+13. Like we did in the tortoise example, create a data frame with the number of survey occasions this data set. Then create a list out of this one data frame.\
     (*Hint: Be sure to create a dataframe with the correct number of rows*)
 
 ```{r}
-diamond_survey_time <- 
+coyote_survey_time <- 
 ```
 
-14. Create an unmarked data frame for the diamondback data.
+14. Create an unmarked data frame for the coyote data.
 
 ```{r}
-diamondUMF <- 
+coyoteUMF <- 
 ```
 
 #### Occupancy Models
@@ -183,8 +185,8 @@ diamondUMF <-
 15. Fit our two occupancy models: one where occupancy and detection probability are constant and one where occupancy stays constant but detection probability varies with survey.
 
 ```{r}
-diamond_pdot_psidot <- 
-diamond_ptime_psidot <- 
+coyote_pdot_psidot <- 
+coyote_ptime_psidot <- 
 ```
 
 #### Model Selection
@@ -192,7 +194,7 @@ diamond_ptime_psidot <-
 16. Use AIC to determine which model is the best.
 
 ```{r}
-diamond_models <- 
+coyote_models <- 
 ```
 
 17. Calculate and report (type out) the estimates and the 95% CI for the estimate for both detection probability and occupancy from our *best* model.
@@ -206,9 +208,9 @@ diamond_models <-
 
 ### Comparing Species
 
-18. Write 3-4 sentences comparing the tiger rattlesnake and diamondback rattlesnake populations that we surveyed. Address the following points. (2 points)
+18. Write 3-4 sentences comparing the javelina and coyote populations that we surveyed. Address the following points. (2 points)
 
-    -   Which rattlesnake species has higher occupancy?
+    -   Which species has higher occupancy?
     -   Which species has higher detectability?
     -   In your answer, be sure to explain the difference between detection probability and occupancy.
     -   Speculate what could be driving the differences between the two species (I don't expect you to know, but you should put forward an educated guess that fits with your answers above)\

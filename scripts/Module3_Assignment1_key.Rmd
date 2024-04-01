@@ -32,15 +32,17 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-Nov 7 before lab
+April 8 before lab
 
 ------------------------------------------------------------------------
 
 ## Assignment Questions
 
-For this assignment, we have 2 different data sets: one for tiger rattlesnakes and one for Western diamondback rattlesnakes.
+For this assignment, we have 2 different data sets of occupancy from the Santa Cruz River. 
 
-Following the structure of the tortoise exercise we did in lab, create models for each species of rattlesnake. Our ultimate goal is to compare the estimated occupancy and detection probabilities of our two species.
+There are a number of trail cameras that have been set up along the river to look at which species are present along various points of the Santa Cruz. Today, we will be working with some presence-absence surveys from these trail cameras for two different species: one for javelina (collared pecaries) and one for coyotes.
+
+Following the structure of the tortoise exercise we did in lab, create models for each species. Our ultimate goal is to compare the estimated occupancy and detection probabilities of our two species.
 
 All questions are worth 1 point unless otherwise specified.
 
@@ -56,31 +58,31 @@ Load in the package we will need to use.
 library(unmarked) 
 ```
 
-Using the `read_csv()` function, read in the two data sets we will use. One is for tiger rattlesnakes and the other is for diamondback rattlesnakes. Create objects containing these two data sets called `tiger` and `diamond`, respectively.
+Using the `read_csv()` function, read in the two data sets we will use. One is for javelina and the other is for coyotes. Create objects containing these two data sets called `javelina` and `coyote`, respectively.
 
 ```{r}
-tiger <- read.csv("../data_raw/tiger_rattlesnakes.csv")
-diamond <- read.csv("../data_raw/diamondback_rattlesnakes.csv")
+javelina <- read.csv("../data_raw/javelina.csv")
+coyote <- read.csv("../data_raw/coyote.csv")
 ```
 
-### Tiger Rattlesnakes
+### Javelina
 
-We are going to calculate naive occupancy and then run occupancy models for the tiger rattlesnakes.
+We are going to calculate naive occupancy and then run occupancy models for the javelina.
 
 #### Naive Occupancy
 
-First, let's calculate the naive occupancy for tiger rattlesnakes.
+First, let's calculate the naive occupancy for javelina.
 
-1.  Calculate the naive occupancy for tiger rattlesnakes.
+1.  Calculate the naive occupancy for javelina.
 
 ```{r}
 # count up the number of times each site was marked as occupied
 # returns a vector that we can now use
-num_detections <- rowSums(tiger)
+num_detections <- rowSums(javelina)
 num_detections
 
 # total number of sites that were surveyed
-sites_surveyed <- nrow(tiger)
+sites_surveyed <- nrow(javelina)
 sites_surveyed
 
 # number of sites with detection of greater than zero
@@ -94,7 +96,7 @@ naive_occupancy
 
 #### Data Preparation
 
-2.  Explore the `tiger` data frame, either in the environment or through code.
+2.  Explore the `javelina` data frame, either in the environment or through code.
 
     a.  How many sites were surveyed? 40
     b.  How many times was each individual site surveyed? 5
@@ -103,26 +105,26 @@ naive_occupancy
     # optional: space for code if you want it
     ```
 
-3.  Like we did in the tortoise example, create a tibble (data frame) with the number of survey occasions this data set. Then create a list out of this one data frame.\
-    (*Hint: Be sure to create a tibble with the correct number of rows based on your answer to question 4*)
+3.  Like we did in the tortoise example, create a data frame with the number of survey occasions this data set. Then create a list out of this one data frame.\
+    (*Hint: Be sure to create a data frame with the correct number of rows based on your answer to question 2*)
 
 ```{r}
 # create the data frame with 40 rows and each column with the survey number
-tiger_surveys <- data.frame(time_1 = rep("1", 40),
+javelina_surveys <- data.frame(time_1 = rep("1", 40),
                       time_2 = rep("2", 40),
                       time_3 = rep("3", 40),
                       time_4 = rep("4", 40),
                       time_5 = rep("5", 40))
 
 # make this into a list of one dataframe
-tiger_survey_time <- list(time = tiger_surveys)
+javelina_survey_time <- list(time = javelina_surveys)
 ```
 
-4.  Create an unmarked data frame for the tiger data
+4.  Create an unmarked data frame for the javelina data
 
 ```{r}
-tigerUMF <- unmarkedFrameOccu(tiger, obsCovs = tiger_survey_time)
-head(tigerUMF) # check out the data
+javelinaUMF <- unmarkedFrameOccu(javelina, obsCovs = javelina_survey_time)
+head(javelinaUMF) # check out the data
 ```
 
 #### Occupancy Models
@@ -130,13 +132,13 @@ head(tigerUMF) # check out the data
 5.  Fit an occupancy model where occupancy and detection probability are constant.
 
 ```{r}
-tiger_pdot_psidot <- occu(~1 ~1, data = tigerUMF)
+javelina_pdot_psidot <- occu(~1 ~1, data = javelinaUMF)
 ```
 
 6.  Fit an occupancy model where occupancy stays constant but detection probability varies with survey.
 
 ```{r}
-tiger_ptime_psidot <- occu(~time-1 ~1, data = tigerUMF)
+javelina_ptime_psidot <- occu(~time-1 ~1, data = javelinaUMF)
 ```
 
 #### Model Selection
@@ -144,9 +146,9 @@ tiger_ptime_psidot <- occu(~time-1 ~1, data = tigerUMF)
 7.  Use AIC to determine which model is the best.
 
 ```{r}
-tiger_models <- fitList(tiger_pdot_psidot  = tiger_pdot_psidot, 
-                        tiger_ptime_psidot = tiger_ptime_psidot)
-modSel(tiger_models)
+javelina_models <- fitList(javelina_pdot_psidot  = javelina_pdot_psidot, 
+                        javelina_ptime_psidot = javelina_ptime_psidot)
+modSel(javelina_models)
 ```
 
 8.  Which model should we choose? Why?
@@ -158,8 +160,8 @@ modSel(tiger_models)
     *Detection Probability:* 0.29 (0.183 - 0.439)
 
 ```{r}
-plogis(coef(tiger_pdot_psidot))  # estimates of psi and p
-plogis(confint(tiger_pdot_psidot, type = "det", level = 0.95))
+plogis(coef(javelina_pdot_psidot))  # estimates of psi and p
+plogis(confint(javelina_pdot_psidot, type = "det", level = 0.95))
 ```
 
 10. Calculate and report the estimate of occupancy and the 95% CI for the estimate from our *best* model.
@@ -167,8 +169,8 @@ plogis(confint(tiger_pdot_psidot, type = "det", level = 0.95))
     *Occupancy:* 0.42 (0.247 - 0.622)
 
     ```{r}
-    plogis(coef(tiger_pdot_psidot))  # estimates of psi and p
-    plogis(confint(tiger_pdot_psidot, type = "state", level = 0.95))
+    plogis(coef(javelina_pdot_psidot))  # estimates of psi and p
+    plogis(confint(javelina_pdot_psidot, type = "state", level = 0.95))
     ```
 
 #### Comparison
@@ -177,24 +179,24 @@ plogis(confint(tiger_pdot_psidot, type = "det", level = 0.95))
 
 *Answer:* The naive estimate of occupancy is an underestimate (lower) because we are not taking into account individuals which are present but we did not detect.
 
-### Western Diamondback Rattlesnakes
+### Coyotes
 
-Let's do the same as above for the Western diamondback rattlesnakes.
+Let's do the same as above for the coyotes.
 
 #### Naive Occupancy
 
-First, let's calculate the naive occupancy for diamondback rattlesnakes.
+First, let's calculate the naive occupancy for coyotes.
 
-15. Calculate the naive occupancy for diamondback rattlesnakes.
+15. Calculate the naive occupancy for coyotes.
 
 ```{r}
 # count up the number of times each site was marked as occupied
 # returns a vector that we can now use
-num_detections <- rowSums(diamond)
+num_detections <- rowSums(coyote)
 num_detections
 
 # total number of sites that were surveyed
-sites_surveyed <- nrow(diamond)
+sites_surveyed <- nrow(coyote)
 sites_surveyed
 
 # number of sites with detection of greater than zero
@@ -213,21 +215,21 @@ naive_occupancy
 
 ```{r}
 # create the data frame with 20 rows and each column with the survey number
-diamond_survey <- data.frame(time_1 = rep("1", 40),
+coyote_survey <- data.frame(time_1 = rep("1", 40),
                              time_2 = rep("2", 40),
                              time_3 = rep("3", 40),
                              time_4 = rep("4", 40),
                              time_5 = rep("5", 40))
 
 # make this into a list of one dataframe
-diamond_survey_time <- list(time = diamond_survey)
+coyote_survey_time <- list(time = coyote_survey)
 ```
 
-14. Create an unmarked data frame for the diamondback data
+14. Create an unmarked data frame for the coyote data
 
 ```{r}
-diamondUMF <- unmarkedFrameOccu(diamond, obsCovs = diamond_survey_time)
-head(diamondUMF) # check out the data
+coyoteUMF <- unmarkedFrameOccu(coyote, obsCovs = coyote_survey_time)
+head(coyoteUMF) # check out the data
 ```
 
 #### Occupancy Models
@@ -235,8 +237,8 @@ head(diamondUMF) # check out the data
 15. Fit our two occupancy models: one where occupancy and detection probability are constant and one where occupancy stays constant but detection probability varies with survey.
 
 ```{r}
-diamond_pdot_psidot <- occu(~1 ~1, data = diamondUMF)
-diamond_ptime_psidot <- occu(~time-1 ~1, data = diamondUMF)
+coyote_pdot_psidot <- occu(~1 ~1, data = coyoteUMF)
+coyote_ptime_psidot <- occu(~time-1 ~1, data = coyoteUMF)
 ```
 
 #### Model Selection
@@ -244,9 +246,9 @@ diamond_ptime_psidot <- occu(~time-1 ~1, data = diamondUMF)
 16. Use AIC to determine which model is the best.
 
 ```{r}
-diamond_models <- fitList(diamond_pdot_psidot  = diamond_pdot_psidot, 
-                          diamond_ptime_psidot = diamond_ptime_psidot)
-modSel(diamond_models)
+coyote_models <- fitList(coyote_pdot_psidot  = coyote_pdot_psidot, 
+                          coyote_ptime_psidot = coyote_ptime_psidot)
+modSel(coyote_models)
 ```
 
 17. Calculate and report the estimates and the 95% CI for the estimate for both detection probability and occupancy from our *best* model.
@@ -256,18 +258,18 @@ modSel(diamond_models)
     *Occupancy:* 0.781 (0.48 - 0.93)
 
 ```{r}
-plogis(coef(diamond_pdot_psidot))  # estimates of psi and p
-plogis(confint(diamond_pdot_psidot, type = "det", level = 0.95))
-plogis(confint(diamond_pdot_psidot, type = "state", level = 0.95))
+plogis(coef(coyote_pdot_psidot))  # estimates of psi and p
+plogis(confint(coyote_pdot_psidot, type = "det", level = 0.95))
+plogis(confint(coyote_pdot_psidot, type = "state", level = 0.95))
 ```
 
 ### Comparing Species
 
-18. Write 3-4 sentences comparing the tiger rattlesnake and diamondback rattlesnake populations that we surveyed. (2 points)
+18. Write 3-4 sentences comparing the javelina and coyote populations that we surveyed. (2 points)
 
--   Which rattlesnake species has higher occupancy?
+-   Which species has higher occupancy?
 -   Which species has higher detectability?
 -   In your answer, be sure to explain the difference between detection probability and occupancy.
 -   Speculate what could be driving the differences between the two species (I don't expect you to know, but you should put forward an educated guess that fits with your answers above)
 
-*Answer: While the two species have similar detection probabilities (tiger is slightly higher), diamond rattlesnakes have much higher occupancy (0.781) than tiger rattlesnakes (0.42). This means that when each snake is present at a site, they have a similar chance of being observed. However, diamond rattlesnakes are present at far more sites than tiger. This could be because diamond rattlesnakes have a higher population and/or that they area we are surveying provides better habitat for them than it does for tiger rattlesnakes.*
+*Answer: While the two species have similar detection probabilities (javelina is slightly higher), coyotes have much higher occupancy (0.781) than javelina (0.42). This means that when each species is present at a site, they have a similar chance of being observed. However, coyotes are present at far more sites than javelina. This could be because coyotes have a higher population and/or that the area we are surveying provides better habitat for them than it does for javelina.*
