@@ -1,5 +1,5 @@
 ---
-title: "Module 3 Assignment 2"
+title: "Module 2 Assignment 3"
 author: "Ellen Bledsoe"
 date: "`r Sys.Date()`"
 output: pdf_document
@@ -104,7 +104,7 @@ opt_allo_total <-
 opt_allo_total
 ```
 
-6.  Calculate how many sampling units we should optimally sample in each stratum. Use the `round()` function to round to the nearest whole number.
+6.  Calculate how many sampling units we should optimally sample in each stratum. Use the `round()` function to round to the nearest whole number. Make sure to save the rounded value to use for the remainder of the questions.
 
 ```{r}
 n_A <- 
@@ -185,7 +185,7 @@ For our first step, we will calculate the mean number of grasshoppers, the total
 
 9.  Calculate the following for each stratum:
 
-    a.  mean grasshoppers per stratum (`y_bar`) (1 point)
+    a.  mean grasshoppers per stratum (1 point)
 
     ```{r}
     mean_A <- 
@@ -205,7 +205,7 @@ For our first step, we will calculate the mean number of grasshoppers, the total
     tau_hat_A; tau_hat_B; tau_hat_C
     ```
 
-    c.  sample variance per stratum (`var` or s\^2) (1 point)
+    c.  sample variance per stratum (use the `var` function) (1 point)
 
     ```{r}
     var_A <-
@@ -221,7 +221,7 @@ Our next step is to calculate the uncertainty in our estimates for each stratum.
 
 10. To do this, calculate the following:
 
-    a.  variance of the estimate of the mean per stratum (var_y_bar). Remember that we need to use the finite population correction factor and to use only objects already created, not plain numbers! (2 points)
+    a.  variance of the estimate of the mean per stratum (var_y_bar). Remember that we need to use the finite population correction factor and to use only objects already created, not plain numbers! In this specific instance, please use `var_A` instead of `sd_A^2` (same for B and C). (2 points)
 
     ```{r}
     pop_correction_A <-
