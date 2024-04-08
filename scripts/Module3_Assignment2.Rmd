@@ -32,7 +32,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-Nov 14 at 1pm MST
+April 15 at 2pm MST
 
 ------------------------------------------------------------------------
 
@@ -65,13 +65,13 @@ c2 <-
 r2 <- 
 ```
 
-2.  Use the Lincoln-Peterson estimator to estimate the population total (`tau_hat`)
+2.  Use the Lincoln-Peterson equation to estimate the population total (`tau_hat`)
 
 ```{r}
 tau_hat <- 
 ```
 
-3.  Remember, we can consider the Lincoln-Peterson estimator equation as a version of the "canonical abundance estimator," meaning we can calculate an estimate of detection probability. Calculate our detection probability estimate for desert pocket mice.
+3.  Remember, we can consider the Lincoln-Peterson equation as a version of the "canonical abundance estimator," meaning we can calculate an estimate of detection probability. Calculate our detection probability estimate for desert pocket mice.
 
 ```{r}
 p_hat <-
@@ -133,7 +133,7 @@ We want to create a simulation where we give R the detection and recapture proba
 nRuns <- 1000
 ```
 
-Below, I've written a custom function that will create `N_hat` estimates for us. We need to provide the function with values in order for it to run:
+Below, I've written a custom function that will create `tau_hat` estimates for us. We need to provide the function with values in order for it to run:
 
 -   `p1`: the *detection* probability on the first survey occasion
 -   `p2`: the *detection* probability on the second survey occasion
@@ -156,7 +156,7 @@ LP_estimator <- function(p1, p2, p_recap) {
     # simulate data 
     c1 <- rbinom(1, tau, p1)     # no. individuals captured on survey occasion 1
     u2 <- rbinom(1, tau-c1, p2)  # no. marked individuals recaptured on survey occasion 2
-    r2 <- rbinom(1, c1, p_recap)  # no. marked individuals recaptured on survey occasion 2
+    r2 <- rbinom(1, c1, p_recap) # no. marked individuals recaptured on survey occasion 2
     c2 <- u2 + r2                # total no. individuals captured on survey occasion 2
     
     # calculate estimated abundance via (modified) Lincoln-Peterson
