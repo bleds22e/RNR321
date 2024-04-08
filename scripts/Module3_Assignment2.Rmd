@@ -173,7 +173,7 @@ LP_estimator <- function(p1, p2, p_recap) {
 
 Let's say that our detection probabilities (`p1` and `p2`) and recapture probability (`p_recap`) are consistent, always at 0.4.
 
-We can input those values into our `LP_estimator` function. Doing this will run our scenario 1000 times to see how close our estimate of mice, `N_hat`, is to the true abundance, `N`, which we have set to be 250 mice.
+We can input those values into our `LP_estimator` function. Doing this will run our scenario 1000 times to see how close our estimate of mice, `tau_hat`, is to the true abundance, `tau`, which we have set to be 250 mice.
 
 ```{r}
 tau_hat_demo <- LP_estimator(p1 = 0.4, p2 = 0.4, p_recap = 0.4)
@@ -190,8 +190,8 @@ We can also calculate the bias and the precision of our estimates.
 ```{r}
 # Remember, our true abundance is 250
 
-# What is the mean of all of our N_hat estimates?
-mean(tau_hat_demo)          # mean of all N-hat estimates
+# What is the mean of all of our tau_hat estimates?
+mean(tau_hat_demo)          # mean of all tau-hat estimates
 
 # On average, how biased are our estimates?
 mean(tau_hat_demo) - tau    # bias
