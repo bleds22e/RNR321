@@ -137,7 +137,7 @@ We want to create a simulation where we give R the detection and recapture proba
 nRuns <- 1000
 ```
 
-Below, I've written a custom function that will create `N_hat` estimates for us. We need to provide the function with values in order for it to run:
+Below, I've written a custom function that will create `tau_hat` estimates for us. We need to provide the function with values in order for it to run:
 
 -   `p1`: the *detection* probability on the first survey occasion
 -   `p2`: the *detection* probability on the second survey occasion
@@ -177,7 +177,7 @@ LP_estimator <- function(p1, p2, p_recap) {
 
 Let's say that our detection probabilities (`p1` and `p2`) and recapture probability (`p_recap`) are consistent, always at 0.4.
 
-We can input those values into our `LP_estimator` function. Doing this will run our scenario 1000 times to see how close our estimate of mice, `N_hat`, is to the true abundance, `N`, which we have set to be 250 mice.
+We can input those values into our `LP_estimator` function. Doing this will run our scenario 1000 times to see how close our estimate of mice, `tau_hat`, is to the true abundance, `tau`, which we have set to be 250 mice.
 
 ```{r}
 tau_hat_demo <- LP_estimator(p1 = 0.4, p2 = 0.4, p_recap = 0.4)
@@ -194,8 +194,8 @@ We can also calculate the bias and the precision of our estimates.
 ```{r}
 # Remember, our true abundance is 250
 
-# What is the mean of all of our N_hat estimates?
-mean(tau_hat_demo)          # mean of all N-hat estimates
+# What is the mean of all of our tau_hat estimates?
+mean(tau_hat_demo)          # mean of all tau-hat estimates
 
 # On average, how biased are our estimates?
 mean(tau_hat_demo) - tau    # bias
@@ -351,3 +351,8 @@ What happens to the bias and precision of our estimates when animals are trap ha
 13. Compare the bias and precision of our total abundance estimates for the demo, trap happy, and trap shy populations. Write 2-3 sentences explaining the results. How do animals being trap happy or trap shy affect the accuracy of our estimate? Does this make sense to you? (2 points)
 
     *Answer: When animals are trap shy, we end up with an under-estimate (bias towards under counting) and imprecise estimates; when animals are trap happy, we end up over-estimating the population.*
+    
+    * Students do not need to explain how this works, but I'm putting it here so WE know why, because I struggle with it every semester!
+    
+    The reason trap happy animals bias our estimate negatively (we underestimate) boils down to the LP equation. The assumption is the that proportion of marked individuals in the second capture event is the same as the marked individuals in the population. When animals are trap happy, we end up with more recaptures than "expected", meaning the proportion of marked individuals in the second capture is higher than the proportion of individuals in the population. The only way to get the proportions back to equal is the make the tau_hat estimate lower than it actually is. 
+    Alternatively, we can think about the tau_hat = c1*c2 / r2 equations. If we are recapturing more individuals than we "should" be, we are dividing by a bigger number, which will ultimately make tau_hat lower.*
