@@ -1,0 +1,189 @@
+---
+title: "Honors Project Fall '23"
+author: "Karen Ornelas"
+output: 
+  pdf_document: default
+date: "2023-09-28"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+We will be using portalr for this project so first we must load in the package and tidyverse.
+
+```{r}
+install.packages("portalr")
+library(portalr)
+library(tidyverse)
+```
+
+```{r}
+plant_data <- summarise_plant_data(path = "repo", level = "Quadrat")
+```
+
+Create an object where we we tell R to conditionally format our data into 3 specific criteria -\> Species = Amaranthus palmeri, Year = 2021, and Season = summer. This will serve as the population for the project.
+
+```{r}
+amar_2021 <- plant_data[
+                        plant_data$species =="amar palm" 
+                        & plant_data$year == 2021 
+                        & plant_data$season == "summer", ]
+```
+
+```{r}
+plot_number <- unique(plant_data$plot)
+
+quadrat_number <- unique(plant_data$quadrat)
+
+all_quads <- expand.grid(plot = plot_number,quadrat = quadrat_number)
+```
+
+Merge amar_2021 with all_quads data based on plot and quad
+
+```{r}
+expanded_amar <- dplyr::full_join(amar_2021,all_quads)
+expanded_amar <- dplyr::mutate(expanded_amar, abundance = tidyr::replace_na(abundance, 0))
+```
+
+Calculations of our measures of central tendency
+
+```{r}
+mean <- mean(expanded_amar$abundance)
+median(expanded_amar$abundance)  
+```
+
+Calculations of our measures of dispersion
+
+```{r}
+min(expanded_amar$abundance)
+max(expanded_amar$abundance)
+sd <- sd(expanded_amar$abundance)
+var(expanded_amar$abundance)
+```
+
+We must first calculate our plot and quad area to find the N a single plot. Once this is found we can calculate by 24 (total number of plots).
+
+```{r}
+plot_length <- 50 
+plot_area <- plot_length^2
+quad_area <- 0.25
+N_plot <- plot_area/quad_area
+N <- 24 * N_plot
+n <- nrow(expanded_amar)
+```
+
+```{r}
+hist(expanded_amar$abundance)
+```
+
+```{r}
+### install tidyverse
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+Calculations of the occupancy
+
+```{r}
+amar_occu <- expanded_amar[ , c("plot", "quadrat", "abundance")]
+```
+
+Lets change anything in amar_occu above a 0 to 1. This makes are data either a 0 or 1 ( absent or present.)
+
+```{r}
+### change anything above 0 into a 1
+amar_occu$abundance <- ifelse(amar_occu$abundance >0, 1, 0)
+```
+
+This will turn our format from plot,quad, abund to plot and quad as our columns and abundance as our rows.
+
+```{r}
+amar_occu <- pivot_wider(amar_occu, names_from = quadrat, values_from = abundance )
+
+###remove pilot
+amar_occu <- amar_occu[, -1]
+```
+
+```{r}
+install.packages("unmarked")
+library(unmarked)
+```
+
+Now we must create a data frame to have a list of our surveys.
+
+```{r}
+surveys <-data_frame(time_1 = rep("1", 24), time_2 = rep("2", 24), time_3 = rep("3", 24), time_4 = rep("4", 24), time_5 = rep("5", 24), time_6 = rep("6", 24), time_7 = rep("7", 24), time_8 = rep("8", 24), time_9 = rep("9", 24), time_10 = rep("10", 24), time_11 = rep("11", 24), time_12 = rep("12", 24), time_13 = rep("13", 24), time_14 = rep("14", 24), time_15 = rep("15", 24), time_16 = rep("16", 24) )
+```
+
+```{r}
+### create list of dataframe
+
+surveys <- list(time = surveys)
+
+```
+
+Create an unmarked data frame that will be used to calculate our occupancy models.
+
+```{r}
+amar_umf <- unmarkedFrameOccu(amar_occu, obsCovs = (surveys))
+```
+
+p(.) psi(.) -\> occupancy model where occupancy and detection probability are constant p(time) psi(.) -\> occupancy model where occupancy stays constant but detection probability varies with survey.
+
+```{r}
+amar_pdot_psidot <- occu(~1 ~1, data = amar_umf)
+
+amar_ptime_psidot <- occu(~time-1 ~1, data = amar_umf)
+```
+
+```{r}
+amar_models <- fitList(amar_pdot_psidot = amar_pdot_psidot , amar_ptime_psidot = amar_ptime_psidot)
+
+modSel(amar_models)
+```
+
+```{r}
+#Dectection Prob
+plogis(coef(amar_pdot_psidot))
+```
+
+```{r}
+#CI for detection
+plogis(confint(amar_pdot_psidot, type = "det", level = 0.95))
+```
+
+```{r}
+#Prob Occu
+plogis(coef(amar_pdot_psidot))
+```
+
+```{r}
+#CI for occupancy
+plogis(confint(amar_pdot_psidot, type = "state", level = 0.95))
+```
+
+The AIC shows that p(.) psi(.) would be the best model because of the lower AIC model. 10% detection probability with a 95% CI range of 6% - 15%. Occupancy level of 80% with a 95% CI range of 43-95%. The detection and occupancy differences can be due to environmental factors such as rainfall, temperature, and plant cover.
+
+```{r}
+### md 2 
+Tau_hat <- N * mean
+Var_ybar <- (N-n)/N * (sd^2 / n)
+Var_tau_hat <- N * Var_ybar
+SE_ybar <-  sqrt(Var_ybar)
+SE_tau_hat <- sqrt(Var_tau_hat)
+K <- N/n
+```
+
+```{r}
+Tau_hat
+Var_ybar
+Var_tau_hat
+SE_ybar
+SE_tau_hat
+K
+```
+
+This is a 1 in 625 systematic sample.
+
+The number of amaranth per sample unit: y_bar: 0.18 Total number of amaranth in the population: tau-hat: 43750 Measure of uncertainty in the \# of amaranth per sample unit: var_y_bar: 0.007 Measure of uncertainty in the total number of amaranth: var_tau_hat: 1738.79

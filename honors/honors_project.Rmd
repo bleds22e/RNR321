@@ -1,0 +1,116 @@
+---
+title: "RNR 321 Honor's Project"
+author: "Alexa Kershner"
+date: "`r Sys.Date()`"
+output: pdf_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Download rodent data from Portal Project
+
+```{r}
+rodents <- portalr::summarise_individual_rodents()
+```
+
+Select only PP (desert pocket mouse) from 2019
+
+```{r}
+PP <- rodents[rodents$species=="PP",]
+PP <- PP[!is.na(PP$species),]
+
+PP2019 <- PP[PP$year == 2019, ]
+```
+
+Create our sample
+
+Choose 6 plots from 24 plots
+
+```{r}
+# sample(1:24, 6, replace = FALSE)
+# 22, 8, 13, 7, 17, 14
+PP_sample <- PP2019[PP2019$plot %in% c(22, 8, 13, 7, 17, 14), ]
+```
+
+Count the number of PPs per plot
+
+```{r}
+install.packages("tidyverse")
+library(tidyverse)
+
+PP_sample <- PP_sample %>% 
+  group_by(plot) %>% 
+  summarize(count = n())
+PP_sample
+```
+
+## Module 1
+
+mean number PPs per plot (from PP_sample)
+
+```{r}
+PP_per_plot <- PP_sample$plot 
+mean <- mean(PP_per_plot)
+mean
+```
+
+variance
+
+```{r}
+var <- var(PP_per_plot)
+var
+```
+
+standard deviation
+
+```{r}
+s <- sd(PP_per_plot)
+s
+```
+
+## Module 2
+
+variance of est. of the mean
+
+```{r}
+n <- 6
+N <- 24
+pop_correction <- (N-n)/n
+var_y_bar <- pop_correction*((s^2)/n)
+var_y_bar
+```
+
+SE est. mean
+
+```{r}
+SE_y_bar <- sqrt(var_y_bar)
+SE_y_bar
+```
+
+tau hat
+
+```{r}
+tau_hat <- N*mean
+tau_hat
+```
+
+variance est. of the total
+
+```{r}
+var_tau_hat <-  (N^2)*var_mean
+var_tau_hat
+```
+
+SE est. total
+
+```{r}
+SE_tau_hat <- sqrt(var_tau_hat)
+SE_tau_hat
+```
+
+## Module 3

@@ -1,0 +1,252 @@
+---
+title: "Extra Credit"
+author: "Your Name Here"
+output: 
+  pdf_document: default
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Extra Credit Project
+
+For this EC project, you will be calculating various population paramters and their uncertainty based on what we have learned throughout RNR 321.
+
+You will use two different types of data from the [Portal Project](https://portal.weecology.org/). It is worth reading at least a little bit about the project to help contextualize what you will be doing.
+
+## Set Up
+
+We will be using the `portalr` and `tidyverse` packages for this project, so first we must load them both.
+
+```{r}
+install.packages("portalr")
+install.packages("tidyverse")
+
+library(portalr)
+library(tidyverse)
+```
+
+We will be calculating population metrics and running occupancy models for *Amaranth palmerii* ("amar palm").
+
+First, we have to download the data.
+
+```{r}
+plant_data <- summarise_plant_data(path = "repo", level = "Quadrat")
+```
+
+Create an object with only "amar palm" plants from the summer plant census of 2021. This will serve as the population for the project.
+
+```{r}
+amar_2021 <- plant_data %>% 
+  filter(species == "amar palm", 
+         year == 2021,
+         season == "summer")
+```
+
+Make an expanded grid to include every quadrat at every plot so we include zeros in our estimate.
+
+Plant surveys occur at 16 different locations in each of the 24 plots. Each survey includes the species present and their abundance in a 0.5 m by 0.5 m quadrat (0.25 m\^2).
+
+```{r}
+# find unique plots and unique stakes
+plot_number <- sort(unique(plant_data$plot))  # 24 plots
+quadrat_number <- sort(unique(plant_data$quadrat))  # 16 quadrats per plot
+
+# create a dataframe with every quadrat in every plot
+all_quads <- expand.grid(quadrat = quadrat_number,
+                         plot = plot_number)
+
+
+```
+
+Next, we need to bring together the `amar_2021` data with `all_quads` data and fill empty values with 0 to indicate absence.
+
+```{r}
+treatments <- plant_data %>% 
+  filter(year == 2021) %>% 
+  select(plot, treatment) %>% 
+  distinct()
+
+amar_2021 <- full_join(amar_2021, all_quads) %>% 
+  # replace NA values with 0
+  mutate(abundance = replace_na(abundance, 0),
+         treatment = case_when(plot %in% treatments$plot[treatments$treatment == "removal"] ~ "removal",
+                               plot %in% treatments$plot[treatments$treatment == "exclosure"] ~ "exclosure",
+                               TRUE ~ "control")) %>% 
+  select(quadrat, plot, abundance, treatment)
+```
+
+## Module 1
+
+Calculate measures of central tendency (median and average). Save these outputs to use in future calculations.
+
+```{r}
+mean <- mean(expanded_amar$abundance)
+median(expanded_amar$abundance)  
+```
+
+Calculate measures of dispersion (range, standard deviation, variance). Save these outputs to use in future calculations.
+
+```{r}
+min(expanded_amar$abundance)
+max(expanded_amar$abundance)
+sd <- sd(expanded_amar$abundance)
+var(expanded_amar$abundance)
+```
+
+Plot of histogram of the "amar palm" abundance (it will look very skewed; that's ok).
+
+```{r}
+hist(amar_2021$abundance)
+```
+
+## Module 2
+
+We need to figure out the number of sample units per plot and then multiple that number by 24 to get the total number of sample units for the site.
+
+```{r}
+# each plot is 50 x 50 m
+plot_area <- 50^2
+quad_area <- 0.25
+
+plot <- plot_area/quad_area
+
+N <- 24 * plot
+n <- nrow(amar_2021)
+```
+
+### Stratified Random Sample Calculations
+
+The Portal Project has 3 different treatments; each plot falls into 1 treatment group:
+
+-   removal = no rodents in the plot
+-   exclosure = no kangaroo rats on the plots
+-   control = all rodents on the plots
+
+Because rodents are herbivores, we have reason to believe they could impact the plant communities on different plot types.
+
+Let's treat the data as a stratified random sample, with the treatment type as the stratum.
+
+Make 3 new dataframes, one for each stratum based on plot treatment, by subsetting the data using conditional subsetting (base R or `tidyverse`).
+
+```{r}
+removal <- amar_2021 %>% filter(treatment == "removal")
+exclosure <- amar_2021 %>% filter(treatment == "exclosure")
+control <- amar_2021 %>%  filter(treatment == "control")
+```
+
+Use the `nrow()` function and the dataframes above to determine the `n` (number of sample units) for each stratum.
+
+```{r}
+n_removal <- nrow(removal)
+n_exclosure <- nrow(exclosure)
+n_control <- nrow(control)
+```
+
+Here are the `N` values for each stratum:
+
+```{r}
+N_removal <- N * (sum(treatments$treatment == "removal") / 24)
+N_exclosure <- N * (sum(treatments$treatment == "exclosure") / 24)
+N_control <- N * (sum(treatments$treatment == "control") / 24)
+```
+
+Now, using these `n` and `N` values, and the dataframes above, calculate the following values:
+
+-   stratum mean
+-   stratum variance
+-   stratum variance of the estimate of the mean
+-   stratum total
+-   stratum variance of the estimate of the total
+
+Remember to include the finite population correction factor where appropriate!
+
+```{r}
+
+```
+
+### Overall Population Estimates and Uncertainty
+
+Using the appropriate equations and the values above, calculate the following values for the entire population:
+
+-   overall mean
+-   overall variance of the estimate of the mean
+-   overall total
+-   overall variance of the estimate of the total
+
+```{r}
+
+```
+
+Assuming a t-value of 2.06, calculate the standard error and confidence intervals for the overall mean and population total.
+
+```{r}
+
+```
+
+Write a few sentences interpreting your values. For example: (a) which treatment has the highest/lowest density of amaranth? (b) which treatment's estimates have the most uncertainty around them? (c) what is the overall population density and abundance of amaranth at Portal?
+
+*Answer*:
+
+## Module 3
+
+For this module, we are going to calculate occupancy of "amar palm." We are going to ignore treatments here and consider the population as a whole.
+
+We need to load `unmarked`.
+
+```{r}
+library(unmarked)
+```
+
+We are going to do this in a somewhat unique way. We are going to consider each plot as a survey location and each quadrat as a separate survey.
+
+The following code chunk converts the data into an encounter history that we can use.
+
+```{r}
+amar_occu <- amar_2021 %>% 
+  mutate(abundance = if_else(abundance > 0, 1, 0)) %>% 
+  pivot_wider(amar_occu, names_from = quadrat, values_from = abundance) %>% 
+  select(-plot)
+```
+
+Here, we create our surveys dataframe so we can compare models where detection probability varies by survey (quadrat) or not.
+
+```{r}
+surveys <- data_frame(time_1 = rep("1", 24), time_2 = rep("2", 24), time_3 = rep("3", 24), time_4 = rep("4", 24),
+                      time_5 = rep("5", 24), time_6 = rep("6", 24), time_7 = rep("7", 24), time_8 = rep("8", 24), 
+                      time_9 = rep("9", 24), time_10 = rep("10", 24), time_11 = rep("11", 24), time_12 = rep("12", 24), 
+                      time_13 = rep("13", 24), time_14 = rep("14", 24), time_15 = rep("15", 24), time_16 = rep("16", 24))
+surveys <- list(time = surveys)
+```
+
+Follow the steps in Module 3 Lab 1 to run the occupancy models for "amar palm."
+
+```{r}
+
+```
+
+Determine which model fits the data best based on AIC.
+
+```{r}
+
+```
+
+Calculate and report (a) occupancy, (b) detection probability, and (c) the confidence intervals for each
+
+```{r}
+
+```
+
+Write a few sentences interpreting the results.
+
+*Answer*:
+
+### Module 4
+
+We will keep this simple. Calculate species richness for the summer plant survey in 2021. Using the `plant_data` data frame, filter the data appropriately and then use the `unique()` function.
+
+```{r}
+
+```
