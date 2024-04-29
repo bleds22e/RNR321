@@ -31,7 +31,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-April 24 at 2pm MST
+April 22 at 2pm MST
 
 ------------------------------------------------------------------------
 
@@ -54,7 +54,6 @@ Some colleagues went out and did some distance sampling! They want to know if "y
 First things first, let's load our packages.
 
 ```{r message = FALSE}
-library(tidyverse)
 library(unmarked)
 ```
 
@@ -71,7 +70,7 @@ We will use the saguaro data for our first analyses.
 
 ### Data Preparation
 
-1.  Make a data frame with transect length (i.e., survey effort). Call this `transect_saguaro`.
+1.  Make a data frame with transect length (i.e., survey effort). Call this `transect_saguaro`. There are 10 groups. Set the length of the transect (the length_m column) to the mean of the length column from the saguaro dataframe (mean(saguaro$length)).
 
 ```{r}
 transect_saguaro <- 

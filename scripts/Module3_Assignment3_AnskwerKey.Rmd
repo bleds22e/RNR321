@@ -21,7 +21,7 @@ ocotillo <- read.csv("../data_raw/ocotillo.csv")
 1.  
 
 ```{r}
-transect_saguaro <- data.frame(1:10,
+transect_saguaro <- data.frame(group_id = 1:10,
                                length = mean(saguaro$length))
 transect_saguaro
 ```

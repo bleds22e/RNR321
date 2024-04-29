@@ -19,10 +19,10 @@ We need to load the package we will need to complete this lab, which is `unmarke
 library(unmarked) # Load unmarked
 ```
 
-We also need to load our data. I've compiled it for you already, and it should be in your list of files, called `Distance_Data_Fall2023.csv`.
+We also need to load our data. I've compiled it for you already, and it should be in your list of files, called `Distance_Data_Spring2024.csv`.
 
 ```{r}
-beads <- read.csv("../../2023_fall/Labs/Distance_Data_Fall2023.csv")
+beads <- read.csv("../../../../ebledsoe@arizona.edu - Google Drive/My Drive/UArizona/Teaching/RNR321/2024_spring/Labs/Distance_Data_Spring2024.csv")
 ```
 
 Before we begin any analyses, let's make sure our data looks alright.
@@ -40,7 +40,7 @@ First, we need to convert all of our data from inches into meters because those 
 beads$Distance_m <- beads$Distance_in / 39.37
 ```
 
-Since we have 2 different colors of beads, we need to create two different data frames. You won't need to do this in your assignment, thankfully!
+Since we have 2 different colors of beads, we need to create two different data frames. You won't need to do this in your assignment, either, thankfully!
 
 ```{r}
 clear <- beads[beads$BeadColor == "Clear", ] 
@@ -58,8 +58,8 @@ The first thing we need to do is to get a data frame that includes the length of
 Simply based on how the data is structured (survey length column, so every value has the same survey length), the easiest way to get the survey length is by taking the mean or median of the length for each group.
 
 ```{r}
-transect_length <- data.frame(group_id = 1:7,
-                              length_m = 15)
+transect_length <- data.frame(group_id = 1:8,
+                              length_m = mean(green$Transect_m))
 ```
 
 Let's check out our distribution of detection distances. We can use the `hist()` function to do this.
@@ -72,7 +72,7 @@ Based on the histogram, I'll suggest we truncate at 2.5 m. Let's set this value 
 
 ```{r}
 # Set truncation distance to eliminate extreme observations
-trunc <- 2
+trunc <- 2.5
 ```
 
 We can set "cut points" for distance bins; in our case, we want every half meter.
@@ -92,7 +92,7 @@ To get our detection functions and density estimates, we will use the `formatDis
 ```{r}
 green_data <- formatDistData(distData = green,         # data frame
                         distCol = "Distance_m",        # column that holds the distance values
-                        transectNameCol = "GroupID",   # column that holds the transect groups
+                        transectNameCol = "Group",   # column that holds the transect groups
                         dist.breaks = distance_bins)   # vector of distance groupings
 green_data
 ```
@@ -154,10 +154,6 @@ There is a handy function that we can use to pull the density estimate out of th
 ```{r}
 density <- backTransform(HN, type = "state") # Density estimate (no./ha) 
 density
-
-density_est <- density@estimate
-density_est
-
 ```
 
 We can also calculate the confidence intervals for our parameter estimate
@@ -172,23 +168,12 @@ You won't need to do this in your assignment---we will just leave all of our den
 
 To see how close our estimate was to the actual number of beads we put outside (\#), we need to convert the density in hectares to the density of our survey area.
 
-Our first step is to calculate our effective strip width.
-
-```{r}
-# half normal SD
-sigma <- backTransform(HN, type = "det")@estimate
-
-# calculate the effective strip width
-esw <- integrate(gxhn, 0, 2, sigma = sigma)$value
-esw
-```
-
 ```{r}
 # Current density estimate:
 # D-hat = 7981.5 / ha
 
 # Our survey area = 10 x 15 m 
-area <- 2 * esw * 15 # 60 m^2
+area <- 15 * mean(beads$Transect_m) # 480 m^2
 
 # One hectare = 100 m x 100 m
 ha <- 100 * 100 # 10,000 m^2
@@ -198,7 +183,7 @@ ha <- 100 * 100 # 10,000 m^2
 density_est * area/ha
 ```
 
-Maddie and I put out 50 green beads, so this is...kind of accurate? But certainly not great. Why might that be?
+Maddie and I put out 150 green beads, so this is pretty good!
 
 ## Clear Beads
 
@@ -209,7 +194,7 @@ hist(clear$Distance_m) # keep distance bins the same
 
 clear_data <- formatDistData(distData = clear,         # data frame
                         distCol = "Distance_m",        # column that holds the distance values
-                        transectNameCol = "GroupID",   # column that holds the transect groups
+                        transectNameCol = "Group",   # column that holds the transect groups
                         dist.breaks = distance_bins)   # vector of distance groupings
 
 UMF_clear <- unmarkedFrameDS(y = as.matrix(clear_data),
@@ -222,18 +207,12 @@ HNc   <- distsamp(~1 ~1, UMF_clear, keyfun = "halfnorm", output = "density", uni
 hist(HNc)
 
 # Exponential model
-backTransform(HNc, type = "state")  # 5719.2
+d_hat <- backTransform(HNc, type = "state")@estimate  # 5719.2
+d_hat
+
 exp(confint(HNc, type = "state"))
-
-# half normal SD
-sigma_c <- backTransform(HNc, type = "det")@estimate
-
-# calculate the effective strip width
-esw <- integrate(gxhn, 0, 2, sigma = sigma_c)$value
-esw
 
 # Abundance Estimate
 # D-hat * area/ha
-area <- 2 * esw * 15
-5719.2 * area/ha # <- actual value was 50
+d_hat * area/ha # <- actual value was 150
 ```
