@@ -16,7 +16,7 @@ library(vegan)
 ```
 
 ```{r message = FALSE}
-insects <- read_csv("../data_raw/insects.csv")
+insects <- read.csv("../data_raw/SCR_camera_data.csv")
 ```
 
 ```{r}
