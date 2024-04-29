@@ -30,7 +30,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-December 5 at 1pm MST
+May 6 at midnight MST
 
 ------------------------------------------------------------------------
 
@@ -48,10 +48,10 @@ library(vegan)
 
 ## Species Accumulation Curves
 
-For this section of the assignment, we are going to use a survey x species matrix for insects found on a plant.
+For this section of the assignment, we are going to use a survey by species matrix of data collected from the Santa Cruz River on trail cameras!
 
 ```{r}
-insects <- read.csv("insects.csv")
+scr_data <- read.csv("SRC_camera_data.csv")
 ```
 
 1.  First, use the `specaccum()` function to prep the data for the species accumulation curve model.
@@ -84,9 +84,7 @@ insects <- read.csv("insects.csv")
 
 ## Species Richness and Diversity Indices
 
-For this assignment, you are welcome to use either base R or the `tidyverse`. If you haven't used the `tidyverse` much outside of this class, though, base R will probably be the more straightforward way to tackle this part of the assignment.
-
-We are going to keep working with the insect data from above.
+Run the following code chunk to create 2 different data frames with rodent community data.
 
 ```{r}
 comm1 <- data.frame(species = c("DO", "DM", "SO", "SH", "SF", "PP", "PB", "BA"),
@@ -97,7 +95,7 @@ comm2 <- data.frame(species = c("DO", "DM", "SO", "SH", "SF"),
 
 ### Species Richness
 
-6.  Use code to calculate the species richness of each community. Which community is more species rich?
+6.  Use the `nrow` function to calculate the species richness of each community. Which community is more species rich?
 
 ```{r}
 
@@ -107,7 +105,7 @@ comm2 <- data.frame(species = c("DO", "DM", "SO", "SH", "SF"),
 
 We are going to start with `comm1`.
 
-7.  Write a line of code to calculate the number of individuals in the insect community. Use this to create the object `N_comm1`.
+7.  Write a line of code to calculate the number of individuals in each community. Use this to create the object `N_comm1`.
 
 ```{r}
 
@@ -119,7 +117,7 @@ We are going to start with `comm1`.
 
 ```
 
-9.  Now add a column with the natural logs of the proportions.
+9.  Now add a column with the natural logs of the proportions using the `log()` function.
 
 ```{r}
 

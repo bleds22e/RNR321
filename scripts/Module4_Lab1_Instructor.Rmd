@@ -46,7 +46,7 @@ fish_fit_sac <- fitspecaccum(fish_sac, model = "asymp")
 
 Now that we've fit the model, we can get out the estimated asymptote of the species accumulation curve and plot the predicted curve.
 
-`coef()` gives us the estimated asymptote of the species accumulation curve.
+`coef()` gives us the estimated asymptote of the species accumulation curve. The only value you need to focus on is the "Asym" (asymptote) value.
 
 ```{r}
 coef(fish_fit_sac)
@@ -118,10 +118,10 @@ fish_abund$prop_x_lnprop <- fish_abund$prop * fish_abund$ln_prop
 head(fish_abund)
 ```
 
-Finally, we can sum these values and multiple by -1 to calculate the Shannon Index (H) for this community.
+Finally, we can sum these values using the `sum()` function and multiple by -1 to calculate the Shannon Index (H) for this community.
 
 ```{r}
-H = sum(fish_abund$prop_x_lnprop) * -1
+H <- sum(fish_abund$prop_x_lnprop) * -1
 H
 ```
 

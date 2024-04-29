@@ -15,7 +15,7 @@ Today, we will be working with community data to calculate species richness, plo
 
 ## Set-Up
 
-For today's lab and assignment, we will need to load a new package called `vegan`. I've already installed the package on Posit Cloud, so we only need to load it into our work space. We are also going to load the `tidyverse`.
+For today's lab and assignment, we will need to load a new package called `vegan`. I've already installed the package on Posit Cloud, so we only need to load it into our work space.
 
 ```{r message=FALSE}
 
@@ -45,7 +45,7 @@ Now, we want to put the object we just created, `fish_sac`, into the `fitspecacc
 
 Now that we've fit the model, we can get out the estimated asymptote of the species accumulation curve and plot the predicted curve.
 
-`coef()` gives us the estimated asymptote of the species accumulation curve.
+`coef()` gives us the estimated asymptote of the species accumulation curve. The only value you need to focus on is the "Asym" (asymptote) value.
 
 ```{r}
 
@@ -68,8 +68,7 @@ Let's run through how we can calculate the richness, and Shannon and Simpson Div
 ```{r}
 # Don't worry about understanding this code! 
 # I'm making the frequencies of each fish species and making them into a dataframe
-# The rownames are turned into a new column called "species"
-fish_abund <- as_tibble(fish_sac$freq, rownames = "species")
+fish_abund <- data.frame(abund = fish_sac$freq)
 head(fish_abund)
 ```
 
