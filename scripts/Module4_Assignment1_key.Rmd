@@ -48,10 +48,10 @@ library(vegan)
 
 ## Species Accumulation Curves
 
-For this section of the assignment, we are going to use a survey x species matrix for insects found on a plant.
+For this section of the assignment, we are going to use a survey x species matrix for trail cameras along the Santa Cruz River.
 
 ```{r}
-insects <- read.csv("../data_raw/insects.csv")
+insects <- read.csv("../data_raw/SCR_camera_data.csv")
 ```
 
 1.  First, use the `specaccum()` function to prep the data for the species accumulation curve model.
@@ -135,6 +135,7 @@ comm1$prop_lnprop <- comm1$prop * comm1$ln_prop
 
 ```{r}
 H_comm1 <- sum(comm1$prop_lnprop * -1)
+H_comm1
 ```
 
 12. Now that you've worked your way through calculating the Shannon Index for community 1, calculate it for community 2.
@@ -145,6 +146,7 @@ comm2$prop <- comm2$individuals / total_comm2
 comm2$ln_prop <- log(comm2$prop)
 comm2$prop_lnprop <- comm2$prop * comm2$ln_prop
 H_comm2 <- sum(comm2$prop_lnprop * -1)
+H_comm2
 ```
 
 13. Which community is more diverse, according the the Shannon Diversity Index? How do you know? (2 points)
@@ -165,6 +167,7 @@ comm1$prop_sq <- comm1$prop * comm1$prop
 
 ```{r}
 D1 = 1 - sum(comm1$prop_sq)
+D1
 ```
 
 16. Now calculate the Simpson Index for community 2
@@ -172,6 +175,7 @@ D1 = 1 - sum(comm1$prop_sq)
 ```{r}
 comm2$prop_sq <- comm2$prop * comm2$prop
 D2 = 1 - sum(comm2$prop_sq)
+D2
 ```
 
 17. Do the values you've calculated for the Simpson Index corroborate your answer for which community is more diverse? Why or why not? (2 points)
