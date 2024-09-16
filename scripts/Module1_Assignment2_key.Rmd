@@ -28,7 +28,7 @@ Write R code to successfully answer each question below and/or write text to suc
 
 ### Due Date
 
-Feb 12 at 2pm MST
+Sept 24 at 1pm MST
 
 # Assignment Questions
 
@@ -57,7 +57,7 @@ birds <- 120
 birds
 ```
 
-6.  Divide the object `bird` by 5. Name the result `fewer_birds`.
+6.  Divide the object `birds` by 5. Save the result as an object called `fewer_birds`.
 
 ```{r}
 fewer_birds <- birds / 5
@@ -99,13 +99,14 @@ rhymes
 For the following questions, we will be using the cactus pad data that we collected a few weeks ago. Run the following code chunk to bring ("read") the .csv file into R for us to use.
 
 ```{r}
-cactus <- read.csv("../data_raw/AllCactusData.csv")
+cactus <- read.csv("../data_raw/CactusPads_Fall2024.csv") 
 ```
 
 This code chunk uses the `$` operator to pull out individuals columns from 2D data and treat them as vectors. Here, I'm saving the cactus pad length column as a vector called `pad_length`. Once you run this code chunk, you should see `pad_length` in your environment.
 
 ```{r}
 pad_length <- cactus$length_in
+pad_length
 ```
 
 Below, I'm doing the same thing with a couple more columns.
@@ -113,6 +114,9 @@ Below, I'm doing the same thing with a couple more columns.
 ```{r}
 pad_width <- cactus$width_in
 damage <- cactus$damage
+
+pad_width
+damage
 ```
 
 ------------------------------------------------------------------------
@@ -136,13 +140,13 @@ answer
 pad_width[6:10]
 ```
 
-14. Using a function, write a line of code for which the output is the number of elements in the `damage` vector.
+14. Using the `length()` function, find the number of elements in the `damage` vector.
 
 ```{r}
 length(damage)
 ```
 
-15. Write a line of code that pulls out all of the elements of the `damage` vector which have no damage on the pad.
+15. Write a line of code that returns all of the elements of the `damage` vector which have no damage on the pad.
 
 ```{r}
 damage[damage == "None"]
@@ -154,13 +158,13 @@ damage[damage == "None"]
 length(damage[damage == "None"])
 ```
 
-17. Write a line of code that pull out all of the elements in the `pad_length` vector which are greater than 5.
+17. Write a line of code that returns all of the elements in the `pad_length` vector which are greater than 10.
 
 ```{r}
-pad_length[pad_length > 5]
+pad_length[pad_length > 10]
 ```
 
-18. Calculate both the average (`mean()`) and the standard deviation (`sd()`) for the cactus pad lengths.
+18. Calculate both the average (using the `mean()`) and the standard deviation (`sd()`) for all of the cactus pad lengths.
 
 ```{r}
 mean(pad_length)

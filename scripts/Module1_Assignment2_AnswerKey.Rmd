@@ -47,7 +47,7 @@ rhymes
 
 
 ```{r}
-cactus <- read.csv("../data_raw/CactusPads_Spring2024.csv") |> na.omit()
+cactus <- read.csv("../data_raw/CactusPads_Fall2024.csv") |> na.omit()
 ```
 
 ```{r}
@@ -99,7 +99,7 @@ length(damage[damage == "None"])
 17. 
 
 ```{r}
-pad_length[pad_length > 5]
+pad_length[pad_length > 10]
 ```
 
 18. 

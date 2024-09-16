@@ -28,7 +28,7 @@ Write R code to successfully answer each question below and/or write text to suc
 
 ### Due Date
 
-Feb 12 at 2pm MST
+Sept 24 at 1pm MST
 
 # Assignment Questions
 
@@ -54,7 +54,7 @@ This assignment is worth 20 points total. Each question is worth 1 point.
 
 ```
 
-6.  Divide the object `birds` by 5. Name the result `fewer_birds`.
+6.  Divide the object `birds` by 5. Save the result as an object called `fewer_birds`.
 
 ```{r}
 
@@ -93,13 +93,14 @@ snails * fewer_birds
 For the following questions, we will be using the cactus pad data that we collected a few weeks ago. Run the following code chunk to bring ("read") the .csv file into R for us to use.
 
 ```{r}
-cactus <- read.csv("CactusPads_Spring2024.csv") |> na.omit()
+cactus <- read.csv("CactusPads_Fall2024.csv") |> na.omit()
 ```
 
 This code chunk uses the `$` operator to pull out individuals columns from 2D data and treat them as vectors. Here, I'm saving the cactus pad length column as a vector called `pad_length`. Once you run this code chunk, you should see `pad_length` in your environment.
 
 ```{r}
 pad_length <- cactus$length_in
+pad_length
 ```
 
 Below, I'm doing the same thing with a couple more columns.
@@ -107,6 +108,9 @@ Below, I'm doing the same thing with a couple more columns.
 ```{r}
 pad_width <- cactus$width_in
 damage <- cactus$damage
+
+pad_width
+damage
 ```
 
 ------------------------------------------------------------------------
@@ -129,13 +133,13 @@ damage <- cactus$damage
 
 ```
 
-14. Using a function, write a line of code for which the output is the number of elements in the `damage` vector.
+14. Using the `length()` function, write a line of code for which the output is the number of elements in the `damage` vector.
 
 ```{r}
 
 ```
 
-15. Write a line of code that pulls out all of the elements of the `damage` vector which have no damage on the pad.
+15. Write a line of code that returns all of the elements of the `damage` vector which have no damage on the pad.
 
 ```{r}
 
@@ -148,13 +152,13 @@ damage <- cactus$damage
 ```
 
 
-17. Write a line of code that pulls out all of the elements in the `pad_length` vector which are greater than 5.
+17. Write a line of code that returns all of the elements in the `pad_length` vector which are greater than 10.
 
 ```{r}
 
 ```
 
-18. Calculate both the average (`mean()`) and the standard deviation (`sd()`) for the cactus pad lengths.
+18. Calculate both the average (use the `mean()` function) and the standard deviation (use the `sd()` function) for all of the cactus pad lengths.
 
 ```{r}
 

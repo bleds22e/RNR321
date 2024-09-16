@@ -113,7 +113,7 @@ Vectors can only be one data type. Let's experiment with that.
 
 ```
 
-### Subsetting by Index
+### Sub-setting by Index
 
 Sometimes we want to pull out and work with specific values from a vector. This is called subsetting (taking a smaller set of the original).
 
@@ -125,7 +125,7 @@ weight_g[c(2,4)]
 weight_g[c(1:4)]
 ```
 
-### Conditional Subsetting
+### Conditional Sub-setting
 
 Another way in which we can subset data is through conditions. The vector will only return data which meets the conditions we set.
 
@@ -147,7 +147,7 @@ Let's practice! Write a few lines of code that do the following:
 
 ```
 
-If you've finished that task, try to get the same result using *conditional* subsetting.
+If you've finished that task, try to get the same result using *conditional* sub-setting.
 
 ```{r}
 
