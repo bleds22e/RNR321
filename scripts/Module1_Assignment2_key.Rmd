@@ -152,7 +152,7 @@ length(damage)
 damage[damage == "None"]
 ```
 
-16. Combining your answers for Questions 13 and 14, write a line of code that determines how many recorded cactus pads had no damage to them.
+16. Combining your answers for Questions 14 and 15, write a line of code that determines how many recorded cactus pads had no damage to them.
 
 ```{r}
 length(damage[damage == "None"])
