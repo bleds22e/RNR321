@@ -36,7 +36,9 @@ To explore data frames, we are going to use a package called `palmerpenguins`.
 
 A *package* is a bunch of pre-written code, often in the form of functions, which we can bring into R and use. In this case, we are using a data package, which loads data into R that we can use. It is real data from penguins in Antarctica! You can learn more about the `palmerpenguins` package and data [here](https://allisonhorst.github.io/palmerpenguins/).
 
-![](lter_penguins.png) \### Installing a Package
+![](lter_penguins.png) 
+
+### Installing a Package
 
 The first time that you want to use a certain package, you need to "install" the package, meaning download the contents of the package from the internet into your work space.
 
@@ -88,9 +90,9 @@ ncol(penguins) # number of columns
 names(penguins) # same as colnames(penguins) in a df
 ```
 
-### Subsetting using Indexing
+### Sub-setting using Indexing
 
-When subsetting data frames, we need to now specify 2 locations, the row and the column. In R, it is always row *then* column. Note that this is typically the opposite of spreadsheets.
+When sub-setting data frames, we need to now specify 2 locations, the row and the column. In R, it is always row *then* column. Note that this is typically the opposite of spreadsheets.
 
 ```{r}
 # in vectors, only 1 dimension, so we only need to specify one location
@@ -101,9 +103,9 @@ penguins[1:10, ]
 penguins[ , c(1:4)]
 ```
 
-### Select individual columns
+### Select Individual Columns
 
-Often, we want to select a specific column to perform calculations on or to plot. We can do this via subsetting, though the result is a data frame with 1 column, not a vector.
+Often, we want to select a specific column to perform calculations on or to plot. We can do this via sub-setting, though the result is a data frame with 1 column, not a vector.
 
 To pull out one column to treat as a vector, we can use the `$` operator.
 
