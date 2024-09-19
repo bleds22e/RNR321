@@ -36,7 +36,7 @@ To explore data frames, we are going to use a package called `palmerpenguins`.
 
 A *package* is a bunch of pre-written code, often in the form of functions, which we can bring into R and use. In this case, we are using a data package, which loads data into R that we can use. It is real data from penguins in Antarctica! You can learn more about the `palmerpenguins` package and data [here](https://allisonhorst.github.io/palmerpenguins/).
 
-![](lter_penguins.png) 
+![](lter_penguins.png)
 
 ### Installing a Package
 
@@ -45,7 +45,7 @@ The first time that you want to use a certain package, you need to "install" the
 I have already installed the `palmerpenguins` package into this Posit Cloud project, so you do not need to install it. I've included the code here for future reference, if you need it.
 
 ```{r}
-# code for installing a package from the internet for future reference
+# code for installing a package from the internet ONLY FOR FUTURE REFERENCE
 # install.packages("palmerpenguins")
 # to run the line of code above, remove the # symbol
 ```

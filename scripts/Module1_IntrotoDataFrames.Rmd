@@ -45,7 +45,7 @@ The first time that you want to use a certain package, you need to "install" the
 I have already installed the `palmerpenguins` package into this Posit Cloud project, so you do not need to install it. I've included the code here for future reference, if you need it.
 
 ```{r}
-# code for installing a package from the internet for future reference
+# code for installing a package from the internet ONLY FOR FUTURE REFERENCE
 # install.packages("palmerpenguins")
 # to run the line of code above, remove the # symbol
 ```
