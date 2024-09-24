@@ -28,7 +28,7 @@ Write R code to successfully answer each question below and/or write text to suc
 
 ### Due Date
 
-Feb 19 at 2pm MST
+Oct 1 at 1pm MST
 
 # Assignment Questions
 
@@ -44,7 +44,7 @@ Run the following line of code to create a vector called `counts`.
 counts <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, 72, 65, 64, 70, 63, 65)
 ```
 
-1.  Use the `mean()` function to calculate the mean value of `counts`.
+1.  Use the `mean()` function to calculate the mean value of `counts`. Do not add any arguments beyond the name of the vector.
 
 *Hint: remember to check the answer key!*
 
@@ -52,19 +52,15 @@ counts <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, 72, 65, 64, 
 mean(counts)
 ```
 
-2.  This should yield an odd result caused by the `NA` value in `counts`. To resolve this, use the help function to remind yourself about the argument `na.rm = TRUE` in the `mean()` function.
+2.  The answer to Q1 should yield an odd result caused by the `NA` value in `counts`. To resolve this, use the help function to remind yourself about the argument `na.rm = TRUE` in the `mean()` function.
 
-```{r}
-help(mean) # same as ?mean
-```
-
-Issue a revised command to calculate the mean value in `heights`.
+Issue a revised command to calculate the mean value in `counts`.
 
 ```{r}
 mean(counts, na.rm = TRUE)
 ```
 
-3.  Write a line of code that selects values less than 66 from the `counts` vector.
+3.  Write a line of code that selects values less than 66 from the `counts` vector. The `NA` values with be included in this vector, which is fine.
 
 ```{r}
 counts[counts < 66]
@@ -98,14 +94,14 @@ For the remainder of the assignment, we will be using the cactus data we collect
 Once you run the code chunk below, the data frame will be saved in your environment as the object `cactus`.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-cactus <- read.csv("../output/all_cactus_data_sp2024.csv")
+cactus <- read.csv("../data_raw/CactusPads_Fall2024.csv")
 ```
 
 7.  Take a look at the `cactus` data frame. How many rows does this data frame have? How many columns? You can either use code to figure this out or look at the object in the environment. Explain how you figured it out (e.g., if you looked in the environment, how did you know which number meant what). (2 points)
 
-    *Rows*: 50
+    *Rows*: 118
 
-    *Columns*: 13
+    *Columns*: 11
 
     *Explanation:*
 
@@ -121,7 +117,7 @@ cactus <- read.csv("../output/all_cactus_data_sp2024.csv")
 head(cactus)
 ```
 
-9.  Calculate the mean *length* of all the cactus pads that were measured.
+9.  Use a function to calculate the mean *length* of all the cactus pads that were measured.
 
 ```{r}
 mean(cactus$length_in, na.rm = TRUE)
@@ -130,7 +126,11 @@ mean(cactus$length_in, na.rm = TRUE)
 10. Use the `round()` function to around the mean of the cactus pad *lengths* (Q9) to only 1 place after the decimal.
 
 ```{r}
-round(mean(cactus$length_in, na.rm = TRUE), digits = 1)
+mean_length <- mean(cactus$length_in, na.rm = T)
+round(mean_length, 1)
+
+# Any variation of the above or below works
+# round(mean(cactus$length_in, na.rm = TRUE), digits = 1)
 ```
 
 11. Create a histogram with the *depth* of all the cactus pads that were measured. No need to use `na.rm = TRUE` here; the histogram function automatically drops `NA` values.
@@ -141,7 +141,7 @@ hist(cactus$depth_in)
 
 12. In 2-3 sentences, interpret the histogram. Describe what the axes represent, the approximate range of the data, where the majority of values fall, the distribution/skew of the data, etc. (2 points)
 
-*Answer: The x-axis indicates groupings/bins of depth measurements for each cactus pad and the y-axis indicates the frequency with which measurements are in each group. While the range of the data is from about 0-2 the majority of values seem to fall between 0.2-0.6. The distribution is right-skewed.*
+*Answer: (Example) The x-axis indicates groupings/bins of depth measurements for each cactus pad and the y-axis indicates the frequency with which measurements are in each group. While the range of the data is from about 0-2.5 the majority of values seem to fall between 0.2-0.6. The distribution is right-skewed.*
 
 13. Run the following line of code. By looking at the code and the output, describe what the following line of code is doing. Make sure to include each part of the code. (As a point of reference, this took me 5 sentences in the answer key). (2 points)
 
@@ -152,6 +152,8 @@ cactus[cactus$spines == "N", 9]
 *Answer: This line of code pulls out depth values for the cactus pads that do not have spines. We first tell R that we want to select something from the `cactus` data frame. The `[]` indicate that we are subsetting. We set a condition in the rows section that indicates we only want rows in which the value in the spines column is "N", indicating no spines. After the comma, we specify that we want values from the 9th column, which is `depth_in`.*
 
 14. Create 2 different data frames: one called `ficus` with only rows that have *Opuntia ficus-indica* in the species column and one called `engel` with only rows which have *Opuntia engelmannii* in the species column. The data frames should have *all* columns.
+
+  *Hint: neither dataframe should have 0 rows; if that has happened, you have a typo somewhere.*
 
 ```{r}
 ficus <- cactus[cactus$species == "Opuntia ficus-indica", ]
@@ -178,7 +180,7 @@ sd_engel
 
 17. Interpret the results from Q15 and Q16. What do they tell us about the width of cactus pads and the distribution of the data?
 
-    *Answer: Opuntia engelmannii* seems to have wider pads on average than *O. ficus-indica*. The *O. ficus-indica* data has a higher standard deviation, meaning that there is more variation in the data points (they are less close to the mean than the *engelmannii* data points).
+    *Answer: (Exmaple) Opuntia engelmannii* seems to have wider pads on average than *O. ficus-indica*. The *O. engelmannii* data also has a higher standard deviation, meaning that there is more variation in the data points (they are less close to the mean than the *ficus* data points).
 
 # Turning in Your Assignment
 

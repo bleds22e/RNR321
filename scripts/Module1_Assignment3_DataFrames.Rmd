@@ -44,7 +44,7 @@ Run the following line of code to create a vector called `counts`.
 counts <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, 72, 65, 64, 70, 63, 65)
 ```
 
-1.  Use the `mean()` function to calculate the mean value of `counts`. Don't modify any additional arguments.
+1.  Use the `mean()` function to calculate the mean value of `counts`. Do not add any arguments beyond the name of the vector.
 
 *Hint: remember to check the answer key!*
 
@@ -52,11 +52,7 @@ counts <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, 72, 65, 64, 
 
 ```
 
-2.  This should yield an odd result caused by the `NA` value in `counts`. To resolve this, use the `help()` function to remind yourself about the argument `na.rm = TRUE` in the `mean()` function.
-
-```{r}
-
-```
+2.  The answer to Q1 should yield an odd result caused by the `NA` value in `counts`. To resolve this, use the `help()` function to remind yourself about the argument `na.rm = TRUE` in the `mean()` function.
 
 Issue a revised command to calculate the mean value in `counts`.
 
@@ -64,7 +60,7 @@ Issue a revised command to calculate the mean value in `counts`.
 
 ```
 
-3.  Write a line of code that selects values less than 66 from the `counts` vector.
+3.  Write a line of code that selects values less than 66 from the `counts` vector. The `NA` values with be included in this vector, which is fine.
 
 ```{r}
 
@@ -97,7 +93,7 @@ For the remainder of the assignment, we will be using the cactus data we collect
 Once you run the code chunk below, the data frame will be saved in your environment as the object `cactus`.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-cactus <- read.csv("all_cactus_data_sp24.csv")
+cactus <- read.csv("CactusPads_Fall2024.csv")
 ```
 
 7.  Take a look at the `cactus` data frame. How many rows does this data frame have? How many columns? You can either use code to figure this out or look at the object in the environment. Explain how you figured it out (e.g., if you looked in the environment, how did you know which number meant what). (2 points)
@@ -110,7 +106,7 @@ cactus <- read.csv("all_cactus_data_sp24.csv")
 
     ```{r}
     # optional space for code to answer the question above
-
+    # please type your explanation in the space above this code chunk, though
     ```
 
 8.  Look at the first 6 rows of data. You can either do this by using a function or by using index sub-setting.
@@ -151,11 +147,13 @@ cactus <- read.csv("all_cactus_data_sp24.csv")
 
 14. Create 2 different data frames: one called `ficus` with only rows that have *Opuntia ficus-indica* in the species column and one called `engel` with only rows which have *Opuntia engelmannii* in the species column. The data frames should have *all* columns.
 
+    *Hint: neither data frame should have 0 rows; if that has happened, you have a typo somewhere.*
+
 ```{r}
 
 ```
 
-15. Calculate the mean pad *width* for each species.
+15. Calculate the mean pad *width* for both *O. engelmannii* and *O. ficus-indica*.
 
 ```{r}
 
