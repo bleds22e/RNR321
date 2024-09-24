@@ -167,7 +167,7 @@ cactus <- read.csv("all_cactus_data_sp24.csv")
 
 ```
 
-17. Interpret the results from Q15 and Q16, comparing and contrasting the two species. What do the results tell us about the depth of cactus pads and the distribution of the data?
+17. Interpret the results from Q15 and Q16, comparing and contrasting the two species. What do the results tell us about the width of cactus pads and the distribution of the data?
 
     *Answer:*
 
