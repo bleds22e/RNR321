@@ -37,7 +37,7 @@ successfully answer the question.
 
 ### Due Date
 
-March 11 by 2 pm MST
+Oct 15 by 1 pm MST
 
 ------------------------------------------------------------------------
 
@@ -80,7 +80,7 @@ question in terms of our data (aka, "big square," "little squares,"
 (c) In Posit Cloud, using the "Upload" button in the lower right-hand
     panel, upload your .csv file.
 (d) In the Files tab in the bottom right-hand corner, check the box next to the .csv file that you just uploaded, then click the "Rename" button (near "Upload").
-(e) Rename your .csv file to "rock_data.csv"
+(e) Rename your .csv file to "SRS_rocks.csv"
 
 ### Important Notes:
 
@@ -109,7 +109,7 @@ Each question is worth 1 point unless otherwise noted.
 rocks <- read.csv("your_file_name_here.csv")
 
 # if your rocks data frame has more than 8 observations (check in the environment), run this line of code:
-na.omit(rocks)
+rocks <- na.omit(rocks)
 ```
 
 6.  Create the object `N`, which is the number of units in your
