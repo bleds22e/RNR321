@@ -79,7 +79,9 @@ question in terms of our data (aka, "big square," "little squares,"
     need to do so using "Save As".
 (c) In Posit Cloud, using the "Upload" button in the lower right-hand
     panel, upload your .csv file.
-(d) In the Files tab in the bottom right-hand corner, check the box next to the .csv file that you just uploaded, then click the "Rename" button (near "Upload").
+(d) In the Files tab in the bottom right-hand corner, check the box next
+    to the .csv file that you just uploaded, then click the "Rename"
+    button (near "Upload").
 (e) Rename your .csv file to "SRS_rocks.csv"
 
 ### Important Notes:
@@ -97,7 +99,6 @@ question in terms of our data (aka, "big square," "little squares,"
 
 Each question is worth 1 point unless otherwise noted.
 
-
 5.  Use the `read.csv()` function from the tidyverse to read in your
     rocks file. Save this data in an object called `rocks`.
 
@@ -113,7 +114,8 @@ rocks <- na.omit(rocks)
 ```
 
 6.  Create the object `N`, which is the number of units in your
-    *sampling frame*. No functions needed; type the number and assign it to `N`.
+    *sampling frame*. No functions needed; type the number and assign it
+    to `N`.
 
 ```{r}
 N <- 
@@ -149,7 +151,6 @@ rocks_median <- median(rocks$abund_dark_stones)
 rocks_median
 ```
 
-
 8.  Create an object called `rocks_mean` that contains the sample mean
     (AKA the mean number of dark stones per sample unit). Follow the
     code example above.
@@ -173,7 +174,8 @@ R doesn't have a function for calculating the standard error (SE), so
 let's calculate it ourselves using the equation from class.
 
 10. First, do you remember that finite population correction factor?
-    Let's create an object called `pop_correction` using that formula.
+    There's no function for it, so let's create an object called
+    `pop_correction` using that formula.
 
     (Hint: use the objects we've already created (`N`, `n`; don't enter
     any numbers directly)
@@ -194,6 +196,8 @@ pop_correction <-
 
     Remember, this is different from the sample variance that you've
     already calculated, but that sample variance is included...
+
+    Again, there is no function, so you'll need to use the equation.
 
 ```{r}
 rocks_var_ybar <- 
@@ -244,7 +248,8 @@ rocks_SE_total <-
     were there in your big square? How much uncertainty is in your
     estimate?
 -   What is your estimate of density of dark rocks (average \# dark
-    rocks per little square)? How much variation is in the number of dark rocks per little square? How uncertain
-    are you of your estimate of the density?
+    rocks per little square)? How much variation is in the number of
+    dark rocks per little square? How uncertain are you of your estimate
+    of the density?
 
 *Answer:*
