@@ -109,7 +109,6 @@ a.
 
 ```{r}
 alpha90 <- 0.1
-alpha90
 
 t90 <- qt(1-(alpha90)/2, df)
 t90

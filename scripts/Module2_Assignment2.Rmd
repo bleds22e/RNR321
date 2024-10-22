@@ -233,7 +233,6 @@ a.  Input the correct value for `alpha90` and then run the code chunk to
 
 ```{r}
 alpha90 <- 
-alpha90
 
 t90 <- qt(1-(alpha90)/2, df)
 t90
