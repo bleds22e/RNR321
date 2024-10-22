@@ -32,7 +32,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-March 25 before lab
+Oct 29 before lab
 
 ------------------------------------------------------------------------
 
@@ -42,7 +42,7 @@ We have been asked to go out and sample for grasshoppers. The location we are sa
 
 1.  In 1-2 sentences, explain why we have chosen stratified random sampling as opposed to simple or systematic? What benefit does it provide us?
 
-    *Answer*: 
+    *Answer*:
 
 ## Part 1: Allocation of Sample Units
 
@@ -93,7 +93,8 @@ We want to use the optimal allocation equation to calculate how many sample unit
 opt_allo_A <-
 opt_allo_B <-
 opt_allo_C <-
-  
+
+# this line of code prints out all of the values   
 opt_allo_A; opt_allo_B; opt_allo_C
 ```
 
@@ -294,10 +295,10 @@ Ok, that was a lot of calculating! Let's summarize and make sure we know what ju
 
 12. Based on our calculations above, answer the following questions with the name of the R object and its corresponding value for each calculation. (2 points)
 
-    a.  the density of grasshoppers per sample unit: 
+    a.  the density of grasshoppers per sample unit:
 
-    b.  total number of grasshoppers in the population: 
+    b.  total number of grasshoppers in the population:
 
-    c.  measure of uncertainty in the density of grasshoppers: 
+    c.  measure of uncertainty in the density of grasshoppers:
 
-    d.  measure of uncertainty in the total \# of grasshoppers: 
+    d.  measure of uncertainty in the total \# of grasshoppers:

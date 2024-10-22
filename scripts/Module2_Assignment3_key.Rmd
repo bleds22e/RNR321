@@ -32,7 +32,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-Oct 24 before lab
+Oct 29 before lab
 
 ------------------------------------------------------------------------
 
