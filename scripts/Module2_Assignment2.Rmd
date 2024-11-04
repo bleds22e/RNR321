@@ -1,5 +1,5 @@
 ---
-title: "Module 2 Assignment 3"
+title: "Module 2 Assignment 2"
 author: "Ellen Bledsoe"   # <- your name here
 date: "`r Sys.Date()`"    # <- date here
 output: pdf_document
@@ -34,7 +34,7 @@ successfully answer the question.
 
 ### Due Date
 
-March 18 before lab
+Oct 22 before lab
 
 ------------------------------------------------------------------------
 
@@ -227,16 +227,12 @@ lowerCI_95
 
 10. What happens when we create 90% CI for the data? Let's calculate
     90% CI. (3 points total)
-
-```{=html}
-<!-- -->
-```
+    
 a.  Input the correct value for `alpha90` and then run the code chunk to
     get the new t-value, `t90`.
 
 ```{r}
 alpha90 <- 
-alpha90
 
 t90 <- qt(1-(alpha90)/2, df)
 t90
@@ -313,6 +309,6 @@ lowerCI_95_PB
 
 16. Compare the ranges of the 95% CI for the PP and the PB data. Which
     estimate of the mean seems to be more accurate, based on size of the
-    confidence intervals? Why do you think that is? (2 points)
+    confidence intervals? Why do you think that is (AKA what value is driving that difference)? (2 points)
 
 *Answer:*
