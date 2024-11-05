@@ -32,7 +32,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-April 8 before lab
+Nov 12 before lab
 
 ------------------------------------------------------------------------
 
@@ -67,7 +67,7 @@ coyote <-
 
 ### Javelina
 
-We are going to calculate naive occupancy and then run occupancy models for the javelina.
+We are going to calculate naive occupancy (where we do not account for a detection probability below 1) and then run occupancy models for the javelina.
 
 #### Naive Occupancy
 
@@ -211,8 +211,7 @@ coyote_models <-
 18. Write 3-4 sentences comparing the javelina and coyote populations that we surveyed. Address the following points. (2 points)
 
     -   Which species has higher occupancy?
-    -   Which species has higher detectability?
-    -   In your answer, be sure to explain the difference between detection probability and occupancy.
+    -   Both species have similar detection probabilities. Explain what it means for species to have similar detection probabilities but very different occupancies.
     -   Speculate what could be driving the differences between the two species (I don't expect you to know, but you should put forward an educated guess that fits with your answers above)\
         \
         *Answer:*
