@@ -58,7 +58,7 @@ Load in the package we will need to use.
 
 ```
 
-Using the `read_csv()` function, read in the two data sets we will use. One is for javelina and the other is for coyotes. Create objects containing these two data sets called `javelina` and `coyote`, respectively.
+Using the `read.csv()` function, read in the two data sets we will use. One is for javelina and the other is for coyotes. Create objects containing these two data sets called `javelina` and `coyote`, respectively.
 
 ```{r}
 javelina <- 
