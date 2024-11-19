@@ -8,6 +8,7 @@ output: pdf_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
 # Distance Sampling
 
 ## Assignment Details
@@ -31,7 +32,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-April 22 at 2pm MST
+November 26 at 1 pm MST
 
 ------------------------------------------------------------------------
 
@@ -70,7 +71,7 @@ We will use the saguaro data for our first analyses.
 
 ### Data Preparation
 
-1.  Make a data frame with transect length (i.e., survey effort). Call this `transect_saguaro`. There are 10 groups. Set the length of the transect (the length_m column) to the mean of the length column from the saguaro dataframe (mean(saguaro$length)).
+1.  Make a data frame with transect length (i.e., survey effort). Call this `transect_saguaro`. There are 10 groups. Set the length of the transect (the `length_m` column) to the mean of the length column from the saguaro dataframe (`mean(saguaro\$length)`).
 
 ```{r}
 transect_saguaro <- 
@@ -89,7 +90,7 @@ trunc <-
 distance_bins <- 
 ```
 
-4.  Use unmarked function `formatDistData` to count the number of detections in each distance bin for each transect. Save this as an object called `sag_data`. Ignore the *warning* message (but if you get an *error* message, that is different!).
+4.  Use unmarked function `formatDistData` to count the number of saguaros in each distance bin for each transect. Save this as an object called `sag_data`. Ignore the *warning* message (but if you get an *error* message, that is different!).
 
 ```{r}
 sag_data <- 
@@ -103,7 +104,7 @@ UMF_sag <-
 
 ### Models
 
-6.  Use the `distsamp` function to create 4 models: half-normal (HN), hazard rate (HR), uniform (Unif), and negative exponential (Exp). 
+6.  Use the `distsamp` function to create 4 models: half-normal (HN), hazard rate (HR), uniform (Unif), and negative exponential (Exp). Make sure you are referencing the correct dataframe.
 
 ```{r}
 HN_sag   <- 
@@ -112,29 +113,30 @@ Unif_sag <-
 Exp_sag  <- 
 ```
 
-7. Assemble models into a list to compare their AIC values. Identify the top model from this list (HN or HR or Unif or Exp), which you'll use below.
+7.  Assemble models into a list to compare their AIC values. Identify the top model from this list (HN or HR or Unif or Exp), which you'll use below.
 
 ```{r}
 models <- 
 ```
 
-8. Which model should we use? Why? 
+8.  Which model should we use? Why?
 
-    *Answer:* 
+    *Answer:*
 
 ### Parameter Estimates
 
-9. Use the `backTransform()` function to calculate the density estimate. On the next line, calculate the 95% confidence intervals.
+9.  Use the `backTransform()` function to calculate the density estimate. On the next line, calculate the 95% confidence intervals.
 
 ```{r}
 
 ```
+
 10. Write 2-3 sentences addressing the following questions. (2 points)
 
 -   What is "D hat", the estimated density of saguaros? What about the confidence intervals?
 -   If we had calculated a density estimate using just our data and not our detection function, would we have under- or over-estimated the density of saguaros? Why?
 
-*Answer:* 
+*Answer:*
 
 ## Ocotillos
 
@@ -175,14 +177,13 @@ UMF_oco <-
 
 ### Models
 
-16. Let's go ahead and use the half-normal model again for ocotillos (it also has the lowest AIC value). Write a line of code to fit the half-normal model to the ocotillo data.
+16. Let's go ahead and use the half-normal model for ocotillos (it also has the lowest AIC value). Write a line of code to fit the half-normal model to the ocotillo data.
 
 ```{r}
 HN_oco <- 
 ```
 
-
-17. Using the `HN_coc` model, calculate the density estimate and confidence intervals for ocotillos. 
+17. Using the `HN_coc` model, calculate the density estimate and confidence intervals for ocotillos.
 
 ```{r}
 
@@ -192,6 +193,6 @@ HN_oco <-
 
 We've done a lot of calculations just to get to this point!
 
-18. Which has the higher density per hectare: saguaros or ocotillos? How do you know?  (2 points)
+18. Which has the higher density per hectare: saguaros or ocotillos? How do you know? (2 points)
 
-*Answer:* 
+*Answer:*

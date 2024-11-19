@@ -22,7 +22,7 @@ library(unmarked) # Load unmarked
 We also need to load our data. I've compiled it for you already, and it should be in your list of files, called `Distance_Data_Spring2024.csv`.
 
 ```{r}
-beads <- read.csv("../../../../ebledsoe@arizona.edu - Google Drive/My Drive/UArizona/Teaching/RNR321/2024_spring/Labs/Distance_Data_Spring2024.csv")
+beads <- read.csv("../data_raw/Distance_Data_Fall2024.csv")
 ```
 
 Before we begin any analyses, let's make sure our data looks alright.
@@ -47,7 +47,7 @@ clear <- beads[beads$BeadColor == "Clear", ]
 green <- beads[beads$BeadColor == "Green", ]
 ```
 
-Take a look at the environment to see how many rows the `clear` and `green` data frames have. The `green` data frame has nearly double the observations as the `clear`. Is that expected? Why or why not?
+Take a look at the environment to see how many rows the `clear` and `green` data frames have. The `green` data frame has more observations than the `clear`. Is that expected? Why or why not?
 
 ## Green Beads
 
@@ -58,8 +58,10 @@ The first thing we need to do is to get a data frame that includes the length of
 Simply based on how the data is structured (survey length column, so every value has the same survey length), the easiest way to get the survey length is by taking the mean or median of the length for each group.
 
 ```{r}
-transect_length <- data.frame(group_id = 1:8,
-                              length_m = mean(green$Transect_m))
+# create a data frame that has a column for each group id and a column for the length that each group surveyed. in our case, the length is the same.
+transect_length <- data.frame(group_id = 1:10,
+                              length_m = 37)
+transect_length
 ```
 
 Let's check out our distribution of detection distances. We can use the `hist()` function to do this.
@@ -72,7 +74,7 @@ Based on the histogram, I'll suggest we truncate at 2.5 m. Let's set this value 
 
 ```{r}
 # Set truncation distance to eliminate extreme observations
-trunc <- 2.5
+trunc <- 3
 ```
 
 We can set "cut points" for distance bins; in our case, we want every half meter.
@@ -80,7 +82,7 @@ We can set "cut points" for distance bins; in our case, we want every half meter
 This line of code creates a vector that will have values every half meter (`by = 0.5`), starting at 0 and running through the value we set for truncation (`trunc`).
 
 ```{r}
-distance_bins <- seq(0, trunc, by = 0.5) 
+distance_bins <- seq(0, trunc, by = 0.25) 
 ```
 
 ## `unmarked` Data Prep
@@ -90,9 +92,10 @@ As we've seen before, the `unmarked` package likes to have data set up in a very
 To get our detection functions and density estimates, we will use the `formatDistData` to get the data into the correct format.
 
 ```{r}
-green_data <- formatDistData(distData = green,         # data frame
+# create an unmarked data frame
+green_data <- formatDistData(distData = green,         # data frame with the data points
                         distCol = "Distance_m",        # column that holds the distance values
-                        transectNameCol = "Group",   # column that holds the transect groups
+                        transectNameCol = "GroupID",     # column that holds the transect groups
                         dist.breaks = distance_bins)   # vector of distance groupings
 green_data
 ```
@@ -170,7 +173,7 @@ To see how close our estimate was to the actual number of beads we put outside (
 
 ```{r}
 # Current density estimate:
-# D-hat = 7981.5 / ha
+density_est <- density@estimate
 
 # Our survey area = 10 x 15 m 
 area <- 15 * mean(beads$Transect_m) # 480 m^2
@@ -183,7 +186,7 @@ ha <- 100 * 100 # 10,000 m^2
 density_est * area/ha
 ```
 
-Maddie and I put out 150 green beads, so this is pretty good!
+I put out 150 green beads, so this is pretty good!
 
 ## Clear Beads
 
@@ -194,7 +197,7 @@ hist(clear$Distance_m) # keep distance bins the same
 
 clear_data <- formatDistData(distData = clear,         # data frame
                         distCol = "Distance_m",        # column that holds the distance values
-                        transectNameCol = "Group",   # column that holds the transect groups
+                        transectNameCol = "GroupID",   # column that holds the transect groups
                         dist.breaks = distance_bins)   # vector of distance groupings
 
 UMF_clear <- unmarkedFrameDS(y = as.matrix(clear_data),
@@ -207,7 +210,7 @@ HNc   <- distsamp(~1 ~1, UMF_clear, keyfun = "halfnorm", output = "density", uni
 hist(HNc)
 
 # Exponential model
-d_hat <- backTransform(HNc, type = "state")@estimate  # 5719.2
+d_hat <- backTransform(HNc, type = "state")@estimate  # 1890.2
 d_hat
 
 exp(confint(HNc, type = "state"))

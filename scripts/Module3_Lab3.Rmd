@@ -19,7 +19,7 @@ We need to load the package we will need to complete this lab, which is `unmarke
 
 ```
 
-We also need to load our data. I've compiled it for you already, and it should be in your list of files, called `Distance_Data_Fall2023.csv`.
+We also need to load our data. I've compiled it for you already, and it should be in your list of files, called `Distance_Data_Spring2024.csv`.
 
 ```{r}
 
@@ -110,6 +110,7 @@ Now that our data is in the correct format for `unmarked`, we can use the `dists
 Our options for the `unitsOut` argument is either hectares (ha) or kilomenter (km). We will use hectares. This means that the density we calculate will be the density of beads per hectare.
 
 ```{r}
+# UMF_green is the unmarked data frame for the green beads
 HN   <- distsamp(~1 ~1, UMF_green, keyfun = "halfnorm", output = "density", unitsOut = "ha")
 HR   <- distsamp(~1 ~1, UMF_green, keyfun = "hazard", output = "density", unitsOut = "ha")
 Unif <- distsamp(~1 ~1, UMF_green, keyfun = "uniform", output = "density", unitsOut = "ha")
@@ -178,7 +179,7 @@ ha <- 100 * 100 # 10,000 m^2
 density_est * area/ha
 ```
 
-Maddie and I put out 50 green beads, so this is...kind of accurate? But certainly not great. Why might that be?
+I put out 150 green beads, so this is...kind of accurate? But certainly not great. Why might that be?
 
 ## Clear Beads
 
@@ -201,7 +202,7 @@ UMF_clear <- unmarkedFrameDS(y = as.matrix(clear_data),
 HNc   <- distsamp(~1 ~1, UMF_clear, keyfun = "halfnorm", output = "density", unitsOut = "ha")
 hist(HNc)
 
-# Exponential model
+# half normal model
 backTransform(HNc, type = "state")  # 5719.2
 exp(confint(HNc, type = "state"))
 
@@ -215,5 +216,5 @@ esw
 # Abundance Estimate
 # D-hat * area/ha
 area <- 2 * esw * 15
-5719.2 * area/ha # <- actual value was 50
+5719.2 * area/ha # <- actual value was 150
 ```
