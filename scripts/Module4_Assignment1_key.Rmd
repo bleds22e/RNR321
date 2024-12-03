@@ -51,36 +51,37 @@ library(vegan)
 For this section of the assignment, we are going to use a survey x species matrix for trail cameras along the Santa Cruz River.
 
 ```{r}
-insects <- read.csv("../data_raw/SCR_camera_data.csv")
+scr <- read.csv("../data_raw/SCR_camera_data.csv")
 ```
 
 1.  First, use the `specaccum()` function to prep the data for the species accumulation curve model.
 
 ```{r}
-insects_sac <- specaccum(insects)
+# A warning is fine!
+scr_sac <- specaccum(scr)
 ```
 
 2.  Next, fit a species accumulation model to the data.
 
 ```{r}
-insects_sac_fit <- fitspecaccum(insects_sac, model = "asymp")
+scr_sac_fit <- fitspecaccum(scr_sac, model = "asymp")
 ```
 
 3.  What is the predicted asymptote for this data?
 
 ```{r}
-coef(insects_sac_fit)
+coef(scr_sac_fit)
 ```
 
 4.  Let's plot species accumulation curve model.
 
 ```{r}
-plot(insects_sac_fit)
+plot(scr_sac_fit)
 ```
 
 5.  Based on the predicted asymptote, the number of species we have in the dataset, and the plot you just made, what can we conclude? (2 points)
 
-*Answer:*
+*Answer: We have not done enough sampling to find all of the species likely present in the community, since our dataset only has 25 species and our curve has not yet reached the asymptote (32.8)*
 
 ## Species Richness and Diversity Indices
 
@@ -145,13 +146,13 @@ total_comm2 <- sum(comm2$individuals)
 comm2$prop <- comm2$individuals / total_comm2
 comm2$ln_prop <- log(comm2$prop)
 comm2$prop_lnprop <- comm2$prop * comm2$ln_prop
-H_comm2 <- sum(comm2$prop_lnprop * -1)
+H_comm2 <- sum(comm2$prop_lnprop) * -1
 H_comm2
 ```
 
 13. Which community is more diverse, according the the Shannon Diversity Index? How do you know? (2 points)
 
-*Answer:*
+*Answer: Community 2 has the higher value and is therefore considered more diverse*
 
 ### Simpson Diversity Index
 
@@ -178,6 +179,6 @@ D2 = 1 - sum(comm2$prop_sq)
 D2
 ```
 
-17. Do the values you've calculated for the Simpson Index corroborate your answer for which community is more diverse? Why or why not? (2 points)
+17. Do the values you've calculated for the Simpson Index corroborate your answer for which community is more diverse? Why or why not? Does this correspond to the community to the highest richness? (2 points)
 
-*Answer:*
+*Answer: Yes, the Simpson's index corroborates the Shannon index in terms of diversity–Community 2 has the higher value in both cases, meaning it is the more diverse. This is different from species richness, however, in that Community 1 has higher richness.*
