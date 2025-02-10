@@ -1,0 +1,346 @@
+---
+title: "Equation Sheet for Final Exam"
+output: github_document
+date: "2024-12-11"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Originally created by Jordan Stapley (12/11/2024)
+Modified by Ellen Bledsoe (12/16/2024)
+
+# Simple Random Sample
+
+Index:
+
+n = Number of sampled units N = total number of units sampled y_bar = sample mean s\^2 = sample varience mu (µ) = population mean sigma = population variance s = std dev SE = std err s(y_bar) = std error of the mean tau = population total tau_hat = estimate parameter T = population total
+
+```{r}
+
+data <- c(1,2,3,4)
+
+##Sample mean (y_bar)
+y_bar <- mean(data)
+
+##Sample Variance (s^2)
+s_2 <- var(data)
+
+#Standard Std. Dev. (s)
+s <- sd(data)
+
+#Variance of estimate of the mean (var_y_bar)
+N <- 
+n <- 
+k <- N/n
+
+#If N is known 
+
+var_y_bar <- ((N-n)/N)*(s_2/n)
+
+#If N is unknown 
+
+var_y_bar <- (s_2/n)  
+
+#Std error of mean
+
+#N is known
+se_y_bar <-  sqrt(var_y_bar)
+
+#N is unknown
+se_y_bar <- sqrt(var_y_bar)
+
+#Finite poulation correction 
+((N-n)/N)
+
+#Estimate of population total (tau_hat)
+
+tau_hat = N*y_bar
+
+#Variance of the estimate population total (var_tau_hat)
+
+var_tau_hat <- (N^2) * (var_y_bar) 
+
+#std error of population total
+
+se_tau <- sqrt(var_tau_hat)
+
+```
+
+## Confidence Intervals
+
+```{r}
+#Alpha value 
+
+alpha95 <- 0.05
+alpha90 <- 0.10
+
+#degrees of freedom 
+
+df <- (n-1)
+
+#t-value
+
+t95 <- qt(1-(alpha95)/2, df)
+t90 <- qt(1-(alpha90)/2, df)
+
+#half width 
+
+halfwidth_95 <- (t95*se_y_bar)
+halfwidth_90 <- (t90*se_y_bar)
+
+#Upper and lower CI
+
+upperCI_95 <- y_bar + halfwidth_95
+lowerCI_95 <- y_bar - halfwidth_95
+upperCI_95
+lowerCI_95
+
+#CI for an estimate of population total (tau_hat)
+halfwidth_95 <- (t95*se_tau_hat)
+halfwidth_90 <- (t90*se_tau_hat)
+
+upperCI_95 <- tau_hat + halfwidth_95
+lowerCI_95 <- tau_hat - halfwidth_95
+upperCI_95
+lowerCI_95
+```
+
+## Stratified Random Sampling
+
+Index:
+
+-   L = Number of strata
+-   N_i = Number of sample units in stratum i
+
+```{r}
+# Total Number of sample units in sampling frame
+N <- 
+  
+#Total number of sample units in sample
+n <- 
+
+#Sampling Units per stratum
+N_A <- 
+N_B <- 
+N_C <- 
+  
+#Std Dev for each stratum 
+sd_A <- 
+sd_B <- 
+sd_C <- 
+  
+#Cost/time
+cost_A <- 
+cost_B <- 
+cost_C <- 
+
+
+#Optimal Allocation**
+  
+opt_allo_A <- ((N_A*sd_A)/sqrt(cost_A))
+opt_allo_B <- ((N_B*sd_B)/sqrt(cost_B))
+opt_allo_C <- ((N_C*sd_C)/sqrt(cost_C))
+
+# this line of code prints out all of the values   
+opt_allo_A; opt_allo_B; opt_allo_C
+  
+opt_allo_total <- opt_allo_A+opt_allo_B+opt_allo_C
+opt_allo_total
+  
+#Optimal units to sample
+
+n_A <- round(n*(opt_allo_A / (opt_allo_total)), digits = 0)
+n_B <- round(n*(opt_allo_B / (opt_allo_total)), digits = 0)
+n_C <- round(n*(opt_allo_C / (opt_allo_total)), digits = 0)
+  
+n_A; n_B; n_C
+
+```
+
+### Estimates per Stratum
+
+```{r}
+# Estimates per Stratum
+
+mean_A <- mean(stratumA$abund)
+mean_B <- mean(stratumB$abund)
+mean_C <- mean(stratumC$abund)
+  
+mean_A; mean_B; mean_C
+
+
+tau_hat_A <- N_A * mean_A
+tau_hat_B <- N_B * mean_B
+tau_hat_C <- N_C * mean_C
+  
+tau_hat_A; tau_hat_B; tau_hat_C
+
+var_A <-var(stratumA$abund)
+var_B <-var(stratumB$abund)
+var_C <-var(stratumC$abund)
+  
+var_A; var_B; var_C
+
+```
+
+### Uncertainity per Stratum
+
+```{r}
+pop_correction_A <- (N_A - n_A)/N_A
+pop_correction_B <- (N_B - n_B)/N_B
+pop_correction_C <- (N_C - n_C)/N_C
+
+var_y_bar_A <- (pop_correction_A)*(var_A/n_A)
+var_y_bar_B <- pop_correction_B*(var_B/n_B)
+var_y_bar_C <- pop_correction_C*(var_C/n_C)
+  
+var_y_bar_A; var_y_bar_B; var_y_bar_C
+```
+
+### Variance of the Estimate of the Total (var_tau_hat)
+
+```{r}
+var_tau_hat_A <- N_A^2 * var_y_bar_A
+var_tau_hat_B <- N_B^2 * var_y_bar_B
+var_tau_hat_C <- N_C^2 * var_y_bar_C
+  
+var_tau_hat_A; var_tau_hat_B; var_tau_hat_C
+```
+
+## Overall Calculations: Stratified Sampling
+
+Total Abundance
+
+```{r}
+tau_hat <- tau_hat_A + tau_hat_B + tau_hat_C
+tau_hat
+```
+
+Variance of total abundance estimate
+
+```{r}
+var_tau_hat <- var_tau_hat_A + var_tau_hat_B + var_tau_hat_C
+var_tau_hat
+```
+
+Overall Mean
+
+```{r}
+## Overall Population mean 
+
+y_bar <- tau_hat/(N)
+y_bar
+```
+
+Overall Variance of Estimate of the Mean
+
+```{r}
+var_y_bar <- var_tau_hat/(N^2)
+var_y_bar
+
+```
+
+
+# Imperfect Sampling
+
+C = Count p = detection probabilty tau = true abudnce
+
+tau_hat = estimated abundance p_hat = estimated detection probability
+
+```{r}
+# Canonical Abundance Estimator
+
+C <- 
+p_hat <- 
+tau <- 
+alpha <- #n/N
+
+tau_hat <- C/p_hat
+tau_hat
+
+```
+
+## Occupancy
+
+Units: S = number of sites in hte sample S_D = Number of sites where species was detected at least once K = Number of surveys per site psi = occupancy pi_j = probability that the species is detected at site i during survey j if the species is truly present
+
+## Abundance
+
+### Capture-Mark-Recapture
+
+tau_hat = estimated abundance c1 = number of individuals of individuals captures and amrked in first sample c2 = Number of indiviuals captured in second sample (Marked + Unmarked) r2 = Number of indiviuals captured in second sample that were previously unmarked
+
+```{r}
+## Lincoln Peterson 
+c1 <- 
+c2 <- 
+r2 <- 
+
+tau_hat <- ((c1*c2)/r2)
+tau_hat
+
+det_prob <- r2 / c1
+det_prob
+
+```
+
+### Constant-Effort Removal
+
+```{r}
+##Removal methods 
+c1 <- 
+c2 <- 
+  
+tau_hat <- (c1^2) / (c1-c2)
+tau_hat
+  
+SE_t_hat <- ((c1*c2)*(sqrt(c1 + c2))) / ((c1-c2)^2)
+SE_t_hat
+```
+
+### Catch per Unit Effort (CPUE)
+
+```{r}
+y <- 
+x <- 
+k <- 
+tau_hat <- x + (y / -k)
+tau_hat
+```
+
+## Density
+
+```{r}
+##Distance Sampling -- Density
+
+C <- 
+w <- 
+l <- 
+
+D_hat <- ((C)/(2*w*l))
+D_hat
+```
+
+## Species Diversity
+
+```{r}
+# Shannon Index
+data1 <- c(1,2,3,4 )
+total <- sum(data1)
+prop <- data1/total
+ln_prop <-  log(prop)
+lnprop_prop <- prop * ln_prop
+H <- sum(lnprop_prop) * -1 
+H
+
+# Simpson Index
+data1 <- c(1,2,3,4 )
+total <- sum(data1)
+prop <- data1/total
+prop2 <-  prop^2
+D <- 1 - sum(prop2)
+D
+
+```
