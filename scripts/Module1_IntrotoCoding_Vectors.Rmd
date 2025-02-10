@@ -90,6 +90,7 @@ Write some code that calculates the sum of the `weight_kg` object and the `heigh
 ```{r}
 
 ```
+When you've finished that, start working on Questions 5 & 6 in the assignment.
 
 ## Vectors
 
@@ -112,6 +113,9 @@ Vectors can only be one data type. Let's experiment with that.
 ```{r}
 
 ```
+#### Let's Practice!
+
+Start working on Questions 7-10 in the assignment.
 
 ### Sub-setting by Index
 
@@ -152,3 +156,5 @@ If you've finished that task, try to get the same result using *conditional* sub
 ```{r}
 
 ```
+
+Once you've completed this task, work on Questions 11-20 on the assignment. Don't forget to go back to Questions 1-4 before you turn it in!

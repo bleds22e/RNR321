@@ -1,12 +1,121 @@
-﻿group_id,group_members,temp_C,wind_speed_mph,species,size
-5,Lou Bellinghausen Alec Young Jonathan Carson,50.9,0,Opuntia ficus-indica,Large
-8,"Maddy Wlatawski, Julia OLson, Easton Thatcher",50.4,0.7,Opuntia engelemannii,Medium
-1,fonzo dakota danielle ,47,0.7,Opuntia ficus-indica,Large
-4,Lillian Jennifer Sylvie,49.2,0,Opuntia ficus-indica,Large
-7,Canon Victoria Kate Nikki,51.9,1,Opuntia santa-rita,Large
-3,"Audrey, Tamara, Jackie",51.3,0.8,Opuntia ficus-indica,Large
-6,"ayah elfaki, Nathan Pimenta, Brandon Vega, Tyler Routt",50.9,0.7,Opuntia ficus-indica,Large
-9,"Cierra, Alex, Ava",51.8,0.8,Opuntia engelemannii,Small
-10,"Elliot, Morgan, Malacya, Isabelle",52.3,0,Opuntia engelemannii,Large
-2,"Cy, Emily, Matthew",49.1,0,Opuntia ficus-indica,Large
-11,"Maddie, Charlotte, Kiersee",49.5,1.7,Opuntia engelemannii,Small
+group_id,paddle_id,length_in,width_in,depth_in,spines,insects,damage,location,group_members,temp_F,species,size
+1,1,12.5,8.5,0.5,Y,Y,Some,Fourth,"Emilio Reyes,Megan Melendez,Paige Fuss, Madison Tani",61,Opuntia engelemannii,Medium
+1,2,12.3,8,0.5,Y,Y,Some,Fifth,"Emilio Reyes,Megan Melendez,Paige Fuss, Madison Tani",61,Opuntia engelemannii,Medium
+1,3,14.5,11,0.7,Y,Y,Some,Fifth,"Emilio Reyes,Megan Melendez,Paige Fuss, Madison Tani",61,Opuntia engelemannii,Medium
+1,4,10.5,7,0.75,Y,Y,Some,Fourth,"Emilio Reyes,Megan Melendez,Paige Fuss, Madison Tani",61,Opuntia engelemannii,Medium
+1,5,8.5,6.5,0.2,Y,Y,Some,Fourth,"Emilio Reyes,Megan Melendez,Paige Fuss, Madison Tani",61,Opuntia engelemannii,Medium
+1,6,14,13,1.2,Y,N,Some,Third,"Emilio Reyes,Megan Melendez,Paige Fuss, Madison Tani",61,Opuntia engelemannii,Medium
+1,7,12,14,2,Y,Y,Some,First,"Emilio Reyes,Megan Melendez,Paige Fuss, Madison Tani",61,Opuntia engelemannii,Medium
+1,8,9,7.5,1,Y,Y,Some,Third,"Emilio Reyes,Megan Melendez,Paige Fuss, Madison Tani",61,Opuntia engelemannii,Medium
+1,9,15,11.7,1.2,Y,Y,Some,Third,"Emilio Reyes,Megan Melendez,Paige Fuss, Madison Tani",61,Opuntia engelemannii,Medium
+1,10,12.8,10,0.9,Y,Y,Some,Fourth,"Emilio Reyes,Megan Melendez,Paige Fuss, Madison Tani",61,Opuntia engelemannii,Medium
+2,1,11,8,1,Y,N,None,Third,"Rian Wright, Noah Jensen, Malachi McCardll, Aubrey Moore",61,Opuntia engelemannii,Small
+2,2,10.5,7,0.75,Y,N,None,Third,"Rian Wright, Noah Jensen, Malachi McCardll, Aubrey Moore",61,Opuntia engelemannii,Small
+2,3,10.75,8,0.75,Y,N,None,Fourth,"Rian Wright, Noah Jensen, Malachi McCardll, Aubrey Moore",61,Opuntia engelemannii,Small
+2,4,13,9,0.5,Y,N,None,First,"Rian Wright, Noah Jensen, Malachi McCardll, Aubrey Moore",61,Opuntia engelemannii,Small
+2,5,14,9,0.75,Y,N,None,First,"Rian Wright, Noah Jensen, Malachi McCardll, Aubrey Moore",61,Opuntia engelemannii,Small
+2,6,11.5,9,0.5,Y,N,None,Second,"Rian Wright, Noah Jensen, Malachi McCardll, Aubrey Moore",61,Opuntia engelemannii,Small
+2,7,11.5,9.5,0.5,Y,N,None,First,"Rian Wright, Noah Jensen, Malachi McCardll, Aubrey Moore",61,Opuntia engelemannii,Small
+2,8,10,6.5,0.75,Y,N,None,Third,"Rian Wright, Noah Jensen, Malachi McCardll, Aubrey Moore",61,Opuntia engelemannii,Small
+2,9,12,7.5,1,Y,N,None,Second,"Rian Wright, Noah Jensen, Malachi McCardll, Aubrey Moore",61,Opuntia engelemannii,Small
+2,10,11,9.5,0.75,Y,Y,None,Fourth,"Rian Wright, Noah Jensen, Malachi McCardll, Aubrey Moore",61,Opuntia engelemannii,Small
+3,1,7.5,6,0.25,Y,N,Some,Fourth,"Grace, Emily, Chloe, Harvey",61,Opuntia santa-rita,Large
+3,2,6.5,5,0.5,N,N,Most,Fifth,"Grace, Emily, Chloe, Harvey",61,Opuntia santa-rita,Large
+3,3,4.5,4,0.5,Y,Y,Some,Sixth,"Grace, Emily, Chloe, Harvey",61,Opuntia santa-rita,Large
+3,4,4.5,3.75,0.25,Y,N,Some,Seventh,"Grace, Emily, Chloe, Harvey",61,Opuntia santa-rita,Large
+3,5,4,4.5,0.5,N,N,Some,Sixth,"Grace, Emily, Chloe, Harvey",61,Opuntia santa-rita,Large
+3,6,4,5,0.75,N,Y,Some,First,"Grace, Emily, Chloe, Harvey",61,Opuntia santa-rita,Large
+3,7,2.5,2.5,0.75,N,N,Some,Seventh,"Grace, Emily, Chloe, Harvey",61,Opuntia santa-rita,Large
+3,8,2.5,3,0.5,N,Y,Some,Sixth,"Grace, Emily, Chloe, Harvey",61,Opuntia santa-rita,Large
+3,9,5,4.5,0.3,N,N,Some,Eigth,"Grace, Emily, Chloe, Harvey",61,Opuntia santa-rita,Large
+3,10,7.5,6,0.75,Y,Y,Some,Second,"Grace, Emily, Chloe, Harvey",61,Opuntia santa-rita,Large
+4,1,13,11.25,1.5,Y,N,Some,Second,"Elayna Filippone, Annabel Ivey, Savannah Barnes",61,Opuntia engelemannii,Large
+4,2,14.5,10.6,0.75,Y,N,Some,Third,"Elayna Filippone, Annabel Ivey, Savannah Barnes",61,Opuntia engelemannii,Large
+4,3,10.5,7,0.5,Y,N,Some,Fourth,"Elayna Filippone, Annabel Ivey, Savannah Barnes",61,Opuntia engelemannii,Large
+4,4,12,8.5,0.5,Y,N,None,Fifth,"Elayna Filippone, Annabel Ivey, Savannah Barnes",61,Opuntia engelemannii,Large
+4,5,13,9,0.5,N,N,All,Tenth,"Elayna Filippone, Annabel Ivey, Savannah Barnes",61,Opuntia engelemannii,Large
+4,6,14.75,12.5,1.25,Y,N,Some,Eleventh,"Elayna Filippone, Annabel Ivey, Savannah Barnes",61,Opuntia engelemannii,Large
+4,7,10.75,7,0.5,Y,N,None,Twelfth,"Elayna Filippone, Annabel Ivey, Savannah Barnes",61,Opuntia engelemannii,Large
+4,8,11,7.75,0.5,Y,N,None,Thirteenth,"Elayna Filippone, Annabel Ivey, Savannah Barnes",61,Opuntia engelemannii,Large
+4,9,14.25,10,0.75,N,N,Most,Sixteenth,"Elayna Filippone, Annabel Ivey, Savannah Barnes",61,Opuntia engelemannii,Large
+4,10,10.75,6.5,0.4,Y,Y,None,Eighteenth,"Elayna Filippone, Annabel Ivey, Savannah Barnes",61,Opuntia engelemannii,Large
+5,1,8.5,4.5,0.5,N,Y,Some,Third,"Delaney Jacobs, Katherine Meade, Isobel Manar-Fike",61,Opuntia ficus-indica,Large
+5,2,7.5,4.5,0.5,N,N,None,Third,"Delaney Jacobs, Katherine Meade, Isobel Manar-Fike",61,Opuntia ficus-indica,Large
+5,3,10,5,0.5,N,Y,Most,Fourth,"Delaney Jacobs, Katherine Meade, Isobel Manar-Fike",61,Opuntia ficus-indica,Large
+5,4,12,6.5,0.5,N,Y,Most,Sixth,"Delaney Jacobs, Katherine Meade, Isobel Manar-Fike",61,Opuntia ficus-indica,Large
+5,5,8.5,4.5,0.25,N,N,None,Fifth,"Delaney Jacobs, Katherine Meade, Isobel Manar-Fike",61,Opuntia ficus-indica,Large
+5,6,9.5,5,0.5,N,N,None,Sixth,"Delaney Jacobs, Katherine Meade, Isobel Manar-Fike",61,Opuntia ficus-indica,Large
+5,7,10,6.5,0.5,N,N,None,Sixth,"Delaney Jacobs, Katherine Meade, Isobel Manar-Fike",61,Opuntia ficus-indica,Large
+5,8,7.5,4,0.5,N,Y,Most,Sixth,"Delaney Jacobs, Katherine Meade, Isobel Manar-Fike",61,Opuntia ficus-indica,Large
+5,9,3.5,3,0.5,N,Y,Most,Seventh,"Delaney Jacobs, Katherine Meade, Isobel Manar-Fike",61,Opuntia ficus-indica,Large
+5,10,8,3,0.25,N,N,None,Eigth,"Delaney Jacobs, Katherine Meade, Isobel Manar-Fike",61,Opuntia ficus-indica,Large
+6,1,9,4.8,0.4,N,N,None,Seventh,"Kaitlyn Schweighart, Oskar Anderson, Renae Schmucker",61,Opuntia ficus-indica,Large
+6,2,12.7,8.6,3.2,N,N,Some,Seventh,"Kaitlyn Schweighart, Oskar Anderson, Renae Schmucker",61,Opuntia ficus-indica,Large
+6,3,6.5,3.2,0.5,N,N,Some,Twelfth,"Kaitlyn Schweighart, Oskar Anderson, Renae Schmucker",61,Opuntia ficus-indica,Large
+6,4,8.75,5.5,0.75,N,N,Some,Eleventh,"Kaitlyn Schweighart, Oskar Anderson, Renae Schmucker",61,Opuntia ficus-indica,Large
+6,5,7.5,4.5,1.75,N,N,Some,Fifth,"Kaitlyn Schweighart, Oskar Anderson, Renae Schmucker",61,Opuntia ficus-indica,Large
+6,6,10.5,4.75,0.5,N,N,Most,Eigth,"Kaitlyn Schweighart, Oskar Anderson, Renae Schmucker",61,Opuntia ficus-indica,Large
+6,7,11,8.9,1.25,N,N,Some,Ninth,"Kaitlyn Schweighart, Oskar Anderson, Renae Schmucker",61,Opuntia ficus-indica,Large
+6,8,10.57,6.25,0.5,N,N,Some,Eigth,"Kaitlyn Schweighart, Oskar Anderson, Renae Schmucker",61,Opuntia ficus-indica,Large
+6,9,9.5,7,0.5,N,N,Some,Eleventh,"Kaitlyn Schweighart, Oskar Anderson, Renae Schmucker",61,Opuntia ficus-indica,Large
+6,10,8,3.9,0.9,N,N,Some,Seventh,"Kaitlyn Schweighart, Oskar Anderson, Renae Schmucker",61,Opuntia ficus-indica,Large
+7,1,14.1,8,0.6,N,N,Some,Second,"Cameron, Seanna, Maddie",61,Opuntia ficus-indica,Large
+7,2,10.5,6.4,0.4,N,Y,None,Fifth,"Cameron, Seanna, Maddie",61,Opuntia ficus-indica,Large
+7,3,11.3,5,0.3,N,N,None,Third,"Cameron, Seanna, Maddie",61,Opuntia ficus-indica,Large
+7,4,10.5,6.9,0.5,N,Y,Some,Fourth,"Cameron, Seanna, Maddie",61,Opuntia ficus-indica,Large
+7,5,11.8,7.5,0.6,N,Y,Most,Third,"Cameron, Seanna, Maddie",61,Opuntia ficus-indica,Large
+7,6,8.5,4.4,0.3,N,Y,Some,Sixth,"Cameron, Seanna, Maddie",61,Opuntia ficus-indica,Large
+7,7,8.2,4,1.3,Y,N,None,Sixth,"Cameron, Seanna, Maddie",61,Opuntia ficus-indica,Large
+7,8,11.1,7.9,0.6,Y,N,Some,Fourth,"Cameron, Seanna, Maddie",61,Opuntia ficus-indica,Large
+7,9,13.6,7.1,0.6,N,N,None,Sixth,"Cameron, Seanna, Maddie",61,Opuntia ficus-indica,Large
+7,10,9.2,4.3,0.6,N,Y,Some,Fifth,"Cameron, Seanna, Maddie",61,Opuntia ficus-indica,Large
+8,1,9.5,5,0.4,N,N,Some,First,"Paige N., Zoe G., Elise T.",61,Opuntia ficus-indica,Large
+8,2,5.5,2,0.6,N,N,Some,Second,"Paige N., Zoe G., Elise T.",61,Opuntia ficus-indica,Large
+8,3,6.5,2.5,0.5,N,N,Some,Third,"Paige N., Zoe G., Elise T.",61,Opuntia ficus-indica,Large
+8,4,8.25,3.5,0.6,N,N,Some,Fourth,"Paige N., Zoe G., Elise T.",61,Opuntia ficus-indica,Large
+8,5,6.5,2.6,0.5,N,N,Some,Fifth,"Paige N., Zoe G., Elise T.",61,Opuntia ficus-indica,Large
+8,6,7.9,3.6,0.5,N,N,Some,Sixth,"Paige N., Zoe G., Elise T.",61,Opuntia ficus-indica,Large
+8,7,6.1,3,0.5,N,N,Some,Seventh,"Paige N., Zoe G., Elise T.",61,Opuntia ficus-indica,Large
+8,8,6.2,3,0.3,N,N,Some,Eigth,"Paige N., Zoe G., Elise T.",61,Opuntia ficus-indica,Large
+8,9,5.9,3,0.4,N,N,None,Ninth,"Paige N., Zoe G., Elise T.",61,Opuntia ficus-indica,Large
+8,10,1,0.25,0.25,Y,N,None,Tenth,"Paige N., Zoe G., Elise T.",61,Opuntia ficus-indica,Large
+9,1,9,11,1.5,Y,Y,All,First,"Ariana Mendez,Evan Dial, John Stone",61,Opuntia engelemannii,Medium
+9,2,14,8,1,Y,Y,All,Second,"Ariana Mendez,Evan Dial, John Stone",61,Opuntia engelemannii,Medium
+9,3,14,6.5,0.75,Y,Y,None,Third,"Ariana Mendez,Evan Dial, John Stone",61,Opuntia engelemannii,Medium
+9,4,8,5.5,1.25,Y,Y,Some,Fourth,"Ariana Mendez,Evan Dial, John Stone",61,Opuntia engelemannii,Medium
+9,5,14.5,9,0.5,Y,Y,None,Fifth,"Ariana Mendez,Evan Dial, John Stone",61,Opuntia engelemannii,Medium
+9,6,12,6.5,0.4,Y,Y,None,Sixth,"Ariana Mendez,Evan Dial, John Stone",61,Opuntia engelemannii,Medium
+9,7,8,7.5,0.75,Y,Y,Most,Fourth,"Ariana Mendez,Evan Dial, John Stone",61,Opuntia engelemannii,Medium
+9,8,11,6.25,0.5,Y,N,None,Fifth,"Ariana Mendez,Evan Dial, John Stone",61,Opuntia engelemannii,Medium
+9,9,11.5,8,0.5,Y,Y,None,Fourth,"Ariana Mendez,Evan Dial, John Stone",61,Opuntia engelemannii,Medium
+9,10,5.5,8,0.5,Y,Y,None,Fourth,"Ariana Mendez,Evan Dial, John Stone",61,Opuntia engelemannii,Medium
+10,1,7.125,5,0.25,N,N,None,Fifth,"Jacob Knecht, Gabriella, Garad H.",61,Opuntia ficus-indica,Large
+10,2,11.125,7.25,0.5,N,N,Some,Fourth,"Jacob Knecht, Gabriella, Garad H.",61,Opuntia ficus-indica,Large
+10,3,8.5,5,0.25,N,N,None,Fourth,"Jacob Knecht, Gabriella, Garad H.",61,Opuntia ficus-indica,Large
+10,4,9.5,6,0.375,N,N,None,Fourth,"Jacob Knecht, Gabriella, Garad H.",61,Opuntia ficus-indica,Large
+10,5,9.125,7.125,0.25,N,N,None,Fourth,"Jacob Knecht, Gabriella, Garad H.",61,Opuntia ficus-indica,Large
+10,6,9,4.5,0.5,N,N,Some,Third,"Jacob Knecht, Gabriella, Garad H.",61,Opuntia ficus-indica,Large
+10,7,11,6.5,0.375,N,N,None,Third,"Jacob Knecht, Gabriella, Garad H.",61,Opuntia ficus-indica,Large
+10,8,10.25,6.85,0.375,N,N,Some,Second,"Jacob Knecht, Gabriella, Garad H.",61,Opuntia ficus-indica,Large
+10,9,10.25,7,0.375,N,N,Some,First,"Jacob Knecht, Gabriella, Garad H.",61,Opuntia ficus-indica,Large
+10,10,10.75,5.5,0.375,N,N,Some,Second,"Jacob Knecht, Gabriella, Garad H.",61,Opuntia ficus-indica,Large
+11,1,11.5,6,0.5,N,N,None,Eigth,"Nicholas Chandler, Logan Estell, Isabel Arreola",61,Opuntia ficus-indica,Large
+11,2,10.5,6.5,0.5,N,N,Some,Seventh,"Nicholas Chandler, Logan Estell, Isabel Arreola",61,Opuntia ficus-indica,Large
+11,3,11,6,0.25,N,N,None,Fifth,"Nicholas Chandler, Logan Estell, Isabel Arreola",61,Opuntia ficus-indica,Large
+11,4,8,4,0.25,N,N,None,Sixth,"Nicholas Chandler, Logan Estell, Isabel Arreola",61,Opuntia ficus-indica,Large
+11,5,9,4.5,0.25,N,N,None,Eigth,"Nicholas Chandler, Logan Estell, Isabel Arreola",61,Opuntia ficus-indica,Large
+11,6,11,8,0.5,N,N,None,Sixth,"Nicholas Chandler, Logan Estell, Isabel Arreola",61,Opuntia ficus-indica,Large
+11,7,9,6,0.25,N,N,None,Sixth,"Nicholas Chandler, Logan Estell, Isabel Arreola",61,Opuntia ficus-indica,Large
+11,8,10.5,7,0.25,N,N,Some,Fifth,"Nicholas Chandler, Logan Estell, Isabel Arreola",61,Opuntia ficus-indica,Large
+11,9,10.5,6.5,0.25,N,N,None,Sixth,"Nicholas Chandler, Logan Estell, Isabel Arreola",61,Opuntia ficus-indica,Large
+11,10,8,5.5,0.25,N,N,None,Fifth,"Nicholas Chandler, Logan Estell, Isabel Arreola",61,Opuntia ficus-indica,Large
+12,1,16,6,0.5,Y,N,None,Fourth,"Payette Neess, Pheobe Teskey, Hailey Park",61,Opuntia engelemannii,Medium
+12,2,13.5,7,0.5,Y,N,None,Third,"Payette Neess, Pheobe Teskey, Hailey Park",61,Opuntia engelemannii,Medium
+12,3,15,9,0.125,Y,Y,Most,Fourth,"Payette Neess, Pheobe Teskey, Hailey Park",61,Opuntia engelemannii,Medium
+12,4,12,8,0.5,Y,Y,Some,Third,"Payette Neess, Pheobe Teskey, Hailey Park",61,Opuntia engelemannii,Medium
+12,5,8.5,4,0.375,Y,N,None,Third,"Payette Neess, Pheobe Teskey, Hailey Park",61,Opuntia engelemannii,Medium
+12,6,11,11.5,0.5,Y,Y,Most,First,"Payette Neess, Pheobe Teskey, Hailey Park",61,Opuntia engelemannii,Medium
+12,7,13,6,0.125,Y,Y,All,Fourth,"Payette Neess, Pheobe Teskey, Hailey Park",61,Opuntia engelemannii,Medium
+12,8,3.5,1.5,0.5,Y,Y,None,Fourth,"Payette Neess, Pheobe Teskey, Hailey Park",61,Opuntia engelemannii,Medium
+12,9,11,8.5,0.75,Y,Y,Some,Sixth,"Payette Neess, Pheobe Teskey, Hailey Park",61,Opuntia engelemannii,Medium
+12,10,10,9,0.75,Y,Y,All,Second,"Payette Neess, Pheobe Teskey, Hailey Park",61,Opuntia engelemannii,Medium

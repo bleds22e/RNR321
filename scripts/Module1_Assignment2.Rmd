@@ -28,7 +28,7 @@ Write R code to successfully answer each question below and/or write text to suc
 
 ### Due Date
 
-Sept 24 at 1pm MST
+Feb 17 at 2pm MST
 
 # Assignment Questions
 
@@ -93,7 +93,7 @@ snails * fewer_birds
 For the following questions, we will be using the cactus pad data that we collected a few weeks ago. Run the following code chunk to bring ("read") the .csv file into R for us to use.
 
 ```{r}
-cactus <- read.csv("CactusPads_Fall2024.csv") |> na.omit()
+cactus <- read.csv("CactusPads.csv") |> na.omit()
 ```
 
 This code chunk uses the `$` operator to pull out individuals columns from 2D data and treat them as vectors. Here, I'm saving the cactus pad length column as a vector called `pad_length`. Once you run this code chunk, you should see `pad_length` in your environment.
@@ -145,12 +145,11 @@ damage
 
 ```
 
-16. Write a line of code that determines how many recorded cactus pads had no damage to them. (_Hint: looking back at the code you wrote to complete Questions 14 and 15 will be helpful!_)
+16. Write a line of code that determines how many recorded cactus pads had no damage to them. (*Hint: looking back at the code you wrote to complete Questions 14 and 15 will be helpful!*)
 
 ```{r}
 
 ```
-
 
 17. Write a line of code that returns all of the elements in the `pad_length` vector which are greater than 10.
 
