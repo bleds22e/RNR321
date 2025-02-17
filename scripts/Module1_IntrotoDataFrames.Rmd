@@ -84,7 +84,7 @@ As with vectors, there are many functions that are useful for taking a look at d
 
 ### Sub-setting using Indexing
 
-When subsetting data frames, we need to now specify 2 locations, the row and the column. In R, it is always row *then* column. Note that this is typically the opposite of spreadsheets.
+When sub-setting data frames, we need to now specify 2 locations, the row and the column. In R, it is always row *then* column. Note that this is typically the opposite of spreadsheets.
 
 ```{r}
 
