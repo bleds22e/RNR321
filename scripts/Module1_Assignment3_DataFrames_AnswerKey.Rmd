@@ -52,7 +52,7 @@ pet_names[pet_names == "Spud"]
 ```
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-cactus <- read.csv("../data_raw/CactusPads_Fall2024.csv")
+cactus <- read.csv("../data_raw/CactusData.csv")
 ```
 
 

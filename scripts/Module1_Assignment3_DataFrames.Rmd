@@ -1,7 +1,7 @@
 ---
 title: "Module 1 Assignment 3"
-author: "Ellen Bledsoe"
-date: "`r Sys.Date()`"
+author: "Ellen Bledsoe" # <- your name inside quotation marks
+date: "`r Sys.Date()`" # <- leave this; it will produce today's date
 output: pdf_document
 ---
 
@@ -28,7 +28,7 @@ Write R code to successfully answer each question below and/or write text to suc
 
 ### Due Date
 
-Feb 19 at 2pm MST
+Feb 24 at 2pm MST
 
 # Assignment Questions
 
@@ -93,10 +93,10 @@ For the remainder of the assignment, we will be using the cactus data we collect
 Once you run the code chunk below, the data frame will be saved in your environment as the object `cactus`.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-cactus <- read.csv("CactusPads_Fall2024.csv")
+cactus <- read.csv("CactusData.csv")
 ```
 
-7.  Take a look at the `cactus` data frame. How many rows does this data frame have? How many columns? You can either use code to figure this out or look at the object in the environment. Explain how you figured it out (e.g., if you looked in the environment, how did you know which number meant what). (2 points)
+7.  Take a look at the `cactus` data frame. How many rows does this data frame have? How many columns? You can either use code to figure this out or look at the object in the environment. Explain how you figured it out (e.g., where did you look, what numbers are you referencing, etc.). (2 points)
 
     *Rows*:
 
@@ -121,7 +121,7 @@ cactus <- read.csv("CactusPads_Fall2024.csv")
 
 ```
 
-10. Use the `round()` function to around the mean of the cactus pad *lengths* (Q9) to only 1 place after the decimal.
+10. Use the `round()` function to round the mean of the cactus pad *lengths* (Q9) to only 1 place after the decimal.
 
 ```{r}
 
