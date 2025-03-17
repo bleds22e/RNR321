@@ -37,7 +37,7 @@ successfully answer the question.
 
 ### Due Date
 
-Oct 15 by 1 pm MST
+March 17 by 2 pm MST
 
 ------------------------------------------------------------------------
 
@@ -74,6 +74,9 @@ question in terms of our data (aka, "big square," "little squares,"
 
 ### Set-up:
 
+If you haven't already saved and shared your data from last week with
+your group:
+
 (a) Get your (or your group's) simple random sampling rock data.
 (b) Make sure it has been saved as a .csv file. If it hasn't, you will
     need to do so using "Save As".
@@ -82,18 +85,20 @@ question in terms of our data (aka, "big square," "little squares,"
 (d) In the Files tab in the bottom right-hand corner, check the box next
     to the .csv file that you just uploaded, then click the "Rename"
     button (near "Upload").
-(e) Rename your .csv file to "SRS_rocks.csv"
+(e) Rename your .csv file (something short, like "SRS_rocks.csv", if
+    helpful)
 
 ### Important Notes:
 
 (a) I recommend referencing the PowerPoint slides from class! Remember,
-    equation don't show on D2L, so you'll want to download them.
+    equations don't show on D2L, so you'll want to download the slides
+    or use the PDF version.
 (b) I also recommend taking a look back at Module 1 Assignment 3 to
     remind yourself how to work with data frames.
-(c) Because you each have different values for your number of rocks, the
-    answer key won't directly match your values. I've included the
-    example dataset that I used to create the answer key if you want to
-    check your values.
+(c) Because each group will have different values for your number of
+    rocks, the answer key won't directly match your values. I've
+    included the example dataset that I used to create the answer key if
+    you want to check your values.
 
 ## Calculations
 
@@ -116,6 +121,10 @@ rocks <- na.omit(rocks)
 6.  Create the object `N`, which is the number of units in your
     *sampling frame*. No functions needed; type the number and assign it
     to `N`.
+
+    Remember to print out the objects you create by typing the name of
+    the object in the line below where you create it. This helps us out
+    while grading quite a bit!
 
 ```{r}
 N <- 
@@ -155,6 +164,9 @@ rocks_median
     (AKA the mean number of dark stones per sample unit). Follow the
     code example above.
 
+    Again, remember to type out the name of the object you create for
+    the rest of the assignment!
+
 ```{r}
 rocks_mean <- 
 ```
@@ -170,15 +182,22 @@ rocks_sd <-
 
 ### Calculating Uncertainty for the Estimate of the Mean
 
-R doesn't have a function for calculating the standard error (SE), so
-let's calculate it ourselves using the equation from class.
+We have calculated our estimates for multiple population parameters
+(mean, standard deviation).
+
+Now we are moving on to calculating a measure of uncertainty.
+
+R doesn't have a function for calculating the standard error (SE) of the
+mean, so let's calculate it ourselves using the equation from class.
 
 10. First, do you remember that finite population correction factor?
     There's no function for it, so let's create an object called
     `pop_correction` using that formula.
 
-    (Hint: use the objects we've already created (`N`, `n`; don't enter
-    any numbers directly)
+    _Hint #1: use the objects we've already created (`N`, `n`; don't
+    enter any numbers directly_
+    
+    _Hint #2: use parentheses to group the values in the numerator together_
 
 ```{r}
 pop_correction <- 
@@ -195,9 +214,11 @@ pop_correction <-
     the mean.
 
     Remember, this is different from the sample variance that you've
-    already calculated, but that sample variance is included...
+    already calculated...
 
     Again, there is no function, so you'll need to use the equation.
+    
+    _Hint: if you want to multiple something in R, you must use *._
 
 ```{r}
 rocks_var_ybar <- 
@@ -248,8 +269,7 @@ rocks_SE_total <-
     were there in your big square? How much uncertainty is in your
     estimate?
 -   What is your estimate of density of dark rocks (average \# dark
-    rocks per little square)? How much variation is in the number of
-    dark rocks per little square? How uncertain are you of your estimate
-    of the density?
+    rocks per little square)? What is your level of uncertainty is your estimate in the density? How much variation is in the number of
+    dark rocks per little square throughout your large square?
 
 *Answer:*

@@ -35,7 +35,7 @@ successfully answer the question.
 
 ### Due Date
 
-March 11 by 2pm MST
+March 17 by 2pm MST
 
 ------------------------------------------------------------------------
 
@@ -90,26 +90,31 @@ question in terms of our data (aka, "big square," "little squares,"
 
 ### Set-up:
 
+If you haven't already saved and shared your data from last week with
+your group:
+
 (a) Get your (or your group's) simple random sampling rock data.
 (b) Make sure it has been saved as a .csv file. If it hasn't, you will
     need to do so using "Save As".
 (c) In Posit Cloud, using the "Upload" button in the lower right-hand
     panel, upload your .csv file.
-    (d) In the Files tab in the bottom right-hand corner, check the box
-        next to the .csv file that you just uploaded, then click the
-        "Rename" button (near "Upload").
-(d) Rename your .csv file to "rock_data.csv"
+(d) In the Files tab in the bottom right-hand corner, check the box next
+    to the .csv file that you just uploaded, then click the "Rename"
+    button (near "Upload").
+(e) Rename your .csv file (something short, like "SRS_rocks.csv", if
+    helpful)
 
 ### Important Notes:
 
 (a) I recommend referencing the PowerPoint slides from class! Remember,
-    equation don't show on D2L, so you'll want to download them.
+    equations don't show on D2L, so you'll want to download the slides
+    or use the PDF version.
 (b) I also recommend taking a look back at Module 1 Assignment 3 to
     remind yourself how to work with data frames.
-(c) Because you each have different values for your number of rocks, the
-    answer key won't directly match your values. I've included the
-    example dataset that I used to create the answer key if you want to
-    check your values.
+(c) Because each group will have different values for your number of
+    rocks, the answer key won't directly match your values. I've
+    included the example dataset that I used to create the answer key if
+    you want to check your values.
 
 ## Calculations
 
@@ -121,12 +126,22 @@ Each question is worth 1 point unless otherwise noted.
     Below, replace the file name with the file name of your rock data.
 
 ```{r}
+# this is for Ellen's code
 rocks <- read.csv("../data_raw/example_data.csv") 
+
+# when you read in your file, the name of the file needs to be inside quotation marks
+# it also needs to have the .csv at the end, as shown below
+# rocks <- read.csv("your_file_name_here.csv")
+
+# if your rocks data frame has more than 8 observations (check in the environment), run this line of code:
+rocks <- na.omit(rocks)
 ```
 
 6.  Create the object `N`, which is the number of units in your
     *sampling frame*. No functions needed; type the number and assign it
     to `N`.
+    
+    Remember to print out the objects you create by typing the name of the object in the line below where you create it. This helps us out while grading quite a bit!
 
 ```{r}
 N <- 64
@@ -256,12 +271,11 @@ rocks_SE_total <- sqrt(rocks_var_total)
     adventure. Be sure to answer the following questions. (3 points)
 
 -   According to your calculations, approximately how many dark rocks
-    were there in your big square? How confident are you in that
-    estimate (AKA what is your amount of uncertainty)?
+    were there in your big square? How much uncertainty is in your
+    estimate?
 -   What is your estimate of density of dark rocks (average \# dark
-    rocks per little square)? How much variation do you estimate is
-    there in the number of dark rocks per little square? How confident
-    are you in your estimate of the density?
+    rocks per little square)? What is your level of uncertainty is your estimate in the density? How much variation is in the number of
+    dark rocks per little square throughout your large square?
 
 *Answer:*
 
@@ -269,6 +283,7 @@ rocks_SE_total <- sqrt(rocks_var_total)
 -   confidence (uncertainty) is estimate of number of dark rocks total =
     `rocks_SE_total` or `rocks_var_total`
 -   density estimate = `rocks_mean`
--   variation in density = `rocks_var` or `rocks_sd`
 -   confidence (uncertainty) in density estimate = `rocks_var_ybar` or
     `rocks_SE`
+-   variation in density = `rocks_var` or `rocks_sd`
+
