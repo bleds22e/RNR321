@@ -66,11 +66,9 @@ PP_SE <- sqrt(PP_var_ybar)
 PP_SE
 ```
 
-6.  
-
 ```{r}
+#6
 alpha95 <- 0.05
-alpha95
 ```
 
 7.  
@@ -105,7 +103,7 @@ lowerCI_95
 
 10. 
 
-a.
+a. t-value
 
 ```{r}
 alpha90 <- 0.1

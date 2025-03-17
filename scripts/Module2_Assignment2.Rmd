@@ -15,13 +15,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Purpose
 
-The goal of this assignment is to use R to calculate and understand
-accuracy of estimates through standard error and confidence intervals.
+The goal of this assignment is to use R to calculate and understand accuracy of estimates through standard error and confidence intervals.
 
 ### Task
 
-Write R code to successfully answer each question below or write text to
-successfully answer the question.
+Write R code to successfully answer each question below or write text to successfully answer the question.
 
 ### Criteria for Success
 
@@ -34,7 +32,7 @@ successfully answer the question.
 
 ### Due Date
 
-Oct 22 before lab
+March 24 before lab
 
 ------------------------------------------------------------------------
 
@@ -44,34 +42,21 @@ Each question is worth 1 point unless otherwise noted.
 
 ## Set-up:
 
-For our assignment today, we will be using data from my PhD field site
-in southeastern Arizona in the Chiricahuas. In fact, we will be using
-some of the first data I ever collected for the project! To learn more
-about the Portal Project, check out the project's
-[website](https://portal.weecology.org/). Researchers have been
-collecting data at this site monthly since 1977!
+For our assignment today, we will be using data from my PhD field site in southeastern Arizona in the Chiricahuas. In fact, we will be using some of the first data I ever collected for the project! To learn more about the Portal Project, check out the project's [website](https://portal.weecology.org/). Researchers have been collecting data at this site monthly since 1977!
 
-What you need to know for today is that this is small mammal (rodent)
-data.
+What you need to know for today is that this is small mammal (rodent) data.
 
-The site has 24 plots, although we will only be using 18 of them today
-(6 of them are rodent removal plots, so they aren't very helpful in
-estimating rodent densities!).
+The site has 24 plots, although we will only be using 18 of them today (6 of them are rodent removal plots, so they aren't very helpful in estimating rodent densities!).
 
 As such, `n` will be 18 for this assignment. We do not have a `N`.
 
-The first thing we need to do is download the data. My PhD lab group
-actually created our own R package for using the cleaned up data, so we
-are going to load that package, called
-[`portalr`](https://weecology.github.io/portalr/).
+The first thing we need to do is download the data. My PhD lab group actually created our own R package for using the cleaned up data, so we are going to load that package, called [`portalr`](https://weecology.github.io/portalr/).
 
 ```{r}
 library(portalr)
 ```
 
-Now that we have loaded the packages we need, we are going to download
-some rodent abundance data. This `abundance()` function downloads the
-entire dataset, so it might take a few minutes.
+Now that we have loaded the packages we need, we are going to download some rodent abundance data. This `abundance()` function downloads the entire dataset, so it might take a few minutes.
 
 ```{r include=FALSE}
 abund <- abundance(level = "Plot",
@@ -84,22 +69,13 @@ Let's take a look at what the dataset looks like.
 head(abund)
 ```
 
-We want to choose data only from a certain data collection period and
-only for certain species. To do this, we are going to filter the data to
-select trapping period "440" (the 440th time the site was trapped--this
-was back in 2015. We are over 500 trapping sessions now!) and get rid of
-the rodent removal plots.
+We want to choose data only from a certain data collection period and only for certain species. To do this, we are going to filter the data to select trapping period "440" (the 440th time the site was trapped--this was back in 2015. We are over 500 trapping sessions now!) and get rid of the rodent removal plots.
 
 We are also going to select only the columns that are relevant to us.
 
-For this assignment, we are going to be calculating values for two
-different species of pocket mice: *Chaetodipus penicillatus* and
-*Chaetodipus baileyi*. In the Portal data, these species are abbreviated
-as `PP` and `PB`, respectively.
+For this assignment, we are going to be calculating values for two different species of pocket mice: *Chaetodipus penicillatus* and *Chaetodipus baileyi*. In the Portal data, these species are abbreviated as `PP` and `PB`, respectively.
 
-When we choose which columns we keep, we will keep the period, plot, and
-the PP and PB columns. These columns have the number of each species
-caught on each plot that trapping session.
+When we choose which columns we keep, we will keep the period, plot, and the PP and PB columns. These columns have the number of each species caught on each plot that trapping session.
 
 ```{r}
 # filter period 440, exclude "removal" treatment type, and select "PP" and "PB" column
@@ -110,18 +86,11 @@ abund440
 
 ## Estimating the Mean
 
-The first bit of this assignment is very similar to Module 2 Assignment
-1, so if you're feeling stuck with the code, you might want to check
-that assignment out.
+The first bit of this assignment is very similar to Module 2 Assignment 1, so if you're feeling stuck with the code, you might want to check that assignment out.
 
-1.  First, we want to create an object for our sample size. We don't
-    know `N` in this scenario, but we do know `n`. Create the object
-    `n`, which is the number of sample units that make up our sample.
-    This will be the same for both species.
+1.  First, we want to create an object for our sample size. We don't know `N` in this scenario, but we do know `n`. Create the object `n`, which is the number of sample units that make up our sample. This will be the same for both species.
 
-    To do this, use the `nrow()` function, which counts up the number of
-    rows in a dataframe. The argument for `nrow()` is the name of the
-    dataframe.
+    To do this, use the `nrow()` function, which counts up the number of rows in a dataframe. The argument for `nrow()` is the name of the dataframe.
 
     ```{r}
     n <- 
@@ -130,21 +99,18 @@ that assignment out.
 
 ### *Chaetodipus pencicillatus* (PP) Data
 
-We are going to start by calculating some population parameter estimates
-and measures of uncertainty for the PPs.
+We are going to start by calculating some population parameter estimates and measures of uncertainty for the PPs.
 
 #### Calculating Estimates of Population Parameters
 
-2.  Create an object called `PP_mean` that contains the sample mean for
-    the PPs
+2.  Create an object called `PP_mean` that contains the sample mean for the PPs
 
 ```{r}
 PP_mean <-
 PP_mean
 ```
 
-3.  Create an object called `PP_var` which contains the sample variance.
-    Hint: use the `var()` function.
+3.  Create an object called `PP_var` which contains the sample variance. Hint: use the `var()` function.
 
 ```{r}
 PP_var <- 
@@ -153,9 +119,7 @@ PP_var
 
 #### Calculating Standard Error for the Mean
 
-Reminder: because we don't know what `N` is, we don't need to use the
-finite population correction factor when calculating our standard error
-and whatnot.
+Reminder: because we don't know what `N` is, we don't need to use the finite population correction factor when calculating our standard error and whatnot.
 
 4.  Calculate the variance of the estimate of the mean for the PPs.
 
@@ -173,49 +137,38 @@ PP_SE
 
 #### Calculating Confidence Intervals for the Mean
 
-Hooray, we've now calculated the sample mean, sample variance, and the
-standard error! Let's calculate a 95% confidence interval for our sample
-mean.
+Hooray, we've now calculated the sample mean, sample variance, and the standard error! Let's calculate a 95% confidence interval for our sample mean.
 
-6.  Create an object called `alpha95` to represent our alpha value for a
-    95% confidence interval. Because this is a constant, we can assign a
-    number to it (take a look back at lecture notes).
+6.  Create an object called `alpha95` to represent our alpha value for a 95% confidence interval. Because this is a constant, we can assign a number to it (take a look back at lecture notes).\
+    *Hint: this is a proportion representing the number of times we are willing to NOT have our confidence intervals include the true parameter*.
 
 ```{r}
 alpha95 <- 
 alpha95
 ```
 
-7.  Create an object called `df` for degrees of freedom. Degrees of
-    freedom in this case are equal to the number of sample units in our
-    sample (`n`) minus 1. Use the object `n` in your calculation.
+7.  Create an object called `df` for degrees of freedom. Degrees of freedom in this case are equal to the number of sample units in our sample (`n`) minus 1. Use the object `n` in your calculation.
 
 ```{r}
 df <- 
 df
 ```
 
-We are going to use a function called `qt()` to find the t-value that we
-need. Assuming you've created the objects `alpha95` and `df` above,
-running this code chunk will give us our t-value, or critical value, for
-95% CI.
+We are going to use a function called `qt()` to find the t-value that we need. Assuming you've created the objects `alpha95` and `df` above, running this code chunk will give us our t-value, or critical value, for 95% CI.
 
 ```{r}
 t95 <- qt(1-(alpha95)/2, df)
 t95
 ```
 
-8.  Using `t95` and the standard error that we calculated earlier,
-    create an object called `half_width` which contains the half-width
-    value for the 95% CI.
+8.  Using `t95` and the standard error that we calculated earlier, create an object called `half_width` which contains the half-width value for the 95% CI.
 
 ```{r}
 halfwidth_95 <- 
 halfwidth_95
 ```
 
-9.  Calculate the upper and lower limits of the 95% confidence
-    intervals. Use objects you've already created to calculate it.
+9.  Calculate the upper and lower limits of the 95% confidence intervals. Use objects you've already created to calculate it.
 
 ```{r}
 upperCI_95 <- 
@@ -225,11 +178,11 @@ upperCI_95
 lowerCI_95
 ```
 
-10. What happens when we create 90% CI for the data? Let's calculate
-    90% CI. (3 points total)
-    
-a.  Input the correct value for `alpha90` and then run the code chunk to
-    get the new t-value, `t90`.
+10. What happens when we create 90% CI for the data? Let's calculate 90% CI. (3 points total)
+
+<!-- -->
+
+a.  Input the correct value for `alpha90` and then run the code chunk to get the new t-value, `t90`.
 
 ```{r}
 alpha90 <- 
@@ -238,8 +191,7 @@ t90 <- qt(1-(alpha90)/2, df)
 t90
 ```
 
-b.  Now, using `t90`, calculate the 90% CI. and compare to the 95% CI.
-    Which one is wider? Why?
+b.  Now, using `t90`, calculate the 90% CI. and compare to the 95% CI. Which one is wider? Why?
 
 ```{r}
 upperCI_90 <- 
@@ -249,15 +201,13 @@ upperCI_90
 lowerCI_90
 ```
 
-c.  Compare the 90% CI to the 95% CI. Which one is wider? Why would
-    expect that to be the case?
+c.  Compare the 90% CI to the 95% CI. Which one is wider? Why would expect that to be the case?
 
 *Answer:*
 
 ### *Chaetodipus baileyi* (PB) Data
 
-Let's do the same thing as above for our *Chaetodipus baileyi* (PB)
-data.
+Let's do the same thing as above for our *Chaetodipus baileyi* (PB) data.
 
 #### Calculating Estimates of Population Parameters
 
@@ -268,8 +218,7 @@ PB_mean <-
 PB_mean
 ```
 
-12. Create an object called `PB_var` which contains the sample variance.
-    Hint: use the `var()` function.
+12. Create an object called `PB_var` which contains the sample variance. Hint: use the `var()` function.
 
 ```{r}
 PB_var <- 
@@ -294,9 +243,7 @@ PB_SE
 
 #### Calculating Confidence Intervals
 
-15. Create 95% CI for the PB data. You should already have the t-value
-    in your environment, so you don't need to go through calculating
-    that again.
+15. Create 95% CI for the PB data. You should already have the t-value in your environment, so you don't need to go through calculating that again.
 
 ```{r}
 
@@ -307,8 +254,18 @@ upperCI_95_PB
 lowerCI_95_PB
 ```
 
-16. Compare the ranges of the 95% CI for the PP and the PB data. Which
-    estimate of the mean seems to be more accurate, based on size of the
-    confidence intervals? Why do you think that is (AKA what value is driving that difference)? (2 points)
+## Interpretation
+
+16. Compare the ranges of the 95% CI for the PP and the PB data.
+
+    Which estimate of the mean seems to be more accurate? What are you using to make that determination? What value(s) is driving the  difference you are seeing?
 
 *Answer:*
+
+17. Right now, we can't calculate an estimate of the population total (abundance, represented by "tau hat") because we do not have a value for `N`.
+
+    Let's say that we did have a value for `N` and wanted to calculate 95% confidence intervals for the total number of PPs at the site.
+
+    What additional values (ones we haven't already calculated in the assignment) would we need to calculate to get the confidence intervals for our estimate of the abundance? Look back through the equations. Make sure you clearly state *all* of the values we would need to calculate. Describe the calculations you would need to do (we aren't looking for the literal equations--more a general sense of what values are needed to calcuate subsequent values and so on).
+
+*Answer:* 
