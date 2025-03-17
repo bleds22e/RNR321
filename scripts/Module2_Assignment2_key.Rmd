@@ -261,6 +261,20 @@ upperCI_95_PB
 lowerCI_95_PB
 ```
 
-16. Compare the ranges of the 95% CI for the PP and the PB data. Which estimate of the mean seems to be more accurate, based on size of the confidence intervals? Why do you think that is (AKA what value is driving that difference)? (2 points)
+16. Compare the ranges of the 95% CI for the PP and the PB data. 
 
-*Answer:* PB seems more accurate. This is because the SE is lower, leading to smaller CIs. (they don't need to say this for full credit, but this is actually being driven by the differences in standard deviation since the sample sizes are the same)
+Which estimate of the mean seems to be more accurate? What are you using to make that determination? What value(s) is driving the difference you are seeing?
+
+*Answer:* PB seems more accurate because the range of the confidence intervals is narrower than those for PPs. This is because the SE is lower, leading to smaller CIs. [Note: this is actually being driven by the differences in standard deviation since the sample sizes are the same, but they don't need to say that to get credit]
+
+17. Right now, we can't calculate an estimate of the population total (abundance, represented by "tau hat") because we do not have a value for `N`.
+
+    Let's say that we did have a value for `N` and wanted to calculate 95% confidence intervals for the total number of PPs at the site.
+
+    What additional values (ones we haven't already calculated in the assignment) would we need to calculate to get the confidence intervals for our estimate of the abundance? Look back through the equations. Make sure you clearly state *all* of the values we would need to calculate.
+
+*Answer:* First, we would need to calculate the estimate for the total number of PP (tau_hat)[using the mean we already calculated and N].
+
+[Note: We generally use the same t-value for this calculation because the degrees of freedom don't change, but if students say we would need a new t-value based on the different degrees of freedom, don't penalize them for that]
+
+To calculate the standard error for tau_hat, which would be used to calculate the half-width which would then allow us to calculate the upper and lower bounds of the confidence interval, we first need to calculate the variance of the estimate of tau hat. You can either use N and the variance of the estimate of the mean OR N, n, and sample variance to do that. We then take the square root, which gives us the standard error of the estimate of the total, which we then multiply by the t-value to get the half-width.
