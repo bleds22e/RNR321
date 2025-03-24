@@ -32,7 +32,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-Oct 29 before lab
+March 31 before lab
 
 ------------------------------------------------------------------------
 
@@ -40,7 +40,7 @@ Oct 29 before lab
 
 We have been asked to go out and sample for grasshoppers. The location we are sampling has 3 different vegetation types: riparian, shrubland, and grassland. We have decided to use a stratified random sample design for our survey.
 
-1.  In 1-2 sentences, explain why we have chosen stratified random sampling as opposed to simple or systematic? What benefit does it provide us?
+1.  In 1-2 sentences, explain why we have chosen stratified random sampling as opposed to simple or systematic for this particular scenario? What benefit does it provide us?
 
     *Answer*:
 
@@ -87,7 +87,7 @@ cost_C <- 4
 
 We want to use the optimal allocation equation to calculate how many sample units each stratum should have. Let's do this incrementally.
 
-4.  Start by calculating the numerators for each stratum. Each numerator looks like this: $$\frac{N_i * s_i}{ \sqrt c_i}$$ Remember to use objects you've created rather than typing out specific numbers into the equation.
+4.  Start by calculating the numerators for each stratum ("optimal allocation metric"). Each numerator looks like this: $$\frac{N_i * s_i}{ \sqrt c_i}$$ Remember to use objects you've created rather than typing out specific numbers into the equation.
 
 ```{r}
 opt_allo_A <-
@@ -105,7 +105,9 @@ opt_allo_total <-
 opt_allo_total
 ```
 
-6.  Calculate how many sampling units we should optimally sample in each stratum. Use the `round()` function to round to the nearest whole number. Make sure to save the rounded value to use for the remainder of the questions.
+6.  Calculate how many sampling units we should optimally sample in each stratum. Use the `round()` function to round to the nearest whole number.
+
+    Make sure to *save the rounded value* to use for the remainder of the questions.
 
 ```{r}
 n_A <- 
@@ -152,15 +154,15 @@ str(grasshoppers)
 
 Based on what I've taught you in R thus far, the easiest way to do our calculations will be to have three different data frames, one for each stratum.
 
-Run the following code chunk to create the 3 new dataframes. This code should look familiar from Module 1 (conditional subsetting of dataframes).
+Run the following code chunk to create the 3 new data frames. This code should look familiar from Module 1 (conditional sub-setting of data frames).
 
 ```{r}
-stratumA <- grasshoppers[grasshoppers$stratum == "A",]
-stratumB <- grasshoppers[grasshoppers$stratum == "B",]
-stratumC <- grasshoppers[grasshoppers$stratum == "C",]
+stratumA <- grasshoppers[grasshoppers$stratum == "A", ]
+stratumB <- grasshoppers[grasshoppers$stratum == "B", ]
+stratumC <- grasshoppers[grasshoppers$stratum == "C", ]
 ```
 
-Run the following code chunk. What do these numbers represent?
+Now, run the code chunk below. Spend some time thinking about what these values represent.
 
 *(Hint: do these numbers match your values from question 6? If not, you probably want to revisit your calculations up in the previous section!)*
 
@@ -170,15 +172,17 @@ nrow(stratumB)
 nrow(stratumC)
 ```
 
-### Calculations
+## Calculating Grasshopper Abundance and Density
 
 NOTE: Open up your previous assignments; they are likely about to come in handy! I would also recommend opening up the lecture slides. Remember to download the powerpoints to see all of the equations.
 
-8.  Before we begin calculating, stop for a moment to reflect and predict. Take a minute to skim through the lecture slides and remind yourself of the process of how we go about calculating the *overall* population mean and total abundance when we use stratified sampling. Describe (either in sentences or in bullet points) how you think we will proceed.
+8.  Before we begin calculating, stop for a moment to reflect and predict. Take a minute to skim through the lecture slides and remind yourself of the process of how we go about calculating the *overall* population mean and *overall* total when we use stratified sampling. Describe (either in sentences or in bullet points) what the best way to proceed through our calculations will be.
 
-    Note: This question in graded for completion only, not for accuracy.
+    *Note: This question in graded for completion only, not for accuracy.*
 
     *Answer*:
+
+## Calculations by Stratum
 
 ### Step 1: Calculating Sample Statistics (per stratum)
 
@@ -206,7 +210,7 @@ For our first step, we will calculate the mean number of grasshoppers, the total
     tau_hat_A; tau_hat_B; tau_hat_C
     ```
 
-    c.  sample variance per stratum (use the `var` function) (1 point)
+    c.  sample variance per stratum (use the `var()` function) (1 point)
 
     ```{r}
     var_A <-
@@ -218,26 +222,26 @@ For our first step, we will calculate the mean number of grasshoppers, the total
 
 ### Step 2: Calculating Uncertainty (per stratum)
 
-Our next step is to calculate the uncertainty in our estimates for each stratum.
+Our next step is to calculate the uncertainty in our estimates for each stratum. This means we will be calculating the following for each stratum:
+
+-   variance of the estimate of the mean (`var_y_bar`)
+-   variance of the estimate of the total (`var_tau_hat`)
 
 10. To do this, calculate the following:
 
-    a.  variance of the estimate of the mean per stratum (var_y_bar). Remember that we need to use the finite population correction factor and to use only objects already created, not plain numbers! In this specific instance, please use `var_A` instead of `sd_A^2` (same for B and C). (2 points)
+    a.  Variance of the estimate of the mean per stratum (`var_y_bar`).
+
+        While normally interchangable, in this specific instance, please use `var_A` instead of `sd_A^2` (same for B and C). (2 points)
 
     ```{r}
-    pop_correction_A <-
-    pop_correction_B <-
-    pop_correction_C <-
-
     var_y_bar_A <-
     var_y_bar_B <-
     var_y_bar_C <-
       
-    pop_correction_A; pop_correction_B; pop_correction_C
     var_y_bar_A; var_y_bar_B; var_y_bar_C
     ```
 
-    b.  variance of the estimate of the total abundance (var_tau_hat). You might need to go fishing for this equation in one of the earlier powerpoints. (1 point)
+    b.  Variance of the estimate of the total abundance (`var_tau_hat`). You might need to go fishing for this equation in one of the earlier powerpoints. (1 point)
 
     ```{r}
     var_tau_hat_A <- 
@@ -247,29 +251,31 @@ Our next step is to calculate the uncertainty in our estimates for each stratum.
     var_tau_hat_A; var_tau_hat_B; var_tau_hat_C
     ```
 
-### Step 3: Calculating Total Abundance Statistics
+## Overall Calculations
+
+### Step 3: Calculating the Overall Total Estimate and Uncertainty
 
 Congratulations! The hardest parts of the calculation are over (thank goodness, right?).
 
-Next, we will calculate the total abundance and the variance of the total abundance.
+Next, we will calculate the total population estimate and the variance of the total population estimate.
 
 11. Calculate the following:
 
-    a.  total abundance (1 point)
+    a.  total population estimate (1 point)
 
     ```{r}
     tau_hat <- 
     tau_hat
     ```
 
-    b.  variance of the total abundance estimate (1 point)
+    b.  variance of the total population estimate (1 point)
 
     ```{r}
     var_tau_hat <- 
     var_tau_hat
     ```
 
-### Step 4: Calculating Population Means, etc.
+### Step 4: Calculating Overall Population Mean Estimate and Uncertainty
 
 Finally, we can now calculate the overall population mean and variance of the estimate of the overall population.
 
@@ -297,8 +303,8 @@ Ok, that was a lot of calculating! Let's summarize and make sure we know what ju
 
     a.  the density of grasshoppers per sample unit:
 
-    b.  total number of grasshoppers in the population:
+    b.  abundance of grasshoppers in the population:
 
     c.  measure of uncertainty in the density of grasshoppers:
 
-    d.  measure of uncertainty in the total \# of grasshoppers:
+    d.  measure of uncertainty in the abundance of grasshoppers:

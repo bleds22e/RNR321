@@ -32,7 +32,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-Oct 29 before lab
+March 31 before lab
 
 ------------------------------------------------------------------------
 
@@ -40,11 +40,11 @@ Oct 29 before lab
 
 We have been asked to go out and sample for grasshoppers. The location we are sampling has 3 different vegetation types: riparian, shrubland, and grassland. We have decided to use a stratified random sample design for our survey.
 
-1.  In 1-2 sentences, explain why we have chosen stratified random sampling as opposed to simple or systematic? What benefit does it provide us?
+1.  In 1-2 sentences, explain why we have chosen stratified random sampling as opposed to simple or systematic in this scenario? What benefit does it provide us?
 
     *Answer:* taking into account that different vegetation types might have different means, totals, etc. trying to minimize heterogeneity, makes our estimates more precise
 
-### Part 1: Allocation of Sample Units
+## Part 1: Allocation of Sample Units
 
 Let's say we have a sampling frame with 1000 sample units. We can sample 100 of those units. We have our 3 strata which we have determined via vegetation type (we will called them A, B, and C for simplicity for the rest of the assignment).
 
@@ -83,7 +83,7 @@ cost_B <- 2
 cost_C <- 4
 ```
 
-#### Optimal Allocation
+### Optimal Allocation
 
 We want to use the optimal allocation equation to calculate how many sample units each stratum should have. Let's do this incrementally.
 
@@ -105,6 +105,7 @@ opt_allo_total
 6.  Calculate how many sampling units we should optimally sample in each stratum. Use the `round()` function to round to the nearest whole number. Make sure to save the rounded value to use for the remainder of the questions.
 
 ```{r}
+# if students don't save the ROUNDED output, their answers below end up ever-so-slightly off
 n_A <- n * (opt_allo_A / opt_allo_total) # 37
 (n_A <- round(n_A))
 # OR #
@@ -124,9 +125,9 @@ n_A <- n * (opt_allo_A / opt_allo_total) # 37
 
     *Answer:* without taking standard deviation into account, we would have had far less precise estimates; cost is also factored in
 
-### Part II: Stratified Random Sampling
+## Part II: Stratified Random Sampling
 
-#### Data
+### Data
 
 Hooray! We have gone out and sampled the number of grasshoppers per sample unit, allocating our sample units optimally (including variation in population).
 
@@ -135,7 +136,7 @@ Now we want to calculate our population parameters:
 -   mean grasshoppers per sampling unit (`y_bar`)
 -   total grasshoppers in the population (`tau_hat`)
 
-Let's load our "grasshoppers.csv" data into our workspace using the `read_csv()` function and save the data frame as an object called `grasshoppers`.
+Let's load our "grasshoppers.csv" data into our workspace using the `read.csv()` function and save the data frame as an object called `grasshoppers`.
 
 ```{r}
 grasshoppers <- read.csv("../data_raw/grasshoppers.csv")
@@ -165,7 +166,7 @@ nrow(stratumB)
 nrow(stratumC)
 ```
 
-#### Calculations
+### Calculations
 
 NOTE: Open up your script from Module 2, Assignment 2---it's about to come in handy! I would also recommend opening up the lecture slides.
 
@@ -180,7 +181,9 @@ NOTE: Open up your script from Module 2, Assignment 2---it's about to come in ha
     3.  calculate overall population total and overall variance of the estimate of the total
     4.  calculate overall population mean and overall variance of the estimate of the mean
 
-#### Step 1: Calculating Sample Statistics (per stratum)
+## Calculations by Stratum
+
+### Step 1: Calculating Sample Statistics (per stratum)
 
 For our first step, we will calculate for each stratum the mean number of grasshoppers, the total number of grasshoppers, and the sample variances.
 
@@ -212,7 +215,7 @@ For our first step, we will calculate for each stratum the mean number of grassh
     (var_C <- var(stratumC$abund))
     ```
 
-#### Step 2: Calculating Uncertainty (per stratum)
+### Step 2: Calculating Uncertainty (per stratum)
 
 Our next step is to calculate the uncertainty in our estimates for each stratum.
 
@@ -221,13 +224,12 @@ Our next step is to calculate the uncertainty in our estimates for each stratum.
     a.  variance of the estimate of the mean per stratum (var_y_bar). Remember that we need to use the finite population correction factor and to use only objects already created, not plain numbers! In this specific instance, please use `var_A` instead of `sd_A^2` (same for B and C). (2 points)
 
     ```{r}
-    (pop_correction_A <- (N_A-n_A)/N_A)
-    (pop_correction_B <- (N_B-n_B)/N_B)
-    (pop_correction_C <- (N_C-n_C)/N_C)
-
-    (var_y_bar_A <- pop_correction_A * (var_A / n_A))
-    (var_y_bar_B <- pop_correction_B * (var_B / n_B))
-    (var_y_bar_C <- pop_correction_C * (var_C / n_C))
+    # did they include the population correction factor?
+    # parathenses get a little tricky here
+    # students also forget that they need the * sometimes
+    (var_y_bar_A <- ((N_A-n_A)/N_A) * (var_A / n_A))
+    (var_y_bar_B <- ((N_B-n_B)/N_B) * (var_B / n_B))
+    (var_y_bar_C <- ((N_C-n_C)/N_C) * (var_C / n_C))
     ```
 
     b.  variance of the estimate of the total abundance (var_tau_hat). You might need to go fishing for this equation in one of the earlier powerpoints. (1 point)
@@ -238,7 +240,7 @@ Our next step is to calculate the uncertainty in our estimates for each stratum.
     (var_tau_hat_C <- N_C^2 * var_y_bar_C)
     ```
 
-#### Step 3: Calculating Total Abundance Statistics
+### Step 3: Calculating Total Abundance Statistics
 
 Congratulations! The hardest parts of the calculation are over (thank goodness, right?).
 

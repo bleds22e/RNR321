@@ -109,15 +109,9 @@ stratumC <- grasshoppers %>% filter(stratum == "C")
     a.  
 
     ```{r}
-    pop_correction_A <- (N_A-n_A)/N_A
-    pop_correction_B <- (N_B-n_B)/N_B
-    pop_correction_C <- (N_C-n_C)/N_C
-    pop_correction_A; pop_correction_B; pop_correction_C
-
-    var_y_bar_A <- pop_correction_A * (var_A / n_A)
-    var_y_bar_B <- pop_correction_B * (var_B / n_B)
-    var_y_bar_C <- pop_correction_C * (var_C / n_C)
-    var_y_bar_A; var_y_bar_B; var_y_bar_C
+    (var_y_bar_A <- ((N_A-n_A)/N_A) * (var_A / n_A))
+    (var_y_bar_B <- ((N_B-n_B)/N_B) * (var_B / n_B))
+    (var_y_bar_C <- ((N_C-n_C)/N_C) * (var_C / n_C))
     ```
 
     b.  
