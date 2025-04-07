@@ -32,7 +32,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-Nov 12 before lab
+April 14 before lab
 
 ------------------------------------------------------------------------
 
@@ -50,7 +50,7 @@ All questions are worth 1 point unless otherwise specified.
 
 Let's go ahead and get ourselves set up for the rest of the assignment.
 
-Before you start anything, I highly recommend going over to the "Environment" tab and clicking on the broom. It will clean up the clutter in your environment and also prevent you from making some unintentional errors.
+First, I highly recommend going over to the "Environment" tab and clicking on the broom. It will clean up the clutter in your environment and also prevent you from making some unintentional errors.
 
 Load in the package we will need to use.
 
@@ -71,7 +71,7 @@ We are going to calculate naive occupancy (where we do not account for a detecti
 
 #### Naive Occupancy
 
-First, let's calculate the naive occupancy for javelina.
+First, let's calculate the naive occupancy for javelina. Remember, naive occupancy is the calculation of occupancy without taking detection probability into account.
 
 1.  Calculate the naive occupancy for javelina.
 
@@ -90,14 +90,17 @@ First, let's calculate the naive occupancy for javelina.
     # optional: space for code if you want it
     ```
 
-3.  Like we did in the tortoise example, create a data frame with the number of survey occasions this data set. Then create a list out of this one data frame.\
+3.  Like we did in the tortoise example, create a data frame of observation co-variates. It should have the number of survey occasions this data set.
+
+    Then, create a list out of this one data frame, setting the data frame equal to the "time" argument.
+
     (*Hint: Be sure to create a data frame with the correct number of rows based on your answer to Question 2*)
 
 ```{r}
 javelina_surveys <- 
 ```
 
-4.  Create an unmarked data frame for the javelina data.
+4.  Create an unmarked data frame for the javelina data. (You might get a warning, which is fine. If you get an error, then you have done something incorrectly.)
 
 ```{r}
 javelinaUMF <- 
@@ -129,7 +132,7 @@ javelina_models <-
 
     *Answer:*
 
-9.  Calculate and report the estimate of detection probability and the 95% CI for the estimate from our *best* model. (Report means type them out)
+9.  Calculate and report the estimate of detection probability and the 95% CI for the estimate from our *best* model. (Report means type them out below.)
 
     *Detection Probability:*
 
@@ -167,14 +170,15 @@ First, let's calculate the naive occupancy for coyotes.
 
 #### Data Preparation
 
-13. Like we did in the tortoise example, create a data frame with the number of survey occasions this data set. Then create a list out of this one data frame.\
-    (*Hint: Be sure to create a dataframe with the correct number of rows*)
+13. Like we did in the tortoise example (and in Question 3 above), create a data frame of observation co-variates. It should have the number of survey occasions this data set.
+
+    Then, create a list out of this one data frame, setting the data frame equal to the "time" argument.
 
 ```{r}
 coyote_survey_time <- 
 ```
 
-14. Create an unmarked data frame for the coyote data.
+14. Create an unmarked data frame for the coyote data. (Again, you might get a warning, which is fine. If you get an error, then you have done something incorrectly.)
 
 ```{r}
 coyoteUMF <- 

@@ -105,9 +105,12 @@ naive_occupancy
     # optional: space for code if you want it
     ```
 
-3.  Like we did in the tortoise example, create a data frame with the number of survey occasions this data set. Then create a list out of this one data frame.\
-    (*Hint: Be sure to create a data frame with the correct number of rows based on your answer to question 2*)
+3.  Like we did in the tortoise example, create a data frame of observation co-variates. It should have the number of survey occasions this data set.
 
+    Then, create a list out of this one data frame, setting the data frame equal to the "time" argument.
+
+    (*Hint: Be sure to create a data frame with the correct number of rows based on your answer to Question 2*)
+    
 ```{r}
 # create the data frame with 40 rows and each column with the survey number
 javelina_surveys <- data.frame(time_1 = rep("1", 40),
@@ -147,7 +150,7 @@ javelina_ptime_psidot <- occu(~time-1 ~1, data = javelinaUMF)
 
 ```{r}
 javelina_models <- fitList(javelina_pdot_psidot  = javelina_pdot_psidot, 
-                        javelina_ptime_psidot = javelina_ptime_psidot)
+                           javelina_ptime_psidot = javelina_ptime_psidot)
 modSel(javelina_models)
 ```
 
@@ -210,8 +213,9 @@ naive_occupancy
 
 #### Data Preparation
 
-13. Like we did in the tortoise example, create a tibble (data frame) with the number of survey occasions this data set. Then create a list out of this one data frame.\
-    (*Hint: Be sure to create a tibble with the correct number of rows*)
+13. Like we did in the tortoise example (and in Question 3 above), create a data frame of observation co-variates. It should have the number of survey occasions this data set.
+
+    Then, create a list out of this one data frame, setting the data frame equal to the "time" argument.
 
 ```{r}
 # create the data frame with 20 rows and each column with the survey number
@@ -253,7 +257,7 @@ modSel(coyote_models)
 
 17. Calculate and report the estimates and the 95% CI for the estimate for both detection probability and occupancy from our *best* model.
 
-    *Detection Probability:*  0.275 (0.19 - 0.38)
+    *Detection Probability:* 0.275 (0.19 - 0.38)
 
     *Occupancy:* 0.781 (0.48 - 0.93)
 
