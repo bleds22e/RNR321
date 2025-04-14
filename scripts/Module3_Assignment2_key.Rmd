@@ -57,7 +57,7 @@ We want to estimate the total abundance of desert pocket mice in our population 
 1.  Create objects with the correct values from the scenario above to represent the following:
     -   `c1`: \# individuals captured (and marked) in the first sample
     -   `c2`: \# individuals captured in the second sample (total)
-    -   `r2`: \# individuals in the second sample which were marked
+    -   `r2`: \# individuals in the second sample which were marked (\# of recaptures)
 
 ```{r}
 c1 <- 37
@@ -140,15 +140,14 @@ nRuns <- 1000
 Below, I've written a custom function that will create `tau_hat` estimates for us. We need to provide the function with values in order for it to run:
 
 -   `p1`: the *detection* probability on the first survey occasion
--   `p2`: the *detection* probability on the second survey occasion
 -   `p_recap`: the *recapture* probability on the second survey occasion
 
 Run the code chunk below to add this function into your work space. You will see it pop up in the environment tab.
 
-Now we can use this function as we would use any other function in R! Again, I don't expect you to know how it works---just know that we will provide the function with our 3 values as arguments and the result will be our simulated data.
+Now we can use this function as we would use any other function in R! Again, I don't expect you to know how it works---just know that we will provide the function with our 2 values as arguments and the result will be our simulated data.
 
 ```{r}
-LP_estimator <- function(p1, p2, p_recap) {
+LP_estimator <- function(p1, p_recap) {
   
   # make sure we get the same numbers every time
   set.seed(4)
@@ -159,8 +158,8 @@ LP_estimator <- function(p1, p2, p_recap) {
   for(i in 1:nRuns) { 
     # simulate data 
     c1 <- rbinom(1, tau, p1)     # no. individuals captured on survey occasion 1
-    u2 <- rbinom(1, tau-c1, p2)  # no. marked individuals recaptured on survey occasion 2
-    r2 <- rbinom(1, c1, p_recap)  # no. marked individuals recaptured on survey occasion 2
+    u2 <- rbinom(1, tau-c1, p1)  # no. unmarked individuals recaptured on survey occasion 2
+    r2 <- rbinom(1, c1, p_recap) # no. marked individuals recaptured on survey occasion 2
     c2 <- u2 + r2                # total no. individuals captured on survey occasion 2
     
     # calculate estimated abundance via (modified) Lincoln-Peterson
@@ -175,12 +174,12 @@ LP_estimator <- function(p1, p2, p_recap) {
 
 #### Let's Practice!
 
-Let's say that our detection probabilities (`p1` and `p2`) and recapture probability (`p_recap`) are consistent, always at 0.4.
+Let's say that our detection probability (`p1`) and recapture probability (`p_recap`) are consistent, always at 0.4.
 
 We can input those values into our `LP_estimator` function. Doing this will run our scenario 1000 times to see how close our estimate of mice, `tau_hat`, is to the true abundance, `tau`, which we have set to be 250 mice.
 
 ```{r}
-tau_hat_demo <- LP_estimator(p1 = 0.4, p2 = 0.4, p_recap = 0.4)
+tau_hat_demo <- LP_estimator(p1 = 0.4, p_recap = 0.4)
 ```
 
 Now, let's plot a histogram of our estimates.
@@ -226,12 +225,12 @@ What happens to bias and precision at higher or lower rates of detection across 
 
 #### Higher
 
-8.  Our detection probabilities (`p1` and `p2`) and recapture probability (`p_recap`) are consistent and *higher* than the demo: `p1` = 0.6, `p2` = 0.6, `p_recap` = 0.6 (2 points)
+8.  Our detection probability (`p1`) and recapture probability (`p_recap`) are consistent and *higher* than the demo: `p1` = 0.6 and `p_recap` = 0.6 (2 points)
 
     a.  Run the simulation.
 
     ```{r}
-    tau_hat_high <- LP_estimator(p1 = 0.6, p2 = 0.6, p_recap = 0.6)
+    tau_hat_high <- LP_estimator(p1 = 0.6, p_recap = 0.6)
     ```
 
     b.  Plot the histogram of this data.
@@ -254,12 +253,12 @@ What happens to bias and precision at higher or lower rates of detection across 
 
 #### Lower
 
-9.  Our detection probabilities (`p1` and `p2`) and recapture probability (`p_recap`) are consistent and *lower* than the demo: `p1` = 0.2, `p2` = 0.2, `p_recap` = 0.2 (2 points)
+9.  Our detection probability (`p1`) and recapture probability (`p_recap`) are consistent and *lower* than the demo: `p1` = 0.2 and `p_recap` = 0.2 (2 points)
 
     a.  Run the simulation.
 
     ```{r}
-    tau_hat_low <- LP_estimator(p1 = 0.2, p2 = 0.2, p_recap = 0.2)
+    tau_hat_low <- LP_estimator(p1 = 0.2, p_recap = 0.2)
     ```
 
     b.  Plot the histogram of this data.
@@ -284,7 +283,7 @@ What happens to bias and precision at higher or lower rates of detection across 
 
 10. Compare the bias and precision of our total abundance estimates given the different detection probabilities and write 2-3 sentences explaining the results. Does higher detection probability give us more or less bias? More or less precision? Does this make sense to you? (2 points)
 
-    *Answer: As detection probability increases, the bias decreases and the precision increases. This is because higher detection probability means there is likely less error, so estimates are going to be more accurate. Interestingly, the increase is not proportional---a jump from 0.2 to 0.4 detection prob makes a substantial difference in both bias and precision, while the increase from 0.4 to 0.6 increases accuracy but not as much.*
+    *Answer*: As detection probability increases, the bias decreases and the precision increases. This is because higher detection probability means there is likely less error, so estimates are going to be more accurate. Interestingly, the increase is not proportional---a jump from 0.2 to 0.4 detection prob makes a substantial difference in both bias and precision, while the increase from 0.4 to 0.6 increases accuracy but not as much.
 
 ### Scenario 2: Detection Probability Changes with Behavior
 
@@ -292,12 +291,12 @@ What happens to the bias and precision of our estimates when animals are trap ha
 
 #### Trap Shy
 
-11. We have a population that is trap shy, meaning that the probability of recapture is lower than the probability of initial capture (`p > c`): `p1` = 0.4, `p2` = 0.4, `p_recap` = 0.2 (2 points)
+11. We have a population that is trap shy, meaning that the probability of recapture is lower than the probability of initial capture (`p > c`): `p1` = 0.4 and `p_recap` = 0.2 (2 points)
 
     a.  Run the simulation.
 
     ```{r}
-    tau_hat_trapshy <- LP_estimator(p1 = 0.4, p2 = 0.4, p_recap = 0.2)
+    tau_hat_trapshy <- LP_estimator(p1 = 0.4, p_recap = 0.2)
     ```
 
     b.  Plot the histogram of this data.
@@ -320,12 +319,12 @@ What happens to the bias and precision of our estimates when animals are trap ha
 
 #### Trap Happy
 
-12. We have a population that is trap happy, meaning that the probability of recapture is higher than the probability of initial capture (`p < c`): `p1` = 0.4, `p2` = 0.4, `p_recap` = 0.6 (2 points)
+12. We have a population that is trap happy, meaning that the probability of recapture is higher than the probability of initial capture (`p < c`): `p1` = 0.4 and `p_recap` = 0.6 (2 points)
 
     a.  Run the simulation.
 
     ```{r}
-    tau_hat_traphappy <- LP_estimator(p1 = 0.4, p2 = 0.4, p_recap = 0.6)
+    tau_hat_traphappy <- LP_estimator(p1 = 0.4, p_recap = 0.6)
     ```
 
     b.  Plot the histogram of this data.
@@ -350,9 +349,6 @@ What happens to the bias and precision of our estimates when animals are trap ha
 
 13. Compare the bias and precision of our total abundance estimates for the demo, trap happy, and trap shy populations. Write 2-3 sentences explaining the results. How do animals being trap happy or trap shy affect the accuracy of our estimate? Does this make sense to you? (2 points)
 
-    *Answer: When animals are trap shy, we end up with an under-estimate (bias towards under counting) and imprecise estimates; when animals are trap happy, we end up over-estimating the population.*
-    
-    * Students do not need to explain how this works, but I'm putting it here so WE know why, because I struggle with it every semester!
-    
-    The reason trap happy animals bias our estimate negatively (we underestimate) boils down to the LP equation. The assumption is the that proportion of marked individuals in the second capture event is the same as the marked individuals in the population. When animals are trap happy, we end up with more recaptures than "expected", meaning the proportion of marked individuals in the second capture is higher than the proportion of individuals in the population. The only way to get the proportions back to equal is the make the tau_hat estimate lower than it actually is. 
-    Alternatively, we can think about the tau_hat = c1*c2 / r2 equations. If we are recapturing more individuals than we "should" be, we are dividing by a bigger number, which will ultimately make tau_hat lower.*
+    *Answer*: When animals are trap shy, we end up with an under-estimate (bias towards under counting) and imprecise estimates; when animals are trap happy, we end up over-estimating the population.
+
+    The reason trap happy animals bias our estimate negatively (we underestimate) boils down to the LP equation. The assumption is the that proportion of marked individuals in the second capture event is the same as the marked individuals in the population. When animals are trap happy, we end up with more recaptures than "expected", meaning the proportion of marked individuals in the second capture is higher than the proportion of individuals in the population. The only way to get the proportions back to equal is the make the tau_hat estimate lower than it actually is. Alternatively, we can think about the tau_hat = c1 x c2 / r2 equations. If we are recapturing more individuals than we "should" be, we are dividing by a bigger number, which will ultimately make tau_hat lower.
