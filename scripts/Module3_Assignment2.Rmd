@@ -9,6 +9,10 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+TO DO: add language about Lincoln-Peterson not taking differences in initial capture and recapture detection probabilities into account for Scenario 2
+
+
 # Estimating Abundances
 
 ## Assignment Details
