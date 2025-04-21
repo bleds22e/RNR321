@@ -19,10 +19,10 @@ We need to load the package we will need to complete this lab, which is `unmarke
 library(unmarked) # Load unmarked
 ```
 
-We also need to load our data. I've compiled it for you already, and it should be in your list of files, called `Distance_Data_Spring2024.csv`.
+We also need to load our data. I've compiled it for you already, and it should be in your list of files, called `Distance_Data_Spring2025.csv`.
 
 ```{r}
-beads <- read.csv("../data_raw/Distance_Data_Fall2024.csv")
+beads <- read.csv("../data_raw/Distance_Data_Spring2025.csv")
 ```
 
 Before we begin any analyses, let's make sure our data looks alright.
@@ -55,12 +55,11 @@ Take a look at the environment to see how many rows the `clear` and `green` data
 
 The first thing we need to do is to get a data frame that includes the length of transect that each group walked so we have a measure of survey effort.
 
-Simply based on how the data is structured (survey length column, so every value has the same survey length), the easiest way to get the survey length is by taking the mean or median of the length for each group.
+We will use the `unique()` function, which returns only one of each value in a column. We want the unique values from two of our columns: the group and the transect length.
 
 ```{r}
 # create a data frame that has a column for each group id and a column for the length that each group surveyed. in our case, the length is the same.
-transect_length <- data.frame(group_id = 1:10,
-                              length_m = 37)
+transect_length <- unique(green[c(1,4)])
 transect_length
 ```
 
@@ -74,7 +73,7 @@ Based on the histogram, I'll suggest we truncate at 2.5 m. Let's set this value 
 
 ```{r}
 # Set truncation distance to eliminate extreme observations
-trunc <- 3
+trunc <- 2.5
 ```
 
 We can set "cut points" for distance bins; in our case, we want every half meter.
@@ -82,7 +81,7 @@ We can set "cut points" for distance bins; in our case, we want every half meter
 This line of code creates a vector that will have values every half meter (`by = 0.5`), starting at 0 and running through the value we set for truncation (`trunc`).
 
 ```{r}
-distance_bins <- seq(0, trunc, by = 0.25) 
+distance_bins <- seq(0, trunc, by = 0.5) 
 ```
 
 ## `unmarked` Data Prep
@@ -95,7 +94,7 @@ To get our detection functions and density estimates, we will use the `formatDis
 # create an unmarked data frame
 green_data <- formatDistData(distData = green,         # data frame with the data points
                         distCol = "Distance_m",        # column that holds the distance values
-                        transectNameCol = "GroupID",     # column that holds the transect groups
+                        transectNameCol = "Group",     # column that holds the transect groups
                         dist.breaks = distance_bins)   # vector of distance groupings
 green_data
 ```
@@ -103,11 +102,11 @@ green_data
 Next, we need to assemble data into the format required by `unmarked`, called an "unmarked frame". We've seen something similar before, but this one is `unmarkedFrameDS`, with the DS meaning "distance sampling."
 
 ```{r}
-UMF_green <- unmarkedFrameDS(y = as.matrix(green_data), 
-                       survey = "line", 
-                       tlength = transect_length$length_m, 
-                       dist.breaks = distance_bins, 
-                       unitsIn = "m")
+UMF_green <- unmarkedFrameDS(y = green_data,                   # prepared data
+                       survey = "line",                        # type of survey conducted (line or point)
+                       tlength = transect_length$Transect_m,  # column with each transect length
+                       dist.breaks = distance_bins,            # vector of how distances are binned
+                       unitsIn = "m")                          # prepared data
 UMF_green
 ```
 
@@ -125,8 +124,8 @@ Our options for the `unitsOut` argument is either hectares (ha) or kilomenter (k
 
 ```{r}
 HN   <- distsamp(~1 ~1, UMF_green, keyfun = "halfnorm", output = "density", unitsOut = "ha")
-HR   <- distsamp(~1 ~1, UMF_green, keyfun = "hazard",output = "density", unitsOut = "ha")
-Unif <- distsamp(~1 ~1, UMF_green, keyfun = "uniform",output = "density", unitsOut = "ha")
+HR   <- distsamp(~1 ~1, UMF_green, keyfun = "hazard", output = "density", unitsOut = "ha")
+Unif <- distsamp(~1 ~1, UMF_green, keyfun = "uniform", output = "density", unitsOut = "ha")
 Exp  <- distsamp(~1 ~1, UMF_green, keyfun = "exp", output = "density", unitsOut = "ha")
 ```
 
@@ -145,7 +144,7 @@ modSel(models)
 Let's plot what the half-normal model looks like with our data.
 
 ```{r}
-hist(HN)
+hist(Exp)
 ```
 
 ## Density Estimate
@@ -155,14 +154,14 @@ Now that we've chosen our top model (half normal, in this case), we can get our 
 There is a handy function that we can use to pull the density estimate out of the model: `backTransform()`
 
 ```{r}
-density <- backTransform(HN, type = "state") # Density estimate (no./ha) 
+density <- backTransform(Exp, type = "state") # Density estimate (no./ha) 
 density
 ```
 
 We can also calculate the confidence intervals for our parameter estimate
 
 ```{r}
-exp(confint(HN, type = "state"))  # CI for density
+exp(confint(Exp, type = "state"))  # CI for density
 ```
 
 ### Convert to Our Sample Area
@@ -171,58 +170,43 @@ You won't need to do this in your assignment---we will just leave all of our den
 
 To see how close our estimate was to the actual number of beads we put outside (\#), we need to convert the density in hectares to the density of our survey area.
 
+Our first step is to calculate our effective strip width.
+
 ```{r}
-# Current density estimate:
+# density estimate
 density_est <- density@estimate
+density_est
 
-# Half Normal SD
-sigma <- backTransform(HN, type = "det")@estimate
+# standard deviation
+rate <- backTransform(Exp, type = "det")@estimate
+rate
 
-# Effective Strip Width
-esw <- integrate(gxhn, 0, 2, sigma = sigma)$value
+# calculate the effective strip width
+esw <- integrate(gxexp, lower = 0, upper = 2.5, rate = rate)$value
 esw
+```
 
+We can then calculate the area surveyed
+
+```{r}
 # Our survey area = 10 groups x (2*esw*L) 
-area <- 10 * (2 * esw * 32) # 480 m^2
+area <- 10 * (2 * esw * 10) 
+area
 
 # One hectare = 100 m x 100 m
 ha <- 100 * 100 # 10,000 m^2
+ha
 
-# Calculate the density of beads for the entirety of our sample area (same as abundance!)
-# D-hat * area/ha
-density_est * area/ha
+# Proportion of hectare we surveyed
+surveyed <- area/ha
+surveyed
 ```
 
-I put out 150 green beads, so this is pretty good!
-
-## Clear Beads
-
-Just out of curiosity...what happens when we use the data from the clear beads?
+Finally, if we multiple our density estimate by the amount of area we surveyed, we will get the density of beads for the entirety of our sample area (same as abundance!)
 
 ```{r}
-hist(clear$Distance_m) # keep distance bins the same
-
-clear_data <- formatDistData(distData = clear,         # data frame
-                        distCol = "Distance_m",        # column that holds the distance values
-                        transectNameCol = "GroupID",   # column that holds the transect groups
-                        dist.breaks = distance_bins)   # vector of distance groupings
-
-UMF_clear <- unmarkedFrameDS(y = as.matrix(clear_data),
-                       survey = "line",
-                       tlength = transect_length$length,
-                       dist.breaks = distance_bins,
-                       unitsIn = "m")
-
-HNc   <- distsamp(~1 ~1, UMF_clear, keyfun = "halfnorm", output = "density", unitsOut = "ha")
-hist(HNc)
-
-# Exponential model
-d_hat <- backTransform(HNc, type = "state")@estimate  
-d_hat
-
-exp(confint(HNc, type = "state"))
-
-# Abundance Estimate
-# D-hat * area/ha
-d_hat * area/ha # <- actual value was 150
+# D-hat * surveyed
+density_est * surveyed
 ```
+
+I put out 150 green beads, so this is off by a bit! That's ok, though. We did *repeated* surveys in the same area and did not take that into account in our model. If we were going to accurately analyze our data, we would definitely need to do that.

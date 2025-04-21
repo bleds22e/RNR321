@@ -32,7 +32,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-April 22 at 2pm MST
+April 28 at 2pm MST
 
 ------------------------------------------------------------------------
 
@@ -72,11 +72,11 @@ We will use the saguaro data for our first analyses.
 
 ### Data Preparation
 
-1.  Make a data frame with transect length (i.e., survey effort). Call this `transect_saguaro`. There are 10 groups. Set the length of the transect (the `length_m` column) to the mean of the length column from the saguaro dataframe (`mean(saguaro$length)`).
+1.  Using the `unique()` function, make a data frame with transect length (i.e., survey effort). Call this `transect_saguaro`. Make sure you are referencing the correct columns in the square brackets!
 
 ```{r}
-transect_saguaro <- data.frame(group_id = 1:10,
-                               length_m = mean(saguaro$length))
+transect_saguaro <- unique(saguaro[1:2])
+transect_saguaro
 ```
 
 2.  Plot the distribution of detection distances. Does is look how you expected?
@@ -94,7 +94,9 @@ trunc <- 20
 distance_bins <- seq(0, trunc, by = 4) 
 ```
 
-4.  Use `unmarked` function `formatDistData` to count the number of detections in each distance bin for each transect. Save this as an object called `sag_data`. Ignore the *warning* message (but if you get an *error* message, that is different!).
+4.  Use `unmarked` function `formatDistData` to count the number of detections in each distance bin for each transect. Save this as an object called `sag_data`.
+
+    NOTE: Ignore the *warning* message (but if you get an *error* message, that is different!).
 
 ```{r}
 # saguaro dataframe
@@ -107,7 +109,7 @@ sag_data <- formatDistData(saguaro,
 5.  Assemble data into the format required by `unmarked`. Call this unmarked frame `UMF_sag`.
 
 ```{r}
-UMF_sag <- unmarkedFrameDS(y = as.matrix(sag_data), 
+UMF_sag <- unmarkedFrameDS(y = sag_data, 
                            survey = "line",
                            tlength = transect_saguaro$length, # transect dataframe
                            dist.breaks = distance_bins,
@@ -161,11 +163,11 @@ Now, let's do the same thing for the ocotillo data that they collected.
 
 ### Data Preparation
 
-11. Make your data frame with the transect lengths. Call this `transect_oco`. Again, there were 10 groups.
+11. Make your data frame with the transect lengths. Call this `transect_oco`.
 
 ```{r}
-transect_oco <- data.frame(group_id = 1:10,
-                           length_m = mean(ocotillo$length))
+transect_oco <- unique(ocotillo[1:2])
+transect_oco
 ```
 
 12. Plot the distribution of detection distances to get an idea of what they look like.
@@ -193,7 +195,7 @@ oco_data <- formatDistData(distData = ocotillo,
 15. Assemble data into the format required by unmarked, called an "unmarked frame." Remember to refer to the correct data frames and values! Save this as `UMF_oco`
 
 ```{r}
-UMF_oco <- unmarkedFrameDS(y = as.matrix(oco_data), 
+UMF_oco <- unmarkedFrameDS(y = oco_data, 
                            survey = "line",
                            tlength = transect_oco$length, 
                            dist.breaks = distance_bins_oco,
@@ -203,13 +205,13 @@ UMF_oco
 
 ### Models
 
-16. Let's go ahead and use the half-normal model for ocotillos (it also has the lowest AIC value). Write a line of code to fit the half-normal model to the ocotillo data.
+16. Let's go ahead and use the half-normal model for ocotillos (no need to perform model selection). Write a line of code to fit the half-normal model to the ocotillo data.
 
 ```{r}
-HN_oco   <- distsamp(~1 ~1, UMF_oco, keyfun = "halfnorm", output = "density", unitsOut = "ha")
+HN_oco <- distsamp(~1 ~1, UMF_oco, keyfun = "halfnorm", output = "density", unitsOut = "ha")
 ```
 
-17. Using the `HN_coc` model, calculate the density estimate and confidence intervals for ocotillos.
+17. Using the `HN_oco` model, calculate the density estimate and confidence intervals for ocotillos.
 
 ```{r}
 backTransform(HN_oco, type = "state") # Density estimate (no./ha) 
@@ -220,6 +222,6 @@ exp(confint(HN_oco, type = "state"))  # CI for density
 
 We've done a lot of calculations just to get to this point!
 
-18. Which has the higher density per hectare: saguaros or ocotillos? How do you know? (2 points)
+18. Which has the higher density per hectare: saguaros or ocotillos? How do you know (AKA which values are you comparing to figure this out?)? (2 points)
 
-*Answer:* based on the d-hat estimates, ocotillos have a higher density
+*Answer:* based on the d-hat estimates, ocotillos have a higher density (118.2 vs. 49.5 per hectare)

@@ -32,7 +32,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-November 26 at 1 pm MST
+April 28 at 2 pm MST
 
 ------------------------------------------------------------------------
 
@@ -71,10 +71,11 @@ We will use the saguaro data for our first analyses.
 
 ### Data Preparation
 
-1.  Make a data frame with transect length (i.e., survey effort). Call this `transect_saguaro`. There are 10 groups. Set the length of the transect (the `length_m` column) to the mean of the length column from the saguaro dataframe (`mean(saguaro\$length)`).
+1.  Using the `unique()` function, make a data frame with the transect length for each group (i.e., survey effort). Call this `transect_saguaro`. Make sure you are referencing the correct columns in the square brackets!
 
 ```{r}
 transect_saguaro <- 
+transect_saguaro
 ```
 
 2.  Plot the distribution of detection distances. Does is look how you expected?
@@ -83,14 +84,18 @@ transect_saguaro <-
 
 ```
 
-3.  Create an object called `trunc` that sets the truncation distance to 20m to eliminate extreme observations. Using that `trunc` value, create a vector called `distance_bins` to set "cut points" for distance bins; for the saguaros data, let's do every 4 meters. Be sure to adjust the arguments accordingly!
+3.  Create an object called `trunc` that sets the truncation distance to 20m to eliminate extreme observations. 
+
+Using that `trunc` value, create a vector called `distance_bins` to set "cut points" for distance bins; for the saguaros data, let's do every 4 meters. Be sure to adjust the arguments accordingly!
 
 ```{r}
 trunc <- 
 distance_bins <- 
 ```
 
-4.  Use unmarked function `formatDistData` to count the number of saguaros in each distance bin for each transect. Save this as an object called `sag_data`. Ignore the *warning* message (but if you get an *error* message, that is different!).
+4.  Use unmarked function `formatDistData` to count the number of saguaros in each distance bin for each transect. Save this as an object called `sag_data`. 
+
+Ignore the *warning* message (but if you get an *error* message, that is different!).
 
 ```{r}
 sag_data <- 
@@ -100,6 +105,7 @@ sag_data <-
 
 ```{r}
 UMF_sag <- 
+UMF_sag
 ```
 
 ### Models
@@ -133,7 +139,7 @@ models <-
 
 10. Write 2-3 sentences addressing the following questions. (2 points)
 
--   What is "D hat", the estimated density of saguaros? What about the confidence intervals?
+-   What is "D hat," the estimated density of saguaros? What about the confidence intervals? What does the "D hat" value represent (include units!)
 -   If we had calculated a density estimate using just our data and not our detection function, would we have under- or over-estimated the density of saguaros? Why?
 
 *Answer:*
@@ -177,13 +183,13 @@ UMF_oco <-
 
 ### Models
 
-16. Let's go ahead and use the half-normal model for ocotillos (it also has the lowest AIC value). Write a line of code to fit the half-normal model to the ocotillo data.
+16. Let's go ahead and use the half-normal model for ocotillos (no need to perform model selection). Write a line of code to fit the half-normal model to the ocotillo data.
 
 ```{r}
 HN_oco <- 
 ```
 
-17. Using the `HN_coc` model, calculate the density estimate and confidence intervals for ocotillos.
+17. Using the `HN_oco` model, calculate the density estimate and confidence intervals for ocotillos.
 
 ```{r}
 
@@ -193,6 +199,6 @@ HN_oco <-
 
 We've done a lot of calculations just to get to this point!
 
-18. Which has the higher density per hectare: saguaros or ocotillos? How do you know? (2 points)
+18. Which has the higher density per hectare: saguaros or ocotillos? How do you know (AKA which values are comparing to figure this out)? (2 points)
 
 *Answer:*
