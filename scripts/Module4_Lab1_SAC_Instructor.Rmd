@@ -36,6 +36,7 @@ data(BCI)
 ```
 
 We can use the `head()` function to take a look at the data frame.
+
 ```{r}
 # 50 rows, each corresponding to a different plot
 # 225 column, each for a different species
@@ -52,6 +53,7 @@ You will get a warning; no need to be concerned.
 BCI_sac <- specaccum(BCI)
 BCI_sac
 ```
+
 How do we interpret this output?
 
 ### Plot the Species Abundance Curve
@@ -74,6 +76,7 @@ The output of `specpool()` will give us the estimates from several different est
 BCI_richness <- specpool(BCI)
 BCI_richness
 ```
+
 Let's save our observed species richness and estimated species richness as objects to reference later. We can use the `$` operator to reference each value by name.
 
 ```{r}
