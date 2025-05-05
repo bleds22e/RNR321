@@ -21,8 +21,7 @@ ocotillo <- read.csv("../data_raw/ocotillo.csv")
 1.  
 
 ```{r}
-transect_saguaro <- data.frame(group_id = 1:10,
-                               length = mean(saguaro$length))
+transect_saguaro <- unique(saguaro[1:2])
 transect_saguaro
 ```
 
@@ -89,8 +88,8 @@ exp(confint(HN_sag, type = "state"))  # CI for density
 11. 
 
 ```{r}
-transect_oco <- data.frame(group_id = 1:10,
-                           length_m = mean(ocotillo$length))
+transect_oco <- unique(ocotillo[1:2])
+transect_oco
 ```
 
 12. 
