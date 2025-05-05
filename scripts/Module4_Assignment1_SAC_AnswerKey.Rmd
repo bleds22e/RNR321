@@ -1,0 +1,124 @@
+---
+title: 'Module "4": Assignment 1 Answer Key'
+author: "Ellen Bledsoe"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r message = FALSE}
+library(vegan)
+```
+
+
+```{r}
+scr <- read.csv("../data_raw/SCR_camera_data.csv")
+```
+
+3.  
+
+```{r}
+head(scr)
+```
+
+
+5. 
+```{r}
+# A warning is fine!
+scr_sac <- specaccum(scr)
+scr_sac
+```
+
+6.  
+
+```{r}
+plot(scr_sac)
+```
+
+7.  
+
+```{r}
+scr_richness <- specpool(scr)
+scr_richness
+```
+8. 
+
+```{r}
+scr_observed <- scr_richness$Species
+scr_observed
+
+scr_estimated <- scr_richness$chao
+scr_estimated
+```
+
+9. 
+```{r}
+scr_estimated - scr_observed
+```
+
+10. 
+```{r}
+plot(scr_sac, ylim = c(0, scr_estimated + 5))
+abline(h = scr_estimated, col = "red")
+```
+
+
+
+
+```{r}
+fish <- read.csv("../data_raw/Doubs_fish.csv")
+```
+
+13.  
+
+```{r}
+head(fish)
+```
+
+
+14. 
+
+```{r}
+# A warning is fine!
+fish_sac <- specaccum(fish)
+fish_sac
+```
+
+15.  
+
+```{r}
+plot(fish_sac)
+```
+16. 
+
+```{r}
+fish_richness <- specpool(fish)
+fish_richness
+```
+
+17. 
+
+```{r}
+fish_observed <- fish_richness$Species
+fish_observed
+
+fish_estimated <- fish_richness$chao
+fish_estimated
+```
+
+18. 
+```{r}
+fish_estimated - fish_observed
+```
+
+19. 
+
+```{r}
+plot(fish_sac, ylim = c(0, fish_estimated + 5))
+abline(h = fish_estimated, col = "red")
+```
+

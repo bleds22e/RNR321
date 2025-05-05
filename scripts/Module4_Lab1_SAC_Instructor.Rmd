@@ -1,0 +1,108 @@
+---
+title: 'Module "4": Lab 1'
+author: "Ellen Bledsoe"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Species Richness
+
+Today, we will be working with community data to calculate species richness, plot species accumulation curves, and calculate our estimate of species richness.
+
+## Set-Up
+
+For today's lab and assignment, we will need to load a new package called `vegan`. I've already installed the package on Posit Cloud, so we only need to load it into our work space.
+
+```{r message=FALSE}
+library(vegan)
+```
+
+The `vegan` package is one of the most popular packages available for working with community-level data. It includes functions for many multivariate analyses commonly used in the analysis of ecological communities. We will be using it today for its species accumulation curve functions.
+
+## Community Data
+
+For this example, we are going to use a dataset that is included with R already called BCI. This dataset is from a long-term research site in Panama run by the Smithsonian called [Barro Colorado Island](https://forestgeo.si.edu/sites/neotropics/barro-colorado-island) set up to monitor forest dynamics.
+
+We can use the `data()` function to bring it into our environment.
+
+In your assignment, you will use the `read.csv()` function, as usual.
+
+```{r}
+data(BCI)
+```
+
+We can use the `head()` function to take a look at the data frame.
+```{r}
+# 50 rows, each corresponding to a different plot
+# 225 column, each for a different species
+# head(BCI)
+```
+
+The concepts of spatial and temporal replication apply not only to "capture-recapture" analyses of species richness, but also for species accumulation curves. Would we consider this spatial or temporal replication?
+
+First, let's run our plot by species matrix through the `specaccum()` function to prepare the data to be put into a species accumulation curve model.
+
+You will get a warning; no need to be concerned.
+
+```{r}
+BCI_sac <- specaccum(BCI)
+BCI_sac
+```
+How do we interpret this output?
+
+### Plot the Species Abundance Curve
+
+Plot the species abundance curve based on the *observed* data.
+
+```{r}
+plot(BCI_sac)
+```
+
+What does this plot tell us?
+
+### Estimating Species Richness
+
+While the `specaccum()` function gives us the data site by site so we can plot the species accumulation curve, we can use the `specpool()` function to find our overall values, both for *observed* species richness and our estimated species richness.
+
+The output of `specpool()` will give us the estimates from several different estimators. We are going to use the `chao` estimator.
+
+```{r}
+BCI_richness <- specpool(BCI)
+BCI_richness
+```
+Let's save our observed species richness and estimated species richness as objects to reference later. We can use the `$` operator to reference each value by name.
+
+```{r}
+BCI_observed <- BCI_richness$Species
+BCI_observed
+
+BCI_estimated <- BCI_richness$chao
+BCI_estimated
+```
+
+Based on our estimated and observed richness values, how many species does the model think are present but we failed to observe?
+
+```{r}
+BCI_estimated - BCI_observed
+```
+
+### Plotting the Estimate
+
+Let's add a horizontal line in our species accumulation curve plot to compare against our curve.
+
+First, we will need to make sure that the range of the y-axis on the plot goes high enough to show our estimated richness line. We can do this by setting the `ylim` argument to run from 0 to the estimated richness plus a few extra for good measure.
+
+We can then use the `abline()` function to add a horizontal line. We set the `h` argument equal to the estimated richness value. We can also change the color of this line by setting the `col` argument.
+
+One quirky thing about plotting this way is that both lines of code have to be run together for the plot to successfully be created. The easiest way to do this is by hitting the green run arrow on the code chunk.
+
+```{r}
+plot(BCI_sac, ylim = c(0, BCI_estimated + 5))
+abline(h = BCI_estimated, col = "red")
+```
+
+How do we interpret this plot?

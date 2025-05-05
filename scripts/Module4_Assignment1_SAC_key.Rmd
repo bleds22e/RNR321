@@ -1,0 +1,177 @@
+---
+title: 'Module "4": Assignment 1'
+author: "Ellen Bledsoe"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Assignment Details
+
+### Purpose
+
+The goal of this assignment is to work with community data to calculate observed and estimated species richness and plot species accumulation curves.
+
+### Task
+
+Write R code to successfully answer each question below or write text to successfully answer the question.
+
+### Criteria for Success
+
+-   Code is within the provided code chunks
+-   Code chunks run without errors
+-   Code produces the correct result
+    -   Code attempts will get half points
+    -   Code that produces the correct answer will receive full points
+-   Text answers correctly address the question asked
+
+### Due Date
+
+May 12 at midnight MST
+
+------------------------------------------------------------------------
+
+# Assignment Questions
+
+All questions are worth 1 point unless otherwise specified.
+
+We are going to compare two different communities in this assignment.
+
+## Set-Up
+
+1.  We are going to need to load the community ecology package, `vegan`.
+
+```{r message = FALSE}
+library(vegan)
+```
+
+## Community 1
+
+For our first community in this assignment, we are going to use a site x species matrix for trail cameras along the Santa Cruz River.
+
+2.  Use the `read.csv()` function to bring in the SCR trail camera data (called `SCR_camera_data.csv`)
+
+```{r}
+scr <- read.csv("../data_raw/SCR_camera_data.csv")
+```
+
+3.  First, use the `head()` function to take a look at the dataset.
+
+```{r}
+head(scr)
+```
+
+4. How many sites were surveyed? How many species were seen?
+
+*Sites*: 15
+*Species*: 25
+
+5. Use the `specaccum()` function to prep the data for the species accumulation curve.
+
+```{r}
+# A warning is fine!
+scr_sac <- specaccum(scr)
+```
+
+6.  Next, plot the species accumulation curve based on our observed data.
+
+```{r}
+plot(scr_sac)
+```
+
+7.  Use the `specpool()` function to calculate the estimated species richness.
+
+```{r}
+scr_richness <- specpool(scr)
+scr_richness
+```
+8. Save the observed species richness and estimated species richness values as objects. You the `$` operator to reference specific named values from the `scr_richness` object.
+
+```{r}
+scr_observed <- scr_richness$Species
+scr_observed
+
+scr_estimated <- scr_richness$chao
+scr_estimated
+```
+
+9. Based on the Chao estimator, how many species are present but we did not observe?
+```{r}
+scr_estimated - scr_observed
+```
+
+10. Now, let's add our estimated species richness to our species accumulation curve. Remember to set the y-axis range appropriately and to run the `plot()` and `abline()` functions togther.
+
+```{r}
+plot(scr_sac, ylim = c(0, scr_estimated + 5))
+abline(h = scr_estimated, col = "red")
+```
+
+
+11. Interpret the plot you just made. What is the predicted asymptote value? How does it relate the our species accumulation curve? What does that mean?
+
+*Answer*: With an estimated species richness of >116 compared to an observed richness of 25, it appears we have not sampled nearly enough to see all of the possible species in the community.
+
+## Community 2
+
+12. Now, bring in the data for our second community, fish species from the Doubs River in France.
+
+```{r}
+fish <- read.csv("../data_raw/Doubs_fish.csv")
+```
+
+13.  Use the `head()` function to take a look at the dataset.
+
+```{r}
+head(fish)
+```
+In this dataset, each row represents a survey occasion rather than a site.
+
+14. Use the `specaccum()` function to prep the data for the species accumulation curve.
+
+```{r}
+# A warning is fine!
+fish_sac <- specaccum(fish)
+fish_sac
+```
+
+15.  Next, plot the species accumulation curve based on our observed data.
+
+```{r}
+plot(fish_sac)
+```
+16. Use the `specpool()` function to calculate the estimated species richness.
+
+```{r}
+fish_richness <- specpool(fish)
+fish_richness
+```
+
+17. Save the observed species richness and estimated species richness values as objects. You the `$` operator to reference specific named values from the `scr_richness` object.
+
+```{r}
+fish_observed <- fish_richness$Species
+fish_observed
+
+fish_estimated <- fish_richness$chao
+fish_estimated
+```
+
+18. Based on the Chao estimator, how many species are present but we did not observe?
+```{r}
+fish_estimated - fish_observed
+```
+
+19. Now, let's add our estimated species richness to our species accumulation curve. Remember to set the y-axis range appropriately and to run the `plot()` and `abline()` functions together.
+
+```{r}
+plot(fish_sac, ylim = c(0, fish_estimated + 5))
+abline(h = fish_estimated, col = "red")
+```
+
+20. Interpret the plot you just made. How does community 2 differ from community 1? How does our sampling differ between community 1 and community 2? 
+
+*Answer*: This community likely does not have any species which we have not observed, because the species accumulation curve has hit an asymptote and the estimated richness is the same as the observed. This is in complete contrast to community 1, which would require much more sampling to observe all of the species estimated.
