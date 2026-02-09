@@ -72,15 +72,15 @@ This assignment is worth 20 points total. Each question is worth 1 point.
 
 ```
 
-9.  Run the following line of code. Based on the output, explain what the line of code does (\~ 1 sentence). I know multiplying snails by birds is conceptually illogical; I'm after an explanation of what the *code* is doing.
+9.  Run the line of code below. Based on the output, explain what the line of code does (\~ 1 sentence).
+
+*Answer*:
 
 ```{r}
-snails * fewer_birds
+snails[3:5]
 ```
 
-*Answer:*
-
-10. Create a character vector called `rhymes` that contains the following values: cat, rat, bat, hat
+10. Create a character vector called `rhymes` that contains the following values: `cat`, `rat`, `bat`, `hat`
 
 ```{r}
 
@@ -93,41 +93,43 @@ snails * fewer_birds
 For the following questions, we will be using the cactus pad data that we collected a few weeks ago. Run the following code chunk to bring ("read") the .csv file into R for us to use.
 
 ```{r}
-cactus <- read.csv("CactusPads.csv") |> na.omit()
+cactus <- read.csv("CactusPads.csv")
 ```
 
 This code chunk uses the `$` operator to pull out individuals columns from 2D data and treat them as vectors. Here, I'm saving the cactus pad length column as a vector called `pad_length`. Once you run this code chunk, you should see `pad_length` in your environment.
 
 ```{r}
-pad_length <- cactus$length_in
+pad_length <- cactus$length_cm
 pad_length
 ```
 
-Below, I'm doing the same thing with a couple more columns.
+Below, I'm doing the same thing with a couple more columns. 
+
+Run this code chunk, as well. Take a look in the environment and find the new objects called `pad_width` and `damage`.
 
 ```{r}
-pad_width <- cactus$width_in
-damage <- cactus$damage
-
+pad_width <- cactus$width_cm
 pad_width
+
+damage <- cactus$damage
 damage
 ```
 
 ------------------------------------------------------------------------
 
-11. Write a line of code that pulls out the 4th value in the `pad_width` vector.
+11. Write a line of code that returns the 4th value in the `pad_width` vector.
 
 ```{r}
 
 ```
 
-12. Write a line of code that saves the 42nd value in the `pad_width` column as an object called `answer`.
+12. Write a line of code that saves the 42nd value in the `pad_width` column as an object called `answer`. Remember to retype `answer` on a new line in the code chunk to print the output.
 
 ```{r}
 
 ```
 
-13. Write a line of code that pulls out the 6th through the 10th value in the `pad_width` vector.
+13. Write a line of code that returns the 6th through the 10th value in the `pad_width` vector.
 
 ```{r}
 
@@ -157,13 +159,13 @@ damage
 
 ```
 
-18. Calculate both the average (use the `mean()` function) and the standard deviation (use the `sd()` function) for all of the cactus pad lengths.
+18. Calculate both the average (use the `mean()` function) and the standard deviation (use the `sd()` function) for all of the cactus pad *lengths*.
 
 ```{r}
 
 ```
 
-19. Calculate both the average (`mean()`) and the standard deviation (`sd()`) for the cactus pad widths.
+19. Calculate both the average and the standard deviation for the cactus pad *widths*.
 
 ```{r}
 
@@ -171,7 +173,7 @@ damage
 
 20. Compare the results of Questions 18 and 19. Are cactus lengths or widths larger, on average? Which of the two sets of data has greater variability, and what does that mean? (\~2 sentences)
 
-*Answer:*
+*Answer*:
 
 # Turning in Your Assignment
 

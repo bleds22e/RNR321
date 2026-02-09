@@ -47,15 +47,15 @@ rhymes
 
 
 ```{r}
-cactus <- read.csv("../data_raw/CactusData.csv") |> na.omit()
+cactus <- read.csv("../data_raw/CactusData.csv")
 ```
 
 ```{r}
-pad_length <- cactus$length_in
+pad_length <- cactus$length_cm
 ```
 
 ```{r}
-pad_width <- cactus$width_in
+pad_width <- cactus$width_cm
 damage <- cactus$damage
 ```
 

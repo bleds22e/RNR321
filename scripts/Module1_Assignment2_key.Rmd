@@ -28,7 +28,7 @@ Write R code to successfully answer each question below and/or write text to suc
 
 ### Due Date
 
-Feb 17 at 2pm MST
+Feb 16 at 2pm MST
 
 # Assignment Questions
 
@@ -77,15 +77,15 @@ snails
 class(snails)
 ```
 
-9.  Run the following line of code. Based on the output, explain what the line of code does (\~ 1 sentence).
+9.  Run the line of code below. Based on the output, explain what the line of code does (\~ 1 sentence).
+
+*Answer*:
 
 ```{r}
-snails * fewer_birds
+snails[3:5]
 ```
 
-*Answer:*
-
-10. Create a character vector called `rhymes` that contains the following values: cat, rat, bat, hat
+10. Create a character vector called `rhymes` that contains the following values: `cat`, `rat`, `bat`, `hat`
 
 ```{r}
 rhymes <- c("cat", "rat", "bat", "hat")
@@ -102,7 +102,9 @@ For the following questions, we will be using the cactus pad data that we collec
 cactus <- read.csv("../data_raw/CactusData.csv") 
 ```
 
-This code chunk uses the `$` operator to pull out individuals columns from 2D data and treat them as vectors. Here, I'm saving the cactus pad length column as a vector called `pad_length`. Once you run this code chunk, you should see `pad_length` in your environment.
+This code chunk uses the `$` operator to subset individuals columns from 2D data and treat them as vectors. 
+
+Here, I'm saving the cactus pad length column as a vector called `pad_length`. Once you run this code chunk, you should see `pad_length` in your environment.
 
 ```{r}
 pad_length <- cactus$length_in
