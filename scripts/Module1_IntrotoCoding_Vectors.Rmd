@@ -21,10 +21,10 @@ output:
 
 Let's first explore what each of the panels in RStudio do.
 
-1.  *Source* (upper left): This is where documents which have data or code in them are opened. You can save all the code you type here for future (re)use, which is a big reason coding in R is reproducible.
-2.  *Console* (bottom left): This is where code from the source is "run" and you see the outputs. You can also execute lines of code which you type into the console, but they will not be saved. You can think of this section as where RStudio really interfaces with R--it is where R actually evaluates code within RStudio.
-3.  *Environment* (upper right): This panel becomes more helpful as you get familiar with R and RStudio. It keeps track of data objects and other items you have created and gives a bit of information about them.
-4.  *Files/Help/etc.* (bottom right): This panel is (clearly) very multifaceted. The Files tab lets you see all the files in your current workspace. For us, the Help tab is probably what we will use the most. This is where we can search the R documentation for information about functions we use.
+1.  [*Source*]{.underline} (upper left): This is where documents which have data or code in them are opened. You can save all the code you type here for future (re)use, which is a big reason coding in R is reproducible.
+2.  [*Console*]{.underline} (bottom left): This is where code from the source is "run" and you see the outputs. You can also execute lines of code which you type into the console, but they will not be saved. You can think of this section as where RStudio really interfaces with R--it is where R actually evaluates code within RStudio.
+3.  [*Environment*]{.underline} (upper right): This panel becomes more helpful as you get familiar with R and RStudio. It keeps track of data objects and other items you have created and gives a bit of information about them.
+4.  [*Files/Help/etc.*]{.underline} (bottom right): This panel is (clearly) very multifaceted. The Files tab lets you see all the files in your current workspace, and we will mostly use this tab in the panel. The Help tab can also be useful, as it contains the R documentation for information about functions we use.
 
 # Basics of Coding in R
 
@@ -33,7 +33,7 @@ How do you "run" code? Running or executing code means that you are sending a li
 In the source, there are a few different ways to run code.
 
 -   Sometimes you want to run only one line of code at a time. You can do this by putting your cursor on the line you want to run and either hitting the "Run" button in the upper right-hand corner of the source panel or holding down `Ctrl` + `Enter` (`Cmd` + `Enter` on Macs). If you want to run a couple lines of code, you can highlight them and do the same thing
--   If you want to run an entire code chunk (see below), you can click on the green arrow on the right side of the code chunk.
+-   If you want to run an entire [code chunk]{.underline} (see below), you can click on the green arrow on the right side of the code chunk.
 
 In the console, you hit `Enter`.
 
@@ -45,21 +45,7 @@ For example:
 
 ```
 
-### Let's practice in the console, too.
-
-You can do basic math in the console. The console only understands R code, so we don't need to use the `{r}` notation; we can type numbers and mathematical symbols. Try multiplying 5 and 3 (hint: \* means multiply) in the console.
-
-## Assigning Objects
-
-Assignments are really key to almost everything we do in R. This is how we create permanence in R. Anything can be saved to an object, and we do this with the assignment operator, `<-`.
-
-The short-cut for `<-` is `Alt + -` (or `Option + -` on a Mac). We will be typing this *a lot*.
-
-```{r}
-
-```
-
-We can also perform mathematical functions on numeric objects.
+By the way, you can add notes or information into code chunks.
 
 ```{r}
 # we can add comments to our code by using the # sign
@@ -67,11 +53,49 @@ We can also perform mathematical functions on numeric objects.
 
 ```
 
-## Functions
+### Let's practice in the console, too.
 
-Functions are pre-written bits of codes that perform specific tasks for us.
+You can also do basic math in the console.
 
-Functions are always followed by parentheses. Anything you type into the parentheses are called arguments. Arguments allow us to give the function additional information about how we want it to perform its task.
+The console only understands R code, so we don't need to use the `{r}` notation; we can type numbers and mathematical symbols (among other things).
+
+Try multiplying 5 and 3 (hint: `*` means multiply) in the console.
+
+# Assigning Objects
+
+Assignments are really key to almost everything we do in R. We create permanent [objects]{.underline} in R by assignment, meaning we can reference these objects later.
+
+Anything can be saved to an object, and we do this with the assignment operator, `<-`.
+
+The short-cut for `<-` is `Alt + -` (or `Option + -` on a Mac). We will be typing this *a lot*.
+
+```{r}
+
+```
+
+You will notice 2 things.
+
+1.  Any time we write a line of code which creates an object, the output of the code is not shown below the code chunk. To show the output, type the name of the object on a new line of code.
+
+    ```{r}
+    obj <- 24
+    obj
+    ```
+
+2.  Each new object will show up in your environment (upper right panel). This is particularly helpful when you want to check if your code ran successfully or to confirm that the object represents what you *think* it represents.
+
+We can reference objects in other parts of the code. For example, we can perform mathematical operations using numeric objects.
+
+```{r}
+
+
+```
+
+# Functions
+
+[Functions]{.underline} are pre-written bits of codes that perform specific tasks for us.
+
+Functions are always followed by parentheses. Anything you type into the parentheses are called [arguments]{.underline}. Arguments allow us to give the function additional information about how we want it to perform its task.
 
 ```{r}
 
@@ -90,11 +114,12 @@ Write some code that calculates the sum of the `weight_kg` object and the `heigh
 ```{r}
 
 ```
-When you've finished that, start working on Questions 5 & 6 in the assignment.
 
-## Vectors
+| When you've finished that, start working on Questions 5 & 6 in the assignment.
 
-Vectors are the most common and basic data type in R. They make up most of the other data types we will work with in R. They are composed of series of values, which can either be numbers or characters or other types of data.
+# Vectors
+
+[Vectors]{.underline} are the most common and basic data type in R. They make up most of the other data types we will work with in R. They are composed of series of values (called [elements]{.underline}), which can either be numbers, characters, or other types of data.
 
 We use the `c()` function (stands for combine) to create a vector.
 
@@ -108,34 +133,52 @@ There are many functions we can use to look at vectors and learn more about them
 
 ```
 
-Vectors can only be one data type. Let's experiment with that.
+Vectors can only be from one data class. Let's experiment with that.
 
 ```{r}
 
 ```
-#### Let's Practice!
+
+### Let's Practice!
 
 Start working on Questions 7-10 in the assignment.
 
+## Sub-setting Vectors
+
+Sometimes we want to keep and work with only certain values from a vector. This is called sub-setting (taking a smaller set of the original).
+
+In R, there are 2 main ways to subset:
+
+by index (position of the element)
+
+by condition (meeting certain requirements)
+
+Let's explore both.
+
 ### Sub-setting by Index
 
-Sometimes we want to pull out and work with specific values from a vector. This is called subsetting (taking a smaller set of the original).
-
-One way to do this is by an "index," meaning the position of the value or object in the vector. To do this, we use square brackets and a number to indicate the position.
-
-```{r}
-weight_g[2] 
-weight_g[c(2,4)] 
-weight_g[c(1:4)]
-```
-
-### Conditional Sub-setting
-
-Another way in which we can subset data is through conditions. The vector will only return data which meets the conditions we set.
+One way to subset is by an "index," meaning the position of the value or element in the vector. To do this, we use square brackets and one or more numbers to indicate the position(s) to return..
 
 ```{r}
 
 ```
+
+### Sub-setting by Condition
+
+Another way we can subset data is through conditions. The vector will only return data which meet certain requirements we have set. We set these requirements through "conditional statements."
+
+```{r}
+
+```
+
+Conditions can be set using the following options:
+
+-   `>`: greater than
+-   `<`: lesser than
+-   `>=`: greater than or equal to
+-   `<=`: lesser than or equal to
+-   `==`: equal to (note the double `=`)
+-   `!=`: not equal to
 
 ### Group Challenge
 
@@ -147,7 +190,7 @@ Let's practice! Write a few lines of code that do the following:
 -   find the sum of the numbers (hint: use the `sum()` function)
 
 ```{r}
-# the answer you should get out is 24
+# the answer is 24
 
 ```
 
