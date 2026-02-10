@@ -93,7 +93,7 @@ snails[3:5]
 For the following questions, we will be using the cactus pad data that we collected a few weeks ago. Run the following code chunk to bring ("read") the .csv file into R for us to use.
 
 ```{r}
-cactus <- read.csv("CactusPads.csv")
+cactus <- read.csv("CactusData.csv")
 ```
 
 This code chunk uses the `$` operator to pull out individuals columns from 2D data and treat them as vectors. Here, I'm saving the cactus pad length column as a vector called `pad_length`. Once you run this code chunk, you should see `pad_length` in your environment.
