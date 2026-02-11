@@ -1,6 +1,6 @@
 ---
-title: "Introduction to Coding in R"
-author: "EKB"
+title: "Introduction to Coding in R: Data Frames"
+author: "Ellen Bledsoe"
 date: "`r Sys.Date()`"
 output: 
   pdf_document: default
@@ -17,28 +17,34 @@ output:
     -   calculate descriptive statistics from data frames
     -   make histograms
 
-## Working with Data Frames
+# Working with Data Frames
 
-Most of the data we work with is two-dimensional, i.e., it has columns and rows. Its structure resembles a spreadsheet. Because a single data point needs to be referenced by two positions (which row and which column), we call it 2D.
+In our previous lesson, we learned how to run lines of code, create objects using the assignment arrow, and work with 1-dimensional data objects called vectors{.underline}.
+
+Most of the data we work with, however, is two-dimensional data (i.e., has columns and rows). Its structure resembles a spreadsheet.
 
 As a friendly reminder:
 
 -   **rows** go side-to-side
 -   **columns** go up-and-down
 
-![](rows_and_columns.png)
+![](images/rows_and_columns.png){width="75%" fig-align="center"}
 
-R is really good at working with these types of data. We call them *data frames*.
+The R language is really good at working with 2-dimensional data objects. In R, we refer to them as [data frames]{.underline}.
 
 Data frames are made up of multiple vectors. Each vector becomes a column in a data frame.
 
+# Set Up
+
 To explore data frames, we are going to use a package called `palmerpenguins`.
 
-A *package* is a bunch of pre-written code, often in the form of functions, which we can bring into R and use. In this case, we are using a data package, which loads data into R that we can use. It is real data from penguins in Antarctica! You can learn more about the `palmerpenguins` package and data [here](https://allisonhorst.github.io/palmerpenguins/).
+A [package]{.underline} is a bunch of pre-written bit of code (usually functions) form of functions, which we can bring into R and use. 
 
-![](lter_penguins.png)
+In this case, we are using a data package, which loads data into R that we can use. This is real data from penguins in Antarctica! You can learn more about the `palmerpenguins` package and data [here](https://allisonhorst.github.io/palmerpenguins/).
 
-### Installing a Package
+![](images/lter_penguins.png){width="75%" fig-align="center"}
+
+## Installing a Package
 
 The first time that you want to use a certain package, you need to "install" the package, meaning download the contents of the package from the internet into your work space.
 
@@ -50,7 +56,7 @@ I have already installed the `palmerpenguins` package into this Posit Cloud proj
 # to run the line of code above, remove the # symbol
 ```
 
-### Loading a Package
+## Loading a Package
 
 Although we have installed the package, we aren't ready to use it yet. Every time (for us, every new project) we want to use something from a package, we need to tell RStudio that we want to use it. We will need to do that every time we open Posit Cloud.
 
@@ -60,7 +66,7 @@ We do this through a function called `library()`.
 
 ```
 
-### Exploring the Penguin Data
+## Exploring the Penguin Data
 
 Let's take a look at our data. The data we are using is in a data frame called `penguins`.
 
@@ -68,13 +74,13 @@ Let's take a look at our data. The data we are using is in a data frame called `
 
 ```
 
-A quirk about using data that we've loaded in through a package instead of directly reading in data from a .csv file is that the data frame will not show up in our environment unless we specifically tell it to.
+A quirk about using data that we've loaded in through a package instead of directly reading in data from a `.csv` file is that the data frame will not show up in our environment unless we specifically tell it to.
 
 ```{r}
 penguins <- penguins
 ```
 
-## Functions
+# Functions
 
 As with vectors, there are many functions that are useful for taking a look at data frames. Many of the ones that work with vectors also work with data frames. Here are a few of the ones I find very helpful.
 
@@ -82,25 +88,35 @@ As with vectors, there are many functions that are useful for taking a look at d
 
 ```
 
-### Sub-setting using Indexing
+# Sub-setting 
 
-When sub-setting data frames, we need to now specify 2 locations, the row and the column. In R, it is always row *then* column. Note that this is typically the opposite of spreadsheets.
+When sub-setting data frames, we need to now specify 2 locations, the row and the column. In R, it is always row *then* column. The general structure looks like this:
+
+| `dataframe[rows, cols]`
+
+Note that this pattern (rows, columns) is the opposite of spreadsheets typically describe locations.
+
+As with vectors, there are two ways by which we can subset data: (1) by index and (2) by condition.
+
+## Sub-setting by Index
 
 ```{r}
 
 ```
 
-### Select individual columns
+## Selecting an Individual Column
 
 Often, we want to select a specific column to perform calculations on or to plot. We can do this via sub-setting, though the result is a data frame with 1 column, not a vector.
 
-To pull out one column to treat as a vector, we can use the `$` operator.
+To select one column to treat as a vector, we can use the `$` operator.
 
 ```{r}
 
 ```
 
-### Plot a Histogram
+Using the `$` is a great way to quickly make plots with your data or do calculations.
+
+### Histograms
 
 Let's plot a histogram with the flipper length data.
 
@@ -108,15 +124,33 @@ Let's plot a histogram with the flipper length data.
 
 ```
 
-We can also perform calculations on these vectors.
+### Calculations
+
+We can also perform calculations on these vectors, such as calculating measures of central tendency and measures of dispersion.
 
 ```{r}
 
 ```
 
-### Conditional Sub-setting
+Hmm...that is an odd value. We know that there are numbers in the `flipper_length_mm` column, so why is it returning a "missing" value of `NA`?
 
-As with vectors, we can use conditional formatting to select specific observations (typically rows).
+Let's look at the help page for the `mean()` function.
+
+The `mean()` function has a few arguments with default settings, one of them being the `na.rm` argument. This determines whether or not the function includes `NA` values in the calculation.
+
+In order to remove the `NA` values (and, therefore, the `NA` result), we need to change the default to the following: `na.rm = TRUE`. This will *remove* `NA` values from the calculation.
+
+```{r}
+
+```
+
+Other functions where this might be necessary include the `median()`, `mode()`, `min()`, `max()`, and `sd()` functions.
+
+## Sub-setting by Condition
+
+As with vectors, we can write conditional statements to select specific observations, which are typically the rows in the data frame.
+
+When setting a condition for which observations to retain, you can think about the process as selecting which rows to keep based on whether or not that row has a specified value in a certain column.
 
 ```{r}
 
@@ -128,7 +162,7 @@ We can also use conditional formatting to filter rows based on numeric condition
 
 ```
 
-### Challenge
+## Challenge
 
 Write some lines of code to do the following: calculate the minimum (`min()`), maximum (`max()`), and the standard deviation (`sd()`) of the body mass values for Gentoo penguins. Remember the `na.rm` argument!
 
@@ -137,3 +171,5 @@ Then, plot a histogram of the Gentoo body mass data.
 ```{r}
 
 ```
+
+If you're done, see if you can help a neighbor!
