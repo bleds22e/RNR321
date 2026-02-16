@@ -28,7 +28,7 @@ Write R code to successfully answer each question below and/or write text to suc
 
 ### Due Date
 
-Feb 24 at 2pm MST
+Feb 23 at 2pm MST
 
 # Assignment Questions
 
@@ -72,13 +72,13 @@ Issue a revised command to calculate the mean value in `counts`.
 
 ```
 
-5.  Write a line of code using *sub-setting via indexing* to pull out the element "Spud" from the vector `pet_names`.
+5.  Write a line of code using *sub-setting via indexing* to return the element "Spud" from the vector `pet_names`.
 
 ```{r}
 
 ```
 
-6.  Now, write a line of code using *conditional sub-setting* that pulls out the element "Spud".
+6.  Now, write a line of code using *conditional sub-setting* that returns the element "Spud".
 
 ```{r}
 
@@ -92,7 +92,7 @@ For the remainder of the assignment, we will be using the cactus data we collect
 
 Once you run the code chunk below, the data frame will be saved in your environment as the object `cactus`.
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r echo=FALSE}
 cactus <- read.csv("CactusData.csv")
 ```
 
@@ -115,7 +115,7 @@ cactus <- read.csv("CactusData.csv")
 
 ```
 
-9.  Calculate the mean *length* of all the cactus pads that were measured.
+9.  Calculate the average *length* of all the cactus pads that were measured.
 
 ```{r}
 
@@ -145,7 +145,7 @@ cactus <- read.csv("CactusData.csv")
 
     *Answer:*
 
-14. Create 2 different data frames: one called `ficus` with only rows that have *Opuntia ficus-indica* in the species column and one called `engel` with only rows which have *Opuntia engelmannii* in the species column. The data frames should have *all* columns.
+14. Create 2 new data frames: one called `ficus` with only rows that have *Opuntia ficus-indica* in the species column and one called `engel` with only rows which have *Opuntia engelmannii* in the species column. The data frames should have *all* columns.
 
     *Hint: neither data frame should have 0 rows; if that has happened, you have a typo somewhere.*
 

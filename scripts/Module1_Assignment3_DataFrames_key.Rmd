@@ -28,7 +28,7 @@ Write R code to successfully answer each question below and/or write text to suc
 
 ### Due Date
 
-Feb 24 at 2pm MST
+Feb 23 at 2pm MST
 
 # Assignment Questions
 
@@ -93,13 +93,13 @@ For the remainder of the assignment, we will be using the cactus data we collect
 
 Once you run the code chunk below, the data frame will be saved in your environment as the object `cactus`.
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r echo=FALSE}
 cactus <- read.csv("../data_raw/CactusData.csv")
 ```
 
 7.  Take a look at the `cactus` data frame. How many rows does this data frame have? How many columns? You can either use code to figure this out or look at the object in the environment. Explain how you figured it out (e.g., where did you look, what numbers are you referencing, etc.). (2 points)
 
-    *Rows*: 120
+    *Rows*: 140
 
     *Columns*: 13
 
@@ -120,36 +120,36 @@ head(cactus)
 9.  Use a function to calculate the mean *length* of all the cactus pads that were measured.
 
 ```{r}
-mean(cactus$length_in, na.rm = TRUE)
+mean(cactus$length_cm, na.rm = TRUE)
 ```
 
 10. Use the `round()` function to round the mean of the cactus pad *lengths* (Q9) to only 1 place after the decimal.
 
 ```{r}
-mean_length <- mean(cactus$length_in, na.rm = T)
+mean_length <- mean(cactus$length_cm, na.rm = T)
 round(mean_length, 1)
 
 # Any variation of the above or below works
-# round(mean(cactus$length_in, na.rm = TRUE), digits = 1)
+# round(mean(cactus$length_cm, na.rm = TRUE), digits = 1)
 ```
 
 11. Create a histogram with the *depth* of all the cactus pads that were measured. No need to use `na.rm = TRUE` here; the histogram function automatically drops `NA` values.
 
 ```{r}
-hist(cactus$depth_in)
+hist(cactus$depth_cm)
 ```
 
 12. In 2-3 sentences, interpret the histogram. Describe what the axes represent, the approximate range of the data, where the majority of values fall, the distribution/skew of the data, etc. (2 points)
 
-*Answer: (Example) The x-axis indicates groupings/bins of depth measurements for each cactus pad and the y-axis indicates the frequency with which measurements are in each group. While the range of the data is from about 0-3.5 the majority of values seem to fall between 0-1. The distribution is right-skewed.*
+*Answer: (Example) The x-axis indicates groupings/bins of depth measurements for each cactus pad and the y-axis indicates the frequency with which measurements are in each group. While the range of the data is from about 0-8 cm the majority of values seem to fall between 0-2 cm. The distribution is right-skewed.*
 
 13. Run the following line of code. By looking at the code and the output, describe what the following line of code is doing. Make sure to include each part of the code. (As a point of reference, this took me 5 sentences in the answer key). (2 points)
 
 ```{r}
-cactus[cactus$spines == "N", 9]
+cactus[cactus$spines == "N", 5]
 ```
 
-*Answer: This line of code pulls out depth values for the cactus pads that do not have spines. We first tell R that we want to select something from the `cactus` data frame. The `[]` indicate that we are subsetting. We set a condition in the rows section that indicates we only want rows in which the value in the spines column is "N", indicating no spines. After the comma, we specify that we want values from the 9th column, which is `depth_in`.*
+*Answer: This line of code returns depth values for the cactus pads that do not have spines. We first tell R that we want to select something from the `cactus` data frame. The `[]` indicate that we are subsetting. We set a condition in the rows section that indicates we only want rows in which the value in the spines column is "N", indicating no spines. After the comma, we specify that we want values from the 9th column, which is `depth_cm`.*
 
 14. Create 2 different data frames: one called `ficus` with only rows that have *Opuntia ficus-indica* in the species column and one called `engel` with only rows which have *Opuntia engelmannii* in the species column. The data frames should have *all* columns.
 
@@ -163,18 +163,18 @@ engel <- cactus[cactus$species == "Opuntia engelmannii", ]
 15. Calculate the mean pad width for each species.
 
 ```{r}
-mean_ficus <- mean(ficus$width_in, na.rm = TRUE)
+mean_ficus <- mean(ficus$width_cm, na.rm = TRUE)
 mean_ficus
-mean_engel <- mean(engel$width_in, na.rm = TRUE)
+mean_engel <- mean(engel$width_cm, na.rm = TRUE)
 mean_engel
 ```
 
 16. In a similar fashion, calculate the standard deviation (`sd()`) for the width of both species.
 
 ```{r}
-sd_ficus <- sd(ficus$width_in, na.rm = TRUE)
+sd_ficus <- sd(ficus$width_cm, na.rm = TRUE)
 sd_ficus
-sd_engel <- sd(engel$width_in, na.rm = TRUE)
+sd_engel <- sd(engel$width_cm, na.rm = TRUE)
 sd_engel
 ```
 
