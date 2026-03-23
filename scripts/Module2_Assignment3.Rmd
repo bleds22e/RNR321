@@ -172,6 +172,10 @@ nrow(stratumB)
 nrow(stratumC)
 ```
 
+The data in `stratumA`, `stratumB`, and `stratumC` are the data collected when we surveyed each sample unit as allocated in Question 6.
+
+Below, where you need to reference ${N}$, ${N_i}$, $n$, or $n_i$ in an equation, you can use the values you calculated in Questions 1-6 above.
+
 ## Calculating Grasshopper Abundance and Density
 
 NOTE: Open up your previous assignments; they are likely about to come in handy! I would also recommend opening up the lecture slides. Remember to download the powerpoints to see all of the equations.

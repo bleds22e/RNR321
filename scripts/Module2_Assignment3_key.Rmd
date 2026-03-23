@@ -166,6 +166,10 @@ nrow(stratumB)
 nrow(stratumC)
 ```
 
+The data in `stratumA`, `stratumB`, and `stratumC` are the data collected when we surveyed each sample unit as allocated in Question 6.
+
+Below, where you need to reference ${N}$, ${N_i}$, $n$, or $n_i$ in an equation, you can use the values you calculated in Questions 1-6 above.
+
 ### Calculations
 
 NOTE: Open up your script from Module 2, Assignment 2---it's about to come in handy! I would also recommend opening up the lecture slides.
