@@ -99,8 +99,7 @@ your group:
 (d) In the Files tab in the bottom right-hand corner, check the box next
     to the .csv file that you just uploaded, then click the "Rename"
     button (near "Upload").
-(e) Rename your .csv file to "rocks_abund.csv", if you haven't already.
-    helpful)
+(e) If needed, rename your .csv file as "rocks_abund.csv"
 
 ### Important Notes:
 

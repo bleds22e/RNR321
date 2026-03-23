@@ -110,7 +110,8 @@ your group:
 (d) In the Files tab in the bottom right-hand corner, check the box next
     to the .csv file that you just uploaded, then click the "Rename"
     button (near "Upload").
-(e) Rename your .csv file to "rocks_abund.csv" if you haven't already.
+(e) If needed, rename your .csv file as "rocks_abund.csv"
+
 
 ### Important Notes:
 
@@ -293,9 +294,6 @@ rocks_SE_total
     we've just calculated into context for our dark rocks sampling
     adventure. (3 points)
 
-    In your answer, be sure to address the following questions and use
-    the correct units of measurement:
-
     -   According to your calculations, approximately how many dark
         rocks were there in your big square (AKA your dark rock
         "population")? What is your calculated uncertainty in your
@@ -310,11 +308,9 @@ rocks_SE_total
 
 -   number of dark rocks in big square = `rocks_total`
 -   confidence (uncertainty) is estimate of number of dark rocks total =
-    `rocks_SE_total` or `rocks_var_total` (rocks or rocks squared,
-    respectively)
--   density estimate = `rocks_mean` aka "dark rocks per 4x4 in\^2 or
-    16in sq or "little square"
--   uncertainty in density estimate = `rocks_var_ybar` (rocks squared
-    per little square) or `rocks_SE` (rocks per little square)
--   variation in density = `rocks_var` or `rocks_sd` (rocks squared or
-    rocks, respectively)
+    `rocks_SE_total` or `rocks_var_total`
+-   density estimate = `rocks_mean`
+-   confidence (uncertainty) in density estimate = `rocks_var_ybar` or
+    `rocks_SE`
+-   variation in density = `rocks_var` or `rocks_sd`
+
