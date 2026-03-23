@@ -36,8 +36,6 @@ n <- nrow(abund440)
 n
 ```
 
-### 
-
 2.  
 
 ```{r}
@@ -101,9 +99,7 @@ upperCI_95
 lowerCI_95
 ```
 
-10. 
-
-a. t-value
+10a. 
 
 ```{r}
 alpha90 <- 0.1
@@ -112,7 +108,7 @@ t90 <- qt(1-(alpha90)/2, df)
 t90
 ```
 
-b. 
+10b. 
 ```{r}
 halfwidth_90 <- t90 * PP_SE
 
@@ -123,7 +119,6 @@ upperCI_90
 lowerCI_90
 ```
 
-### 
 
 11. 
 
@@ -139,9 +134,8 @@ PB_var <- var(abund440$PB)
 PB_var
 ```
 
-#### 
 
-13\.
+13.
 
 ```{r}
 PB_var_ybar <- PB_var / n
@@ -155,7 +149,6 @@ PB_SE <- sqrt(PB_var_ybar)
 PB_SE
 ```
 
-#### 
 
 15. 
 

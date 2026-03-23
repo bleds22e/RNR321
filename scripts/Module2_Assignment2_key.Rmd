@@ -27,13 +27,11 @@ Write R code to successfully answer each question below or write text to success
 -   Code is within the provided code chunks
 -   Code chunks run without errors
 -   Code produces the correct result
-    -   Code attempts will get half points
-    -   Code that produces the correct answer will receive full points
 -   Text answers correctly address the question asked
 
 ### Due Date
 
-March 24 before lab
+March 23 before lab
 
 ------------------------------------------------------------------------
 
@@ -41,7 +39,7 @@ March 24 before lab
 
 Each question is worth 1 point unless otherwise noted.
 
-## Set-up:
+## Set-up
 
 For our assignment today, we will be using data from my PhD field site in southeastern Arizona in the Chiricahuas. In fact, we will be using some of the first data I ever collected for the project! To learn more about the Portal Project, check out the project's [website](https://portal.weecology.org/). Researchers have been collecting data at this site monthly since 1977!
 
@@ -51,10 +49,12 @@ The site has 24 plots, although we will only be using 18 of them today (6 of the
 
 As such, `n` will be 18 for this assignment. We do not have a `N`.
 
+### Download the Data
+
 The first thing we need to do is download the data. My PhD lab group actually created our own R package for using the cleaned up data, so we are going to load that package, called [`portalr`](https://weecology.github.io/portalr/).
 
-```{r}
-# you can ignore the message that pops up when you run this!
+```{r message = FALSE}
+# if a message pops up when you run this code chunk, you can ignore it!
 library(portalr)
 ```
 
@@ -70,6 +70,9 @@ Let's take a look at what the dataset looks like.
 ```{r}
 head(abund)
 ```
+The data has columns with information about the trapping session and plots; the remaining columns with 2 letters each represent rodent species. The values in the columns indicate how many individuals of that species were caught in a given plot.
+
+### Subsetting the Data
 
 We want to choose data only from a certain data collection period and only for certain species. To do this, we are going to filter the data to select trapping period "440" (the 440th time the site was trapped--this was back in 2015. We are over 500 trapping sessions now!) and get rid of the rodent removal plots.
 
@@ -87,9 +90,11 @@ abund440 <- abund[abund$period == 440 & abund$treatment != "removal",
 
 The `abund440` object you just created by running the code chunk above is the data frame that we will use for the rest of the assignment.
 
-## Estimating the Mean
+## Estimating the Density of *Chaetodipus pencicillatus* (PP)
 
 The first bit of this assignment is very similar to Module 2 Assignment 1, so if you're feeling stuck with the code, you might want to check that assignment out.
+
+As a reminder, when we are estimating a *density*, we are estimating the *mean* number of entities per sample unit.
 
 1.  First things first, we want to create an object for our sample size. We don't know `N` in this scenario, but we do know `n`. Create the object `n`, which is the number of sample units that make up our sample. This will be the same for both species.
 
@@ -100,11 +105,9 @@ n <- nrow(abund440)
 n
 ```
 
-### *Chaetodipus pencicillatus* (PP) Data
+### Calculating Estimates of Population Parameters
 
 We are going to start by calculating some population parameter estimates and measures of uncertainty for the PPs.
-
-#### Calculating Estimates of Population Parameters
 
 2.  Create an object called `PP_mean` that contains the sample mean for the PPs
 
@@ -120,7 +123,7 @@ PP_var <- var(abund440$PP)
 PP_var
 ```
 
-#### Calculating Standard Error for the Mean
+### Calculating Standard Error for the Mean
 
 Reminder: because we don't know what `N` is, we don't need to use the population correction factor when calculating our standard error and whatnot.
 
@@ -138,7 +141,7 @@ PP_SE <- sqrt(PP_var_ybar)
 PP_SE
 ```
 
-#### Calculating Confidence Intervals for the Mean
+### Calculating Confidence Intervals for the Mean
 
 Hooray, we've now calculated the sample mean, sample variance, and the standard error! Let's calculate a 95% confidence interval for our sample mean.
 
@@ -180,10 +183,9 @@ upperCI_95
 lowerCI_95
 ```
 
-
 10. What happens when we create 90% CI for the data? Let's calculate 90% CI. (3 points total)
 
-    a. Input the correct value for `alpha90` and then run the code chunk to get the new t-value, `t90`. 
+a.  Input the correct value for `alpha90` and then run the code chunk to get the new t-value, `t90`.
 
 ```{r}
 alpha90 <- 0.10
@@ -193,7 +195,7 @@ t90 <- qt(1-(alpha90)/2, df)
 t90
 ```
 
-    b. Now, using `t90`, calculate the 90% CI. and compare to the 95% CI. Which one is wider? Why? 
+b. Now, using `t90`, calculate the 90% CI. 
 
 ```{r}
 halfwidth_90 <- t90 * PP_SE
@@ -204,18 +206,16 @@ lowerCI_90 <- PP_mean - halfwidth_90
 upperCI_90
 lowerCI_90
 ```
-    
-    c. Compare the 90% CI to the 95% CI. Which one is wider? Why would expect that to be the case?  
 
-    *Answer:*
+c. Compare the 90% CI to the 95% CI. Which one is wider? Why would expect that to be the case?  
 
 *Answer:* 95% CI are wider; they are wider because we are willing to accept less uncertainty, so the range of values that must be included needs to be broader to ensure that we have a higher percentage (95 vs 90) of having the true parameter value included in the range.
 
-### *Chaetodipus baileyi* (PB) Data
+## Estimating the Density of *Chaetodipus baileyi* (PB)
 
 Let's do the same thing as above for our *Chaetodipus baileyi* (PB) data.
 
-#### Calculating Estimates of Population Parameters
+### Calculating Estimates of Population Parameters
 
 11. Create an object called `PB_mean` that contains the sample mean.
 
@@ -231,7 +231,7 @@ PB_var <- var(abund440$PB)
 PB_var
 ```
 
-#### Calculating Standard Error for the Mean
+### Calculating Standard Error for the Mean
 
 13. Start by calculating the variance of the estimate of the mean
 
@@ -247,7 +247,7 @@ PB_SE <- sqrt(PB_var_ybar)
 PB_SE
 ```
 
-#### Calculating Confidence Intervals
+### Calculating Confidence Intervals
 
 15. Create 95% CI for the PB data. You should already have the t-value in your environment, so you don't need to go through calculating that again.
 
@@ -261,20 +261,14 @@ upperCI_95_PB
 lowerCI_95_PB
 ```
 
-16. Compare the ranges of the 95% CI for the PP and the PB data. 
+## Interpretation
 
-Which estimate of the mean seems to be more accurate? What are you using to make that determination? What value(s) is driving the difference you are seeing?
+16. Compare the estimated densities of PPs and PBs. Which species is present in higher densities at the site?
 
-*Answer:* PB seems more accurate because the range of the confidence intervals is narrower than those for PPs. This is because the SE is lower, leading to smaller CIs. [Note: this is actually being driven by the differences in standard deviation since the sample sizes are the same, but they don't need to say that to get credit]
+*Answer*: PPs are at a higher density (`PP_mean` is higher than `PB_mean`)
 
-17. Right now, we can't calculate an estimate of the population total (abundance, represented by "tau hat") because we do not have a value for `N`.
+17. Now, compare the ranges of the 95% CI for the PP and the PB data. Which density estimate seems to be more accurate? How are you using to make that determination? 
 
-    Let's say that we did have a value for `N` and wanted to calculate 95% confidence intervals for the total number of PPs at the site.
+    Taking a look back at the equation for calculating confidence intervals and the values for each species in that equation, what value is driving the difference in how wide the confidence intervals (AKA the range of the interval)?
 
-    What additional values (ones we haven't already calculated in the assignment) would we need to calculate to get the confidence intervals for our estimate of the abundance? Look back through the equations. Make sure you clearly state *all* of the values we would need to calculate.
-
-*Answer:* First, we would need to calculate the estimate for the total number of PP (tau_hat)[using the mean we already calculated and N].
-
-[Note: We generally use the same t-value for this calculation because the degrees of freedom don't change, but if students say we would need a new t-value based on the different degrees of freedom, don't penalize them for that]
-
-To calculate the standard error for tau_hat, which would be used to calculate the half-width which would then allow us to calculate the upper and lower bounds of the confidence interval, we first need to calculate the variance of the estimate of tau hat. You can either use N and the variance of the estimate of the mean OR N, n, and sample variance to do that. We then take the square root, which gives us the standard error of the estimate of the total, which we then multiply by the t-value to get the half-width.
+*Answer*: PB seems more accurate because the range of the confidence intervals is narrower than those for PPs. This is because the SE is lower, leading to smaller CIs. [Note: this is actually being driven by the differences in standard deviation since the sample sizes are the same, but they don't need to say that to get credit]

@@ -37,38 +37,52 @@ successfully answer the question.
 
 ### Due Date
 
-March 17 by 2 pm MST
+March 16 by 2 pm MST
 
 ------------------------------------------------------------------------
 
-## Assignment Questions
+# Assignment Questions
 
-### Short Answer
+In this assignment, you will be using the data we collected during the
+last lab to calculate (a) estimates of population parameters and (b) the
+amount of uncertainty in those estimates.
+
+Remember, each group used a simple random sampling design to sample a
+"population" of dark rocks; your large square represents the sampling
+frame, while each smaller square (\~4 in x 4 in) represents a sample
+unit.
+
+## Short Answer
+
+Answer the following question with respect to the data we collected last
+week (AKA, using phrases like "large square," "little square," "dark
+rocks," etc.)
 
 Think back to how we sampled the rock data. Answer the following
 question in terms of our data (aka, "big square," "little squares,"
 "dark rocks," etc.)
 
-1.  Define the *sample* standard deviation of the mean in terms of our
-    data (not the equation but what we use to calculate standard
-    deviation, what it tells us, and what it is an estimate of).
+1.  Define the *sample* standard deviation in terms of our data (not the
+    equation but what we use to calculate standard deviation, what it
+    tells us, and what it represents).
 
     *Answer:*
 
 2.  Define the standard error of the estimate of the mean (again, in
-    terms of our data and what it tells us).
+    terms of our data and what it represents).
 
     *Answer:*
 
-3.  How do sample standard deviation and standard error differ? (If
-    you've explained that above, reiterate it here.)
+3.  How do the *sample standard deviation* and *standard error of the
+    estimate of the mean* differ? (If you've explained that above,
+    reiterate it here.)
 
     *Answer:*
 
-4.  What would happen to the sample standard deviation if we sampled 20
-    sampling units (little squares) instead of only 8? Would it
-    increase, decrease, or stay about the same? How about the standard
-    error? Explain your rationale for both.
+4.  What would happen to the *sample standard deviation* if we sampled
+    20 sampling units (little squares) instead of only 8? Would it
+    increase, decrease, or stay about the same? How about the *standard
+    error*? Explain your rationale for both.
 
     *Answer:*
 
@@ -89,9 +103,9 @@ your group:
 
 ### Important Notes:
 
-(a) I recommend referencing the slide decks from class! Remember,
-    equations don't show on D2L, so you'll want to download the slides
-    or use the PDF version.
+(a) I recommend referencing the slides from class! Remember, equations
+    don't show on D2L, so you'll want to download the slides or use the
+    PDF version.
 (b) I also recommend taking a look back at Module 1 Assignment 3 to
     remind yourself how to work with data frames.
 (c) Because each group will have different values for your number of
@@ -106,7 +120,8 @@ Each question is worth 1 point unless otherwise noted.
 5.  Use the `read.csv()` function from the tidyverse to read in your
     rocks file. Save this data in an object called `rocks`.
 
-    Below, replace the file name with the file name of your rock data.
+    Below, replace the file name inside the quotation amrks with the
+    file name of your rock data (also in quotation marks).
 
 ```{r}
 # when you read in your file, the name of the file needs to be inside quotation marks
@@ -121,12 +136,13 @@ rocks <- na.omit(rocks)
     *sampling frame*. No functions needed; type the number and assign it
     to `N`.
 
-    Remember to print out the objects you create by typing the name of
-    the object in the line below where you create it. This helps us out
-    while grading quite a bit!
+    *Remember: after you have created a new object, type out the name of
+    that object on the line of code below so that the value of that
+    object will print out when you knit to PDF. This helps us out while
+    grading quite a bit!*
 
 ```{r}
-N <- 
+
 ```
 
 7.  Create the object `n`, which is your *sample size,* the number of
@@ -137,8 +153,11 @@ N <-
     Remember, we can use the `$` to reference a specific column in a
     data frame.
 
+    The value might have an L at the end of it for "length," but it will
+    act like a number in subsequent code.
+
 ```{r}
-n <- 
+
 ```
 
 ### Estimating the Mean
@@ -152,7 +171,9 @@ stone abundance data. We could run the following line of code:
 
 For the remainder of the coding questions below, remember to print out
 the answer by typing the name of the object again, below your line of
-code. In the above example, it would look like:
+code.
+
+In the above example, it would look like:
 
 ```{r, eval=FALSE}
 rocks_median <- median(rocks$abund_dark_stones)
@@ -163,20 +184,22 @@ rocks_median
     (AKA the mean number of dark stones per sample unit). Follow the
     code example above.
 
-    Again, remember to type out the name of the object you create for
-    the rest of the assignment!
+    *Again, after you have created a new object, type out the name of
+    that object on the line of code below so that the value of that
+    object will print out when you knit to PDF. Do this for the rest of
+    the assignment!*
 
 ```{r}
-rocks_mean <- 
+
 ```
 
 9.  Create objects called `rocks_var` and `rocks_sd` which contain the
-    sample variance and sample standard deviation, respectively. Hint:
-    use `var()` and `sd()` functions.
+    sample variance and sample standard deviation, respectively.
+
+    *Hint: use `var()` and `sd()` functions.*
 
 ```{r}
-rocks_var <- 
-rocks_sd <- 
+
 ```
 
 ### Calculating Uncertainty for the Estimate of the Mean
@@ -193,13 +216,14 @@ mean, so let's calculate it ourselves using the equation from class.
     There's no function for it, so let's create an object called
     `pop_correction` using that formula.
 
-    _Hint #1: use the objects we've already created (`N`, `n`; don't
-    enter any numbers directly_
-    
-    _Hint #2: use parentheses to group the values in the numerator together_
+    *Hint #1: use the objects we've already created (`N`, `n`; don't
+    enter any numbers directly*
+
+    *Hint #2: use parentheses to group the values in the numerator
+    together*
 
 ```{r}
-pop_correction <- 
+
 ```
 
 11. Why are we using the finite population correction factor in our
@@ -215,20 +239,20 @@ pop_correction <-
     Remember, this is different from the sample variance that you've
     already calculated...
 
-    Again, there is no function, so you'll need to use the equation.
-    
-    _Hint: if you want to multiple something in R, you must use *._
+    There is no function for this, so you'll need to use the equation.
+
+    \_Hint: if you want to multiple something in R, you must use \*.\_
 
 ```{r}
-rocks_var_ybar <- 
+
 ```
 
 13. Calculate the SE of the estimate of the mean by taking the square
-    root (`sqrt()`) of the `rocks_var_ybar` value. Call this object
-    `rocks_SE`.
+    root (`sqrt()`) of the `rocks_var_ybar` value. Save this as an
+    object `rocks_SE_ybar`.
 
 ```{r}
-rocks_SE <- 
+
 ```
 
 ### Estimating the Population (and the Uncertainty of the Estimate)
@@ -238,37 +262,42 @@ Now, let's calculate them for the estimate of the population abundance
 (tau hat)
 
 14. First, let's calculate the total number of rocks in the population.
-    Call this `rocks_total`. Use objects you've already created.
+    Save the output as `rocks_total`. Use objects you've already
+    created.
 
 ```{r}
-rocks_total <- 
+
 ```
 
 15. Now calculate the variance of the estimate of the population total,
-    `rocks_var_total`.
+    saving it as `rocks_var_total`.
 
 ```{r}
-rocks_var_total <- 
+
 ```
 
-16. Calculate the SE of the estimate of the population total,
-    `rocks_SE_total`.
+16. Calculate the SE of the estimate of the population total, saving it
+    as `rocks_SE_total`.
 
 ```{r}
-rocks_SE_total <- 
-```
 
-## Bringing It All Together
+```
 
 17. Write a short paragraph (3-5 sentences) putting the values that
     we've just calculated into context for our dark rocks sampling
-    adventure. Be sure to answer the following questions. (3 points)
+    adventure. (3 points)
 
--   According to your calculations, approximately how many dark rocks
-    were there in your big square? How much uncertainty is in your
-    estimate?
--   What is your estimate of density of dark rocks (average \# dark
-    rocks per little square)? What is your level of uncertainty is your estimate in the density? How much variation is in the number of
-    dark rocks per little square throughout your large square?
+    In your answer, be sure to address the following questions and use
+    the correct units of measurement:
 
-*Answer:*
+    -   According to your calculations, approximately how many dark
+        rocks were there in your big square (AKA your dark rock
+        "population")? What is your calculated uncertainty in your
+        estimate?
+    -   How much variation in the number of dark rocks per little square
+        do you estimate there to be?
+    -   What is your estimated average \# dark rocks per little square
+        (AKA your dark rock density)? What is your calculated
+        uncertainty in your estimate in the density?
+
+*Answer*:
