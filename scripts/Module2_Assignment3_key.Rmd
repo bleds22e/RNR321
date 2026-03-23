@@ -46,7 +46,7 @@ We have been asked to go out and sample for grasshoppers. The location we are sa
 
 ## Part 1: Allocation of Sample Units
 
-Let's say we have a sampling frame with 1000 sample units. We can sample 100 of those units. We have our 3 strata which we have determined via vegetation type (we will called them A, B, and C for simplicity for the rest of the assignment).
+We have a sampling frame with 1000 sample units. We decide sample 100 of those units. We have our 3 strata which we have determined based on the vegetation type (we will called them A, B, and C for simplicity for the rest of the assignment).
 
 How do we decide how many sampling units to sample from each stratum?
 
@@ -102,7 +102,9 @@ opt_allo_total <- opt_allo_A + opt_allo_B + opt_allo_C
 opt_allo_total
 ```
 
-6.  Calculate how many sampling units we should optimally sample in each stratum. Use the `round()` function to round to the nearest whole number. Make sure to save the rounded value to use for the remainder of the questions.
+6.  Calculate how many sampling units we should optimally sample in each stratum. Use the `round()` function to round to the nearest whole number. 
+
+    Make sure to *save the rounded value* to use for the remainder of the questions.
 
 ```{r}
 # if students don't save the ROUNDED output, their answers below end up ever-so-slightly off
@@ -123,7 +125,7 @@ n_A <- n * (opt_allo_A / opt_allo_total) # 37
 
     Why is this? What would this allocation have meant for the precision of our estimates?
 
-    *Answer:* without taking standard deviation into account, we would have had far less precise estimates; cost is also factored in
+    *Answer:* without taking standard deviation into account, we would have had far less precise estimates because we would have allocated more samples to strata with low variability; cost is also factored in
 
 ## Part II: Stratified Random Sampling
 
@@ -166,15 +168,15 @@ nrow(stratumB)
 nrow(stratumC)
 ```
 
-### Calculations
+## Calculating Grasshopper Abundance and Density
 
-NOTE: Open up your script from Module 2, Assignment 2---it's about to come in handy! I would also recommend opening up the lecture slides.
+NOTE: Open up your previous assignments; they are likely about to come in handy! I would also recommend opening up the lecture slides. Remember to download the slide decks to see all of the equations or use the PDF versions.
 
-8.  Before we begin calculating, stop for a moment to reflect and predict. Take a minute to skim through the lecture slides and remind yourself of the process of how we go about calculating the *overall* population mean and total abundance when we use stratified sampling. Describe (either in sentences or in bullet points) how you think we will proceed.
+8.  Before we begin calculating, stop for a moment to reflect and predict. For stratified sampling, we have a lot of steps to take before we get to our ultimate goal: estimates of density and abundance of the entire grasshopper population, along with the amount of uncertainty in those estimates.
 
-    Note: This question in graded for completion only, not for accuracy.
+    Take a minute to skim through the lecture slides and remind yourself of the process of how we go about calculating the estimates of population parameters and the amount of uncertainty in those estimates. Describe (either in sentences or in bullet points) what the best way to proceed through our calculations will be.
 
-    *Answer:*
+    *Note: This question in graded for completion only, not for accuracy.*
 
     1.  calculate population parameter estimates for each stratum
     2.  calculate measures of uncertainty (variance of estimates of mean, total) for each stratum
@@ -227,6 +229,7 @@ Our next step is to calculate the uncertainty in our estimates for each stratum.
     # did they include the population correction factor?
     # parathenses get a little tricky here
     # students also forget that they need the * sometimes
+    # also need to use var_X rather than sd_X^2 because the sd_X values are made up
     (var_y_bar_A <- ((N_A-n_A)/N_A) * (var_A / n_A))
     (var_y_bar_B <- ((N_B-n_B)/N_B) * (var_B / n_B))
     (var_y_bar_C <- ((N_C-n_C)/N_C) * (var_C / n_C))
