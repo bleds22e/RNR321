@@ -25,7 +25,7 @@ We will need to first load the `unmarked` package.
 
 ```
 
-Now we need to read in our data set, called `tortoise_occupancy.csv`
+Now we need to read in our data set, called `tortoise_occupancy.csv`, using the `read.csv()` function.
 
 ```{r}
 
@@ -48,6 +48,13 @@ Before we run any occupancy models that take detection probability into account,
 Naive occupancy is calculated by the number of sites where a species was detected (at least once) divided by the total number of sites surveyed.
 
 ```{r}
+# count up the number of times each site was marked as occupied
+
+# total number of sites that were surveyed
+
+# number of sites with detection of greater than zero
+
+# divide the number of sites with detection
 
 ```
 
@@ -68,6 +75,9 @@ First, we need to create a list of data frames for our observation co-variates (
 This list of data frames (in our case, just 1 data frame) is what will allow us to create a model where detection probability varies with time (each survey occasion).
 
 ```{r}
+# create the data frame with each column with the survey number for 20 rows
+
+# make this into a list of one dataframe
 
 ```
 
@@ -79,7 +89,9 @@ To do this, we use the `unmarkedFrameOccu()` function.
 
 Running this line of code will produce a warning, but you can ignore it.
 
-```{r}
+```{r warning=FALSE}
+# set the obsCovs argument equal to the LIST made above
+# ERROR means something went wrong; WARNING is fine
 
 ```
 
@@ -97,13 +109,21 @@ The function to run the occupancy model in `unmarked` is `occu()`. The function 
 
 Let's demonstrate. Our first model will have detection probability consistent across time (surveys) and occupancy consistent across sites. Remember, an assumption we have about occupancy is that it stays consistent through our surveys.
 
+When we are keeping an estimate constant, we use `~1`.
+
 ```{r}
+# Model p(.)psi(.) #
+# detection prob (p) constant across survey occasion 
+# occupancy (psi) constant across sites
 
 ```
 
-Our second model will have occupancy consistent across sites but detection variability can vary with time (survey occasion).
+Our second model will have occupancy consistent across sites but detection variability can vary with time (survey occasion). To indicate this, we put `~time-1` in the first spot for detection probability.
 
 ```{r}
+# Model p(t)psi(.) #
+# detection prob (p) varies with time (survey occasion)
+# occupancy (psi) constant across sites
 
 ```
 
@@ -118,6 +138,9 @@ We can run both models and then use AIC (an index of model quality) to determine
 -   We then choose the model with the *lowest* AIC value (looking at the AIC column).
 
 ```{r}
+# Assemble models into a list 
+
+# Use modSel() to calculate and compare their AIC values
 
 ```
 
@@ -132,6 +155,14 @@ Thankfully, there are functions that produce these values for us.
 First, let's look at the parameter estimates (`p` and `psi`)
 
 ```{r}
+# This returns the coefficients (estimates) for the model
+# coef() function returns model coefficients (estimates)
+# plogis() coverts the values from a logistic scale to probabilities
+
+# For model: p(.)psi(.)
+
+
+# For model: p(t)psi(.)
 
 ```
 
@@ -143,6 +174,13 @@ We can also calculate the 95% confidence intervals for each estimate (`level = 0
 -   occupancy: `type = "state"`, as in the "true state" of occupancy
 
 ```{r}
+# Interpreting the Output
+# Column 0.025 -> Lower Bound for 95% CI
+# Column 0.975 -> Upper Bound for 95% CI
+
+# model p(.)psi(.)
+
+# model p(t)psi(.)
 
 ```
 

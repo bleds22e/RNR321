@@ -32,11 +32,11 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-April 8 before lab
+April 13 before lab
 
 ------------------------------------------------------------------------
 
-## Assignment Questions
+# Assignment Questions
 
 For this assignment, we have 2 different data sets of occupancy from the Santa Cruz River. 
 
@@ -46,7 +46,7 @@ Following the structure of the tortoise exercise we did in lab, create models fo
 
 All questions are worth 1 point unless otherwise specified.
 
-### Set-Up
+## Set-Up
 
 Let's go ahead and get ourselves set up for the rest of the assignment.
 
@@ -61,15 +61,16 @@ library(unmarked)
 Using the `read.csv()` function, read in the two data sets we will use. One is for javelina and the other is for coyotes. Create objects containing these two data sets called `javelina` and `coyote`, respectively.
 
 ```{r}
+# use read.csv() to bring in the two datasets
 javelina <- read.csv("../data_raw/javelina.csv")
 coyote <- read.csv("../data_raw/coyote.csv")
 ```
 
-### Javelina
+## Javelina
 
 We are going to calculate naive occupancy and then run occupancy models for the javelina.
 
-#### Naive Occupancy
+### Naive Occupancy
 
 First, let's calculate the naive occupancy for javelina.
 
@@ -78,20 +79,20 @@ First, let's calculate the naive occupancy for javelina.
 ```{r}
 # count up the number of times each site was marked as occupied
 # returns a vector that we can now use
-num_detections <- rowSums(javelina)
-num_detections
+num_detections_jav <- rowSums(javelina)
+num_detections_jav
 
 # total number of sites that were surveyed
-sites_surveyed <- nrow(javelina)
-sites_surveyed
+sites_surveyed_jav <- nrow(javelina)
+sites_surveyed_jav
 
 # number of sites with detection of greater than zero
-sites_detection <- length(num_detections[num_detections > 0])
-sites_detection
+sites_detection_jav <- length(num_detections_jav[num_detections_jav > 0])
+sites_detection_jav
 
 # divide the number of sites with detection
-naive_occupancy <- sites_detection / sites_surveyed
-naive_occupancy
+naive_occupancy_jav <- sites_detection_jav / sites_surveyed_jav
+naive_occupancy_jav
 ```
 
 #### Data Preparation
@@ -113,35 +114,35 @@ naive_occupancy
     
 ```{r}
 # create the data frame with 40 rows and each column with the survey number
-javelina_surveys <- data.frame(time_1 = rep("1", 40),
-                      time_2 = rep("2", 40),
-                      time_3 = rep("3", 40),
-                      time_4 = rep("4", 40),
-                      time_5 = rep("5", 40))
+javelina_surveys_df <- data.frame(time_1 = rep("1", 40),
+                               time_2 = rep("2", 40),
+                               time_3 = rep("3", 40),
+                               time_4 = rep("4", 40),
+                               time_5 = rep("5", 40))
 
 # make this into a list of one dataframe
-javelina_survey_time <- list(time = javelina_surveys)
+javelina_surveys_list <- list(time = javelina_surveys_df)
 ```
 
 4.  Create an unmarked data frame for the javelina data
 
 ```{r}
-javelinaUMF <- unmarkedFrameOccu(javelina, obsCovs = javelina_survey_time)
+javelinaUMF <- unmarkedFrameOccu(javelina, obsCovs = javelina_surveys_list)
 head(javelinaUMF) # check out the data
 ```
 
-#### Occupancy Models
+### Javelina Occupancy Models
 
 5.  Fit an occupancy model where occupancy and detection probability are constant.
 
 ```{r}
-javelina_pdot_psidot <- occu(~1 ~1, data = javelinaUMF)
+pdot_psidot_jav <- occu(~1 ~1, data = javelinaUMF)
 ```
 
 6.  Fit an occupancy model where occupancy stays constant but detection probability varies with survey.
 
 ```{r}
-javelina_ptime_psidot <- occu(~time-1 ~1, data = javelinaUMF)
+ptime_psidot_jav <- occu(~time-1 ~1, data = javelinaUMF)
 ```
 
 #### Model Selection
@@ -149,8 +150,8 @@ javelina_ptime_psidot <- occu(~time-1 ~1, data = javelinaUMF)
 7.  Use AIC to determine which model is the best.
 
 ```{r}
-javelina_models <- fitList(javelina_pdot_psidot  = javelina_pdot_psidot, 
-                           javelina_ptime_psidot = javelina_ptime_psidot)
+javelina_models <- fitList(pdot_psidot_jav  = pdot_psidot_jav, 
+                           ptime_psidot_jav = ptime_psidot_jav)
 modSel(javelina_models)
 ```
 
@@ -163,8 +164,8 @@ modSel(javelina_models)
     *Detection Probability:* 0.29 (0.183 - 0.439)
 
 ```{r}
-plogis(coef(javelina_pdot_psidot))  # estimates of psi and p
-plogis(confint(javelina_pdot_psidot, type = "det", level = 0.95))
+plogis(coef(pdot_psidot_jav))  # estimates of psi and p
+plogis(confint(pdot_psidot_jav, type = "det", level = 0.95))
 ```
 
 10. Calculate and report the estimate of occupancy and the 95% CI for the estimate from our *best* model.
@@ -172,8 +173,8 @@ plogis(confint(javelina_pdot_psidot, type = "det", level = 0.95))
     *Occupancy:* 0.42 (0.247 - 0.622)
 
     ```{r}
-    plogis(coef(javelina_pdot_psidot))  # estimates of psi and p
-    plogis(confint(javelina_pdot_psidot, type = "state", level = 0.95))
+    plogis(coef(pdot_psidot_jav))  # estimates of psi and p
+    plogis(confint(pdot_psidot_jav, type = "state", level = 0.95))
     ```
 
 #### Comparison
@@ -195,20 +196,20 @@ First, let's calculate the naive occupancy for coyotes.
 ```{r}
 # count up the number of times each site was marked as occupied
 # returns a vector that we can now use
-num_detections <- rowSums(coyote)
-num_detections
+num_detections_coy <- rowSums(coyote)
+num_detections_coy
 
 # total number of sites that were surveyed
-sites_surveyed <- nrow(coyote)
-sites_surveyed
+sites_surveyed_coy <- nrow(coyote)
+sites_surveyed_coy
 
 # number of sites with detection of greater than zero
-sites_detection <- length(num_detections[num_detections > 0])
-sites_detection
+sites_detection_coy <- length(num_detections_coy[num_detections_coy > 0])
+sites_detection_coy
 
 # divide the number of sites with detection
-naive_occupancy <- sites_detection / sites_surveyed
-naive_occupancy
+naive_occupancy_coy <- sites_detection_coy / sites_surveyed_coy
+naive_occupancy_coy
 ```
 
 #### Data Preparation
@@ -218,21 +219,21 @@ naive_occupancy
     Then, create a list out of this one data frame, setting the data frame equal to the "time" argument.
 
 ```{r}
-# create the data frame with 20 rows and each column with the survey number
-coyote_survey <- data.frame(time_1 = rep("1", 40),
-                             time_2 = rep("2", 40),
-                             time_3 = rep("3", 40),
-                             time_4 = rep("4", 40),
-                             time_5 = rep("5", 40))
+# create the data frame with 40 rows and each column with the survey number
+coyote_surveys_df <- data.frame(time_1 = rep("1", 40),
+                                time_2 = rep("2", 40),
+                                time_3 = rep("3", 40),
+                                time_4 = rep("4", 40),
+                                time_5 = rep("5", 40))
 
-# make this into a list of one dataframe
-coyote_survey_time <- list(time = coyote_survey)
+# make this into a list of one data frame
+coyote_surveys_list <- list(time = coyote_surveys_df)
 ```
 
 14. Create an unmarked data frame for the coyote data
 
 ```{r}
-coyoteUMF <- unmarkedFrameOccu(coyote, obsCovs = coyote_survey_time)
+coyoteUMF <- unmarkedFrameOccu(coyote, obsCovs = coyote_surveys_list)
 head(coyoteUMF) # check out the data
 ```
 
@@ -241,8 +242,8 @@ head(coyoteUMF) # check out the data
 15. Fit our two occupancy models: one where occupancy and detection probability are constant and one where occupancy stays constant but detection probability varies with survey.
 
 ```{r}
-coyote_pdot_psidot <- occu(~1 ~1, data = coyoteUMF)
-coyote_ptime_psidot <- occu(~time-1 ~1, data = coyoteUMF)
+pdot_psidot_coy <- occu(~1 ~1, data = coyoteUMF)
+ptime_psidot_coy <- occu(~time-1 ~1, data = coyoteUMF)
 ```
 
 #### Model Selection
@@ -250,21 +251,21 @@ coyote_ptime_psidot <- occu(~time-1 ~1, data = coyoteUMF)
 16. Use AIC to determine which model is the best.
 
 ```{r}
-coyote_models <- fitList(coyote_pdot_psidot  = coyote_pdot_psidot, 
-                          coyote_ptime_psidot = coyote_ptime_psidot)
+coyote_models <- fitList(pdot_psidot_coy  = pdot_psidot_coy, 
+                          ptime_psidot_coy = ptime_psidot_coy)
 modSel(coyote_models)
 ```
 
 17. Calculate and report the estimates and the 95% CI for the estimate for both detection probability and occupancy from our *best* model.
 
-    *Detection Probability:* 0.275 (0.19 - 0.38)
+    *Detection Probability*: 0.275 (0.19 - 0.38)
 
-    *Occupancy:* 0.781 (0.48 - 0.93)
+    *Occupancy*: 0.781 (0.48 - 0.93)
 
 ```{r}
-plogis(coef(coyote_pdot_psidot))  # estimates of psi and p
-plogis(confint(coyote_pdot_psidot, type = "det", level = 0.95))
-plogis(confint(coyote_pdot_psidot, type = "state", level = 0.95))
+plogis(coef(pdot_psidot_coy))  # estimates of psi and p
+plogis(confint(pdot_psidot_coy, type = "det", level = 0.95))
+plogis(confint(pdot_psidot_coy, type = "state", level = 0.95))
 ```
 
 ### Comparing Species

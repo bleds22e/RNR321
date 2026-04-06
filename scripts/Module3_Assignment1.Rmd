@@ -32,11 +32,11 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-April 14 before lab
+April 13 before lab
 
 ------------------------------------------------------------------------
 
-## Assignment Questions
+# Assignment Questions
 
 For this assignment, we have 2 different data sets of occupancy from the Santa Cruz River.
 
@@ -46,13 +46,13 @@ Following the structure of the tortoise exercise we did in lab, create models fo
 
 All questions are worth 1 point unless otherwise specified.
 
-### Set-Up
+## Set-Up
 
 Let's go ahead and get ourselves set up for the rest of the assignment.
 
-First, I highly recommend going over to the "Environment" tab and clicking on the broom. It will clean up the clutter in your environment and also prevent you from making some unintentional errors.
+WAIT! I highly recommend going over to the "Environment" tab and clicking on the broom. It will clean up the clutter in your environment and also prevent you from making some unintentional errors.
 
-Load in the package we will need to use.
+Load in the `unmarked` package we will need to use.
 
 ```{r}
 
@@ -61,25 +61,39 @@ Load in the package we will need to use.
 Using the `read.csv()` function, read in the two data sets we will use. One is for javelina and the other is for coyotes. Create objects containing these two data sets called `javelina` and `coyote`, respectively.
 
 ```{r}
+# use read.csv() to bring in the two datasets
 javelina <- 
 coyote <- 
 ```
 
-### Javelina
+## Javelina
 
 We are going to calculate naive occupancy (where we do not account for a detection probability below 1) and then run occupancy models for the javelina.
 
-#### Naive Occupancy
+### Naive Occupancy
 
-First, let's calculate the naive occupancy for javelina. Remember, naive occupancy is the calculation of occupancy without taking detection probability into account.
+First, let's calculate the naive occupancy for javelina. 
+
+Remember, naive occupancy is the calculation of occupancy without taking detection probability into account.
 
 1.  Calculate the naive occupancy for javelina.
 
 ```{r}
+# count up the number of times each site was marked as occupied
+# returns a vector that we can now use
+num_detections_jav <- 
+
+# total number of sites that were surveyed
+sites_surveyed_jav <- 
+
+# number of sites with detection of greater than zero
+sites_detection_jav <- 
+
+# divide the number of sites with detection
 
 ```
 
-#### Data Preparation
+### Data Preparation
 
 2.  Explore the `javelina` data frame, either in the environment or through code.
 
@@ -97,44 +111,54 @@ First, let's calculate the naive occupancy for javelina. Remember, naive occupan
     (*Hint: Be sure to create a data frame with the correct number of rows based on your answer to Question 2*)
 
 ```{r}
-javelina_surveys <- 
+# create data frame with correct # of rows and columns for each survey number
+javelina_surveys_df <- 
+  
+# make this into a list of one data frame
+javelina_surveys_list <- 
 ```
 
 4.  Create an unmarked data frame for the javelina data. (You might get a warning, which is fine. If you get an error, then you have done something incorrectly.)
 
 ```{r}
-javelinaUMF <- 
+# set the obsCovs argument equal to the LIST made above
+# ERROR means something went wrong; WARNING is fine
+javelinaUMF <-
 ```
 
-#### Occupancy Models
+### Occupancy Models
 
 5.  Fit an occupancy model where occupancy and detection probability are constant.
 
 ```{r}
-javelina_pdot_psidot <- 
+pdot_psidot_jav <- 
 ```
 
 6.  Fit an occupancy model where occupancy stays constant but detection probability varies with survey.
 
 ```{r}
-javelina_ptime_psidot <- 
+ptime_psidot_jav <- 
 ```
 
-#### Model Selection
+### Model Selection
 
 7.  Use AIC to determine which model is the best.
 
 ```{r}
+# Assemble models into a list 
 javelina_models <- 
+  
+# Calculate and compare their AIC values
+
 ```
 
 8.  Which model should we choose? Why?
 
-    *Answer:*
+    *Answer*:
 
 9.  Calculate and report the estimate of detection probability and the 95% CI for the estimate from our *best* model. (Report means type them out below.)
 
-    *Detection Probability:*
+    *Detection Probability*:
 
 ```{r}
 
@@ -142,75 +166,100 @@ javelina_models <-
 
 10. Calculate and report the estimate of occupancy and the 95% CI for the estimate from our *best* model.
 
-    *Occupancy:*
+    *Occupancy*:
 
 ```{r}
 
 ```
 
-#### Comparison of Naive and Modeled Occupancy
+### Comparison of Naive and Modeled Occupancy
 
 11. Compare the naive occupancy estimate to the occupancy estimate from our model. Which one is higher? Why? Your answer should be 2-3 sentences. (2 points)
 
-    *Answer:*
+    *Answer*:
 
-### Coyotes
+## Coyotes
 
 Let's do the same as above for the Western coyotes.
 
-#### Naive Occupancy
+### Naive Occupancy
 
 First, let's calculate the naive occupancy for coyotes.
 
 12. Calculate the naive occupancy for coyotes.
 
 ```{r}
+# count up the number of times each site was marked as occupied
+# returns a vector that we can now use
+num_detections_coy <- 
+
+# total number of sites that were surveyed
+sites_surveyed_coy <- 
+
+# number of sites with detection of greater than zero
+sites_detection_coy <- 
+
+# divide the number of sites with detection
 
 ```
 
-#### Data Preparation
+### Data Preparation
 
 13. Like we did in the tortoise example (and in Question 3 above), create a data frame of observation co-variates. It should have the number of survey occasions this data set.
 
     Then, create a list out of this one data frame, setting the data frame equal to the "time" argument.
 
 ```{r}
-coyote_survey_time <- 
+# create data frame with correct # of rows and columns for each survey number
+coyote_surveys_df <- 
+  
+# make this into a list of one data frame
+coyote_surveys_list <- 
 ```
 
 14. Create an unmarked data frame for the coyote data. (Again, you might get a warning, which is fine. If you get an error, then you have done something incorrectly.)
 
 ```{r}
+# set the obsCovs argument equal to the LIST made above
+# ERROR means something went wrong; WARNING is fine
 coyoteUMF <- 
 ```
 
-#### Occupancy Models
+### Occupancy Models
 
 15. Fit our two occupancy models: one where occupancy and detection probability are constant and one where occupancy stays constant but detection probability varies with survey.
 
 ```{r}
-coyote_pdot_psidot <- 
-coyote_ptime_psidot <- 
+pdot_psidot_coy <- 
+ptime_psidot_coy <- 
 ```
 
-#### Model Selection
+### Model Selection
 
 16. Use AIC to determine which model is the best.
 
 ```{r}
+# Assemble models into a list 
 coyote_models <- 
+  
+# Calculate and compare their AIC values
+  
 ```
 
 17. Calculate and report (type out) the estimates and the 95% CI for the estimate for both detection probability and occupancy from our *best* model.
 
-    *Detection Probability:*\
-    *Occupancy:*
+    *Detection Probability*:
+    *Occupancy*:
 
-    ```{r}
+```{r}
+# get estimates of p and psi
 
-    ```
+# CI for p
 
-### Comparing Species
+# CI for psi
+```
+
+## Comparing Species
 
 18. Write 3-4 sentences comparing the javelina and coyote populations that we surveyed. Address the following points. (2 points)
 
@@ -218,4 +267,4 @@ coyote_models <-
     -   Both species have similar detection probabilities. Explain what it means for species to have similar detection probabilities but very different occupancies.
     -   Speculate what could be driving the differences between the two species (I don't expect you to know, but you should put forward an educated guess that fits with your answers above)\
         \
-        *Answer:*
+        *Answer*:
