@@ -109,17 +109,17 @@ p_hat_Baileys
 
 ------------------------------------------------------------------------
 
-### How Accuracy Changes with Detection Probability
+## How Accuracy Changes with Detection Probability
 
 We can use data simulation to explore what happens to our estimates when detection probability changes through time.
 
 First, we'll walk through an example of the code.
 
-*To be very clear, I don't expect you to know how this code is working!*
+*I don't expect you to know how this code is working!*
 
 What I want you to be able to do, though, is interpret our results from the code. Factors about species life history and behavior can influence our detection probability and parameter estimates.
 
-#### Building the Simulation
+### Building the Simulation
 
 Let's run a simulation of capture-mark-recapture data. We will stick with pocket mice as our example species.
 
@@ -172,7 +172,7 @@ LP_estimator <- function(p1, p_recap) {
 
 ------------------------------------------------------------------------
 
-#### Let's Practice!
+### Let's Practice!
 
 Let's say that our detection probability (`p1`) and recapture probability (`p_recap`) are consistent, always at 0.4.
 
@@ -205,7 +205,7 @@ sd(tau_hat_demo)              # precision
 
 ------------------------------------------------------------------------
 
-### Your Turn!
+## Your Turn!
 
 Now it is your turn! Use the code above (only from the "Let's Practice" section; nothing else needs to change) to compare our estimates, bias, and precision in 4 difference examples.
 
@@ -219,11 +219,11 @@ Now it is your turn! Use the code above (only from the "Let's Practice" section;
 -   Animals are "trap shy"
 -   Animals are "trap happy"
 
-### Scenario 1: Detection Probability is Higher or Lower
+## Scenario 1: Detection Probability is Higher or Lower
 
 What happens to bias and precision at higher or lower rates of detection across the board?
 
-#### Higher
+### Higher
 
 8.  Our detection probability (`p1`) and recapture probability (`p_recap`) are consistent and *higher* than the demo: `p1` = 0.6 and `p_recap` = 0.6 (2 points)
 
@@ -251,7 +251,7 @@ What happens to bias and precision at higher or lower rates of detection across 
     sd(tau_hat_high)            # precision
     ```
 
-#### Lower
+### Lower
 
 9.  Our detection probability (`p1`) and recapture probability (`p_recap`) are consistent and *lower* than the demo: `p1` = 0.2 and `p_recap` = 0.2 (2 points)
 
@@ -279,17 +279,17 @@ What happens to bias and precision at higher or lower rates of detection across 
     sd(tau_hat_low)            # precision
     ```
 
-#### Interpretation
+### Interpretation
 
 10. Compare the bias and precision of our total abundance estimates given the different detection probabilities and write 2-3 sentences explaining the results. Does higher detection probability give us more or less bias? More or less precision? Does this make sense to you? (2 points)
 
     *Answer*: As detection probability increases, the bias decreases and the precision increases. This is because higher detection probability means there is likely less error, so estimates are going to be more accurate. Interestingly, the increase is not proportional---a jump from 0.2 to 0.4 detection prob makes a substantial difference in both bias and precision, while the increase from 0.4 to 0.6 increases accuracy but not as much.
 
-### Scenario 2: Detection Probability Changes with Behavior
+## Scenario 2: Detection Probability Changes with Behavior
 
 What happens to the bias and precision of our estimates when animals are trap happy or trap shy?
 
-#### Trap Shy
+### Trap Shy
 
 11. We have a population that is trap shy, meaning that the probability of recapture is lower than the probability of initial capture (`p > c`): `p1` = 0.4 and `p_recap` = 0.2 (2 points)
 
@@ -317,7 +317,7 @@ What happens to the bias and precision of our estimates when animals are trap ha
     sd(tau_hat_trapshy)            # precision
     ```
 
-#### Trap Happy
+### Trap Happy
 
 12. We have a population that is trap happy, meaning that the probability of recapture is higher than the probability of initial capture (`p < c`): `p1` = 0.4 and `p_recap` = 0.6 (2 points)
 
@@ -345,7 +345,7 @@ What happens to the bias and precision of our estimates when animals are trap ha
     sd(tau_hat_traphappy)            # precision
     ```
 
-#### Interpretation
+### Interpretation
 
 13. Compare the bias and precision of our total abundance estimates for the demo, trap happy, and trap shy populations. Write 2-3 sentences explaining the results. How do animals being trap happy or trap shy affect the accuracy of our estimate? Does this make sense to you? (2 points)
 
