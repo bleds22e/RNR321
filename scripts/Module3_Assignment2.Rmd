@@ -207,13 +207,11 @@ Now it is your turn! Use the code above (only from the "Let's Practice" section;
 
 **Scenario 1: Detection Probability Changes**
 
-1A:  Detection is *higher* than the demo
-1B:  Detection is *lower* than the demo
+1A: Detection is *higher* than the demo 1B: Detection is *lower* than the demo
 
 **Scenario 2: Detection Probability Changes with Behavior**
 
-2A:  Animals are "trap shy"
-2B:  Animals are "trap happy"
+2A: Animals are "trap shy" 2B: Animals are "trap happy"
 
 ## Scenario 1: Detection Probability is Higher or Lower
 
@@ -319,10 +317,10 @@ What happens to the bias and precision of our estimates when animals are trap ha
 
 ### Interpretation of Scenario 2
 
-13. Compare the bias and precision of our total abundance estimates for the *demonstration* (between Questions 7 and 8), trap happy, and trap shy populations. 
+13. Compare the bias and precision of our total abundance estimates for the *demonstration* (the code we ran in between Questions 7 and 8), trap happy, and trap shy populations.
 
 Write 2-3 sentences explaining the results. How do animals being trap happy or trap shy affect the accuracy of our estimate? Why is this happening? (2 points)
 
-    HINT: Take a look at the Lincoln Peterson equation and think about what happens to `tau_hat` when `r2` (number of recaptures) increases or decreases.
+HINT: Take a look at the Lincoln Peterson equation and think about what happens to `tau_hat` when `r2` (number of recaptures) increases or decreases.
 
-    *Answer*:
+*Answer*:
