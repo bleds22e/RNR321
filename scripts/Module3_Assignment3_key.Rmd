@@ -32,7 +32,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-April 28 at 2pm MST
+April 27 at 2pm MST
 
 ------------------------------------------------------------------------
 
@@ -63,7 +63,6 @@ Let's also read in our data.
 ```{r}
 saguaro <- read.csv("../data_raw/saguaro.csv")
 ocotillo <- read.csv("../data_raw/ocotillo.csv")
-
 ```
 
 ## Saguaros (\< 2m)
@@ -72,29 +71,24 @@ We will use the saguaro data for our first analyses.
 
 ### Data Preparation
 
-1.  Using the `unique()` function, make a data frame with transect length (i.e., survey effort). Call this `transect_saguaro`. Make sure you are referencing the correct columns in the square brackets!
-
-```{r}
-transect_saguaro <- unique(saguaro[1:2])
-transect_saguaro
-```
-
-2.  Plot the distribution of detection distances. Does is look how you expected?
+1.  Plot the distribution of detection distances. Does is look how you expected?
 
 ```{r}
 hist(saguaro$distance) 
 ```
 
-3.  Create an object called `trunc` that sets the truncation distance to 20m to eliminate extreme observations.
+2.  Create an object called `trunc` that sets the truncation distance to 20m to eliminate extreme observations.
 
     Using that `trunc` value, create a vector called `distance_bins` to set "cut points" for distance bins; for the saguaros data, let's do every 4 meters. Be sure to adjust the arguments accordingly!
 
 ```{r}
 trunc <- 20
-distance_bins <- seq(0, trunc, by = 4) 
+
+distance_bins <- seq(0, trunc, by = 4)
+distance_bins
 ```
 
-4.  Use `unmarked` function `formatDistData` to count the number of detections in each distance bin for each transect. Save this as an object called `sag_data`.
+3.  Use `unmarked` function `formatDistData` to count the number of detections in each distance bin for each transect. Save this as an object called `sag_data`.
 
     NOTE: Ignore the *warning* message (but if you get an *error* message, that is different!).
 
@@ -105,6 +99,14 @@ sag_data <- formatDistData(saguaro,
                            transectNameCol = "group", 
                            dist.breaks = distance_bins)
 ```
+
+4.  Using the `unique()` function, make a data frame with transect length (i.e., survey effort). Call this `transect_saguaro`. Make sure you are referencing the correct columns in the square brackets!
+
+```{r}
+transect_saguaro <- unique(saguaro[ , c("group", "length")])
+transect_saguaro
+```
+
 
 5.  Assemble data into the format required by `unmarked`. Call this unmarked frame `UMF_sag`.
 
@@ -155,7 +157,7 @@ exp(confint(HN_sag, type = "state"))  # CI for density
 -   What does "D hat" represent? Report "D hat" and the confidence intervals around it.
 -   If we had calculated a density estimate using just our data and not our detection function, would we have under- or overestimated the density of saguaros? Why?
 
-*Answer:* number of saguaros \<2m per hectare; under because we could not account for the ones we missed during sampling
+*Answer:* 49.52 saguaros \<2m per hectare (39.58, 61.97); under because we could not account for the ones we missed during sampling
 
 ## Ocotillos
 
@@ -163,33 +165,33 @@ Now, let's do the same thing for the ocotillo data that they collected.
 
 ### Data Preparation
 
-11. Make your data frame with the transect lengths. Call this `transect_oco`.
-
-```{r}
-transect_oco <- unique(ocotillo[1:2])
-transect_oco
-```
-
-12. Plot the distribution of detection distances to get an idea of what they look like.
+11. Plot the distribution of detection distances to get an idea of what they look like.
 
 ```{r}
 hist(ocotillo$distance) 
 ```
 
-13. This time around, set truncation distance to 25m; save this as an object called `trunc_oco`. Then create your distance vector (`distance_bins_oco`) and set the cut points at every 5 meters.
+12. This time around, set truncation distance to 25m; save this as an object called `trunc_oco`. Then create your distance vector (`distance_bins_oco`) and set the cut points at every 5 meters.
 
 ```{r}
 trunc_oco <- 25
 distance_bins_oco <- seq(0, trunc_oco, by = 5) 
 ```
 
-14. Use the function `formatDistData` to count the number of detection in each distance bin for each transect. Ignore the warning message. Remember to use the correct data and distance bins.
+13. Use the function `formatDistData` to count the number of detection in each distance bin for each transect. Ignore the warning message. Remember to use the correct data and distance bins.
 
 ```{r}
 oco_data <- formatDistData(distData = ocotillo, 
                            distCol = "distance", 
                            transectNameCol = "group", 
                            dist.breaks = distance_bins_oco)
+```
+
+14. Make your data frame with the transect lengths. Call this `transect_oco`.
+
+```{r}
+transect_oco <- unique(ocotillo[ , c("group", "length")])
+transect_oco
 ```
 
 15. Assemble data into the format required by unmarked, called an "unmarked frame." Remember to refer to the correct data frames and values! Save this as `UMF_oco`

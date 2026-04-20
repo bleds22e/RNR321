@@ -20,7 +20,7 @@ sheet_names <- sheet_names[1:12]  # actual used sheets
 all_data <- sheet_names %>%
   map_dfr(~ read_sheet(sheet_url, sheet = .x), .id = "GroupID") %>% 
   drop_na() %>% 
-  mutate(Transect_m = 37) # modify if different
+  mutate(Transect_m = 26.5) # modify if different
 
 # Write to file
 file_path <- "data_raw/Distance_Data_Spring2026.csv" #insert file path here

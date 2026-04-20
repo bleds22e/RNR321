@@ -11,6 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Distance Sampling Lab
 
+In this lab, we will use the data we collected from the first lab in this module, a demonstration of distance sampling using clear and green class beads. We will work through the code for completing a distance sampling analysis.
+
 ## Set-Up
 
 We need to load the package we will need to complete this lab, which is `unmarked`.
@@ -19,7 +21,7 @@ We need to load the package we will need to complete this lab, which is `unmarke
 
 ```
 
-We also need to load our data. I've compiled it for you already, and it should be in your list of files, called `Distance_Data_Spring2024.csv`.
+We also need to load our data. I've compiled it for you already, and it should be in your list of files, called `Distance_Data_Spring2026.csv`.
 
 ```{r}
 
@@ -33,13 +35,15 @@ Before we begin any analyses, let's make sure our data looks alright.
 
 ## Prepping the Data
 
-First, we need to convert all of our data from inches into meters because those are the measurements `unmarked` is expecting. You won't need to do this in your assignment, thankfully, because those values are already in meters.
+First, we need to convert all of our data from inches into meters because those are the measurements `unmarked` is expecting. 
+
+*You won't need to do this in your assignment, thankfully, because those values are already in meters.*
 
 ```{r}
 beads$Distance_m <- beads$Distance_in / 39.37
 ```
 
-Since we have 2 different colors of beads, we need to create two different data frames. You won't need to do this in your assignment, thankfully!
+Since we have 2 different colors of beads, we need to create two different data frames. *You won't need to do this in your assignment, either!*
 
 ```{r}
 clear <- beads[beads$BeadColor == "Clear", ] 
@@ -50,15 +54,7 @@ Take a look at the environment to see how many rows the `clear` and `green` data
 
 ## Green Beads
 
-### Transect Data
-
-The first thing we need to do is to get a data frame that includes the length of transect that each group walked so we have a measure of survey effort.
-
-We will use the `unique()` function, which returns only one of each value in a column. We want the unique values from two of our columns: the group and the transect length. 
-
-```{r}
-
-```
+We will start our analysis with the green bead data.
 
 Let's check out our distribution of detection distances. We can use the `hist()` function to do this.
 
@@ -66,7 +62,7 @@ Let's check out our distribution of detection distances. We can use the `hist()`
 
 ```
 
-Based on the histogram, I'll suggest we truncate at 2.5 m. Let's set this value so we can refer to it later.
+Based on the histogram, I'll suggest we truncate at 2.25 m. Let's set this value so we can refer to it later.
 
 ```{r}
 # Set truncation distance to eliminate extreme observations
@@ -75,7 +71,7 @@ Based on the histogram, I'll suggest we truncate at 2.5 m. Let's set this value 
 
 We can set "cut points" for distance bins; in our case, we want every half meter.
 
-This line of code creates a vector that will have values every half meter (`by = 0.5`), starting at 0 and running through the value we set for truncation (`trunc`).
+This line of code creates a vector that will have values every half meter (`by = 0.25`), starting at 0 and running through the value we set for truncation (`trunc`).
 
 ```{r}
 
@@ -88,10 +84,24 @@ As we've seen before, the `unmarked` package likes to have data set up in a very
 To get our detection functions and density estimates, we will use the `formatDistData` to get the data into the correct format.
 
 ```{r}
+# create an unmarked data frame
+# ignore any "Warnings"; if you see "Error," something has gone wrong
+```
+
+Next, we need to assemble data into the format required by `unmarked`, called an "unmarked frame." 
+
+Before we do that, we need to create a new data frame that includes the length of transect that each group walked so we have a measure of survey effort.
+
+We will use the `unique()` function, which returns only one of each value in a column. We want the unique values from two of our columns: the group and the transect length.
+
+```{r}
+# one row for each set of values from the "GroupID" and "Transect_m" columns
 
 ```
 
-Next, we need to assemble data into the format required by `unmarked`, called an "unmarked frame". We've seen something similar before, but this one is `unmarkedFrameDS`, with the DS meaning "distance sampling."
+This dataframe we just created will be part of the information we give to the `unmarked` function to create the "unmarked frame."
+
+We've seen and used a function similar before in our occupancy model assignment. Today, we are using `unmarkedFrameDS`, with the `DS` meaning "distance sampling."
 
 ```{r}
 
@@ -138,7 +148,7 @@ Now that we've chosen our top model (half normal, in this case), we can get our 
 There is a handy function that we can use to pull the density estimate out of the model: `backTransform()`
 
 ```{r}
-
+# Density estimate
 ```
 
 We can also calculate the confidence intervals for our parameter estimate
@@ -161,10 +171,10 @@ density_est <- density@estimate
 density_est
 
 # standard deviation
-rate <- backTransform(Exp, type = "det")@estimate
+sigma <- backTransform(HN, type = "det")@estimate
 
 # calculate the effective strip width
-esw <- integrate(gxexp, 0, 2.5, rate)$value
+esw <- integrate(gxhn, 0, 2.25, sigma)$value
 esw
 ```
 
@@ -172,7 +182,7 @@ We can then calculate the area surveyed
 
 ```{r}
 # Our survey area = 10 groups x (2*esw*L) 
-area <- 10 * (2 * esw * 10) 
+area <- 12 * (2 * esw * 26.5) 
 area
 
 # One hectare = 100 m x 100 m
@@ -191,6 +201,7 @@ Finally, if we multiple our density estimate by the amount of area we surveyed, 
 density_est * surveyed
 ```
 
-I put out 150 green beads, so this is off by a bit! That's ok, though. We did *repeated* surveys in the same area and did not take that into account in our model. If we were going to accurately analyze our data, we would definitely need to do that.
+I put out 150 green beads, so this is off by a bit! 
 
-## 
+That's ok, though. We did *repeated* surveys in the same area and did not take that into account in our model. If we were going to accurately analyze our data, we would definitely need to do that.
+
