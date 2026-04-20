@@ -71,9 +71,9 @@ Based on the histogram, I'll suggest we truncate at 2.25 m. Let's set this value
 trunc <- 2.25
 ```
 
-We can set "cut points" for which values to use to bin our distance data in our model; in our case, we want every half meter.
+We can set "cut points" for which values to use to bin our distance data in our model; in our case, we want every quarter meter.
 
-This line of code creates a vector that will have values every half meter (`by = 0.25`), starting at 0 and running through the value we set for truncation (`trunc`).
+This line of code creates a vector that will have values every quarter meter (`by = 0.25`), starting at 0 and running through the value we set for truncation (`trunc`).
 
 ```{r}
 distance_bins <- seq(0, trunc, by = 0.25) 
@@ -96,7 +96,7 @@ green_binned <- formatDistData(distData = green,       # data frame with the dat
 green_binned
 ```
 
-Next, we need to assemble data into the format required by `unmarked`, called an "unmarked frame." 
+Next, we need to assemble data into the format required by `unmarked`, called an "unmarked frame."
 
 Before we do that, we need to create a new data frame that includes the length of transect that each group walked so we have a measure of survey effort.
 
@@ -224,6 +224,6 @@ Finally, if we multiple our density estimate by the amount of area we surveyed, 
 density_est * surveyed
 ```
 
-I put out 150 green beads, so this is off by a bit! That's ok, though. 
+I put out 150 green beads, so this is off by a bit! That's ok, though.
 
 We did *repeated* surveys in the same area and did not take that into account in our model. If we were going to accurately analyze our data, we would definitely need to do that.

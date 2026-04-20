@@ -69,9 +69,9 @@ Based on the histogram, I'll suggest we truncate at 2.25 m. Let's set this value
 
 ```
 
-We can set "cut points" for distance bins; in our case, we want every half meter.
+We can set "cut points" for distance bins; in our case, we want every quarter meter.
 
-This line of code creates a vector that will have values every half meter (`by = 0.25`), starting at 0 and running through the value we set for truncation (`trunc`).
+This line of code creates a vector that will have values every quarter meter (`by = 0.25`), starting at 0 and running through the value we set for truncation (`trunc`).
 
 ```{r}
 
