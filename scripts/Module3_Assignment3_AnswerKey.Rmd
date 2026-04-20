@@ -18,33 +18,33 @@ library(unmarked)
 saguaro <- read.csv("../data_raw/saguaro.csv")
 ocotillo <- read.csv("../data_raw/ocotillo.csv")
 ```
+
 1.  
-
-```{r}
-transect_saguaro <- unique(saguaro[1:2])
-transect_saguaro
-```
-
-2.  
 ```{r}
 hist(saguaro$distance) 
 ```
 
-3. 
+2. 
 ```{r}
 trunc <- 20
 distance_bins <- seq(0, trunc, by = 4) 
 distance_bins
 ```
 
-4.  
-
+3.  
 ```{r}
 sag_data <- formatDistData(saguaro, 
                            distCol = "distance", 
                            transectNameCol = "group", 
                            dist.breaks = distance_bins)
 sag_data
+```
+
+4. 
+
+```{r}
+transect_saguaro <- unique(saguaro[1:2])
+transect_saguaro
 ```
 
 5.  
@@ -85,19 +85,13 @@ backTransform(HN_sag, type = "state") # Density estimate (no./ha)
 exp(confint(HN_sag, type = "state"))  # CI for density
 ```
 
+
 11. 
-
-```{r}
-transect_oco <- unique(ocotillo[1:2])
-transect_oco
-```
-
-12. 
 ```{r}
 hist(ocotillo$distance) 
 ```
 
-13. 
+12. 
 
 ```{r}
 trunc_oco <- 25
@@ -105,7 +99,7 @@ distance_bins_oco <- seq(0, trunc_oco, by = 5)
 distance_bins_oco
 ```
 
-14. 
+13. 
 ```{r}
 oco_data <- formatDistData(ocotillo, 
                            distCol = "distance", 
@@ -114,8 +108,14 @@ oco_data <- formatDistData(ocotillo,
 oco_data
 ```
 
-15. 
+14. 
 
+```{r}
+transect_oco <- unique(ocotillo[1:2])
+transect_oco
+```
+
+15. 
 ```{r}
 UMF_oco <- unmarkedFrameDS(y = as.matrix(oco_data), 
                            survey = "line",
@@ -132,7 +132,6 @@ HN_oco   <- distsamp(~1 ~1, UMF_oco, keyfun = "halfnorm", output = "density", un
 
 
 17. 
-
 ```{r}
 backTransform(HN_oco, type = "state") # Density estimate (no./ha) 
 exp(confint(HN_oco, type = "state"))  # CI for density

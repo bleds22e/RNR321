@@ -11,18 +11,21 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Distance Sampling Lab
 
+In this lab, we will use the data we collected from the first lab in this module, a demonstration of distance sampling using clear and green class beads. We will work through the code for completing a distance sampling analysis.
+
 ## Set-Up
 
 We need to load the package we will need to complete this lab, which is `unmarked`.
 
 ```{r message = FALSE}
-library(unmarked) # Load unmarked
+# Load unmarked
+library(unmarked) 
 ```
 
-We also need to load our data. I've compiled it for you already, and it should be in your list of files, called `Distance_Data_Spring2025.csv`.
+We also need to load our data. I've compiled it for you already, and it should be in your list of files, called `Distance_Data_Spring2026.csv`.
 
 ```{r}
-beads <- read.csv("../data_raw/Distance_Data_Spring2025.csv")
+beads <- read.csv("../data_raw/Distance_Data_Spring2026.csv")
 ```
 
 Before we begin any analyses, let's make sure our data looks alright.
@@ -34,13 +37,15 @@ head(beads)   # First few observations
 
 ## Prepping the Data
 
-First, we need to convert all of our data from inches into meters because those are the measurements `unmarked` is expecting. You won't need to do this in your assignment, thankfully, because those values are already in meters.
+First, we need to convert all of our data from inches into meters because those are the measurements `unmarked` is expecting.
+
+*You won't need to do this in your assignment, thankfully, because those values are already in meters.*
 
 ```{r}
 beads$Distance_m <- beads$Distance_in / 39.37
 ```
 
-Since we have 2 different colors of beads, we need to create two different data frames. You won't need to do this in your assignment, either, thankfully!
+Since we have 2 different colors of beads, we need to create two different data frames. *You won't need to do this in your assignment, either!*
 
 ```{r}
 clear <- beads[beads$BeadColor == "Clear", ] 
@@ -51,17 +56,7 @@ Take a look at the environment to see how many rows the `clear` and `green` data
 
 ## Green Beads
 
-### Transect Data
-
-The first thing we need to do is to get a data frame that includes the length of transect that each group walked so we have a measure of survey effort.
-
-We will use the `unique()` function, which returns only one of each value in a column. We want the unique values from two of our columns: the group and the transect length.
-
-```{r}
-# create a data frame that has a column for each group id and a column for the length that each group surveyed. in our case, the length is the same.
-transect_length <- unique(green[c(1,4)])
-transect_length
-```
+We will start our analysis with the green bead data.
 
 Let's check out our distribution of detection distances. We can use the `hist()` function to do this.
 
@@ -69,19 +64,19 @@ Let's check out our distribution of detection distances. We can use the `hist()`
 hist(green$Distance_m)
 ```
 
-Based on the histogram, I'll suggest we truncate at 2.5 m. Let's set this value so we can refer to it later.
+Based on the histogram, I'll suggest we truncate at 2.25 m. Let's set this value so we can refer to it later.
 
 ```{r}
 # Set truncation distance to eliminate extreme observations
-trunc <- 2.5
+trunc <- 2.25
 ```
 
-We can set "cut points" for distance bins; in our case, we want every half meter.
+We can set "cut points" for which values to use to bin our distance data in our model; in our case, we want every half meter.
 
-This line of code creates a vector that will have values every half meter (`by = 0.5`), starting at 0 and running through the value we set for truncation (`trunc`).
+This line of code creates a vector that will have values every half meter (`by = 0.25`), starting at 0 and running through the value we set for truncation (`trunc`).
 
 ```{r}
-distance_bins <- seq(0, trunc, by = 0.5) 
+distance_bins <- seq(0, trunc, by = 0.25) 
 ```
 
 ## `unmarked` Data Prep
@@ -92,22 +87,42 @@ To get our detection functions and density estimates, we will use the `formatDis
 
 ```{r}
 # create an unmarked data frame
-green_data <- formatDistData(distData = green,         # data frame with the data points
+# ignore any "Warnings"; if you see "Error," something has gone wrong
+
+green_binned <- formatDistData(distData = green,       # data frame with the data points
                         distCol = "Distance_m",        # column that holds the distance values
-                        transectNameCol = "Group",     # column that holds the transect groups
-                        dist.breaks = distance_bins)   # vector of distance groupings
-green_data
+                        transectNameCol = "GroupID",   # column that holds the transect groups
+                        dist.breaks = distance_bins)   # vector of bin groupings for distances
+green_binned
 ```
 
-Next, we need to assemble data into the format required by `unmarked`, called an "unmarked frame". We've seen something similar before, but this one is `unmarkedFrameDS`, with the DS meaning "distance sampling."
+Next, we need to assemble data into the format required by `unmarked`, called an "unmarked frame." 
+
+Before we do that, we need to create a new data frame that includes the length of transect that each group walked so we have a measure of survey effort.
+
+We will use the `unique()` function, which returns only one of each value in a column. We want the unique values from two of our columns: the group and the transect length.
 
 ```{r}
-UMF_green <- unmarkedFrameDS(y = green_data,                   # prepared data
-                       survey = "line",                        # type of survey conducted (line or point)
-                       tlength = transect_length$Transect_m,  # column with each transect length
-                       dist.breaks = distance_bins,            # vector of how distances are binned
-                       unitsIn = "m")                          # prepared data
-UMF_green
+# create a data frame that has a column for each group id and a column for the length that each group surveyed. In our case, the length is the same.
+
+# one row for each set of values from the "GroupID" and "Transect_m" columns
+transect_length <- unique(green[ , c("GroupID", "Transect_m")]) 
+transect_length
+```
+
+This dataframe we just created will be part of the information we give to the `unmarked` function to create the "unmarked frame."
+
+We've seen and used a function similar before in our occupancy model assignment. Today, we are using `unmarkedFrameDS`, with the `DS` meaning "distance sampling."
+
+```{r}
+# join binned dataframe with transect length dataframe
+UMF_green <- unmarkedFrameDS(y = green_binned,        # binned data
+                       survey = "line",             # type of survey conducted (line or point)
+                       tlength = transect_length$Transect_m,  # column w/ each transect length
+                       dist.breaks = distance_bins, # vector of how distances are binned
+                       unitsIn = "m")        
+
+UMF_green   # prepared data
 ```
 
 Let's check the distribution of detection distances to be used for analysis. These should *not* include the values that we truncated.
@@ -120,7 +135,7 @@ hist(UMF_green)
 
 Now that our data is in the correct format for `unmarked`, we can use the `distsamp` function from `unmarked` to create our 4 types of models: half normal, hazard rate, uniform, and negative exponential.
 
-Our options for the `unitsOut` argument is either hectares (ha) or kilomenter (km). We will use hectares. This means that the density we calculate will be the density of beads per hectare.
+Our options for the `unitsOut` argument is either hectares (ha) or kilometer (km). We will use hectares. This means that the density we calculate will be the density of beads per hectare.
 
 ```{r}
 HN   <- distsamp(~1 ~1, UMF_green, keyfun = "halfnorm", output = "density", unitsOut = "ha")
@@ -144,7 +159,7 @@ modSel(models)
 Let's plot what the half-normal model looks like with our data.
 
 ```{r}
-hist(Exp)
+hist(HN)
 ```
 
 ## Density Estimate
@@ -154,23 +169,23 @@ Now that we've chosen our top model (half normal, in this case), we can get our 
 There is a handy function that we can use to pull the density estimate out of the model: `backTransform()`
 
 ```{r}
-density <- backTransform(Exp, type = "state") # Density estimate (no./ha) 
+density <- backTransform(HN, type = "state") # Density estimate (no./ha) 
 density
 ```
 
-We can also calculate the confidence intervals for our parameter estimate
+We can also calculate the confidence intervals for our parameter estimate.
 
 ```{r}
-exp(confint(Exp, type = "state"))  # CI for density
+exp(confint(HN, type = "state"))  # CI for density
 ```
 
 ### Convert to Our Sample Area
 
 You won't need to do this in your assignment---we will just leave all of our density estimates in the numbers per hectare. For our bead data, however, we definitely didn't sample a whole hectare (100m x 100m).
 
-To see how close our estimate was to the actual number of beads we put outside (\#), we need to convert the density in hectares to the density of our survey area.
+To see how close our estimate was to the actual number of beads we put outside, we need to convert the density in hectares to the density of our survey area.
 
-Our first step is to calculate our effective strip width.
+Our first step is to calculate our *effective strip width*.
 
 ```{r}
 # density estimate
@@ -178,19 +193,19 @@ density_est <- density@estimate
 density_est
 
 # standard deviation
-rate <- backTransform(Exp, type = "det")@estimate
-rate
+sigma <- backTransform(HN, type = "det")@estimate
+sigma
 
 # calculate the effective strip width
-esw <- integrate(gxexp, lower = 0, upper = 2.5, rate = rate)$value
+esw <- integrate(gxhn, lower = 0, upper = 2.25, sigma = sigma)$value
 esw
 ```
 
 We can then calculate the area surveyed
 
 ```{r}
-# Our survey area = 10 groups x (2*esw*L) 
-area <- 10 * (2 * esw * 10) 
+# Our survey area (m) = [12 groups x (2*esw*L)]
+area <- (12 * (2 * esw * 26.5))
 area
 
 # One hectare = 100 m x 100 m
@@ -209,4 +224,6 @@ Finally, if we multiple our density estimate by the amount of area we surveyed, 
 density_est * surveyed
 ```
 
-I put out 150 green beads, so this is off by a bit! That's ok, though. We did *repeated* surveys in the same area and did not take that into account in our model. If we were going to accurately analyze our data, we would definitely need to do that.
+I put out 150 green beads, so this is off by a bit! That's ok, though. 
+
+We did *repeated* surveys in the same area and did not take that into account in our model. If we were going to accurately analyze our data, we would definitely need to do that.

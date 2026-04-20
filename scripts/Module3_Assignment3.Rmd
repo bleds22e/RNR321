@@ -32,7 +32,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-April 28 at 2 pm MST
+April 27 at 2 pm MST
 
 ------------------------------------------------------------------------
 
@@ -52,13 +52,13 @@ In addition to the slides and practice code, the following might be helpful:
 
 Some colleagues went out and did some distance sampling! They want to know if "young" saguaros (\< 2 meters tall) or ocotillos are found in higher densities in Saguaro National Park. They need us to get the density estimates for them to answer their question.
 
-First things first, let's load our packages.
+First things first, let's load our package.
 
 ```{r message = FALSE}
 library(unmarked)
 ```
 
-Let's also read in our data. Long story, but we need to use the `read.csv()` function instead of my preferred `read_csv()` function to read in the data, for some reason.
+Let's also read in our data.
 
 ```{r}
 saguaro <- read.csv("saguaro.csv")
@@ -71,34 +71,39 @@ We will use the saguaro data for our first analyses.
 
 ### Data Preparation
 
-1.  Using the `unique()` function, make a data frame with the transect length for each group (i.e., survey effort). Call this `transect_saguaro`. Make sure you are referencing the correct columns in the square brackets!
-
-```{r}
-transect_saguaro <- 
-transect_saguaro
-```
-
-2.  Plot the distribution of detection distances. Does is look how you expected?
+1.  First, plot the distribution of detection distances. Does is look how you expected?
 
 ```{r}
 
 ```
 
-3.  Create an object called `trunc` that sets the truncation distance to 20m to eliminate extreme observations. 
+2.  Create an object called `trunc` that sets the truncation distance to 20m to eliminate extreme observations. 
 
 Using that `trunc` value, create a vector called `distance_bins` to set "cut points" for distance bins; for the saguaros data, let's do every 4 meters. Be sure to adjust the arguments accordingly!
 
 ```{r}
 trunc <- 
+  
 distance_bins <- 
+distance_bins
 ```
 
-4.  Use unmarked function `formatDistData` to count the number of saguaros in each distance bin for each transect. Save this as an object called `sag_data`. 
+3.  Use unmarked function `formatDistData` to count the number of saguaros in each distance bin for each transect. Save this as an object called `sag_data`. 
 
 Ignore the *warning* message (but if you get an *error* message, that is different!).
 
 ```{r}
 sag_data <- 
+sag_data
+```
+
+4.  Using the `unique()` function, make a data frame with the transect length for each group (i.e., survey effort). Call this `transect_saguaro`. 
+
+*Make sure you are referencing the correct columns in the square brackets!*
+
+```{r}
+transect_saguaro <- 
+transect_saguaro
 ```
 
 5.  Assemble data into the format required by `unmarked`. Call this unmarked frame `UMF_sag`.
@@ -127,22 +132,24 @@ models <-
 
 8.  Which model should we use? Why?
 
-    *Answer:*
+    *Answer*:
 
 ### Parameter Estimates
 
 9.  Use the `backTransform()` function to calculate the density estimate. On the next line, calculate the 95% confidence intervals.
 
 ```{r}
+# density estimate
 
+# density CI
 ```
 
 10. Write 2-3 sentences addressing the following questions. (2 points)
 
--   What is "D hat," the estimated density of saguaros? What about the confidence intervals? What does the "D hat" value represent (include units!)
+-   What is the estimated density of saguaros (include units!)? What about the confidence intervals? 
 -   If we had calculated a density estimate using just our data and not our detection function, would we have under- or over-estimated the density of saguaros? Why?
 
-*Answer:*
+*Answer*:
 
 ## Ocotillos
 
@@ -150,35 +157,40 @@ Now, let's do the same thing for the ocotillo data that they collected.
 
 ### Data Preparation
 
-11. Make your data frame with the transect lengths. Call this `transect_oco`.
-
-```{r}
-transect_oco <- 
-```
-
-12. Plot the distribution of detection distances to get an idea of what they look like.
+11. Plot the distribution of detection distances to get an idea of what they look like.
 
 ```{r}
 
 ```
 
-13. This time around, set truncation distance to 25m; save this as an object called `trunc_oco`. Then create your distance vector (`dinstance_bins_oco`) and set the cut points at every 5 meters.
+12. This time around, set truncation distance to 25m; save this as an object called `trunc_oco`. Then create your distance vector (`dinstance_bins_oco`) and set the cut points at every 5 meters.
 
 ```{r}
 trunc_oco <-
+  
 distance_bins_oco <- 
+distance_bins_oco
 ```
 
-14. Use the function `formatDistData` to count the number of detection in each distance bin for each transect. Ignore the warning message. Remember to use the correct data and distance bins.
+13. Use the function `formatDistData` to count the number of detection in each distance bin for each transect. Ignore the warning message. Remember to use the correct data and distance bins.
 
 ```{r}
 oco_data <- 
+oco_data
+```
+
+14. Make your new data frame with the transect lengths. Call this `transect_oco`.
+
+```{r}
+transect_oco <- 
+transect_oco
 ```
 
 15. Assemble data into the format required by unmarked, called an "unmarked frame." Remember to refer to the correct data frames and values! Save this as `UMF_oco`
 
 ```{r}
 UMF_oco <- 
+UMF_oco
 ```
 
 ### Models
@@ -192,7 +204,9 @@ HN_oco <-
 17. Using the `HN_oco` model, calculate the density estimate and confidence intervals for ocotillos.
 
 ```{r}
+# density estimate
 
+# density CI
 ```
 
 ## Compare Densities
@@ -201,4 +215,4 @@ We've done a lot of calculations just to get to this point!
 
 18. Which has the higher density per hectare: saguaros or ocotillos? How do you know (AKA which values are comparing to figure this out)? (2 points)
 
-*Answer:*
+*Answer*:
