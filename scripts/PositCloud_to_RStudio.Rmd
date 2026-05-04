@@ -1,0 +1,138 @@
+---
+title: "Helpful Resources"
+author: "Ellen Bledsoe"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Using RStudio (Not on Posit Cloud)
+
+For most other classes you take that use R (or if you want to mess around with some data on your own), you will most likely be using R and RStudio on your own machine rather than on the internet using Posit Cloud.
+
+Posit Cloud is a really nice tool for learning how to code (and, as a teacher, for creating assignments), but most people use R and RStudio on their own computers in the real world. In fact, I'm writing this document in RStudio on my own computer rather than on Posit Cloud.
+
+While I will not be having you download R and RStudio onto your computer (unless you really want to), I want to talk you through some of the differences that you will experience when you use RStudio on your computer so you are prepared the next time you use RStudio.
+
+(Pro Tip: if using R and RStudio on your own computer, you will never need to open R after you download it. RStudio will find your copy of R and use it.)
+
+## Creating Your Own Files
+
+In this course, I've always provided you with a .Rmd file with code chunks in it already.More often than not, though, you will be expected to create your own file with the code you need in it. It could be in the form of a script (.R file) or Rmarkdown (.Rmd).
+
+### RMarkdown
+
+You are already pretty familiar with how RMarkdown files work. They intersperse text and code chunks, which makes them quite handy.
+
+#### Create Our Own
+
+Go to File \> New File \> RMarkdown.
+
+A window will pop up. Give you document a title and fill in your name. I would also recommend selecting the output to be PDF, but you can choose whichever you prefer. Now click OK.
+
+A new file will open up for you, and you will see that there is already some text and code chunks there. The text and code chunks tell you a little bit about how RMarkdown files work. You can read them if you'd like, or you can go ahead and delete everything below the first code chunk.
+
+To add text, you can type normally.
+
+To add a new code chunk, you can do one of the following:
+
+-   Go to Code \> Insert Chunk
+-   Click the small green square with a plus sign up near the "Run" button (upper right-hand corner)
+-   `Ctrl` + `Alt` + `I` (on a Mac: `Cmd` + `Option` + `I`)
+
+### R Script
+
+The other type of file you are likely to come across is called an R script.
+
+Just like code chunks in RMarkdown only understand the R language, R scripts only understand the R language. You can think of R scripts like one giant code chunk that is saved as a document.
+
+#### Create Our Own
+
+Go to File \> New File \> R Script
+
+You can type R code freely, but there will be no small green arrow in the right corner to run the code. Instead, you will want to put your cursor on the line of code you want to run (or highlight more than one line) and then use one of these options:
+
+-   `Ctrl` + `Enter` (on a Mac: `Cmd` + `Return`) \<- this is the best option, in my opinion
+-   Click the Run button in the upper right-hand corner of the document
+-   Go to Code \> Run Selected Line(s) \<- worst option
+
+Because the R script only understand the R language, if you want to type text, you will need the \# in front of any text that is not R.
+
+## RProjects
+
+From here, we are going to get out of Posit Cloud, and I am going to show you how I organize R scripts and files on my own computer.
+
+By far (!!), the easiest way to work with R and RStudio on your own computer is through what we call RProjects. This creates something very similar to what you use on Posit Cloud but as a folder on your own computer.
+
+RProjects are basically a way to keep all of your related datasets, scripts, and documents bundled together in ways that are easy to reference and also easy to send to other people or move to difference locations on your computer.
+
+### Creating an RProject
+
+Go to File \> New Project.
+
+In the window that pops up, select New Directory \> New Project.
+
+From here, you will want to click the Browse button to put this folder that you are about to create in a place that you can easily find. If you have a location where you store all of your work for each of your classes, navigate to that folder. Other people like to put it on their Desktop or in the Documents folders.
+
+Once you've browsed to a location on your computer that makes sense for you, give your folder a descriptive name (e.g., "RNR_321_Coding" or something like that)
+
+### Using RProjects
+
+I recommend making a new RProject for every class where you use R. Any time that you are given data or a script in a class, you will want to put it in the RProject folder.
+
+This way, when you want to read data into your R environment, you don't have to go searching for the data file (literally or figuratively through file paths).
+
+To move a downloaded file or dataset to your RProject folder, open your file finder. I like to right-click and open a second window of the file finder, too. In one window, navigate to your RProject folder. In the other window, navigate to your Downloads folder. Drag the file(s) from your Downloads folder into your RProject folder (alternatively, copy the file and paste them into the RProject folder).
+
+### Opening Your RProject
+
+To open your RProject, you will click on the file that has ".Rproj" at the end of it. Doing so will automatically open RStudio and the files in the Files tab will be the ones you have saved to that RProject folder.
+
+### Organizing Your Workflow
+
+RProjects are particularly helpful for organizing your workflow. Many people have their own ideas about how to structure the folders (sub-directories) of an RProject.
+
+The most basic is to dump everything (data, scripts, plots, etc.) into the same folder (the one you created your RProject in.).
+
+-   pros: no need to deal with file paths, everything in one place, just like Posit Cloud
+-   cons: can get very busy fast, not best practice, requires very good naming practices
+
+The other way to use RProjects is to add some additional structure. I typically have a `data` folder, a `scripts` folder, and an `outputs` folder.
+
+-   pros: cleaner, easier to find what you need, unlikely to mix up old data with new data (for example)
+-   cons: need to understand file paths (`read.csv("data/file_name.csv"` instead of `read.csv("file_name.csv"`)
+
+To get more information on what I mean by "file paths," check out some of the resources below.
+
+## Helpful Links with More Information
+
+Just some links that I find particularly helpful regarding RProjects, scripts, RMarkdown, and file paths.
+
+### Overviews
+
+[This site](https://bookdown.org/daniel_dauber_io/r4np_book/starting-your-r-projects.html) from R for Non Programmers has a very nice overview of RProjects, scripts, and RMarkdown. This is a great place to start.
+
+Another helpful guide to setting up [workflows with scripts and projects](https://r4ds.hadley.nz/workflow-scripts.html)
+
+A nice, albeit long, [overview](https://epirhandbook.com/en/r-basics.html) that covers R basics, including RProjects, scripts, and MUCH more.
+
+### RProjects
+
+Posit's [site](https://support.posit.co/hc/en-us/articles/200526207-Using-Projects) about RProjects
+
+[RStudio Projects and Working Directories: A Beginner's Guide](https://martinctc.github.io/blog/rstudio-projects-and-working-directories-a-beginner%27s-guide/)
+
+### RMarkdown Files
+
+RMarkdown [cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) from RStudio
+
+[Introduction and other guidelines](https://rmarkdown.rstudio.com/lesson-1.html) from RStudio
+
+### File Paths
+
+When using RStudio on your own computer, you will need to know where your data files and scripts are! This is where file paths come into play.
+
+[This site](https://www.r4epi.com/file-paths) does a nice job of explaining file paths.
