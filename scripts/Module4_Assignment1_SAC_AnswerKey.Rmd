@@ -19,21 +19,15 @@ library(vegan)
 scr <- read.csv("../data_raw/SCR_camera_data.csv")
 ```
 
-3.  
 
-```{r}
-head(scr)
-```
-
-
-5. 
+4. 
 ```{r}
 # A warning is fine!
 scr_sac <- specaccum(scr)
 scr_sac
 ```
 
-6.  
+5.  
 
 ```{r}
 plot(scr_sac)
