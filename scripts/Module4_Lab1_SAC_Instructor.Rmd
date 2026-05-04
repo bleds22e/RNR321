@@ -87,7 +87,7 @@ BCI_estimated <- BCI_richness$chao
 BCI_estimated
 ```
 
-Based on our estimated and observed richness values, how many species does the model think are present but we failed to observe?
+Based on our estimated and observed richness values, how many species does the model think are present in the community but we have not detected?
 
 ```{r}
 BCI_estimated - BCI_observed
@@ -95,7 +95,7 @@ BCI_estimated - BCI_observed
 
 ### Plotting the Estimate
 
-Let's add a horizontal line in our species accumulation curve plot to compare against our curve.
+Let's add a horizontal line in our species accumulation curve plot to compare the asymptote (estimated species richness) against our curve (observed species richness).
 
 First, we will need to make sure that the range of the y-axis on the plot goes high enough to show our estimated richness line. We can do this by setting the `ylim` argument to run from 0 to the estimated richness plus a few extra for good measure.
 

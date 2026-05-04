@@ -30,7 +30,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-May 12 at midnight MST
+May 11 at midnight MST
 
 ------------------------------------------------------------------------
 
@@ -58,18 +58,16 @@ For our first community in this assignment, we are going to use a site x species
 scr <- 
 ```
 
-3.  First, use the `head()` function to take a look at the dataset.
-
-```{r}
-
-```
-
-4. How many sites were surveyed? How many species were seen?
+3. How many sites were surveyed? How many species were seen? You can either look in the environment or use code to answer these.
 
 *Sites*: 
 *Species*: 
 
-5. Use the `specaccum()` function to prep the data for the species accumulation curve.
+```{r}
+# optional space for code
+```
+
+4. Use the `specaccum()` function to prep the data for the species accumulation curve.
 
 ```{r}
 # A warning is fine!
@@ -77,11 +75,14 @@ scr_sac <-
 scr_sac
 ```
 
-6.  Next, plot the species accumulation curve based on our observed data.
+5.  Next, plot the species accumulation curve based on our observed data.
 
 ```{r}
 
 ```
+6.  The y-axis on the plot is labeled "exact." Based on what you know about plotting species accumulation curves, what does the y-axis actually represent?
+
+*Answer*: 
 
 7.  Use the `specpool()` function to calculate the estimated species richness.
 
@@ -99,17 +100,18 @@ scr_estimated <-
 scr_estimated
 ```
 
-9. Based on the Chao estimator, how many species are present but we did not observe?
+9. Based on the Chao estimator, how many species are estimated to be present in the community but we did not detect?
 ```{r}
 
 ```
 
-10. Now, let's add our estimated species richness to our species accumulation curve. Remember to set the y-axis range appropriately and to run the `plot()` and `abline()` functions toegther.
+10. Now, let's add our estimated species richness to our species accumulation curve. 
+
+Remember to set the y-axis range appropriately and to run the `plot()` and `abline()` functions toegther.
 
 ```{r}
 
 ```
-
 
 11. Interpret the plot you just made. What is the predicted asymptote value? How does it relate the our species accumulation curve? What does that mean?
 
@@ -171,6 +173,10 @@ fish_estimated
 
 ```
 
-20. Interpret the plot you just made. How does community 2 differ from community 1? How does our sampling differ between community 1 and community 2? 
+## Compare Communities
+
+20. Interpret the plot you just made. 
+
+How does community 2 differ from community 1? How does the sampling (i.e., replication) differ between community 1 and community 2? 
 
 *Answer*:
