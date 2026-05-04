@@ -103,10 +103,9 @@ sag_data <- formatDistData(saguaro,
 4.  Using the `unique()` function, make a data frame with transect length (i.e., survey effort). Call this `transect_saguaro`. Make sure you are referencing the correct columns in the square brackets!
 
 ```{r}
-transect_saguaro <- unique(saguaro[ , c("group", "length")])
+transect_saguaro <- unique(saguaro[c(1,2)])
 transect_saguaro
 ```
-
 
 5.  Assemble data into the format required by `unmarked`. Call this unmarked frame `UMF_sag`.
 
@@ -190,7 +189,7 @@ oco_data <- formatDistData(distData = ocotillo,
 14. Make your data frame with the transect lengths. Call this `transect_oco`.
 
 ```{r}
-transect_oco <- unique(ocotillo[ , c("group", "length")])
+transect_oco <- unique(ocotillo[c(1,2)])
 transect_oco
 ```
 
