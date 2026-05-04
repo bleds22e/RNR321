@@ -40,3 +40,4 @@ vignettes/*.pdf
 
 # Apple macOS
 .DS_Store
+.positai
