@@ -19,16 +19,16 @@ Write R code to successfully answer each question below and/or write text to suc
 
 ### Criteria for Success
 
--   Code is within the provided code chunks
--   Code chunks run without errors
--   Code produces the correct result
-    -   Code attempts will clear logical direction will get half points
-    -   Code that produces the correct answer will receive full points
--   Text answers correctly address the question asked
+- Code is within the provided code chunks
+- Code chunks run without errors
+- Code produces the correct result
+  - Code attempts will clear logical direction will get half points
+  - Code that produces the correct answer will receive full points
+- Text answers correctly address the question asked
 
 ### Due Date
 
-Feb 16 at 2pm MST
+Sept 21 at 1 pm MST
 
 # Assignment Questions
 
@@ -36,9 +36,11 @@ This assignment is worth 20 points total. Each question is worth 1 point.
 
 ## Definitions (1 point each)
 
-*In your own words*, define/describe the following terms. These don't need to be technical descriptions but rather how you are thinking about them.
+*In your own words*, define/describe the following terms.
 
-**Grading note: I've copied these definitions from my slides. If their definitions are the same, they have copied directly from the slides and not used their own words, so take 0.5 points off.**
+These don't need to be technical descriptions; think about how you might explain them to a friend who is not in this class.
+
+**Grading note: I've copied these definitions from my slides. If their definitions are exactly the same, they have copied directly from the slides and not used their own words, so take 0.5 points off.**
 
 1.  *Reproducibility*: ability to repeat the original study using the same data, materials, and methods
 
@@ -59,6 +61,8 @@ birds
 
 6.  Divide the object `birds` by 5. Save the result as an object called `fewer_birds`.
 
+    Remember to type the object `fewer_birds` again on the second line of code so the result is printed out when you run the entire code chunk.
+
 ```{r}
 fewer_birds <- birds / 5
 fewer_birds
@@ -71,7 +75,7 @@ snails <- c(7, 2, 19, 4, 0, 2)
 snails
 ```
 
-8.  Write a line of code that determines what *class* of data is in the `snails` vector.
+8.  Write a line of code that uses a function to determine what *class* (type) of data is in the `snails` vector.
 
 ```{r}
 class(snails)
@@ -79,11 +83,11 @@ class(snails)
 
 9.  Run the line of code below. Based on the output, explain what the line of code does (\~ 1 sentence).
 
-*Answer*:
-
 ```{r}
 snails[3:5]
 ```
+
+*Answer*: Returns the third, fourth, and fifth elements from the snails vector
 
 10. Create a character vector called `rhymes` that contains the following values: `cat`, `rat`, `bat`, `hat`
 
@@ -94,7 +98,7 @@ rhymes
 
 ------------------------------------------------------------------------
 
-### Let's Bring in the Cactus Data
+### Cactus Data Vectors
 
 For the following questions, we will be using the cactus pad data that we collected a few weeks ago. Run the following code chunk to bring ("read") the .csv file into R for us to use.
 
@@ -102,18 +106,20 @@ For the following questions, we will be using the cactus pad data that we collec
 cactus <- read.csv("../data_raw/CactusData.csv") 
 ```
 
-This code chunk uses the `$` operator to subset individuals columns from 2D data and treat them as vectors. 
+This code chunk uses the `$` operator to subset individuals columns from 2D data and treat them as vectors.
 
-Here, I'm saving the cactus pad length column as a vector called `pad_length`. Once you run this code chunk, you should see `pad_length` in your environment.
+Here, I'm saving the cactus pad length column as a vector called `pad_length`. Once you run this code chunk, you should see `pad_length` vector in your environment.
 
 ```{r}
+# run this code chunk
 pad_length <- cactus$length_in
 pad_length
 ```
 
-Below, I'm doing the same thing with a couple more columns.
+In the next code chunk, I'm doing the same thing with a couple more columns.
 
 ```{r}
+# run this code chunk
 pad_width <- cactus$width_in
 damage <- cactus$damage
 
@@ -121,15 +127,19 @@ pad_width
 damage
 ```
 
+You should now see two more vectors in the Environment: `pad_width` and `damage`.
+
 ------------------------------------------------------------------------
 
-11. Write a line of code that pulls out the 4th value in the `pad_width` vector.
+11. Write a line of code that returns the 4th value in the `pad_width` vector.
 
 ```{r}
 pad_width[4]
 ```
 
-12. Write a line of code that saves the 42nd value in the `pad_width` column as an object called `answer`.
+12. Write a line of code that saves the 42nd value in the `pad_width` vector as an object called `answer`.
+
+    Again, remember to type the name of the object (`answer`) on the second line of code so it is printed out when you run the entire code chunk.
 
 ```{r}
 answer <- pad_width[42]
@@ -182,7 +192,7 @@ sd(pad_width)
 
 20. Compare the results of Questions 18 and 19. Are cactus lengths or widths larger, on average? Which of the two sets of data has greater variability, and what does that mean? (\~2 sentences)
 
-*Answer: Cactus pad lengths are longer, on average, than cactus pad widths. The lengths also have more variability in their values, meaning that the lengths are further away from the mean than the widths are.*
+*Answer: Cactus pad lengths are longer, on average, than cactus pad widths. The lengths also have more variability in their values (higher st. deviation), meaning that the lengths are further away from the mean than the widths are.*
 
 # Turning in Your Assignment
 

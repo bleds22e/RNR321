@@ -19,16 +19,16 @@ Write R code to successfully answer each question below and/or write text to suc
 
 ### Criteria for Success
 
--   Code is within the provided code chunks
--   Code chunks run without errors
--   Code produces the correct result
-    -   Code attempts will clear logical direction will get half points
-    -   Code that produces the correct answer will receive full points
--   Text answers correctly address the question asked
+- Code is within the provided code chunks
+- Code chunks run without errors
+- Code produces the correct result
+  - Code attempts will clear logical direction will get half points
+  - Code that produces the correct answer will receive full points
+- Text answers correctly address the question asked
 
 ### Due Date
 
-Feb 17 at 2pm MST
+Sept 21 at 1 pm MST
 
 # Assignment Questions
 
@@ -36,7 +36,9 @@ This assignment is worth 20 points total. Each question is worth 1 point.
 
 ## Definitions (1 point each)
 
-*In your own words*, define/describe the following terms. These don't need to be technical descriptions but rather how you are thinking about them.
+*In your own words*, define/describe the following terms.
+
+These don't need to be technical descriptions; think about how you might explain them to a friend who is not in this class.
 
 1.  *Reproducibility*:
 
@@ -56,6 +58,8 @@ This assignment is worth 20 points total. Each question is worth 1 point.
 
 6.  Divide the object `birds` by 5. Save the result as an object called `fewer_birds`.
 
+    Remember to type the object `fewer_birds` again on the second line of code so the result is printed out when you run the entire code chunk.
+
 ```{r}
 
 ```
@@ -66,19 +70,19 @@ This assignment is worth 20 points total. Each question is worth 1 point.
 
 ```
 
-8.  Write a line of code that determines what *class* of data is in the `snails` vector.
+8.  Write a line of code that uses a function to determine what *class* (type) of data is in the `snails` vector.
 
 ```{r}
 
 ```
 
-9.  Run the line of code below. Based on the output, explain what the line of code does (\~ 1 sentence).
-
-*Answer*:
+9.  Run the line of code below. Based on the output, explain what the line of code does (\~1 sentence). Type your answer below the code chunk.
 
 ```{r}
 snails[3:5]
 ```
+
+*Answer* :
 
 10. Create a character vector called `rhymes` that contains the following values: `cat`, `rat`, `bat`, `hat`
 
@@ -88,32 +92,39 @@ snails[3:5]
 
 ------------------------------------------------------------------------
 
-### Let's Bring in the Cactus Data
+### Cactus Data Vectors
 
-For the following questions, we will be using the cactus pad data that we collected a few weeks ago. Run the following code chunk to bring ("read") the .csv file into R for us to use.
+For the following questions, we will be using the cactus pad data that we used a few weeks ago. Run the following code chunk to bring ("read") the .csv file into R for us to use.
 
 ```{r}
+# run this code chunk
 cactus <- read.csv("CactusData.csv")
 ```
 
-This code chunk uses the `$` operator to pull out individuals columns from 2D data and treat them as vectors. Here, I'm saving the cactus pad length column as a vector called `pad_length`. Once you run this code chunk, you should see `pad_length` in your environment.
+This code chunk uses the `$` operator to subset individuals columns from 2D data and treat them as vectors.
+
+Below, I'm saving the cactus pad length column as a vector called `pad_length`. Once you run this code chunk, you should see `pad_length` vector in your environment.
 
 ```{r}
+# run this code chunk
 pad_length <- cactus$length_cm
 pad_length
 ```
 
-Below, I'm doing the same thing with a couple more columns. 
+In the next code chunk, I'm doing the same thing with a couple more columns.
 
 Run this code chunk, as well. Take a look in the environment and find the new objects called `pad_width` and `damage`.
 
 ```{r}
+# run this code chunk
 pad_width <- cactus$width_cm
 pad_width
 
 damage <- cactus$damage
 damage
 ```
+
+You should now see two more vectors in the Environment: `pad_width` and `damage`.
 
 ------------------------------------------------------------------------
 
@@ -123,7 +134,9 @@ damage
 
 ```
 
-12. Write a line of code that saves the 42nd value in the `pad_width` column as an object called `answer`. Remember to retype `answer` on a new line in the code chunk to print the output.
+12. Write a line of code that saves the 42nd value in the `pad_width` column as an object called `answer`.
+
+    Again, remember to type the name of the object (`answer`) on the second line of code so it is printed out when you run the entire code chunk.
 
 ```{r}
 
@@ -147,7 +160,9 @@ damage
 
 ```
 
-16. Write a line of code that determines how many recorded cactus pads had no damage to them. (*Hint: looking back at the code you wrote to complete Questions 14 and 15 will be helpful!*)
+16. Write a line of code that determines how many recorded cactus pads had no damage to them.
+
+    *Hint: looking back at the code you wrote to complete Questions 14 and 15 will be helpful!*
 
 ```{r}
 
@@ -171,16 +186,18 @@ damage
 
 ```
 
-20. Compare the results of Questions 18 and 19. Are cactus lengths or widths larger, on average? Which of the two sets of data has greater variability, and what does that mean? (\~2 sentences)
+20. Compare the results of Questions 18 and 19.
+
+    Are cactus lengths or widths larger, on average? Which of the two sets of data has greater variability, and what does that mean? (\~2 sentences)
 
 *Answer*:
 
 # Turning in Your Assignment
 
-Follow these steps to successfully turn in your assignment on D2L.
+Follow these steps to successfully turn in your assignment on Brightsapce.
 
-1.  Click the `Knit` button up near the top of this document. This should produce a PDF file that shows up in the `Files` panel on the bottom-right of your screen.
-2.  Click the empty box to the left of the PDF file.
+1.  Click the `Knit` button up near the top of this document. This should produce a PDF file that shows up in the `Files` tab on the bottom-right of your screen.
+2.  In the `Files` tab, click the empty box to the left of the PDF file.
 3.  Click on the blue gear near the top of the `Files` panel and choose Export.
 4.  Put your last name at the front of the file name when prompted, then click the Download button. The PDF file of your assignment is now in your "Downloads" folder on your device.
-5.  Head over to D2L and navigate to Module 1 Assignment 2. Submit the PDF file that you just downloaded.
+5.  Head over to Brightspace and navigate to Module 1 Assignment 2. Submit the PDF file that you just downloaded.

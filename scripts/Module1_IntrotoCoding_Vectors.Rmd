@@ -28,42 +28,62 @@ Let's first explore what each of the panels in RStudio do.
 
 # Basics of Coding in R
 
-How do you "run" code? Running or executing code means that you are sending a line of code to the console for R to interpret it.
+## RMarkdown and Code Chunks
 
-In the source, there are a few different ways to run code.
+We are using a document called an [RMarkdown]{.underline} file (ending is `.Rmd`). In RMarkdown files, we can type regular text—just like this—or we can type code and see the output.
 
--   Sometimes you want to run only one line of code at a time. You can do this by putting your cursor on the line you want to run and either hitting the "Run" button in the upper right-hand corner of the source panel or holding down `Ctrl` + `Enter` (`Cmd` + `Enter` on Macs). If you want to run a couple lines of code, you can highlight them and do the same thing
--   If you want to run an entire [code chunk]{.underline} (see below), you can click on the green arrow on the right side of the code chunk.
+With plain text, you can type normally in the document.
 
-In the console, you hit `Enter`.
+To type code that we can use, we need to type it in a "code chunk."
+
+```{r}
+# This is a code chunk! 
+# The {r} indicates that this chunk only "understands" the R language
+# Always start typing on the line below the {r} 
+```
+
+## Running Code
+
+How do you "run" code? Running or executing code effectively means that you are sending a line of code to the console for R to interpret it, follow the instructions, and return the output.
+
+If you are working on the console (uncommon in this class), you hit `Enter`.
+
+When working in the source panel (like this document), we will be typing all of our code into code chunks.
+
+There are a few different ways to run lines of code written in code chunks:
+
+- To run one line of code at a time, put your cursor on the line you want to run and either click the "Run" button in the upper right-hand corner of the source panel or hold down `Ctrl` + `Enter` (`Cmd` + `Enter` on Macs).
+- To run a couple lines of code, highlight them and do the same thing as above.
+- To run every line in a code chunk, click on the green arrow on the right side of the code chunk.
 
 ## Using R as a calculator
 
-For example:
+We can perform mathematical calculations using R.
 
 ```{r}
 
 ```
 
-By the way, you can add notes or information into code chunks.
+You can add notes or information into code chunks using `#`. This is called adding comments.
 
 ```{r}
 # we can add comments to our code by using the # sign
-# R doesn't read anything past a #, so you can either put one at the beginning of a whole line or after some code
+# R doesn't read anything past a #
+# you can put one at the beginning of a line or after some code
 
 ```
 
 ### Let's practice in the console, too.
 
-You can also do basic math in the console.
+We can also do basic math in the console.
 
 The console only understands R code, so we don't need to use the `{r}` notation; we can type numbers and mathematical symbols (among other things).
 
-Try multiplying 5 and 3 (hint: `*` means multiply) in the console.
+Try multiplying 5 and 3 in the console.
 
 # Assigning Objects
 
-Assignments are really key to almost everything we do in R. We create permanent [objects]{.underline} in R by assignment, meaning we can reference these objects later.
+Assignments are key to almost everything we do in R. We create permanent [objects]{.underline} in R by assigning data to a name, meaning we can reference these objects later.
 
 Anything can be saved to an object, and we do this with the assignment operator, `<-`.
 
@@ -82,12 +102,11 @@ You will notice 2 things.
     obj
     ```
 
-2.  Each new object will show up in your environment (upper right panel). This is particularly helpful when you want to check if your code ran successfully or to confirm that the object represents what you *think* it represents.
+2.  Each new object will show up in your environment (upper right panel). This is particularly helpful to check if our code ran successfully or to confirm that the object represents what we *think* it represents.
 
 We can reference objects in other parts of the code. For example, we can perform mathematical operations using numeric objects.
 
 ```{r}
-
 
 ```
 
@@ -95,13 +114,17 @@ We can reference objects in other parts of the code. For example, we can perform
 
 [Functions]{.underline} are pre-written bits of codes that perform specific tasks for us.
 
-Functions are always followed by parentheses. Anything you type into the parentheses are called [arguments]{.underline}. Arguments allow us to give the function additional information about how we want it to perform its task.
+Functions are always followed by parentheses. Anything you type into the parentheses are called [arguments]{.underline}.
+
+| `function_name(argument1, argument2,...)`
+
+Arguments allow us to give the function additional information about how we want it to perform its task.
 
 ```{r}
 
 ```
 
-To get more information about a function, use the help function.
+To get more information about a function, use the `help()` function or `?`.
 
 ```{r}
 
@@ -119,7 +142,9 @@ Write some code that calculates the sum of the `weight_kg` object and the `heigh
 
 # Vectors
 
-[Vectors]{.underline} are the most common and basic data type in R. They make up most of the other data types we will work with in R. They are composed of series of values (called [elements]{.underline}), which can either be numbers, characters, or other types of data.
+[Vectors]{.underline} are the most common and basic data type in R. They make up most of the other data types we will work with in R. 
+
+They are composed of series of values (called [elements]{.underline}), which can either be numbers, characters, or other types of data.
 
 We use the `c()` function (stands for combine) to create a vector.
 
@@ -149,9 +174,8 @@ Sometimes we want to keep and work with only certain values from a vector. This 
 
 In R, there are 2 main ways to subset:
 
-by index (position of the element)
-
-by condition (meeting certain requirements)
+- by [index]{.underline} (position of the element)
+- by [condition]{.underline} (meeting certain requirements)
 
 Let's explore both.
 

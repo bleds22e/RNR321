@@ -51,11 +51,11 @@ cactus <- read.csv("../data_raw/CactusData.csv")
 ```
 
 ```{r}
-pad_length <- cactus$length_cm
+pad_length <- cactus$length_in
 ```
 
 ```{r}
-pad_width <- cactus$width_cm
+pad_width <- cactus$width_in
 damage <- cactus$damage
 ```
 
@@ -84,7 +84,7 @@ pad_width[6:10]
 length(damage)
 ```
 
-15. 
+15. Don't worry if the numbers to the left of each line are different from yours! 
 
 ```{r}
 damage[damage == "None"]
@@ -96,7 +96,7 @@ length(damage[damage == "None"])
 ```
 
 
-17. 
+17. Don't worry if the numbers to the left of each line are different from yours! 
 
 ```{r}
 pad_length[pad_length > 10]
