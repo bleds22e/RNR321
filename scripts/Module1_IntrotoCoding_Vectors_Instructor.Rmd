@@ -2,8 +2,8 @@
 title: "Introduction to Coding in R"
 author: "EKB"
 date: "`r Sys.Date()`"
-output: 
-  pdf_document: default
+output: pdf_document
+editor: visual
 ---
 
 # Introduction to R and RStudio
@@ -163,7 +163,7 @@ weight_and_height <- sum(weight_kg, height)
 
 ## Vectors
 
-[Vectors]{.underline} are the most common and basic data type in R. They make up most of the other data types we will work with in R. 
+[Vectors]{.underline} are the most common and basic data type in R. They make up most of the other data types we will work with in R.
 
 They are composed of series of values (called [elements]{.underline}), which can either be numbers, characters, or other types of data.
 

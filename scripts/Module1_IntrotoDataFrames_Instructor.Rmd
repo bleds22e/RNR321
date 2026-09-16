@@ -10,12 +10,12 @@ editor: visual
 
 ### Student Learning Outcomes
 
--   Students will be able to describe the relationship between vectors and data frames
--   Students will be able to do the following in the R language:
-    -   explore and describe data frames
-    -   filter specific values from data frames
-    -   calculate descriptive statistics from data frames
-    -   make histograms
+- Students will be able to describe the relationship between vectors and data frames
+- Students will be able to do the following in the R language:
+  - explore and describe data frames
+  - filter specific values from data frames
+  - calculate descriptive statistics from data frames
+  - make histograms
 
 # Working with Data Frames
 
@@ -25,8 +25,8 @@ Most of the data we work with, however, is two-dimensional data (i.e., has colum
 
 As a friendly reminder:
 
--   **rows** go side-to-side
--   **columns** go up-and-down
+- **rows** go side-to-side
+- **columns** go up-and-down
 
 ![](images/rows_and_columns.png){width="75%" fig-align="center"}
 
