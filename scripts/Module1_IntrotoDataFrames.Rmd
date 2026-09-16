@@ -2,8 +2,8 @@
 title: "Introduction to Coding in R: Data Frames"
 author: "Ellen Bledsoe"
 date: "`r Sys.Date()`"
-output: 
-  pdf_document: default
+output: default
+editor: visual
 ---
 
 # 2-Dimensional Data in R
