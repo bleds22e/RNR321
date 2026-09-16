@@ -10,12 +10,12 @@ editor: visual
 
 ### Student Learning Outcomes
 
--   Students will be able to describe the relationship between vectors and data frames
--   Students will be able to do the following in the R language:
-    -   explore and describe data frames
-    -   filter specific values from data frames
-    -   calculate descriptive statistics from data frames
-    -   make histograms
+- Students will be able to describe the relationship between vectors and data frames
+- Students will be able to do the following in the R language:
+  - explore and describe data frames
+  - filter specific values from data frames
+  - calculate descriptive statistics from data frames
+  - make histograms
 
 # Working with Data Frames
 
@@ -25,8 +25,8 @@ Most of the data we work with, however, is two-dimensional data (i.e., has colum
 
 As a friendly reminder:
 
--   **rows** go side-to-side
--   **columns** go up-and-down
+- **rows** go side-to-side
+- **columns** go up-and-down
 
 ![](images/rows_and_columns.png){width="75%" fig-align="center"}
 
@@ -38,7 +38,7 @@ Data frames are made up of multiple vectors. Each vector becomes a column in a d
 
 To explore data frames, we are going to use a package called `palmerpenguins`.
 
-A [package]{.underline} is a bunch of pre-written bit of code (usually functions) form of functions, which we can bring into R and use. 
+A [package]{.underline} is a bunch of pre-written bit of code (usually functions) form of functions, which we can bring into R and use.
 
 In this case, we are using a data package, which loads data into R that we can use. This is real data from penguins in Antarctica! You can learn more about the `palmerpenguins` package and data [here](https://allisonhorst.github.io/palmerpenguins/).
 
@@ -51,7 +51,8 @@ The first time that you want to use a certain package, you need to "install" the
 I have already installed the `palmerpenguins` package into this Posit Cloud project, so you do not need to install it. I've included the code here for future reference, if you need it.
 
 ```{r}
-# code for installing a package from the internet ONLY FOR FUTURE REFERENCE
+# FOR FUTURE REFERENCE ONLY
+# code for installing a package from the internet
 # install.packages("palmerpenguins")
 # to run the line of code above, remove the # symbol
 ```
@@ -77,6 +78,7 @@ Let's take a look at our data. The data we are using is in a data frame called `
 A quirk about using data that we've loaded in through a package instead of directly reading in data from a `.csv` file is that the data frame will not show up in our environment unless we specifically tell it to.
 
 ```{r}
+# you will not normally need to do this
 penguins <- penguins
 ```
 
@@ -88,7 +90,7 @@ As with vectors, there are many functions that are useful for taking a look at d
 
 ```
 
-# Sub-setting 
+# Sub-setting
 
 When sub-setting data frames, we need to now specify 2 locations, the row and the column. In R, it is always row *then* column. The general structure looks like this:
 
