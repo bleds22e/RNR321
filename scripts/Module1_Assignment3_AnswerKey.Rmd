@@ -35,7 +35,7 @@ counts[counts < 66]
 4.  
 
 ```{r}
-pet_names <- c("Mystery", "Hazel", "Spud", "Pancho")
+pet_names <- c("Mystery", "Hazel", "Spud", "Sandy")
 pet_names
 ```
 
@@ -65,19 +65,19 @@ head(cactus)
 9.  
 
 ```{r}
-mean(cactus$length_cm, na.rm = TRUE)
+mean(cactus$length_in, na.rm = TRUE)
 ```
 
 10. 
 
 ```{r}
-round(mean(cactus$length_cm, na.rm = TRUE), digits = 1)
+round(mean(cactus$length_in, na.rm = TRUE), digits = 1)
 ```
 
 11. 
 
 ```{r}
-hist(cactus$depth_cm)
+hist(cactus$depth_in)
 ```
 
 
@@ -98,18 +98,18 @@ head(engel, 10)
 15. 
 
 ```{r}
-mean_ficus <- mean(ficus$width_cm, na.rm = TRUE)
+mean_ficus <- mean(ficus$width_in, na.rm = TRUE)
 mean_ficus
-mean_engel <- mean(engel$width_cm, na.rm = TRUE)
+mean_engel <- mean(engel$width_in, na.rm = TRUE)
 mean_engel
 ```
 
 16. 
 
 ```{r}
-sd_ficus <- sd(ficus$width_cm, na.rm = TRUE)
+sd_ficus <- sd(ficus$width_in, na.rm = TRUE)
 sd_ficus
-sd_engel <- sd(engel$width_cm, na.rm = TRUE)
+sd_engel <- sd(engel$width_in, na.rm = TRUE)
 sd_engel
 ```
 

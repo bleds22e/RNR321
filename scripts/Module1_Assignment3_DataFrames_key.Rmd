@@ -19,16 +19,16 @@ Write R code to successfully answer each question below and/or write text to suc
 
 ### Criteria for Success
 
--   Code is within the provided code chunks
--   Code chunks run without errors
--   Code produces the correct result
-    -   Code attempts will get half points
-    -   Code that produces the correct answer will receive full points
--   Text answers correctly address the question asked
+- Code is within the provided code chunks
+- Code chunks run without errors
+- Code produces the correct result
+  - Code attempts will get half points
+  - Code that produces the correct answer will receive full points
+- Text answers correctly address the question asked
 
 ### Due Date
 
-Feb 23 at 2pm MST
+Sept 28 at 1 pm MST
 
 # Assignment Questions
 
@@ -52,7 +52,9 @@ counts <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, 72, 65, 64, 
 mean(counts)
 ```
 
-2.  The answer to Q1 should yield an odd result caused by the `NA` value in `counts`. To resolve this, use the help function to remind yourself about the argument `na.rm = TRUE` in the `mean()` function.
+2.  The answer to Q1 should yield an odd result caused by the `NA` value in `counts`.
+
+    To resolve this, review the `Module1_IntrotoDataFrames` lesson, specifically about dealing with `NA` values and remind yourself about the argument `na.rm = TRUE`.
 
 Issue a revised command to calculate the mean value in `counts`.
 
@@ -60,16 +62,16 @@ Issue a revised command to calculate the mean value in `counts`.
 mean(counts, na.rm = TRUE)
 ```
 
-3.  Write a line of code that selects values less than 66 from the `counts` vector. The `NA` values with be included in this vector, which is fine.
+3.  Write a line of code that selects values less than 66 from the `counts` vector. The `NA` value will be included in the resulting vector, which is fine.
 
 ```{r}
 counts[counts < 66]
 ```
 
-4.  Create a character vector called `pet_names` which includes the following names: Mystery, Hazel, Spud, Pancho
+4.  Create a character vector called `pet_names` which includes the following names: Mystery, Hazel, Spud, Sandy
 
 ```{r}
-pet_names <- c("Mystery", "Hazel", "Spud", "Pancho")
+pet_names <- c("Mystery", "Hazel", "Spud", "Sandy")
 pet_names
 ```
 
@@ -117,16 +119,16 @@ cactus <- read.csv("../data_raw/CactusData.csv")
 head(cactus)
 ```
 
-9.  Use a function to calculate the mean *length* of all the cactus pads that were measured.
+9.  Calculate the average *length* of all the cactus pads that were measured.
 
 ```{r}
-mean(cactus$length_cm, na.rm = TRUE)
+mean(cactus$length_in, na.rm = TRUE)
 ```
 
 10. Use the `round()` function to round the mean of the cactus pad *lengths* (Q9) to only 1 place after the decimal.
 
 ```{r}
-mean_length <- mean(cactus$length_cm, na.rm = T)
+mean_length <- mean(cactus$length_in, na.rm = T)
 round(mean_length, 1)
 
 # Any variation of the above or below works
@@ -136,12 +138,12 @@ round(mean_length, 1)
 11. Create a histogram with the *depth* of all the cactus pads that were measured. No need to use `na.rm = TRUE` here; the histogram function automatically drops `NA` values.
 
 ```{r}
-hist(cactus$depth_cm)
+hist(cactus$depth_in)
 ```
 
 12. In 2-3 sentences, interpret the histogram. Describe what the axes represent, the approximate range of the data, where the majority of values fall, the distribution/skew of the data, etc. (2 points)
 
-*Answer: (Example) The x-axis indicates groupings/bins of depth measurements for each cactus pad and the y-axis indicates the frequency with which measurements are in each group. While the range of the data is from about 0-8 cm the majority of values seem to fall between 0-2 cm. The distribution is right-skewed.*
+*Answer: (Example) The x-axis indicates groupings/bins of depth measurements for each cactus pad and the y-axis indicates the frequency with which measurements are in each group. While the range of the data is from about 0-3.5 in the majority of values seem to fall between 0-2 in. The distribution is right-skewed.*
 
 13. Run the following line of code. By looking at the code and the output, describe what the following line of code is doing. Make sure to include each part of the code. (As a point of reference, this took me 5 sentences in the answer key). (2 points)
 
@@ -149,7 +151,7 @@ hist(cactus$depth_cm)
 cactus[cactus$spines == "N", 5]
 ```
 
-*Answer: This line of code returns depth values for the cactus pads that do not have spines. We first tell R that we want to select something from the `cactus` data frame. The `[]` indicate that we are subsetting. We set a condition in the rows section that indicates we only want rows in which the value in the spines column is "N", indicating no spines. After the comma, we specify that we want values from the 9th column, which is `depth_cm`.*
+*Answer: This line of code returns depth values for the cactus pads that do not have spines. We first tell R that we want to select something from the `cactus` data frame. The `[]` indicate that we are subsetting. We set a condition in the rows section that indicates we only want rows in which the value in the spines column is "N", indicating no spines. After the comma, we specify that we want values from the 9th column, which is `depth_in`.*
 
 14. Create 2 different data frames: one called `ficus` with only rows that have *Opuntia ficus-indica* in the species column and one called `engel` with only rows which have *Opuntia engelmannii* in the species column. The data frames should have *all* columns.
 
@@ -163,18 +165,18 @@ engel <- cactus[cactus$species == "Opuntia engelmannii", ]
 15. Calculate the mean pad width for each species.
 
 ```{r}
-mean_ficus <- mean(ficus$width_cm, na.rm = TRUE)
+mean_ficus <- mean(ficus$width_in, na.rm = TRUE)
 mean_ficus
-mean_engel <- mean(engel$width_cm, na.rm = TRUE)
+mean_engel <- mean(engel$width_in, na.rm = TRUE)
 mean_engel
 ```
 
 16. In a similar fashion, calculate the standard deviation (`sd()`) for the width of both species.
 
 ```{r}
-sd_ficus <- sd(ficus$width_cm, na.rm = TRUE)
+sd_ficus <- sd(ficus$width_in, na.rm = TRUE)
 sd_ficus
-sd_engel <- sd(engel$width_cm, na.rm = TRUE)
+sd_engel <- sd(engel$width_in, na.rm = TRUE)
 sd_engel
 ```
 
