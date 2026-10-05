@@ -3,9 +3,7 @@ title: "Module 2 Assignment 1"
 author: ""
 date: '2022-10-11'
 output: pdf_document
-editor_options: 
-  markdown: 
-    wrap: 72
+editor: visual
 ---
 
 ```{r setup, include=FALSE}
@@ -28,16 +26,16 @@ successfully answer the question.
 
 ### Criteria for Success
 
--   Code is within the provided code chunks
--   Code chunks run without errors
--   Code produces the correct result
-    -   Code attempts will get half points
-    -   Code that produces the correct answer will receive full points
--   Text answers correctly address the question asked
+- Code is within the provided code chunks
+- Code chunks run without errors
+- Code produces the correct result
+  - Code attempts will get half points
+  - Code that produces the correct answer will receive full points
+- Text answers correctly address the question asked
 
 ### Due Date
 
-March 16 by 2 pm MST
+Oct 12 by 1 pm MST
 
 ------------------------------------------------------------------------
 
@@ -53,10 +51,6 @@ frame, while each smaller square (\~4 in x 4 in) represents a sample
 unit.
 
 ## Short Answer
-
-Answer the following question with respect to the data we collected last
-week (AKA, using phrases like "large square," "little square," "dark
-rocks," etc.)
 
 Think back to how we sampled the rock data. Answer the following
 question in terms of our data (aka, "big square," "little squares,"
@@ -99,13 +93,13 @@ your group:
 (d) In the Files tab in the bottom right-hand corner, check the box next
     to the .csv file that you just uploaded, then click the "Rename"
     button (near "Upload").
-(e) If needed, rename your .csv file as "rocks_abund.csv"
+(e) If needed, rename your .csv file as `rocks_abund.csv`
 
 ### Important Notes:
 
 (a) I recommend referencing the slides from class! Remember, equations
-    don't show on D2L, so you'll want to download the slides or use the
-    PDF version.
+    often don't show on Brightspace, so you'll want to download the
+    slides or use the PDF version.
 (b) I also recommend taking a look back at Module 1 Assignment 3 to
     remind yourself how to work with data frames.
 (c) Because each group will have different values for your number of
@@ -117,11 +111,12 @@ your group:
 
 Each question is worth 1 point unless otherwise noted.
 
-5.  Use the `read.csv()` function from the tidyverse to read in your
-    rocks file. Save this data in an object called `rocks`.
+5.  Use the `read.csv()` function to bring in ("read") your rock abundance data from your `rocks_abund.csv` file.
 
-    Below, replace the file name inside the quotation amrks with the
-    file name of your rock data (also in quotation marks).
+    Below, replace the file name inside the quotation marks with the
+    file name of your rock data file (also in quotation marks).
+    
+    Then, run this code chunk. You should see the `rocks` data frame appear in your enviornment.
 
 ```{r}
 # when you read in your file, the name of the file needs to be inside quotation marks
@@ -145,16 +140,11 @@ rocks <- na.omit(rocks)
 
 ```
 
-7.  Create the object `n`, which is your *sample size,* the number of
+7.  Create the object `n`, which is your *sample size*, the number of
     sample units that make up your sample.
 
-    To do this, use the `length()` function to count the number of
-    elements in the `sample_unit` column of the `rocks` data frame.
-    Remember, we can use the `$` to reference a specific column in a
-    data frame.
-
-    The value might have an L at the end of it for "length," but it will
-    act like a number in subsequent code.
+    To do this, use the `nrow()` function, which will count up the
+    number of rows in your `rocks` data frame.
 
 ```{r}
 
@@ -180,7 +170,7 @@ rocks_median <- median(rocks$abund_dark_stones)
 rocks_median
 ```
 
-8.  Create an object called `rocks_mean` that contains the sample mean
+8.  Create an object called `rocks_mean` that contains the *sample mean*
     (AKA the mean number of dark stones per sample unit). Follow the
     code example above.
 
@@ -194,7 +184,7 @@ rocks_median
 ```
 
 9.  Create objects called `rocks_var` and `rocks_sd` which contain the
-    sample variance and sample standard deviation, respectively.
+    *sample variance* and *sample standard deviation*, respectively.
 
     *Hint: use `var()` and `sd()` functions.*
 
@@ -212,12 +202,12 @@ Now we are moving on to calculating a measure of uncertainty.
 R doesn't have a function for calculating the standard error (SE) of the
 mean, so let's calculate it ourselves using the equation from class.
 
-10. First, do you remember that finite population correction factor?
+10. First, do you remember that *finite population correction factor*?
     There's no function for it, so let's create an object called
     `pop_correction` using that formula.
 
     *Hint #1: use the objects we've already created (`N`, `n`; don't
-    enter any numbers directly*
+    enter any numbers directly)*
 
     *Hint #2: use parentheses to group the values in the numerator
     together*
@@ -226,30 +216,30 @@ mean, so let's calculate it ourselves using the equation from class.
 
 ```
 
-11. Why are we using the finite population correction factor in our
-    formulas?
+11. We only use the finite population correction factor in certain
+    circumstances. Why are we using it in our formulas here?
 
     *Answer:*
 
 12. Using the objects you've already created and the formula (check the
     lecture slides from this module!), create an object called
-    `rocks_var_ybar` which contains the variance of the *estimate* of
-    the mean.
+    `rocks_var_ybar` which contains the *variance of the estimate of the
+    mean*.
 
     Remember, this is different from the sample variance that you've
     already calculated...
 
     There is no function for this, so you'll need to use the equation.
 
-    \_Hint: if you want to multiple something in R, you must use \*.\_
+    *Hint: if you want to multiply something in R, you must use `*`.*
 
 ```{r}
 
 ```
 
-13. Calculate the SE of the estimate of the mean by taking the square
-    root (`sqrt()`) of the `rocks_var_ybar` value. Save this as an
-    object `rocks_SE_ybar`.
+13. Calculate the *standard error of the estimate of the mean* by taking
+    the square root (`sqrt()`) of the `rocks_var_ybar` value. Save this
+    as an object `rocks_SE_ybar`.
 
 ```{r}
 
@@ -257,26 +247,28 @@ mean, so let's calculate it ourselves using the equation from class.
 
 ### Estimating the Population (and the Uncertainty of the Estimate)
 
-We've calculated standard error (SE) for the estimate of the mean above.
-Now, let's calculate them for the estimate of the population abundance
-(tau hat)
+We've calculated parameter estimates and the standard error (SE) for the
+estimate of the mean above.
 
-14. First, let's calculate the total number of rocks in the population.
-    Save the output as `rocks_total`. Use objects you've already
-    created.
+Now, let's do the same for a different population parameter: the total
+population (abundance), which is "tau hat."
 
-```{r}
-
-```
-
-15. Now calculate the variance of the estimate of the population total,
-    saving it as `rocks_var_total`.
+14. First, let's calculate the *total number of rocks in the
+    population*. Save the output as `rocks_total`. Use objects you've
+    already created.
 
 ```{r}
 
 ```
 
-16. Calculate the SE of the estimate of the population total, saving it
+15. Now calculate the *variance of the estimate of the population
+    total*, saving it as `rocks_var_total`.
+
+```{r}
+
+```
+
+16. Calculate the *standard error of the estimate of the population total*, saving it
     as `rocks_SE_total`.
 
 ```{r}
@@ -290,14 +282,13 @@ Now, let's calculate them for the estimate of the population abundance
     In your answer, be sure to address the following questions and use
     the correct units of measurement:
 
-    -   According to your calculations, approximately how many dark
-        rocks were there in your big square (AKA your dark rock
-        "population")? What is your calculated uncertainty in your
-        estimate?
-    -   How much variation in the number of dark rocks per little square
-        do you estimate there to be?
-    -   What is your estimated average \# dark rocks per little square
-        (AKA your dark rock density)? What is your calculated
-        uncertainty in your estimate in the density?
+    - According to your calculations, approximately how many dark rocks
+      were there in your big square (AKA your dark rock "population")?
+      What is your calculated uncertainty in that estimate?
+    - How much variation in the number of dark rocks per little square
+      do you estimate there to be?
+    - What is your estimated average number of dark rocks per little square
+      (AKA your dark rock density)? What is your calculated uncertainty
+      in your estimate in the density?
 
 *Answer*:

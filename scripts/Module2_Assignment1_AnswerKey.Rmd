@@ -19,9 +19,28 @@ N <- 64
 n <- 8
 ```
 
-### Remember, these numbers will not match your data! They match the values in the `example_data.csv`. I've provided them in case you want to check your code with the example data to make sure you have done the correct thing.
+### Remember, these numbers will not match your data!
 
-8.  
+These values match the values in the `example_data.csv`. I've provided
+them in case you want to check your code with the example data to make
+sure you have done the correct thing.
+
+If you do check your calculations using the `example_data.csv`:
+
+- *Temporarily* replace the `rocks_abund.csv` file with the
+  `example_data.csv` file in the `read.csv()` function in Question 5 and
+  re-run the code chunk.
+- Now, re-run all of the following code chunks. Doing so will compute
+  all of the calculations with the "new" rocks data from
+  `example_data.csv`.
+- You can now compare your outputs to the outputs in this Answer Key. If
+  you did all of the calculations correctly, the answers in your
+  assignment should match the ones below.
+- Once you are done, be sure to change the file in Question 5 back to
+  your `rocks_abund.csv` file before you knit to PDF and submit your
+  assignment!
+
+5.  
 
 ```{r}
 rocks_mean <- mean(rocks$abund_dark_stones)
@@ -58,7 +77,6 @@ rocks_SE <- sqrt(rocks_var_ybar)
 rocks_SE
 ```
 
-
 14. 
 
 ```{r}
@@ -79,4 +97,3 @@ rocks_var_total
 rocks_SE_total <- sqrt(rocks_var_total)
 rocks_SE_total
 ```
-
