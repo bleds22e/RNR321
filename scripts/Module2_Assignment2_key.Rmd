@@ -24,14 +24,14 @@ Write R code to successfully answer each question below or write text to success
 
 ### Criteria for Success
 
--   Code is within the provided code chunks
--   Code chunks run without errors
--   Code produces the correct result
--   Text answers correctly address the question asked
+- Code is within the provided code chunks
+- Code chunks run without errors
+- Code produces the correct result
+- Text answers correctly address the question asked
 
 ### Due Date
 
-March 23 before lab
+Oct 19 before lab
 
 ------------------------------------------------------------------------
 
@@ -42,6 +42,8 @@ Each question is worth 1 point unless otherwise noted.
 ## Set-up
 
 For our assignment today, we will be using data from my PhD field site in southeastern Arizona in the Chiricahuas. In fact, we will be using some of the first data I ever collected for the project! To learn more about the Portal Project, check out the project's [website](https://portal.weecology.org/). Researchers have been collecting data at this site monthly since 1977!
+
+![](images/portal.jpg){width="75%" fig-align="center"}
 
 What you need to know for today is that this is small mammal (rodent) data.
 
@@ -70,15 +72,18 @@ Let's take a look at what the dataset looks like.
 ```{r}
 head(abund)
 ```
+
 The data has columns with information about the trapping session and plots; the remaining columns with 2 letters each represent rodent species. The values in the columns indicate how many individuals of that species were caught in a given plot.
 
-### Subsetting the Data
+### Sub-setting the Data
 
 We want to choose data only from a certain data collection period and only for certain species. To do this, we are going to filter the data to select trapping period "440" (the 440th time the site was trapped--this was back in 2015. We are over 500 trapping sessions now!) and get rid of the rodent removal plots.
 
 We are also going to select only the columns that are relevant to us.
 
-For this assignment, we are going to be calculating values for two different species of pocket mice: *Chaetodipus penicillatus* and *Chaetodipus baileyi*. In the Portal data, these species are abbreviated as `PP` and `PB`, respectively.
+For this assignment, we are going to be calculating values for two different species of pocket mice: *Chaetodipus penicillatus* (left) and *Chaetodipus baileyi* (right). In the Portal data, these species are abbreviated as `PP` and `PB`, respectively.
+
+![](images/CP.jpg){width="49%" fig-align="left"} ![](images/img_1496.jpg){width="49%" fig-align="right"}
 
 When we choose which columns we keep, we will keep the period, plot, and the PP and PB columns. These columns have the number of each species caught on each plot that trapping session.
 
@@ -183,7 +188,7 @@ upperCI_95
 lowerCI_95
 ```
 
-10. What happens when we create 90% CI for the data? Let's calculate 90% CI. (3 points total)
+10. What happens when we create 90% CI for the data? Let's calculate 90% CI. (2 points total)
 
 a.  Input the correct value for `alpha90` and then run the code chunk to get the new t-value, `t90`.
 
@@ -195,7 +200,7 @@ t90 <- qt(1-(alpha90)/2, df)
 t90
 ```
 
-b. Now, using `t90`, calculate the 90% CI. 
+Now, using `t90`, calculate the 90% CI.
 
 ```{r}
 halfwidth_90 <- t90 * PP_SE
@@ -207,7 +212,7 @@ upperCI_90
 lowerCI_90
 ```
 
-c. Compare the 90% CI to the 95% CI. Which one is wider? Why would expect that to be the case?  
+b.  Compare the 90% CI to the 95% CI. Which one is wider? Why would expect that to be the case?
 
 *Answer:* 95% CI are wider; they are wider because we are willing to accept less uncertainty, so the range of values that must be included needs to be broader to ensure that we have a higher percentage (95 vs 90) of having the true parameter value included in the range.
 
@@ -267,8 +272,8 @@ lowerCI_95_PB
 
 *Answer*: PPs are at a higher density (`PP_mean` is higher than `PB_mean`)
 
-17. Now, compare the ranges of the 95% CI for the PP and the PB data. Which density estimate seems to be more accurate? How are you using to make that determination? 
+17. Now, compare the ranges of the 95% CI for the PP and the PB data. Which density estimate seems to be more accurate? How are you using to make that determination?
 
-    Taking a look back at the equation for calculating confidence intervals and the values for each species in that equation, what value is driving the difference in how wide the confidence intervals (AKA the range of the interval)?
+    Take a look back at the equation for calculating confidence intervals and the values for each species in that equation. Trace them as far back as you can. In this situation, what estimate or value is driving the difference in how *wide* the confidence intervals (AKA the range of the interval) are for each species? Explain conceptually (not mathematically) why that value would drive changes in the width of the CIs. (2 points)
 
 *Answer*: PB seems more accurate because the range of the confidence intervals is narrower than those for PPs. This is because the SE is lower, leading to smaller CIs. [Note: this is actually being driven by the differences in standard deviation since the sample sizes are the same, but they don't need to say that to get credit]
