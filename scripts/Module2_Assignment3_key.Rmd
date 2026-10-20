@@ -170,11 +170,11 @@ nrow(stratumC)
 
 The data in `stratumA`, `stratumB`, and `stratumC` are the data collected when we surveyed each sample unit as allocated in Question 6.
 
-Below, where you need to reference ${N}$, ${N_i}$, $n$, or $n_i$ in an equation, you can use the values you calculated in Questions 1-6 above.
-
 ## Calculating Grasshopper Abundance and Density
 
 NOTE: Open up your previous assignments; they are likely about to come in handy! I would also recommend opening up the lecture slides. Remember to download the slide decks to see all of the equations or use the PDF versions.
+
+Below, where you need to reference ${N}$, ${N_i}$, $n$, or $n_i$ in an equation, you can use the values you calculated in Questions 1-6 above.
 
 8.  Before we begin calculating, stop for a moment to reflect and predict. For stratified sampling, we have a lot of steps to take before we get to our ultimate goal: estimates of density and abundance of the entire grasshopper population, along with the amount of uncertainty in those estimates.
 
@@ -291,7 +291,7 @@ Finally, we can now calculate the overall population mean and variance of the es
 
 #### Conclusion
 
-Ok, that was a lot of calculating! Let's summarize and make sure we know what just happened. We were ultimately able to calculate estimates for the parameters we were interested in: the population mean and the population total along with the amount of uncertainty in both of those estimates.
+Ok, that was a lot of calculating! Let's summarize and make sure we know what just happened. We were ultimately able to calculate estimates for the parameters we were interested in: the population mean (density) and the population total (abundance) along with the amount of uncertainty in both of those estimates.
 
 12. Based on our calculations above, answer the following questions with the name of the R object and its corresponding value for each calculation. (2 points)
 

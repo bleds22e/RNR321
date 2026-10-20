@@ -3,6 +3,7 @@ title: "Module 2 Assignment 3"
 author: "Ellen Bledsoe"
 date: "`r Sys.Date()`"
 output: pdf_document
+editor: visual
 ---
 
 ```{r setup, include=FALSE}
@@ -23,14 +24,14 @@ Write R code to successfully answer each question below or write text to success
 
 ### Criteria for Success
 
--   Code is within the provided code chunks
--   Code chunks run without errors
--   Code produces the correct result
--   Text answers correctly address the question asked
+- Code is within the provided code chunks
+- Code chunks run without errors
+- Code produces the correct result
+- Text answers correctly address the question asked
 
 ### Due Date
 
-March 30 before lab
+Oct 26 before lab
 
 ------------------------------------------------------------------------
 
@@ -117,11 +118,11 @@ n_A; n_B; n_C
 
 7.  If we did not have the pilot study telling us about the variation of the populations in each strata, we could have allocated very differently:
 
-    -   stratum A = 24
+    - stratum A = 24
 
-    -   stratum B = 53
+    - stratum B = 53
 
-    -   stratum C = 23
+    - stratum C = 23
 
     Why is this? What would this allocation have meant for the precision of our estimates?
 
@@ -135,8 +136,8 @@ Hooray! We have gone out and sampled the number of grasshoppers per sample unit,
 
 Now we want to calculate our population parameters:
 
--   mean grasshoppers per sampling unit (`y_bar`)
--   total grasshoppers in the population (`tau_hat`)
+- mean grasshoppers per sampling unit (`y_bar`)
+- total grasshoppers in the population (`tau_hat`)
 
 Let's load our `grasshoppers.csv` data into our workspace using the `read.csv()` function and save the data frame as an object called `grasshoppers`.
 
@@ -172,11 +173,11 @@ nrow(stratumC)
 
 The data in `stratumA`, `stratumB`, and `stratumC` are the data collected when we surveyed each sample unit as allocated in Question 6.
 
-Below, where you need to reference ${N}$, ${N_i}$, $n$, or $n_i$ in an equation, you can use the values you calculated in Questions 1-6 above.
-
 ## Calculating Grasshopper Abundance and Density
 
 NOTE: Open up your previous assignments; they are likely about to come in handy! I would also recommend opening up the lecture slides. Remember to download the slide decks to see all of the equations or use the PDF versions.
+
+Below, where you need to reference ${N}$, ${N_i}$, $n$, or $n_i$ in an equation, you can use the values you calculated in Questions 1-6 above.
 
 8.  Before we begin calculating, stop for a moment to reflect and predict. For stratified sampling, we have a lot of steps to take before we get to our ultimate goal: estimates of density and abundance of the entire grasshopper population, along with the amount of uncertainty in those estimates.
 
@@ -228,8 +229,8 @@ For our first step, we will calculate the mean number of grasshoppers, the total
 
 Our next step is to calculate the uncertainty in our estimates for each stratum. This means we will be calculating the following for each stratum:
 
--   variance of the estimate of the mean (`var_y_bar`)
--   variance of the estimate of the total (`var_tau_hat`)
+- variance of the estimate of the mean (`var_y_bar`)
+- variance of the estimate of the total (`var_tau_hat`)
 
 10. To do this, calculate the following:
 
@@ -301,7 +302,7 @@ Finally, we can now calculate the overall population mean and variance of the es
 
 ### Conclusion
 
-Ok, that was a lot of calculating! Let's summarize and make sure we know what just happened. We were ultimately able to calculate estimates for the parameters we were interested in: the population mean and the population total along with the amount of uncertainty in both of those estimates.
+Ok, that was a lot of calculating! Let's summarize and make sure we know what just happened. We were ultimately able to calculate estimates for the parameters we were interested in: the population mean (density) and the population total (abundance) along with the amount of uncertainty in both of those estimates.
 
 12. Based on our calculations above, answer the following questions with the name of the R object and its corresponding value for each calculation. (2 points)
 
