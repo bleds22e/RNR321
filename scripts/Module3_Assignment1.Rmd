@@ -32,7 +32,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-April 13 before lab
+Nov 9 before lab
 
 ------------------------------------------------------------------------
 
@@ -79,18 +79,22 @@ Remember, naive occupancy is the calculation of occupancy without taking detecti
 1.  Calculate the naive occupancy for javelina.
 
 ```{r}
-# count up the number of times each site was marked as occupied
+# for each site, count the number of surveys with a detection
 # returns a vector that we can now use
 num_detections_jav <- 
+num_detections_jav
 
 # total number of sites that were surveyed
-sites_surveyed_jav <- 
+sites_surveyed_jav <-
+sites_surveyed_jav
 
-# number of sites with detection of greater than zero
+# number of sites with at least one detection
 sites_detection_jav <- 
+sites_detection_jav
 
-# divide the number of sites with detection
-
+# divide the number of sites with detection by the number of sites surveyed
+naive_occupancy_jav <- 
+naive_occupancy_jav
 ```
 
 ### Data Preparation
@@ -104,7 +108,7 @@ sites_detection_jav <-
     # optional: space for code if you want it
     ```
 
-3.  Like we did in the tortoise example, create a data frame of observation co-variates. It should have the number of survey occasions this data set.
+3.  Like we did in the tortoise example, create a data frame of observation covariates. It should have the number of survey occasions this data set.
 
     Then, create a list out of this one data frame, setting the data frame equal to the "time" argument.
 
@@ -252,11 +256,9 @@ coyote_models <-
     *Occupancy*:
 
 ```{r}
-# get estimates of p and psi
+# detection
 
-# CI for p
-
-# CI for psi
+# occupancy
 ```
 
 ## Comparing Species

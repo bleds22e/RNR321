@@ -32,7 +32,7 @@ Write R code to successfully answer each question below or write text to success
 
 ### Due Date
 
-April 13 before lab
+Nov 9 before lab
 
 ------------------------------------------------------------------------
 
@@ -124,11 +124,11 @@ javelina_surveys_df <- data.frame(time_1 = rep("1", 40),
 javelina_surveys_list <- list(time = javelina_surveys_df)
 ```
 
-4.  Create an unmarked data frame for the javelina data
+4.  Create an unmarked data frame for the javelina data. Then run the `head()` or `summary()` function on the unmarked data frame to confirm it looks correct
 
 ```{r}
 javelinaUMF <- unmarkedFrameOccu(javelina, obsCovs = javelina_surveys_list)
-head(javelinaUMF) # check out the data
+summary(javelinaUMF) # check out the data
 ```
 
 ### Javelina Occupancy Models
@@ -150,8 +150,7 @@ ptime_psidot_jav <- occu(~time-1 ~1, data = javelinaUMF)
 7.  Use AIC to determine which model is the best.
 
 ```{r}
-javelina_models <- fitList(pdot_psidot_jav  = pdot_psidot_jav, 
-                           ptime_psidot_jav = ptime_psidot_jav)
+javelina_models <- fitList(pdot_psidot_jav, ptime_psidot_jav)
 modSel(javelina_models)
 ```
 
@@ -164,7 +163,7 @@ modSel(javelina_models)
     *Detection Probability:* 0.29 (0.183 - 0.439)
 
 ```{r}
-plogis(coef(pdot_psidot_jav))  # estimates of psi and p
+plogis(coef(pdot_psidot_jav. type = "det"))  # estimates of psi and p
 plogis(confint(pdot_psidot_jav, type = "det", level = 0.95))
 ```
 
@@ -173,7 +172,7 @@ plogis(confint(pdot_psidot_jav, type = "det", level = 0.95))
     *Occupancy:* 0.42 (0.247 - 0.622)
 
     ```{r}
-    plogis(coef(pdot_psidot_jav))  # estimates of psi and p
+    plogis(coef(pdot_psidot_jav, type = "state"))  # estimates of psi and p
     plogis(confint(pdot_psidot_jav, type = "state", level = 0.95))
     ```
 
@@ -263,8 +262,12 @@ modSel(coyote_models)
     *Occupancy*: 0.781 (0.48 - 0.93)
 
 ```{r}
-plogis(coef(pdot_psidot_coy))  # estimates of psi and p
+# detection
+plogis(coef(pdot_psidot_coy, type = "det"))  # estimates of psi and p
 plogis(confint(pdot_psidot_coy, type = "det", level = 0.95))
+
+# occupancy
+plogis(coef(pdot_psidot_coy, type = "state")) 
 plogis(confint(pdot_psidot_coy, type = "state", level = 0.95))
 ```
 

@@ -41,6 +41,12 @@ What does each column represent? How about each row?
 
 ```
 
+Before we calculate anything, let's practice reading these rows. Look at the first three sites. What is happening in each one?
+
+- Site 1: Tortoises were seen on every survey. The site is definitely occupied.
+- Site 2: Seen on only one of five surveys, so the site is definitely occupied. But on the other four surveys a tortoise was there and we *missed* it. That is direct evidence that detection probability is below 1.
+- Site 3: Never seen. Two explanations we cannot tell apart from this row alone: (1) the site is truly unoccupied, or (2) the site is occupied but we never detected the tortoise. Estimating detection probability from sites like Site 2 is what lets the model make a reasonable guess about sites like Site 3.
+
 ## Naive Occupancy
 
 Before we run any occupancy models that take detection probability into account, let's calculate the naive occupancy.
@@ -48,17 +54,25 @@ Before we run any occupancy models that take detection probability into account,
 Naive occupancy is calculated by the number of sites where a species was detected (at least once) divided by the total number of sites surveyed.
 
 ```{r}
-# count up the number of times each site was marked as occupied
+# for each site, count the number of surveys with a detection
+# returns a vector (one number per site) that we can now use
+num_detections <- 
+num_detections
 
-# total number of sites that were surveyed
+# total number of sites surveyed
+sites_surveyed <- 
+sites_surveyed
 
-# number of sites with detection of greater than zero
+# number of sites with at least one detection
+sites_detection <- 
+sites_detection
 
-# divide the number of sites with detection
-
+# divide the number of sites with detection by the number of sites surveyed
+naive_occupancy <- 
+naive_occupancy
 ```
 
-Is this estimate of occupancy going to be higher or lower than when we take detection probability into account?
+Is this estimate of occupancy going to be higher or lower than when we take detection probability into account? Why?
 
 ## Occupancy Models
 
@@ -66,19 +80,33 @@ Now we are going to run a few models that take detection probability into accoun
 
 To run correctly, the `unmarked` package requires we put our data in a very specific format.
 
+### From notation to code
+
+Let's take a closer look at the two models we will be using in lab and in the assignment.
+
+| Model in lecture | What it means | Code |
+|:-----------------|:---------------------------------|:-------------------|
+| $\psi(.)p(.)$ | occupancy constant, detection constant | `occu(~1 ~1, data = ...)` |
+| $\psi(.)p(t)$ | occupancy constant, detection varies by survey | `occu(~time-1 ~1, data = ...)` |
+
+**NOTE:** the code lists **detection first and occupancy second** (`occu(~ detection ~ occupancy)`), which is the *opposite* of how we write the notation. The `~1` means "constant" (the dot in lecture).
+
 ### Prepare Our Data
 
-#### Create a time data frame (Observation co-variates)
+#### Create a time data frame (Observation covariates)
 
-First, we need to create a list of data frames for our observation co-variates (meaning, variables that might change with each observation).
+First, we need to create a list of data frames for our observation covariates (meaning, variables that might change with each observation).
+
+The columns of this data frame do not hold data. They are labels: they tell `unmarked` "this column is survey 1, this one is survey 2, ..." so it can estimate a *separate detection probability for each survey*. Without these labels, `unmarked` could only estimate one detection probability for all surveys.
 
 This list of data frames (in our case, just 1 data frame) is what will allow us to create a model where detection probability varies with time (each survey occasion).
 
 ```{r}
-# create the data frame with each column with the survey number for 20 rows
+# create the data frame: one column per survey, filled with that survey's label
+surveys_df <- 
 
-# make this into a list of one dataframe
-
+# make this into a list of one data frame
+surveys_list <- 
 ```
 
 #### Create `unmarked` data frame
@@ -111,34 +139,39 @@ Let's demonstrate. Our first model will have detection probability consistent ac
 
 When we are keeping an estimate constant, we use `~1`.
 
+**Remember!**: The `occu()` function expects detection probability first and then occupancy.
+
 ```{r}
 # Model p(.)psi(.) #
 # detection prob (p) constant across survey occasion 
 # occupancy (psi) constant across sites
-
+pdot_psidot <- 
 ```
 
 Our second model will have occupancy consistent across sites but detection variability can vary with time (survey occasion). To indicate this, we put `~time-1` in the first spot for detection probability.
+
+The `-1` tells R to give us a detection probability for *each* survey directly. (Without it, R would report survey 1 as a baseline and the other surveys as differences from survey 1, which is harder to read.)
 
 ```{r}
 # Model p(t)psi(.) #
 # detection prob (p) varies with time (survey occasion)
 # occupancy (psi) constant across sites
-
+ptime_psidot <- 
 ```
 
 ### Model Selection
 
 We can run both models and then use AIC (an index of model quality) to determine which model fits our data the best. We want to choose the model with the lowest AIC because it represents the most parsimonious model.
 
--   We first make an object (`models`) with a list of our models using a function called `fitList()`.
+- We first make an object (`models`) with a list of our models using a function called `fitList()`.
 
--   Then we have the function `modSel()` run the models and present us with the AIC values.
+- Then we have the function `modSel()` run the models and present us with the AIC values.
 
--   We then choose the model with the *lowest* AIC value (looking at the AIC column).
+- We then choose the model with the *lowest* AIC value (looking at the AIC column).
 
 ```{r}
 # Assemble models into a list 
+models <- fit
 
 # Use modSel() to calculate and compare their AIC values
 
@@ -152,7 +185,12 @@ Now that we have chosen our top model, we want to discover what the actual value
 
 Thankfully, there are functions that produce these values for us.
 
-First, let's look at the parameter estimates (`p` and `psi`)
+First, let's look at the parameter estimates (`p` and `psi`).
+
+One of the functions we will use is `coef()`. In this function, we need to indicate which parameter estimate we want returned:
+
+- detection probability: `type = "det"`
+- occupancy: `type = "state"`, as in the "true state" of occupancy
 
 ```{r}
 # This returns the coefficients (estimates) for the model
@@ -168,10 +206,7 @@ First, let's look at the parameter estimates (`p` and `psi`)
 
 Note that there are 5 estimates for detection probability in the model that we allowed to vary through time. This is because the model produced a detection probability estimate for each survey occasion rather than just one overall detection probability estimate.
 
-We can also calculate the 95% confidence intervals for each estimate (`level = 0.95`). This time we use the `confint()` function. We need to indicate the estimate type:
-
--   detection probability: `type = "det"`
--   occupancy: `type = "state"`, as in the "true state" of occupancy
+We can also calculate the 95% confidence intervals for each estimate (`level = 0.95`). This time we use the `confint()` function. We again need to indicate the estimate type.
 
 ```{r}
 # Interpreting the Output
@@ -184,7 +219,7 @@ We can also calculate the 95% confidence intervals for each estimate (`level = 0
 
 ```
 
-Stop for a moment and think about what the `0.025` and `0.975` values represent. These are *not* estimates. Instead, they are signalling the _lower_ and _upper_ bounds of the confidence intervals, respectively.
+Stop for a moment and think about what the `0.025` and `0.975` values represent. These are *not* estimates. Instead, they are signalling the *lower* and *upper* bounds of the confidence intervals, respectively.
 
 Remember how confidence intervals are calculated in part based on a t-value from the Student's t-distribution? Each tail of the distribution represents 2.5% of the remaining probability, meaning the 95% confidence intervals include the values between 2.5% and 97.5% of the distribution.
 
