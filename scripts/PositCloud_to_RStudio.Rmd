@@ -3,6 +3,7 @@ title: "Helpful Resources"
 author: "Ellen Bledsoe"
 date: "`r Sys.Date()`"
 output: pdf_document
+editor: visual
 ---
 
 ```{r setup, include=FALSE}

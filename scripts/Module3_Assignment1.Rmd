@@ -3,6 +3,7 @@ title: "Module 3 Assignment 1"
 author: "Ellen Bledsoe"   # <- your name here
 date: "2023-04-03"        # <- today's date here
 output: pdf_document
+editor: visual
 ---
 
 ```{r setup, include=FALSE}

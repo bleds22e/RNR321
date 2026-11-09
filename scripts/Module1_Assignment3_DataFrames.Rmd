@@ -3,6 +3,7 @@ title: "Module 1 Assignment 3"
 author: "Ellen Bledsoe" # <- your name inside quotation marks
 date: "`r Sys.Date()`" # <- leave this; it will produce today's date
 output: pdf_document
+editor: visual
 ---
 
 ```{r setup, include=FALSE}

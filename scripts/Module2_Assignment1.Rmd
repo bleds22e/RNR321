@@ -16,13 +16,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Purpose
 
-The goal of this assignment is to use R to calculate and understand
-accuracy of estimates (standard error specifically).
+The goal of this assignment is to use R to calculate and understand accuracy of estimates (standard error specifically).
 
 ### Task
 
-Write R code to successfully answer each question below or write text to
-successfully answer the question.
+Write R code to successfully answer each question below or write text to successfully answer the question.
 
 ### Criteria for Success
 
@@ -41,71 +39,45 @@ Oct 12 by 1 pm MST
 
 # Assignment Questions
 
-In this assignment, you will be using the data we collected during the
-last lab to calculate (a) estimates of population parameters and (b) the
-amount of uncertainty in those estimates.
+In this assignment, you will be using the data we collected during the last lab to calculate (a) estimates of population parameters and (b) the amount of uncertainty in those estimates.
 
-Remember, each group used a simple random sampling design to sample a
-"population" of dark rocks; your large square represents the sampling
-frame, while each smaller square (\~4 in x 4 in) represents a sample
-unit.
+Remember, each group used a simple random sampling design to sample a "population" of dark rocks; your large square represents the sampling frame, while each smaller square (\~4 in x 4 in) represents a sample unit.
 
 ## Short Answer
 
-Think back to how we sampled the rock data. Answer the following
-question in terms of our data (aka, "big square," "little squares,"
-"dark rocks," etc.)
+Think back to how we sampled the rock data. Answer the following question in terms of our data (aka, "big square," "little squares," "dark rocks," etc.)
 
-1.  Define the *sample* standard deviation in terms of our data (not the
-    equation but what we use to calculate standard deviation, what it
-    tells us, and what it represents).
+1.  Define the *sample* standard deviation in terms of our data (not the equation but what we use to calculate standard deviation, what it tells us, and what it represents).
 
     *Answer:*
 
-2.  Define the standard error of the estimate of the mean (again, in
-    terms of our data and what it represents).
+2.  Define the standard error of the estimate of the mean (again, in terms of our data and what it represents).
 
     *Answer:*
 
-3.  How do the *sample standard deviation* and *standard error of the
-    estimate of the mean* differ? (If you've explained that above,
-    reiterate it here.)
+3.  How do the *sample standard deviation* and *standard error of the estimate of the mean* differ? (If you've explained that above, reiterate it here.)
 
     *Answer:*
 
-4.  What would happen to the *sample standard deviation* if we sampled
-    20 sampling units (little squares) instead of only 8? Would it
-    increase, decrease, or stay about the same? How about the *standard
-    error*? Explain your rationale for both.
+4.  What would happen to the *sample standard deviation* if we sampled 20 sampling units (little squares) instead of only 8? Would it increase, decrease, or stay about the same? How about the *standard error*? Explain your rationale for both.
 
     *Answer:*
 
 ### Set-up:
 
-If you haven't already saved and shared your data from last week with
-your group:
+If you haven't already saved and shared your data from last week with your group:
 
 (a) Get your (or your group's) simple random sampling rock data.
-(b) Make sure it has been saved as a .csv file. If it hasn't, you will
-    need to do so using "Save As".
-(c) In Posit Cloud, using the "Upload" button in the lower right-hand
-    panel, upload your .csv file.
-(d) In the Files tab in the bottom right-hand corner, check the box next
-    to the .csv file that you just uploaded, then click the "Rename"
-    button (near "Upload").
+(b) Make sure it has been saved as a .csv file. If it hasn't, you will need to do so using "Save As".
+(c) In Posit Cloud, using the "Upload" button in the lower right-hand panel, upload your .csv file.
+(d) In the Files tab in the bottom right-hand corner, check the box next to the .csv file that you just uploaded, then click the "Rename" button (near "Upload").
 (e) If needed, rename your .csv file as `rocks_abund.csv`
 
 ### Important Notes:
 
-(a) I recommend referencing the slides from class! Remember, equations
-    often don't show on Brightspace, so you'll want to download the
-    slides or use the PDF version.
-(b) I also recommend taking a look back at Module 1 Assignment 3 to
-    remind yourself how to work with data frames.
-(c) Because each group will have different values for your number of
-    rocks, the answer key won't directly match your values. I've
-    included the example dataset that I used to create the answer key if
-    you want to check your values.
+(a) I recommend referencing the slides from class! Remember, equations often don't show on Brightspace, so you'll want to download the slides or use the PDF version.
+(b) I also recommend taking a look back at Module 1 Assignment 3 to remind yourself how to work with data frames.
+(c) Because each group will have different values for your number of rocks, the answer key won't directly match your values. I've included the example dataset that I used to create the answer key if you want to check your values.
 
 ## Calculations
 
@@ -113,9 +85,8 @@ Each question is worth 1 point unless otherwise noted.
 
 5.  Use the `read.csv()` function to bring in ("read") your rock abundance data from your `rocks_abund.csv` file.
 
-    Below, replace the file name inside the quotation marks with the
-    file name of your rock data file (also in quotation marks).
-    
+    Below, replace the file name inside the quotation marks with the file name of your rock data file (also in quotation marks).
+
     Then, run this code chunk. You should see the `rocks` data frame appear in your enviornment.
 
 ```{r}
@@ -127,24 +98,17 @@ rocks <- read.csv("your_file_name_here.csv")
 rocks <- na.omit(rocks)
 ```
 
-6.  Create the object `N`, which is the number of units in your
-    *sampling frame*. No functions needed; type the number and assign it
-    to `N`.
+6.  Create the object `N`, which is the number of units in your *sampling frame*. No functions needed; type the number and assign it to `N`.
 
-    *Remember: after you have created a new object, type out the name of
-    that object on the line of code below so that the value of that
-    object will print out when you knit to PDF. This helps us out while
-    grading quite a bit!*
+    *Remember: after you have created a new object, type out the name of that object on the line of code below so that the value of that object will print out when you knit to PDF. This helps us out while grading quite a bit!*
 
 ```{r}
 
 ```
 
-7.  Create the object `n`, which is your *sample size*, the number of
-    sample units that make up your sample.
+7.  Create the object `n`, which is your *sample size*, the number of sample units that make up your sample.
 
-    To do this, use the `nrow()` function, which will count up the
-    number of rows in your `rocks` data frame.
+    To do this, use the `nrow()` function, which will count up the number of rows in your `rocks` data frame.
 
 ```{r}
 
@@ -152,16 +116,11 @@ rocks <- na.omit(rocks)
 
 ### Estimating the Mean
 
-One way we can calculate values is to call the column that we want and
-then save that value to an object.
+One way we can calculate values is to call the column that we want and then save that value to an object.
 
-For example, let's say we wanted to calculate the median of our dark
-stone abundance data. We could run the following line of code:
-`rocks_median <- median(rocks$abund_dark_stones)`
+For example, let's say we wanted to calculate the median of our dark stone abundance data. We could run the following line of code: `rocks_median <- median(rocks$abund_dark_stones)`
 
-For the remainder of the coding questions below, remember to print out
-the answer by typing the name of the object again, below your line of
-code.
+For the remainder of the coding questions below, remember to print out the answer by typing the name of the object again, below your line of code.
 
 In the above example, it would look like:
 
@@ -170,21 +129,15 @@ rocks_median <- median(rocks$abund_dark_stones)
 rocks_median
 ```
 
-8.  Create an object called `rocks_mean` that contains the *sample mean*
-    (AKA the mean number of dark stones per sample unit). Follow the
-    code example above.
+8.  Create an object called `rocks_mean` that contains the *sample mean* (AKA the mean number of dark stones per sample unit). Follow the code example above.
 
-    *Again, after you have created a new object, type out the name of
-    that object on the line of code below so that the value of that
-    object will print out when you knit to PDF. Do this for the rest of
-    the assignment!*
+    *Again, after you have created a new object, type out the name of that object on the line of code below so that the value of that object will print out when you knit to PDF. Do this for the rest of the assignment!*
 
 ```{r}
 
 ```
 
-9.  Create objects called `rocks_var` and `rocks_sd` which contain the
-    *sample variance* and *sample standard deviation*, respectively.
+9.  Create objects called `rocks_var` and `rocks_sd` which contain the *sample variance* and *sample standard deviation*, respectively.
 
     *Hint: use `var()` and `sd()` functions.*
 
@@ -194,40 +147,29 @@ rocks_median
 
 ### Calculating Uncertainty for the Estimate of the Mean
 
-We have calculated our estimates for multiple population parameters
-(mean, standard deviation).
+We have calculated our estimates for multiple population parameters (mean, standard deviation).
 
 Now we are moving on to calculating a measure of uncertainty.
 
-R doesn't have a function for calculating the standard error (SE) of the
-mean, so let's calculate it ourselves using the equation from class.
+R doesn't have a function for calculating the standard error (SE) of the mean, so let's calculate it ourselves using the equation from class.
 
-10. First, do you remember that *finite population correction factor*?
-    There's no function for it, so let's create an object called
-    `pop_correction` using that formula.
+10. First, do you remember that *finite population correction factor*? There's no function for it, so let's create an object called `pop_correction` using that formula.
 
-    *Hint #1: use the objects we've already created (`N`, `n`; don't
-    enter any numbers directly)*
+    *Hint #1: use the objects we've already created (`N`, `n`; don't enter any numbers directly)*
 
-    *Hint #2: use parentheses to group the values in the numerator
-    together*
+    *Hint #2: use parentheses to group the values in the numerator together*
 
 ```{r}
 
 ```
 
-11. We only use the finite population correction factor in certain
-    circumstances. Why are we using it in our formulas here?
+11. We only use the finite population correction factor in certain circumstances. Why are we using it in our formulas here?
 
     *Answer:*
 
-12. Using the objects you've already created and the formula (check the
-    lecture slides from this module!), create an object called
-    `rocks_var_ybar` which contains the *variance of the estimate of the
-    mean*.
+12. Using the objects you've already created and the formula (check the lecture slides from this module!), create an object called `rocks_var_ybar` which contains the *variance of the estimate of the mean*.
 
-    Remember, this is different from the sample variance that you've
-    already calculated...
+    Remember, this is different from the sample variance that you've already calculated...
 
     There is no function for this, so you'll need to use the equation.
 
@@ -237,9 +179,7 @@ mean, so let's calculate it ourselves using the equation from class.
 
 ```
 
-13. Calculate the *standard error of the estimate of the mean* by taking
-    the square root (`sqrt()`) of the `rocks_var_ybar` value. Save this
-    as an object `rocks_SE_ybar`.
+13. Calculate the *standard error of the estimate of the mean* by taking the square root (`sqrt()`) of the `rocks_var_ybar` value. Save this as an object `rocks_SE_ybar`.
 
 ```{r}
 
@@ -247,48 +187,34 @@ mean, so let's calculate it ourselves using the equation from class.
 
 ### Estimating the Population (and the Uncertainty of the Estimate)
 
-We've calculated parameter estimates and the standard error (SE) for the
-estimate of the mean above.
+We've calculated parameter estimates and the standard error (SE) for the estimate of the mean above.
 
-Now, let's do the same for a different population parameter: the total
-population (abundance), which is "tau hat."
+Now, let's do the same for a different population parameter: the total population (abundance), which is "tau hat."
 
-14. First, let's calculate the *total number of rocks in the
-    population*. Save the output as `rocks_total`. Use objects you've
-    already created.
+14. First, let's calculate the *total number of rocks in the population*. Save the output as `rocks_total`. Use objects you've already created.
 
 ```{r}
 
 ```
 
-15. Now calculate the *variance of the estimate of the population
-    total*, saving it as `rocks_var_total`.
+15. Now calculate the *variance of the estimate of the population total*, saving it as `rocks_var_total`.
 
 ```{r}
 
 ```
 
-16. Calculate the *standard error of the estimate of the population total*, saving it
-    as `rocks_SE_total`.
+16. Calculate the *standard error of the estimate of the population total*, saving it as `rocks_SE_total`.
 
 ```{r}
 
 ```
 
-17. Write a short paragraph (3-5 sentences) putting the values that
-    we've just calculated into context for our dark rocks sampling
-    adventure. (3 points)
+17. Write a short paragraph (3-5 sentences) putting the values that we've just calculated into context for our dark rocks sampling adventure. (3 points)
 
-    In your answer, be sure to address the following questions and use
-    the correct units of measurement:
+    In your answer, be sure to address the following questions and use the correct units of measurement:
 
-    - According to your calculations, approximately how many dark rocks
-      were there in your big square (AKA your dark rock "population")?
-      What is your calculated uncertainty in that estimate?
-    - How much variation in the number of dark rocks per little square
-      do you estimate there to be?
-    - What is your estimated average number of dark rocks per little square
-      (AKA your dark rock density)? What is your calculated uncertainty
-      in your estimate in the density?
+    - According to your calculations, approximately how many dark rocks were there in your big square (AKA your dark rock "population")? What is your calculated uncertainty in that estimate?
+    - How much variation in the number of dark rocks per little square do you estimate there to be?
+    - What is your estimated average number of dark rocks per little square (AKA your dark rock density)? What is your calculated uncertainty in your estimate in the density?
 
 *Answer*:

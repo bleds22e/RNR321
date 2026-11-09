@@ -3,6 +3,7 @@ title: "Module 3 Assignment 3"
 author: "Ellen Bledsoe"
 date: "`r Sys.Date()`"
 output: pdf_document
+editor: visual
 ---
 
 ```{r setup, include=FALSE}
