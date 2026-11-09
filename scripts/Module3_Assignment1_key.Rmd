@@ -23,12 +23,12 @@ Write R code to successfully answer each question below or write text to success
 
 ### Criteria for Success
 
--   Code is within the provided code chunks
--   Code chunks run without errors
--   Code produces the correct result
-    -   Code attempts will get half points
-    -   Code that produces the correct answer will receive full points
--   Text answers correctly address the question asked
+- Code is within the provided code chunks
+- Code chunks run without errors
+- Code produces the correct result
+  - Code attempts will get half points
+  - Code that produces the correct answer will receive full points
+- Text answers correctly address the question asked
 
 ### Due Date
 
@@ -38,7 +38,7 @@ Nov 9 before lab
 
 # Assignment Questions
 
-For this assignment, we have 2 different data sets of occupancy from the Santa Cruz River. 
+For this assignment, we have 2 different data sets of occupancy from the Santa Cruz River.
 
 There are a number of trail cameras that have been set up along the river to look at which species are present along various points of the Santa Cruz. Today, we will be working with some presence-absence surveys from these trail cameras for two different species: one for javelina (collared pecaries) and one for coyotes.
 
@@ -111,7 +111,7 @@ naive_occupancy_jav
     Then, create a list out of this one data frame, setting the data frame equal to the "time" argument.
 
     (*Hint: Be sure to create a data frame with the correct number of rows based on your answer to Question 2*)
-    
+
 ```{r}
 # create the data frame with 40 rows and each column with the survey number
 javelina_surveys_df <- data.frame(time_1 = rep("1", 40),
@@ -275,9 +275,9 @@ plogis(confint(pdot_psidot_coy, type = "state", level = 0.95))
 
 18. Write 3-4 sentences comparing the javelina and coyote populations that we surveyed. (2 points)
 
--   Which species has higher occupancy?
--   Which species has higher detectability?
--   In your answer, be sure to explain the difference between detection probability and occupancy.
--   Speculate what could be driving the differences between the two species (I don't expect you to know, but you should put forward an educated guess that fits with your answers above)
+- Which species has higher occupancy?
+- Which species has higher detectability?
+- In your answer, be sure to explain the difference between detection probability and occupancy.
+- Speculate what could be driving the differences between the two species (I don't expect you to know, but you should put forward an educated guess that fits with your answers above)
 
 *Answer: While the two species have similar detection probabilities (javelina is slightly higher), coyotes have much higher occupancy (0.781) than javelina (0.42). This means that when each species is present at a site, they have a similar chance of being observed. However, coyotes are present at far more sites than javelina. This could be because coyotes have a higher population and/or that the area we are surveying provides better habitat for them than it does for javelina.*

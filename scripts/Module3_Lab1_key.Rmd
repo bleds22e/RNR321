@@ -39,11 +39,12 @@ First, let's take a look at `tort_occ`, our tortoise occupancy data. What does e
 ```{r}
 head(tort_occ)
 ```
+
 Before we calculate anything, let's practice reading these rows. Look at the first three sites. What is happening in each one?
 
--   Site 1: Tortoises were seen on every survey. The site is definitely occupied.
--   Site 2: Seen on only one of five surveys, so the site is definitely occupied. But on the other four surveys a tortoise was there and we *missed* it. That is direct evidence that detection probability is below 1.
--   Site 3: Never seen. Two explanations we cannot tell apart from this row alone: (1) the site is truly unoccupied, or (2) the site is occupied but we never detected the tortoise. Estimating detection probability from sites like Site 2 is what lets the model make a reasonable guess about sites like Site 3.
+- Site 1: Tortoises were seen on every survey. The site is definitely occupied.
+- Site 2: Seen on only one of five surveys, so the site is definitely occupied. But on the other four surveys a tortoise was there and we *missed* it. That is direct evidence that detection probability is below 1.
+- Site 3: Never seen. Two explanations we cannot tell apart from this row alone: (1) the site is truly unoccupied, or (2) the site is occupied but we never detected the tortoise. Estimating detection probability from sites like Site 2 is what lets the model make a reasonable guess about sites like Site 3.
 
 ## Naive Occupancy
 
@@ -83,7 +84,7 @@ To run correctly, the `unmarked` package requires we put our data in a very spec
 Let's take a closer look at the two models we will be using in lab and in the assignment.
 
 | Model in lecture | What it means | Code |
-|:-----------------|:---------------------------------|:-------------------|
+|:---|:---|:---|
 | $\psi(.)p(.)$ | occupancy constant, detection constant | `occu(~1 ~1, data = ...)` |
 | $\psi(.)p(t)$ | occupancy constant, detection varies by survey | `occu(~time-1 ~1, data = ...)` |
 
@@ -163,11 +164,11 @@ ptime_psidot <- occu(~time-1 ~1, data = tortUMF)
 
 We can run both models and then use AIC (an index of model quality) to determine which model fits our data the best. We want to choose the model with the lowest AIC because it represents the most parsimonious model.
 
--   We first make an object (`models`) with a list of our models using a function called `fitList()`.
+- We first make an object (`models`) with a list of our models using a function called `fitList()`.
 
--   Then we have the function `modSel()` run the models and present us with the AIC values.
+- Then we have the function `modSel()` run the models and present us with the AIC values.
 
--   We then choose the model with the *lowest* AIC value (looking at the AIC column).
+- We then choose the model with the *lowest* AIC value (looking at the AIC column).
 
 ```{r}
 # Assemble models into a list 
@@ -185,11 +186,10 @@ Now that we have chosen our top model, we want to discover what the actual value
 
 Thankfully, there are functions that produce these values for us.
 
-First, let's look at the parameter estimates (p and psi). 
-One of the functions we will use is `coef()`. In this function, we need to indicate which parameter estimate we want returned:
+First, let's look at the parameter estimates (p and psi). One of the functions we will use is `coef()`. In this function, we need to indicate which parameter estimate we want returned:
 
--   detection probability: `type = "det"`
--   occupancy: `type = "state"`, as in the "true state" of occupancy
+- detection probability: `type = "det"`
+- occupancy: `type = "state"`, as in the "true state" of occupancy
 
 ```{r}
 # This returns the coefficients (estimates) for the model
@@ -207,7 +207,8 @@ plogis(coef(ptime_psidot, type = "state")) # occupancy, psi
 
 Note that there are 5 estimates for detection probability in the model that we allowed to vary through time. This is because the model produced a detection probability estimate for each survey occasion rather than just one overall detection probability estimate.
 
-We can also calculate the 95% confidence intervals for each estimate (`level = 0.95`). This time we use the `confint()` function. We again need to indicate the estimate type. 
+We can also calculate the 95% confidence intervals for each estimate (`level = 0.95`). This time we use the `confint()` function. We again need to indicate the estimate type.
+
 ```{r}
 # Interpreting the Output
 # Column 0.025 -> Lower Bound for 95% CI
@@ -222,7 +223,7 @@ plogis(confint(ptime_psidot, type = "det",   level = 0.95))
 plogis(confint(ptime_psidot, type = "state", level = 0.95))
 ```
 
-Stop for a moment and think about what the `0.025` and `0.975` values represent. These are *not* estimates. Instead, they are signalling the _lower_ and _upper_ bounds of the confidence intervals, respectively.
+Stop for a moment and think about what the `0.025` and `0.975` values represent. These are *not* estimates. Instead, they are signalling the *lower* and *upper* bounds of the confidence intervals, respectively.
 
 Remember how confidence intervals are calculated in part based on a t-value from the Student's t-distribution? Each tail of the distribution represents 2.5% of the remaining probability, meaning the 95% confidence intervals include the values between 2.5% and 97.5% of the distribution.
 

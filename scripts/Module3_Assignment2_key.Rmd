@@ -23,12 +23,12 @@ Write R code to successfully answer each question below or write text to success
 
 ### Criteria for Success
 
--   Code is within the provided code chunks
--   Code chunks run without errors
--   Code produces the correct result
-    -   Code attempts will get half points
-    -   Code that produces the correct answer will receive full points
--   Text answers correctly address the question asked
+- Code is within the provided code chunks
+- Code chunks run without errors
+- Code produces the correct result
+  - Code attempts will get half points
+  - Code that produces the correct answer will receive full points
+- Text answers correctly address the question asked
 
 ### Due Date
 
@@ -55,9 +55,9 @@ The next night, we set out the same number of traps. In the morning, we find tha
 We want to estimate the total abundance of desert pocket mice in our population using the Lincoln-Peterson estimator.
 
 1.  Create objects with the correct values from the scenario above to represent the following:
-    -   `c1`: \# individuals captured (and marked) in the first sample
-    -   `c2`: \# individuals captured in the second sample (total)
-    -   `r2`: \# individuals in the second sample which were marked (\# of recaptures)
+    - `c1`: \# individuals captured (and marked) in the first sample
+    - `c2`: \# individuals captured in the second sample (total)
+    - `r2`: \# individuals in the second sample which were marked (\# of recaptures)
 
 ```{r}
 c1 <- 37
@@ -139,8 +139,8 @@ nRuns <- 1000
 
 Below, I've written a custom function that will create `tau_hat` estimates for us. We need to provide the function with values in order for it to run:
 
--   `p1`: the *detection* probability on the first survey occasion
--   `p_recap`: the *recapture* probability on the second survey occasion
+- `p1`: the *detection* probability on the first survey occasion
+- `p_recap`: the *recapture* probability on the second survey occasion
 
 Run the code chunk below to add this function into your work space. You will see it pop up in the environment tab.
 
@@ -153,7 +153,7 @@ LP_estimator <- function(p1, p_recap) {
   set.seed(4)
   
   # create an empty data frame to hold simulated values
-  tau_hat <- matrix(NA, nRuns)  # create a matrix to hold estimates
+  tau_hat <- matrix(NA, nRuns)  # create a vector to hold estimates
    
   for(i in 1:nRuns) { 
     # simulate data 
@@ -211,13 +211,13 @@ Now it is your turn! Use the code above (only from the "Let's Practice" section;
 
 **Scenario 1: Detection Probability Changes**
 
--   Detection is *higher* than the demo
--   Detection is *lower* than the demo
+- Detection is *higher* than the demo
+- Detection is *lower* than the demo
 
 **Scenario 2: Detection Probability Changes with Behavior**
 
--   Animals are "trap shy"
--   Animals are "trap happy"
+- Animals are "trap shy"
+- Animals are "trap happy"
 
 ## Scenario 1: Detection Probability is Higher or Lower
 
