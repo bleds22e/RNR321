@@ -1,0 +1,121 @@
+---
+title: "Module 3 Assignment 2 Demo"
+author: "Ellen Bledsoe"
+format: pdf
+editor: visual
+---
+
+## How Accuracy Changes with Detection Probability
+
+We can use data simulation to explore what happens to our estimates when detection probability changes through time.
+
+First, we'll walk through an example of the code.
+
+*I don't expect you to know how this code is working!*
+
+What I want you to be able to do, though, is interpret our results from the code. Factors about species life history and behavior can influence our detection probability and parameter estimates.
+
+### Building the Simulation
+
+Let's run a simulation of capture-mark-recapture data. We will stick with pocket mice as our example species.
+
+In this case, we will tell R the *true* abundance, `tau`. Remember, though, this is the parameter we never know in real life; it is the parameter we are trying to estimate by calculating `tau_hat`.
+
+We will set our true abundance of pocket mice to be 250 individuals.
+
+```{r}
+# parameter value
+tau <- 250
+```
+
+We want to create a simulation where we give R the detection and recapture probabilities and determine the *estimate* of abundance (`tau_hat`) that we will get based on those probabilities. We want to do this over and over and over again to help us get an idea of how good our estimates are overall. In fact, let's do it 1000 times.
+
+```{r}
+# number of simulations to run and estimates of tau hat to return
+nRuns <- 1000
+```
+
+Below, I've written a custom function that will create `tau_hat` estimates for us. We need to provide the function with values in order for it to run:
+
+- `p_init`: the detection probability for *initial capture*
+- `p_recap`: the detection probability for *recapture*
+
+Run the code chunk below to add this function into your work space. You will see it pop up in the environment tab.
+
+Now we can use this function as we would use any other function in R! Again, I don't expect you to know how it works---just know that we will provide the function with our 2 values as arguments and the result will be our simulated data.
+
+```{r}
+simulate_LP_dist <- function(p_init, p_recap) {
+  
+  # make sure we get the same numbers every time
+  set.seed(4)
+  
+  # create an empty data frame to hold simulated values
+  tau_hat <- vector("numeric", nRuns)  # create a vector to hold 1000 estimates
+   
+  # simulate data as many times as nRuns
+  for(i in 1:nRuns) { 
+    
+    # no. individuals captured on survey occasion 1
+    c1 <- rbinom(1, tau, p_init) 
+    # no. unmarked individuals captured on survey occasion 2
+    u2 <- rbinom(1, tau - c1, p_init)  
+    # no. marked individuals recaptured on survey occasion 2
+    r2 <- rbinom(1, c1, p_recap)    
+    # total no. individuals captured on survey occasion 2
+    c2 <- u2 + r2                   
+    
+    # calculate estimated abundance via (modified) Lincoln-Peterson
+    # put the estimate in the i-th position in the tau_hat vector
+    tau_hat[i] <- (c1 * c2) / (r2)
+    
+  }
+  
+  # the function will return a vector with 1000 estimates of the population
+  return(tau_hat) 
+
+}
+```
+
+------------------------------------------------------------------------
+
+### Let's Practice!
+
+Let's say that our detection probability (`p_init`) and recapture probability (`p_recap`) are consistent, always at 0.4.
+
+We can input those values into our `simulate_LP_dist` function. Doing this will run our scenario 1000 times to see how close our estimate of mice, `tau_hat`, is to the true abundance, `tau`, which we have set to be 250 mice.
+
+```{r}
+tau_hat_demo <- simulate_LP_dist(p_init = 0.4, p_recap = 0.4)
+```
+
+If we use the `head()` function, we can see the first few estimates of `tau_hat` from the simulation.
+
+```{r}
+head(tau_hat_demo)
+```
+
+Now, let's plot a histogram of our estimates.
+
+This is our simulated sampling distribution of our abundance estimates when detection probability is 0.4.
+
+```{r}
+hist(tau_hat_demo)
+```
+
+We can also calculate the bias and the precision of our estimates.
+
+```{r}
+## Remember, our true abundance (tau) is 250
+
+# What is the mean of all of our tau_hat estimates?
+mean(tau_hat_demo)          # mean of all tau-hat estimates
+
+# On average, how biased are our estimates?
+mean(tau_hat_demo) - tau    # bias
+
+# How precise are our estimates?
+  # Since this is our sampling distribution, the standard deviation of the data
+  # is equivalent to the standard error of the estimate.
+sd(tau_hat_demo)            # precision
+```

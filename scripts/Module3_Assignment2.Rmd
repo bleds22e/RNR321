@@ -3,6 +3,7 @@ title: "Module 3 Assignment 2"
 author: "Ellen Bledsoe"
 date: "`r Sys.Date()`"
 output: pdf_document
+editor: visual
 ---
 
 ```{r setup, include=FALSE}
@@ -147,26 +148,33 @@ Run the code chunk below to add this function into your work space. You will see
 Now we can use this function as we would use any other function in R! Again, I don't expect you to know how it works---just know that we will provide the function with our 2 values as arguments and the result will be our simulated data.
 
 ```{r}
-LP_estimator <- function(p_init, p_recap) {
+simulate_LP_dist <- function(p_init, p_recap) {
   
   # make sure we get the same numbers every time
   set.seed(4)
   
   # create an empty data frame to hold simulated values
-  tau_hat <- vector("numeric", nRuns)  # create a matrix to hold 1000 estimates
+  tau_hat <- vector("numeric", nRuns)  # create a vector to hold 1000 estimates
    
+  # simulate data as many times as nRuns
   for(i in 1:nRuns) { 
-    # simulate data as many times as nRuns
-    c1 <- rbinom(1, tau, p_init)    # no. individuals captured on survey occasion 1
-    u2 <- rbinom(1, tau-c1, p_init) # no. unmarked individuals recaptured on survey occasion 2
-    r2 <- rbinom(1, c1, p_recap)    # no. marked individuals recaptured on survey occasion 2
-    c2 <- u2 + r2                   # total no. individuals captured on survey occasion 2
+    
+    # no. individuals captured on survey occasion 1
+    c1 <- rbinom(1, tau, p_init) 
+    # no. unmarked individuals captured on survey occasion 2
+    u2 <- rbinom(1, tau - c1, p_init)  
+    # no. marked individuals recaptured on survey occasion 2
+    r2 <- rbinom(1, c1, p_recap)    
+    # total no. individuals captured on survey occasion 2
+    c2 <- u2 + r2                   
     
     # calculate estimated abundance via (modified) Lincoln-Peterson
+    # put the estimate in the i-th position in the tau_hat vector
     tau_hat[i] <- (c1 * c2) / (r2)
+    
   }
   
-  # the function will return a data frame with 1000 estimates of the population
+  # the function will return a vector with 1000 estimates of the population
   return(tau_hat) 
 
 }
@@ -178,7 +186,7 @@ LP_estimator <- function(p_init, p_recap) {
 
 Let's say that both our initial capture and recapture detection probabilities (`p_init` and `p_recap`) are consistent, always at 0.4.
 
-We can input those values into our `LP_estimator` function. Doing this will run our scenario 1000 times to see how close our estimate of mice, `tau_hat`, is to the true abundance, `tau`, which we have set to be 250 mice.
+We can input those values into our `simulate_LP_dist` function. Doing this will run our scenario 1000 times to see how close our estimate of mice, `tau_hat`, is to the true abundance, `tau`, which we have set to be 250 mice.
 
 ```{r}
 
@@ -199,15 +207,15 @@ Now, let's plot a histogram of our estimates.
 We can also calculate the bias and the precision of our estimates.
 
 ```{r}
-# Remember, our true abundance is 250
+## Remember, our true abundance (tau) is 250
 
 # What is the mean of all of our tau_hat estimates?
 
-
 # On average, how biased are our estimates?
 
-
 # How precise are our estimates?
+  # Since this is our sampling distribution, the standard deviation of the data
+  # is equivalent to the standard error of the estimate.
 
 ```
 
@@ -219,12 +227,12 @@ Now it is your turn! Use the code above (only from the "Let's Practice" section;
 
 **Scenario 1: Higher vs. Lower Detection Probability**
 
-- 1A: Detection is *higher* than the demo 
+- 1A: Detection is *higher* than the demo
 - 1B: Detection is *lower* than the demo
 
 **Scenario 2: Detection Probability Changes with Behavior**
 
-- 2A: Animals are "trap shy" 
+- 2A: Animals are "trap shy"
 - 2B: Animals are "trap happy"
 
 ## Scenario 1: Higher vs. Lower Detection Probability
