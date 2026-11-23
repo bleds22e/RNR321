@@ -22,10 +22,12 @@ We need to load the package we will need to complete this lab, which is `unmarke
 library(unmarked) 
 ```
 
-We also need to load our data. I've compiled it for you already, and it should be in your list of files, called `Distance_Data_Spring2026.csv`.
+We also need to load our data. I've compiled it for you already, and it should be in your list of files, called `Distance_Data_Fall2026.csv`.
 
 ```{r}
-beads <- read.csv("../data_raw/Distance_Data_Spring2026.csv")
+# your file path will not include the "../data_raw/"
+# it should be read.csv("Distance_Data_Fall2026.csv")
+beads <- read.csv("../data_raw/Distance_Data_Fall2026.csv")
 ```
 
 Before we begin any analyses, let's make sure our data looks alright.
@@ -64,11 +66,11 @@ Let's check out our distribution of detection distances. We can use the `hist()`
 hist(green$Distance_m)
 ```
 
-Based on the histogram, I'll suggest we truncate at 2.25 m. Let's set this value so we can refer to it later.
+Based on the histogram, I'll suggest we truncate at 2 m. Let's set this value so we can refer to it later.
 
 ```{r}
 # Set truncation distance to eliminate extreme observations
-trunc <- 2.25
+trunc <- 2
 ```
 
 We can set "cut points" for which values to use to bin our distance data in our model; in our case, we want every quarter meter.
@@ -110,7 +112,7 @@ transect_length <- unique(green[c(1,4)])
 transect_length
 ```
 
-This dataframe we just created will be part of the information we give to the `unmarked` function to create the "unmarked frame."
+This data frame we just created will be part of the information we give to the `unmarked` function to create the "unmarked frame."
 
 We've seen and used a function similar before in our occupancy model assignment. Today, we are using `unmarkedFrameDS`, with the `DS` meaning "distance sampling."
 
@@ -169,11 +171,13 @@ Now that we've chosen our top model (half normal, in this case), we can get our 
 There is a handy function that we can use to pull the density estimate out of the model: `backTransform()`
 
 ```{r}
+# The number under "estimate" is the density
+# SE is the standard error for the estimate
 density <- backTransform(HN, type = "state") # Density estimate (no./ha) 
 density
 ```
 
-We can also calculate the confidence intervals for our parameter estimate.
+We can also calculate the 95% confidence intervals for our parameter estimate.
 
 ```{r}
 exp(confint(HN, type = "state"))  # CI for density
@@ -181,7 +185,9 @@ exp(confint(HN, type = "state"))  # CI for density
 
 ### Convert to Our Sample Area
 
-You won't need to do this in your assignment---we will just leave all of our density estimates in the numbers per hectare. For our bead data, however, we definitely didn't sample a whole hectare (100m x 100m).
+You won't need to do this in your assignment---we will just leave all of our density estimates in the numbers per hectare.
+
+For our bead data, however, we definitely didn't sample a whole hectare (100m x 100m).
 
 To see how close our estimate was to the actual number of beads we put outside, we need to convert the density in hectares to the density of our survey area.
 
@@ -197,7 +203,7 @@ sigma <- backTransform(HN, type = "det")@estimate
 sigma
 
 # calculate the effective strip width
-esw <- integrate(gxhn, lower = 0, upper = 2.25, sigma = sigma)$value
+esw <- integrate(gxhn, lower = 0, upper = 2, sigma = sigma)$value
 esw
 ```
 
@@ -205,7 +211,7 @@ We can then calculate the area surveyed
 
 ```{r}
 # Our survey area (m) = [12 groups x (2*esw*L)]
-area <- (12 * (2 * esw * 26.5))
+area <- (12 * (2 * esw * 33))
 area
 
 # One hectare = 100 m x 100 m

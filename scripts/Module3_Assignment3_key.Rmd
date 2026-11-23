@@ -23,12 +23,12 @@ Write R code to successfully answer each question below or write text to success
 
 ### Criteria for Success
 
--   Code is within the provided code chunks
--   Code chunks run without errors
--   Code produces the correct result
-    -   Code attempts will get half points
-    -   Code that produces the correct answer will receive full points
--   Text answers correctly address the question asked
+- Code is within the provided code chunks
+- Code chunks run without errors
+- Code produces the correct result
+  - Code attempts will get half points
+  - Code that produces the correct answer will receive full points
+- Text answers correctly address the question asked
 
 ### Due Date
 
@@ -44,9 +44,9 @@ All questions are worth 1 point unless otherwise specified.
 
 In addition to the slides and practice code, the following might be helpful:
 
--   [Information on unmarked](http://cran.r-project.org/web/packages/unmarked/index.html)
--   [User's manual](https://cran.r-project.org/web/packages/unmarked/unmarked.pdf)
--   [Using unmarked with distance data](https://cran.r-project.org/web/packages/unmarked/vignettes/distsamp.pdf)
+- [Information on unmarked](http://cran.r-project.org/web/packages/unmarked/index.html)
+- [User's manual](https://cran.r-project.org/web/packages/unmarked/unmarked.pdf)
+- [Using unmarked with distance data](https://cran.r-project.org/web/packages/unmarked/vignettes/distsamp.pdf)
 
 ## Set-Up
 
@@ -82,10 +82,10 @@ hist(saguaro$distance)
     Using that `trunc` value, create a vector called `distance_bins` to set "cut points" for distance bins; for the saguaros data, let's do every 4 meters. Be sure to adjust the arguments accordingly!
 
 ```{r}
-trunc <- 20
+trunc_sag <- 20
 
-distance_bins <- seq(0, trunc, by = 4)
-distance_bins
+distance_bins_sag <- seq(0, trunc_sag, by = 4)
+distance_bins_sag
 ```
 
 3.  Use `unmarked` function `formatDistData` to count the number of detections in each distance bin for each transect. Save this as an object called `sag_data`.
@@ -97,7 +97,7 @@ distance_bins
 sag_data <- formatDistData(saguaro, 
                            distCol = "distance", 
                            transectNameCol = "group", 
-                           dist.breaks = distance_bins)
+                           dist.breaks = distance_bins_sag)
 ```
 
 4.  Using the `unique()` function, make a data frame with transect length (i.e., survey effort). Call this `transect_saguaro`. Make sure you are referencing the correct columns in the square brackets!
@@ -113,7 +113,7 @@ transect_saguaro
 UMF_sag <- unmarkedFrameDS(y = sag_data, 
                            survey = "line",
                            tlength = transect_saguaro$length, # transect dataframe
-                           dist.breaks = distance_bins,
+                           dist.breaks = distance_bins_sag,
                            unitsIn = "m")
 ```
 
@@ -153,8 +153,8 @@ exp(confint(HN_sag, type = "state"))  # CI for density
 
 10. Write 2-3 sentences addressing the following questions. (2 points)
 
--   What does "D hat" represent? Report "D hat" and the confidence intervals around it.
--   If we had calculated a density estimate using just our data and not our detection function, would we have under- or overestimated the density of saguaros? Why?
+- What is the estimated density of saguaros (include units!)? What about the confidence intervals?
+- If we had calculated a density estimate using just our data and not our detection function, would we have under- or overestimated the density of saguaros? Why?
 
 *Answer:* 49.52 saguaros \<2m per hectare (39.58, 61.97); under because we could not account for the ones we missed during sampling
 

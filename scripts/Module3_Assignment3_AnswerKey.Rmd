@@ -10,7 +10,6 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ```{r message = FALSE}
-library(tidyverse)
 library(unmarked)
 ```
 
@@ -26,9 +25,9 @@ hist(saguaro$distance)
 
 2. 
 ```{r}
-trunc <- 20
-distance_bins <- seq(0, trunc, by = 4) 
-distance_bins
+trunc_sag <- 20
+distance_bins_sag <- seq(0, trunc_sag, by = 4) 
+distance_bins_sag
 ```
 
 3.  
@@ -36,7 +35,7 @@ distance_bins
 sag_data <- formatDistData(saguaro, 
                            distCol = "distance", 
                            transectNameCol = "group", 
-                           dist.breaks = distance_bins)
+                           dist.breaks = distance_bins_sag)
 sag_data
 ```
 
@@ -50,10 +49,10 @@ transect_saguaro
 5.  
 
 ```{r}
-UMF_sag <- unmarkedFrameDS(y = as.matrix(sag_data), 
+UMF_sag <- unmarkedFrameDS(y = sag_data, 
                            survey = "line",
                            tlength = transect_saguaro$length, 
-                           dist.breaks = distance_bins,
+                           dist.breaks = distance_bins_sag,
                            unitsIn = "m")
 UMF_sag
 ```
@@ -117,7 +116,7 @@ transect_oco
 
 15. 
 ```{r}
-UMF_oco <- unmarkedFrameDS(y = as.matrix(oco_data), 
+UMF_oco <- unmarkedFrameDS(y = oco_data, 
                            survey = "line",
                            tlength = transect_oco$length, 
                            dist.breaks = distance_bins_oco,
